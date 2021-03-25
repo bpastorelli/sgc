@@ -36,7 +36,6 @@ export class MoradoresComponent implements OnInit {
           console.log(err);
         }
       );
-
   }
 
   getIdMorador(codigo: string){

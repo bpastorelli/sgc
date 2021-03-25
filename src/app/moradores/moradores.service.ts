@@ -15,5 +15,4 @@ export class MoradoresService {
     return this.http.get<Moradores[]>(`${environment.apiUrl}/associados/morador/filtro?id=${id}&cpf=${cpf}&rg=${rg}&email=${email}&nome=${nome}&pag=0&ord=nome&dir=ASC&size=1000000`)
 
   }
-
 }
