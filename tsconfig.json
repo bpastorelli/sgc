@@ -19,5 +19,9 @@
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
+  },
+  "paths": {
+    "@app/*": ["src/app/*"],
+    "@environments/*": ["src/environments/*"]
   }
 }

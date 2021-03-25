@@ -1,0 +1,91 @@
+<section class="content-header">
+  <section class="content">
+
+    <form #form="ngForm" novalidate>
+      <div class="row">
+        <div class="col-xs-12">
+          <h2 class="page-header">
+            <i></i> Pesquisar Morador
+          </h2>
+        </div>
+      </div>
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Nome</label>
+        <input type="text" class="form-control" #nomePesquisa id="inputNomePesquisa" placeholder="Nome">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> CPF</label>
+        <input type="text" class="form-control" #cpfPesquisa id="inputCpfPesquisa"  placeholder="CPF">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> RG</label>
+        <input type="text" class="form-control" #rgPesquisa id="inputRgPesquisa"  placeholder="RG">
+      </div>
+    </div>
+
+    <div class="col-sm-3 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> e-mail</label>
+        <input type="text" class="form-control" #emailPesquisa id="inputEmailPesquisa"  placeholder="e-mail">
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-xs-2">
+      <button (click)="getMoradores('0', nomePesquisa.value, cpfPesquisa.value, rgPesquisa.value, emailPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      </button>
+    </div>
+
+    <div class="container">
+      <table class="table-striped">
+          <thead>
+            <tr class="row">
+                <th style="width: 6px;" scope="col"></th>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">CPF</th>
+                <th scope="col">RG</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Celular</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row" *ngFor="let morador of moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
+              <td class="textCenter" ><img *ngIf="morador.posicao == 1" class="img" src="assets/img/balls/verde.png">
+                                      <img *ngIf="morador.posicao != 1" class="img" src="assets/img/balls/vermelho.png"></td>
+              <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ formatId(morador.id, 6) }}</div></td>
+              <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome }}</div></td>
+              <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ formatCPF(morador.cpf) }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.rg }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ formatTelefone(morador.telefone) }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ formatCelular(morador.celular) }}</div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <!--inclindo o controle de paginação.-->
+      <div style="padding: 20px;">
+        <div class="text-right">
+          <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo"
+          ></pagination-controls>
+        </div>
+      </div>
+    </form>
+  </section>
+</section>
+
+
+
+
+

@@ -1,0 +1,39 @@
+<header class="main-header">
+  <nav class="navbar navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a (click)="logout()" [routerLink]="['/']" class="navbar-brand"><b>Três Marias</b></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+        <ul class="menu">
+            <li routerLink="active"><a [routerLink]="['/moradores']"> Moradores</a>
+              <ul>
+                <li routerLink="active"><a [routerLink]="['morador/novo']"> Incluir</a></li>
+                <li routerLink="active"><a [routerLink]="['/moradores']"> Moradores</a>
+              </ul>
+            </li>
+            <li routerLink="active"><a [routerLink]="['/residencias']"> Residência</a>
+              <ul>
+                <li routerLink="active"><a [routerLink]="['residencia/create']"> Incluir</a></li>
+                <li routerLink="active"><a [routerLink]="['/residencias']"> Residências</a>
+              </ul>
+            </li>
+            <li routerLink="active"><a [routerLink]="['/visitantes']"> Visitante</a>
+              <ul>
+                <li routerLink="active"><a [routerLink]="['visitante/create']"> Incluir</a></li>
+                <li routerLink="active"><a [routerLink]="['/visitantes']"> Visitantes</a>
+                  <li routerLink="active"><a [routerLink]="['/visitas']"> Visitas</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+
+    </div>
+  </nav>
+  </header>
