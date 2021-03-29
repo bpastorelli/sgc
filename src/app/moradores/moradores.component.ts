@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Moradores } from './moradores.model';
 import { MoradoresService } from './moradores.service';
+import { AuthenticationService } from './../_services/authentication.service';
 
 @Component({
   selector: 'app-moradores',
@@ -17,11 +18,20 @@ export class MoradoresComponent implements OnInit {
   pag : Number = 1;
   contador : Number = 20;
 
-  constructor(private moradoresService: MoradoresService, private router: Router)  { }
+  constructor(
+      private moradoresService: MoradoresService,
+      private router: Router,
+      private authenticationService: AuthenticationService
+    )  { }
 
   ngOnInit() {
 
-    this.getMoradores("0", null, null, null, null)
+    if(this.authenticationService.currentUserValue){
+        this.getMoradores("0", null, null, null, null);
+        this.router.navigate(['/moradores']);
+    }else{
+        this.router.navigate(['/login']);
+    }
 
   }
 
