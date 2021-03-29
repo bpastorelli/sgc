@@ -15,9 +15,11 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { InputComponent } from './shared/input/input.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MoradorService } from './moradores/morador/morador.service';
 import { MoradoresComponent } from './moradores/moradores.component';
 import { MoradoresService } from './moradores/moradores.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MoradorComponent } from './moradores/morador/morador.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HeaderComponent,
     LoginComponent,
     InputComponent,
-    MoradoresComponent
+    MoradoresComponent,
+    MoradorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
+    MoradorService,
     MoradoresService,
+
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
