@@ -8,10 +8,10 @@ import { LoginComponent } from './login/login.component';
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
-  { path: 'moradores', component: MoradoresComponent },
+  { path: 'moradores', component: MoradoresComponent }
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  //{ path: '**', redirectTo: '' }
 ];
 
 export const appRoutingModule = RouterModule.forRoot(ROUTES);

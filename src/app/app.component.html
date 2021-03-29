@@ -1,28 +1,8 @@
-<div class="wrapper">
-
-  <!-- Início do header -->
-
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
   <app-header></app-header>
+</nav>
 
-  <!-- Fim do header -->
-
-  <!-- Full Width Column -->
-  <div class="content-wrapper">
-    <div class="container">
-
-      <router-outlet></router-outlet>
-
-    </div>
-  </div>
-
-  <!-- snakbar deve ser aqui -->
-
-  <footer class="main-footer">
-    <div class="container">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 1.0.0
-      </div>
-      <strong>SGC</strong> Angular Application
-    </div>
-  </footer>
+<!-- main app container -->
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
