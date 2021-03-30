@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MoradorService } from './morador.service';
 import { Morador } from './../morador/morador.model';
 import { Moradores } from './../../moradores/moradores.model';
-//import { Residencia } from './../../residencias/residencia.model';
+import { Residencias } from './../../residencias/residencias.model';
 import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -23,7 +23,7 @@ export class MoradorComponent implements OnInit {
 
   public morador: Morador
   public moradores: Moradores[];
-  //public residenciasVinculadas: Residencia[];
+  public residenciasVinculadas: Residencias[];
   public situacaoCadastral = [
         { id: 1, label: "Ativo" },
         { id: 0, label: "Inativo" }]
@@ -40,16 +40,15 @@ export class MoradorComponent implements OnInit {
       this.acao = this.route.snapshot.paramMap.get('acao');
       this.codigo = this.route.snapshot.paramMap.get('codigo');
 
-      if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
+
+      if(this.authenticationService.currentUserValue){
+        if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
           this.create = false;
-
-          if(this.authenticationService.currentUserValue){
-              this.getMoradorById(this.codigo.toString());
-              //this.getResidenciasVinculados(this.codigo.toString());
-          }else{
-              this.router.navigate(['/login']);
-          }
-
+          this.getMoradorById(this.codigo.toString());
+          this.getResidenciasVinculados(this.codigo.toString());
+        }
+      }else{
+          this.router.navigate(['/login']);
       }
 
   }
@@ -113,7 +112,7 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  /*getResidenciasVinculados(codigo: string){
+  getResidenciasVinculados(codigo: string){
 
     this.moradorService.getResidenciasVinculadas(codigo)
       .subscribe(
@@ -127,7 +126,7 @@ export class MoradorComponent implements OnInit {
       );
       return this.residenciasVinculadas;
 
-  }*/
+  }
 
   editResidencia(codigo: string){
 

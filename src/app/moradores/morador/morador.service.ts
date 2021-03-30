@@ -1,9 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../../environments/environment.prod';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Morador } from './../morador/morador.model';
-//import { Residencia } from './../../residencias/residencia.model';
+import { Residencias } from './../../residencias/residencias.model';
 
 import { retry, catchError } from 'rxjs/operators';
 import { ErrorHandler } from 'src/app/app.error-handler';
@@ -61,11 +61,10 @@ export class MoradorService {
 
   }
 
-  //getResidenciasVinculadas(moradorId: string): Observable<Residencia[]>{
+  getResidenciasVinculadas(moradorId: string): Observable<Residencias[]>{
 
-    //return this.http.get<Residencia[]>(`${_API}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
-    //    .catch(ErrorHandler.extracErrorMessage)
+    return this.http.get<Residencias[]>(`${environment.apiUrl}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
 
-  //}
+  }
 
 }
