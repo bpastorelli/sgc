@@ -74,8 +74,6 @@ export class MoradorComponent implements OnInit {
       .subscribe(data => {
         this.mor = data;
         this.id = this.mor.id;
-        console.log(this.mor)
-        console.log(this.id)
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
         this.errorMessage = err.message;
@@ -90,7 +88,11 @@ export class MoradorComponent implements OnInit {
       .subscribe(data => {
         this.mor = data;
         this.id = data.id;
-        this.router.navigate([`/summary-edit`]);
+        console.log(`Residencia id: ${this.mor.residenciaId}`)
+        if(this.mor.residenciaId != null)
+          this.router.navigate([`/summary-edit`]);
+        else
+          this.router.navigate(['/residencia/novo/morador/', this.id]);
     },
     (err) =>{
         this.errorMessage = err.message;
