@@ -1,4 +1,3 @@
-import { SummaryEditComponent } from './summary/summary-edit/summary-edit.component';
 import { Routes, RouterModule } from '@angular/router'
 
 import { AuthGuard } from './_helpers/auth.guard';
@@ -8,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ResidenciasComponent } from './residencias/residencias.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
+import { SummaryAddComponent } from './summary/dd/summary-add.component';
+import { SummaryEditComponent } from './summary/edit/summary-edit.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -21,7 +22,7 @@ export const ROUTES: Routes = [
   { path: 'residencia/:acao/morador/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao', component: ResidenciaComponent },
   { path: 'summary-edit', component: SummaryEditComponent },
-  { path: 'summary-add', component: SummaryEditComponent }
+  { path: 'summary-add', component: SummaryAddComponent }
 
   // otherwise redirect to home
   //{ path: '**', redirectTo: '' }

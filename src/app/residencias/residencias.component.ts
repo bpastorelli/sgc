@@ -18,13 +18,14 @@ export class ResidenciasComponent implements OnInit {
       private residenciasService: ResidenciasService,
       private authenticationService: AuthenticationService,
       private router: Router,
-      private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
       this.getResidencias("0", null, null, "0");
+    }else{
+      this.router.navigate(['/login']);
     }
 
   }

@@ -6,6 +6,7 @@ import { Moradores } from 'src/app/moradores/moradores.model';
 import { Residencias } from '../residencias.model';
 import { ResidenciasService } from '../residencias.service';
 import { ResidenciaService } from './residencia.service';
+import { AuthenticationService } from './../../_services/authentication.service';
 
 @Component({
   selector: 'app-residencia',
@@ -37,21 +38,27 @@ export class ResidenciaComponent implements OnInit {
               private route: ActivatedRoute,
               private cepService: CepService,
               private residenciaService: ResidenciaService,
-              private residenciasService: ResidenciasService) { }
+              private residenciasService: ResidenciasService,
+              private authenticationService: AuthenticationService
+
+              ) { }
 
   ngOnInit() {
 
     this.acao = this.route.snapshot.paramMap.get('acao');
     this.codigo = this.route.snapshot.paramMap.get('codigo');
 
-    console.log(`acao=${this.acao}`);
-    console.log(`create=${this.create}`)
-    console.log(`codigo=${this.codigo}`)
+    console.log(this.acao)
+    console.log(this.codigo)
 
-    if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
-        this.create = false;
-        this.getResidenciaById(this.codigo);
-        this.getMoradoresVinculados(this.codigo);
+    if(this.authenticationService.currentUserValue){
+      if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
+          this.create = false;
+          this.getResidenciaById(this.codigo);
+          this.getMoradoresVinculados(this.codigo);
+      }
+    }else{
+      this.router.navigate(['/login']);
     }
 
   }
@@ -61,7 +68,7 @@ export class ResidenciaComponent implements OnInit {
     this.residenciaService.postResidencia(residencia)
       .subscribe(data => {
         this.residencia = data;
-        this.router.navigate(['/morador-summary']);
+        this.router.navigate(['/summary-add']);
       },err=>{
         this.errorMessage = err.message;
         throw err;
@@ -71,12 +78,10 @@ export class ResidenciaComponent implements OnInit {
 
   postNovaResidencia(residencia: Residencias){
 
-    console.log(residencia);
-
     this.residenciaService.postNovaResidencia(residencia)
       .subscribe(data => {
         this.residencia = data;
-        this.router.navigate(['/morador-summary']);
+        this.router.navigate(['/summary-add']);
       },err=>{
         this.errorMessage = err.message;
         throw err;
@@ -104,11 +109,16 @@ export class ResidenciaComponent implements OnInit {
     this.residenciasService.residencias(codigo, null, null, "0")
       .subscribe(
         data=>{
-          console.log(data);
           this.residencias = data;
           this.residencias.forEach(r => {
-            console.log(r.cep)
-            this.getCep(r.cep)
+            if(r.endereco.toString() != null){
+                this.logradouroResp = r.endereco;
+                this.bairroResp = r.bairro;
+                this.localidadeResp = r.cidade;
+                this.ufResp = r.uf;
+            }else{
+                this.getCep(r.cep)
+            }
           });
         }, err=>{
           console.log(err);
@@ -137,18 +147,18 @@ export class ResidenciaComponent implements OnInit {
 
     if(cep != ""){
 
-      this.cepService.getCep(cep)
-        .subscribe(
-          data=>{
-            this.cepResponse = data;
-            this.logradouroResp = data.logradouro;
-            this.bairroResp = data.bairro;
-            this.localidadeResp = data.localidade;
-            this.ufResp = data.uf;
-        },err =>{
-            this.errorMessage = err.message;
-            throw err;
-        });
+        this.cepService.getCep(cep)
+          .subscribe(
+            data=>{
+              this.cepResponse = data;
+              this.logradouroResp = data.logradouro;
+              this.bairroResp = data.bairro;
+              this.localidadeResp = data.localidade;
+              this.ufResp = data.uf;
+          },err =>{
+              this.errorMessage = err.message;
+              throw err;
+          });
 
     }
 

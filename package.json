@@ -21,6 +21,7 @@
     "@angular/router": "~11.2.6",
     "@auth0/angular-jwt": "^5.0.2",
     "bootstrap": "^3.3.7",
+    "cors": "^2.8.5",
     "ng-form-group": "^1.4.2",
     "ngx-pagination": "^3.0.0",
     "rxjs": "~6.6.0",

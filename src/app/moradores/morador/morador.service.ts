@@ -1,3 +1,4 @@
+import { ErrorHandler } from 'src/app/app.error-handler';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../../environments/environment.prod';
 import { Injectable } from '@angular/core';
@@ -5,30 +6,26 @@ import { Observable } from 'rxjs';
 import { Morador } from './../morador/morador.model';
 import { Residencias } from './../../residencias/residencias.model';
 
-import { retry, catchError } from 'rxjs/operators';
-import { ErrorHandler } from 'src/app/app.error-handler';
-
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class MoradorService {
 
-
-  constructor(private http: HttpClient) { }
+constructor(private http: HttpClient) { }
 
   // Headers
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   postMoradores(morador: Morador): Observable<Morador> {
 
     return this.http.post<Morador>(`${environment.apiUrl}/associados/morador/incluir`
-        , JSON.stringify(morador),
-        this.httpOptions)
+        , JSON.stringify(morador)
+        , this.httpOptions)
         .pipe(
-          retry(2),
-          catchError(ErrorHandler.handleError)
-        )
+          map(response => response['data'])
+        );
 
   }
 
@@ -38,21 +35,20 @@ export class MoradorService {
         , JSON.stringify(morador)
         , this.httpOptions)
         .pipe(
-          retry(2),
-          catchError(ErrorHandler.handleError)
-        )
+          map(response => response['data']),
+          catchError(ErrorHandler.extracErrorMessage)
+        );
 
   }
 
-  putMorador(morador: Morador, id: string): Observable<Morador> {
+  putMorador(morador: Morador, id: string): Observable<any> {
 
     return this.http.put<Morador>(`${environment.apiUrl}/associados/morador/morador/${id}`
         , JSON.stringify(morador)
         , this.httpOptions)
         .pipe(
-          retry(2),
-          catchError(ErrorHandler.handleError)
-        )
+          map(response => response['data'])
+        );
   }
 
   getMorador(id: string) : Observable<Morador>{

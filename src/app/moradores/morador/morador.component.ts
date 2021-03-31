@@ -13,7 +13,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 })
 export class MoradorComponent implements OnInit {
 
-  id: string
+  id: string;
   acao: string;
   codigo: string
   create: boolean = true
@@ -21,10 +21,10 @@ export class MoradorComponent implements OnInit {
   contador: Number = 5;
   errorMessage;
 
-  public morador: Morador
-  public moradores: Moradores[];
-  public residenciasVinculadas: Residencias[];
-  public situacaoCadastral = [
+  private mor = {} as Morador;
+  moradores: Moradores[];
+  residenciasVinculadas: Residencias[];
+  situacaoCadastral = [
         { id: 1, label: "Ativo" },
         { id: 0, label: "Inativo" }]
 
@@ -43,9 +43,9 @@ export class MoradorComponent implements OnInit {
 
       if(this.authenticationService.currentUserValue){
         if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
-          this.create = false;
-          this.getMoradorById(this.codigo.toString());
-          this.getResidenciasVinculados(this.codigo.toString());
+            this.create = false;
+            this.getMoradorById(this.codigo.toString());
+            this.getResidenciasVinculados(this.codigo.toString());
         }
       }else{
           this.router.navigate(['/login']);
@@ -57,10 +57,10 @@ export class MoradorComponent implements OnInit {
 
     this.moradorService.postMoradores(morador)
       .subscribe(data => {
-        this.morador = data;
+        this.mor = data;
         this.id = data.id;
         alert(this.id);
-        this.router.navigate(['/morador-summary']);
+        this.router.navigate([`/summary-add`]);
     },err=>{
         this.errorMessage = err.message;
         throw err;
@@ -72,8 +72,10 @@ export class MoradorComponent implements OnInit {
 
     this.moradorService.postMorador(morador)
       .subscribe(data => {
-        this.morador = data;
-        this.id = data.id;
+        this.mor = data;
+        this.id = this.mor.id;
+        console.log(this.mor)
+        console.log(this.id)
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
         this.errorMessage = err.message;
@@ -86,7 +88,7 @@ export class MoradorComponent implements OnInit {
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
-        this.morador = data;
+        this.mor = data;
         this.id = data.id;
         this.router.navigate([`/summary-edit`]);
     },
@@ -139,3 +141,7 @@ export class MoradorComponent implements OnInit {
   }
 
 }
+function next(next: any, arg1: (data: any) => void, arg2: (err: any) => never) {
+  throw new Error('Function not implemented.');
+}
+

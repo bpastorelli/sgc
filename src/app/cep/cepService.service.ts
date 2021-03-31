@@ -1,8 +1,8 @@
-import { environment } from './../../environments/environment';
 import { Cep } from './cep.model';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CepService {
