@@ -134,6 +134,12 @@ export class MoradorComponent implements OnInit {
 
   }
 
+  cancelar(){
+
+    this.router.navigate(['moradores'])
+
+  }
+
   pageChanged(event){
     this.pag = event;
   }

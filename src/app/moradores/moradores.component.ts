@@ -1,3 +1,4 @@
+import { properties } from './../../properties/properties';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class MoradoresComponent implements OnInit {
   public id: string;
 
   pag : Number = 1;
-  contador : Number = 16;
+  contador : Number = properties.itemsPerPage;
 
   constructor(
       private moradoresService: MoradoresService,
