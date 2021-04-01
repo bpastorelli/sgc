@@ -16,7 +16,7 @@ export class MoradoresComponent implements OnInit {
   public id: string;
 
   pag : Number = 1;
-  contador : Number = 20;
+  contador : Number = 16;
 
   constructor(
       private moradoresService: MoradoresService,

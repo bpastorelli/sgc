@@ -1,8 +1,19 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-  <app-header></app-header>
-</nav>
+<div class="wrapper">
+    <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+      <app-header></app-header>
+    </nav>
 
-<!-- main app container -->
-<div class="container">
-  <router-outlet></router-outlet>
+    <!-- main app container -->
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 1.0.0
+        </div>
+        <strong>SGC</strong> Sistema de Gestão de Condomínios
+      </div>
+    </footer>
 </div>

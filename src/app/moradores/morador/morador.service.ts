@@ -36,7 +36,6 @@ constructor(private http: HttpClient) { }
         , this.httpOptions)
         .pipe(
           map(response => response['data']),
-          catchError(ErrorHandler.extracErrorMessage)
         );
 
   }

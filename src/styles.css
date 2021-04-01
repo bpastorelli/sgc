@@ -342,6 +342,11 @@ th{
 
 .main-footer{
   position: absolute;
+  bottom: 0;
+  background-color: #dd4b39;
+  width: 100%;
+  height: 30px;
+  color: #fff;
 }
 
 .menu li:hover ul, .menu li.over ul{display:block;}

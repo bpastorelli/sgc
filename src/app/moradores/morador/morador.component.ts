@@ -62,8 +62,7 @@ export class MoradorComponent implements OnInit {
         alert(this.id);
         this.router.navigate([`/summary-add`]);
     },err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.errorMessage = err;
     });
 
   }
@@ -73,11 +72,11 @@ export class MoradorComponent implements OnInit {
     this.moradorService.postMorador(morador)
       .subscribe(data => {
         this.mor = data;
-        this.id = this.mor.id;
+        this.id = data.id;
+        console.log(this.mor.id)
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.errorMessage = err;
     });
 
   }
@@ -95,8 +94,7 @@ export class MoradorComponent implements OnInit {
           this.router.navigate(['/residencia/novo/morador/', this.id]);
     },
     (err) =>{
-        this.errorMessage = err.message;
-        throw err;
+        this.errorMessage = err;
     });
 
   }
@@ -108,8 +106,7 @@ export class MoradorComponent implements OnInit {
       data=>{
         this.moradores = data;
       }, err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.errorMessage = err;
       }
     );
     return this.moradores;
@@ -124,8 +121,7 @@ export class MoradorComponent implements OnInit {
               console.log(data);
               this.residenciasVinculadas = data;
           }, err=>{
-            this.errorMessage = err.message;
-            throw err;
+            this.errorMessage = err;
           }
       );
       return this.residenciasVinculadas;
