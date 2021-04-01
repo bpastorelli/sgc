@@ -1,4 +1,4 @@
-export interface Moradores {
+export interface Morador {
 
     id: string;
     nome: string;
@@ -10,6 +10,8 @@ export interface Moradores {
     telefone: string;
     celular: string;
     residenciaId: string;
-    posicao: number
+    dataAtualizacao: Date;
+    dataCriacao: Date;
+    posicao: number;
 
 }

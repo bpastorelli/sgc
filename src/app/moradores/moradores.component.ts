@@ -41,7 +41,6 @@ export class MoradoresComponent implements OnInit {
       .subscribe(
         data=>{
           this.moradores = data;
-          console.log(data)
         }, err=>{
           console.log(err);
         }

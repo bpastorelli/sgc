@@ -1,7 +1,7 @@
+import { Injectable } from '@angular/core';
+import { Moradores } from "./moradores.model";
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment.prod';
-import { Moradores } from "./moradores.model";
-import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
