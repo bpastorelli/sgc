@@ -1,3 +1,4 @@
+import { properties } from './../../properties/properties';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -12,7 +13,7 @@ export class ResidenciasComponent implements OnInit {
   public residencias: Residencias[]
 
   pag : Number = 1 ;
-  contador : Number = 16;
+  contador : Number = properties.itemsPerPage;
 
   constructor(
       private residenciasService: ResidenciasService,

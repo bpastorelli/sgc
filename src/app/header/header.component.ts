@@ -14,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 export class HeaderComponent implements OnInit {
   currentUser: User;
   isLoggedIn$: Observable<boolean>;
+  nome: string;
 
   constructor(
       private login: AppComponent,
@@ -24,6 +25,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
+      this.nome = `Olá, ${this.currentUser.nome}!`;
 
    }
 

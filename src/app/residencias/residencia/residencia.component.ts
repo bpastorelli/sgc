@@ -170,6 +170,12 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
+  cancelar(){
+
+    this.router.navigate(['residencias']);
+
+  }
+
   pageChanged(event){
     this.pag = event;
   }

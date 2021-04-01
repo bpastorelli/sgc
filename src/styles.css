@@ -244,6 +244,13 @@ th{
   padding:0px
 }
 
+.identificacao{
+  padding: 0px;
+  text-align: right;
+  margin-top: 15px;
+  font: bold ;
+}
+
 .detail-footer > a{
   text-align: center;
   font-size: 16px;
@@ -293,12 +300,12 @@ th{
 }
 
 .img {
-  margin: auto;
+  margin: 0px;
   padding: 0px 0px;
   border: 0px;
   margin-top:0px; /*to have the space above the image*/
   margin-bottom:0px; /*to have the space under the image*/
-  width: 17px;
+  width: 16px;
 }
 
 .check {
@@ -343,10 +350,16 @@ th{
 .main-footer{
   position: absolute;
   bottom: 0;
-  background-color: #dd4b39;
+  background-color: rgb(207, 200, 200);
   width: 100%;
-  height: 30px;
-  color: #fff;
+  height: 20px;
+  color:black;
+}
+
+.main-header{
+  background-color: rgb(207, 200, 200);
+  height: 42px;
+  color: black;
 }
 
 .menu li:hover ul, .menu li.over ul{display:block;}
@@ -385,6 +398,10 @@ th{
 
 .btn{
   font-size: 12px;
+}
+
+pagination-controls{
+  font-size: 11px;
 }
 
 a { cursor: pointer }
