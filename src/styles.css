@@ -104,7 +104,7 @@ body {
 }
 
 .box-body dl {
-  font-size: 18px;
+  font-size: 17px;
 }
 
 th{
@@ -213,7 +213,7 @@ th{
   text-align:center;
 }
 .jumbotron h2 {
-  font-size: 40px;
+  font-size: 20px;
 }
 
 .welcome-jumbotron h1 {
@@ -272,7 +272,7 @@ th{
  }
 
  table, th, td {
-  font-size: 12px;
+  font-size: 11px;
   border: 1px solid silver;
   padding: 4px;
 }
@@ -298,7 +298,7 @@ th{
   border: 0px;
   margin-top:0px; /*to have the space above the image*/
   margin-bottom:0px; /*to have the space under the image*/
-  width: 18px;
+  width: 17px;
 }
 
 .check {
@@ -307,13 +307,13 @@ th{
   border: 0px;
   margin-top:0px; /*to have the space above the image*/
   margin-bottom:0px; /*to have the space under the image*/
-  width: 100px;
+  width: 90px;
 }
 
 *{margin: 0px; padding: 0px;}
 
 .menu{
-  font-size: 13px;
+  font-size: 11px;
   list-style:none;
   border:1px solid #c0c0c0;
   float:left;
@@ -325,7 +325,7 @@ th{
   border-right:1px solid #c0c0c0;
 }
 
-.menu li a{color:#333; text-decoration:none; padding:10px 20px; display:block;}
+.menu li a{color:#333; text-decoration:none; padding:12px 22px; display:block;}
 
 .menu li a:hover{
   background:#333;
@@ -349,7 +349,8 @@ th{
 .menu li ul li{
   border:1px solid #c0c0c0;
   display:block;
-  width:150px;
+  font-size: 11px;
+  width:130px;
 }
 
 .mat-card {
@@ -363,6 +364,22 @@ th{
 }
 .full-width-input {
   width: 100%;
+}
+
+.container{
+  font-size: 12px;
+  padding: 5;
+}
+
+.form-control{
+  font-size: 11px;
+  padding: 7px;
+  margin: auto;
+  height: 30px;
+}
+
+.btn{
+  font-size: 12px;
 }
 
 a { cursor: pointer }

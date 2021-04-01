@@ -75,7 +75,7 @@
           <div class="row">
               <div class="col-xs-12">
                 <button (click)="putMorador(formEdit.value, id.value)" class="btn btn-success pull-right"
-                [disabled]="!formEdit.valid"><i></i> Atualizar Cadastro
+                [disabled]="!formEdit.valid"><i></i> Salvar
                 </button>
               </div>
           </div>
@@ -199,7 +199,7 @@
               <div *ngIf="create" class="row">
                 <div class="col-xs-12">
                   <button class="pointer" (click)="postMoradores(formCreate.value)" class="btn btn-success pull-right"
-                  [disabled]="!formCreate.valid"><i></i> Concluir Cadastro
+                  [disabled]="!formCreate.valid"><i></i> Salvar
                   </button>
                 </div>
               </div>

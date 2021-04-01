@@ -85,7 +85,7 @@
       <div class="row">
         <div class="col-xs-12">
           <button (click)="putResidencia(formEdit.value, id.value)" class="btn btn-success pull-right"
-          [disabled]="!formEdit.valid"><i></i> Atualizar Cadastro
+          [disabled]="!formEdit.valid"><i></i> Salvar
           </button>
         </div>
       </div>
@@ -216,7 +216,7 @@
       <div *ngIf="acao===null" class="row">
         <div class="col-xs-12">
           <button (click)="postResidencia(formCreate.value)" class="btn btn-success pull-right"
-          [disabled]="!formCreate.valid"><i></i> Concluir Cadastro
+          [disabled]="!formCreate.valid"><i></i> Salvar
           </button>
         </div>
       </div>
