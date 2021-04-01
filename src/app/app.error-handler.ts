@@ -25,12 +25,12 @@ export class ErrorHandler{
       let errMsg = (error.message) ? error.message :
           error.status ? `${error.status} - ${error._body}` : 'Server error';
 
-        console.log(`Response error ${error._body}`)
+        console.log(`Response error ${error}`)
 
         errMsg = error._body;
-        errMsg = errMsg.replace(/[\\"]/g,'');
-        errMsg = errMsg.replace("[", '');
-        errMsg = errMsg.replace("]", '');
+        //errMsg = errMsg.replace(/[\\"]/g,'');
+        //errMsg = errMsg.replace("[", '');
+        //errMsg = errMsg.replace("]", '');
 
         throw new Error(errMsg);
     }

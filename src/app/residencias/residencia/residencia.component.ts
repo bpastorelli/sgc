@@ -1,3 +1,4 @@
+import { error } from '@angular/compiler/src/util';
 import { Cep } from './../../cep/cep.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,6 +30,7 @@ export class ResidenciaComponent implements OnInit {
   bairroResp: string;
   localidadeResp: string;
   ufResp: string;
+  error = '';
 
   pag : Number = 1;
   contador : Number = 5;
@@ -83,8 +85,7 @@ export class ResidenciaComponent implements OnInit {
         this.residencia = data;
         this.router.navigate(['/summary-add']);
       },err=>{
-        this.errorMessage = err.message;
-        throw err;
+          this.errorMessage = err;
       });
 
   }
@@ -97,9 +98,8 @@ export class ResidenciaComponent implements OnInit {
       .subscribe(data => {
         this.residencia = data;
         this.router.navigate(['/summary-edit']);
-      },err=>{
-        this.errorMessage = err.message;
-        throw err;
+      },err => {
+          this.errorMessage = err;
       });
 
   }

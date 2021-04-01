@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from './../../environments/environment.prod';
 import { User } from './../_models/user';
-import { HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

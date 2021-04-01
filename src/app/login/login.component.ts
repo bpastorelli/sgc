@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+
   private loggedIn = new BehaviorSubject<boolean>(false);
 
   constructor(

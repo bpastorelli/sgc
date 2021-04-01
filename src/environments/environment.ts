@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:4200/api',
-  apiUrlCep: `https://cors-anywhere.herokuapp.com/http://viacep.com.br/ws`
+  apiUrlCep: `https://viacep.com.br/ws`
 };
 
 /*
