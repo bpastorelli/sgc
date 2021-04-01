@@ -15,7 +15,7 @@ export class ResidenciasService {
 
   residencias(id: string, matricula: string, endereco: string, numero: string): Observable<Residencias[]> {
 
-    return this.http.get<Residencias[]>(`${environment.apiUrl}/associados/residencia/filtro?id=${id}&matricula=${matricula}&endereco=${endereco}&numero=${numero}&pag=0&ord=id&dir=ASC&size=1000000`)
+    return this.http.get<Residencias[]>(`${environment.apiUrl}/associados/residencia/filtro?id=${id}&matricula=${matricula}&endereco=${endereco}&numero=${numero}&pag=0&ord=endereco&dir=ASC&size=1000000`)
 
   }
 

@@ -27,10 +27,6 @@ export class ResidenciaService {
     return this.http.post<Residencias>(`${environment.apiUrl}/associados/residencia`
         ,JSON.stringify(residencias)
         ,this.httpOptions)
-        .pipe(
-          retry(2),
-          catchError(ErrorHandler.handleError)
-        )
 
   }
 
@@ -39,10 +35,6 @@ export class ResidenciaService {
     return this.http.post<Residencias>(`${environment.apiUrl}/associados/residencia/nova`
         ,JSON.stringify(residencia)
         ,this.httpOptions)
-        .pipe(
-          retry(2),
-          catchError(ErrorHandler.handleError)
-        )
 
   }
 
