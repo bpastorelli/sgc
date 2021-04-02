@@ -22,10 +22,14 @@ import { MoradoresComponent } from './moradores/moradores.component';
 import { MoradoresService } from './moradores/moradores.service';
 import { ResidenciaService } from './residencias/residencia/residencia.service';
 import { ResidenciasService } from './residencias/residencias.service';
+import { VisitantesService } from './visitantes/visitantes.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MoradorComponent } from './moradores/morador/morador.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
 import { ResidenciasComponent } from './residencias/residencias.component';
+import { VisitantesComponent } from './visitantes/visitantes.component';
+import { VisitanteComponent } from './visitantes/visitante/visitante.component';
+import { VisitasComponent } from './visitantes/visitas/visitas.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,9 @@ import { ResidenciasComponent } from './residencias/residencias.component';
     ResidenciaComponent,
     ResidenciasComponent,
     CepComponent,
+    VisitantesComponent,
+    VisitanteComponent,
+    VisitasComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +61,7 @@ import { ResidenciasComponent } from './residencias/residencias.component';
     MoradoresService,
     ResidenciaService,
     ResidenciasService,
+    VisitantesService,
     CepService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

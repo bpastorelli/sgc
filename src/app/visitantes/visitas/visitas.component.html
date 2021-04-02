@@ -1,0 +1,96 @@
+<section class="content-header">
+  <section class="content">
+
+  <div *ngIf="errorMessage" class="alert alert-warning">
+    <strong>Atenção! </strong>{{ errorMessage }}
+  </div>
+
+  <form #form="ngForm" novalidate>
+    <input type="hidden" #ord value="{{ordenar}}">
+    <input type="hidden" #dir value="{{direction}}">
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Nome</label>
+        <input type="text" class="form-control" #nomePesquisa id="inputNomePesquisa"  placeholder="Nome">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> CPF</label>
+        <input type="text" class="form-control" #cpfPesquisa id="inputCpfPesquisa"  placeholder="CPF">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> RG</label>
+        <input type="text" class="form-control" #rgPesquisa id="inputRgPesquisa"  placeholder="RG">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Situação</label>
+        <select #posicaoPesquisa
+            name="posicao"
+            id="posicao"
+            class="form-control"
+            [(ngModel)]="posicaoDefault">
+            <option *ngFor="let situacao of situacaoVisita" [value]="situacao.id">{{ situacao.label }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-xs-2">
+      <button (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, ord.value, dir.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      </button>
+    </div>
+
+    <section class="content">
+        <table class="table-striped">
+          <thead>
+            <tr class="row">
+                <th style="width: 6px;" scope="col"></th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'id', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'id', 'DESC')">ID</div></th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')">Nome</div></th>
+                <th scope="col">RG</th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'DESC')">Data Entrada</div></th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'DESC')">Hora Entrada</div></th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'DESC')">Data Saída</div></th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaSaida', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaSaida', 'DESC')">Hora Saída</div></th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.endereco', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.endereco', 'DESC')">Endereço de Visita</div></th>
+                <th scope="col">Número</th>
+                <th scope="col">Encerrar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row" *ngFor="let visita of visitas | paginate: { itemsPerPage: contador, currentPage: pag }">
+              <td class="textCenter" ><img *ngIf="visita.posicao == 0" class="img" src="assets/img/balls/verde.png">
+                                      <img *ngIf="visita.posicao != 0" class="img" src="assets/img/balls/amarelo.png"></td>
+              <td class="textCenter"><div>{{ formatId(visita.id, 6) }}</div></td>
+              <td ><div>{{ visita.nome }}</div></td>
+              <td class="textCenter"><div>{{ visita.rg }}</div></td>
+              <td class="textCenter"><div>{{ visita.dataEntrada }}</div></td>
+              <td class="textCenter"><div>{{ visita.horaEntrada }}</div></td>
+              <td class="textCenter"><div>{{ visita.dataSaida }}</div></td>
+              <td class="textCenter"><div>{{ visita.horaSaida }}</div></td>
+              <td ><div>{{ visita.endereco }}</div></td>
+              <td class="textCenter"><div>{{ visita.numero }}</div></td>
+              <td class="textCenter"><div *ngIf="visita.posicao == 1" class="pointer" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value)"> Encerrar</div></td>
+            </tr>
+          </tbody>
+        </table>
+        <!--inclindo o controle de paginação.-->
+        <div style="padding: 20px;">
+          <div class="text-right">
+            <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo"></pagination-controls>
+          </div>
+        </div>
+    </section>
+  </form>
+</section>
+
