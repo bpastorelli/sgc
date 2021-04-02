@@ -20,8 +20,8 @@ export class MoradoresComponent implements OnInit {
   contador : Number = properties.itemsPerPage;
 
   constructor(
-      private moradoresService: MoradoresService,
       private router: Router,
+      private moradoresService: MoradoresService,
       private authenticationService: AuthenticationService
     )  { }
 

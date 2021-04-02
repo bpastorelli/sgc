@@ -1,0 +1,74 @@
+<section class="content-header">
+  <section class="content">
+
+  <form #form="ngForm" novalidate>
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Nome</label>
+        <input type="text" class="form-control" #nomePesquisa id="inputNomePesquisa" placeholder="Nome">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> CPF</label>
+        <input type="text" class="form-control" #cpfPesquisa id="inputCpfPesquisa"  placeholder="CPF">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> RG</label>
+        <input type="text" class="form-control" #rgPesquisa id="inputRgPesquisa"  placeholder="RG">
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-xs-2">
+      <button (click)="getVisitantes('0', nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      </button>
+    </div>
+
+    <section class="content">
+        <table class="table-striped">
+          <thead>
+            <tr class="row">
+                <th scope="col"><span>ID</span></th>
+                <th scope="col"><div >Nome</div></th>
+                <th scope="col">RG</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Número</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">UF</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Celular</th>
+                <th scope="col">Última Visita</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row" *ngFor="let visitante of visitantes | paginate: { itemsPerPage: contador, currentPage: pag }">
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ formatId(visitante.id, 6) }}</div></td>
+              <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.nome }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.rg }}</div></td>
+              <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.endereco }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ formatTelefone(visitante.numero) }}</div></td>
+              <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ formatTelefone(visitante.cidade) }}</div></td>
+              <td class="textCenter" ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.uf }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ formatTelefone(visitante.telefone) }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ formatCelular(visitante.celular) }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.ultimaVisita }}</div></td>
+            </tr>
+          </tbody>
+        </table>
+        <!--inclindo o controle de paginação.-->
+        <div style="padding: 20px;">
+          <div class="text-right">
+            <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo"></pagination-controls>
+          </div>
+        </div>
+    </section>
+  </form>
+</section>
+

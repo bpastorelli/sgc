@@ -9,11 +9,17 @@ import { ResidenciasComponent } from './residencias/residencias.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
 import { SummaryAddComponent } from './summary/dd/summary-add.component';
 import { SummaryEditComponent } from './summary/edit/summary-edit.component';
+import { VisitantesComponent } from './visitantes/visitantes.component';
+import { VisitanteComponent } from './visitantes/visitante/visitante.component';
+import { VisitasComponent } from './visitantes/visitas/visitas.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
   { path: 'moradores', component: MoradoresComponent },
+  { path: 'visitas', component: VisitasComponent },
+  { path: 'visitante/:codigo', component: VisitanteComponent },
+  { path: 'visitantes', component: VisitantesComponent },
   { path: 'morador/:codigo', component: MoradorComponent },
   { path: 'morador/residencia/:codigo', component: MoradorComponent },
   { path: 'morador/:acao/residencia/:codigo', component: MoradorComponent },
