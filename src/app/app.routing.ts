@@ -16,6 +16,7 @@ import { VisitaComponent } from './visitantes/visita/visita.component';
 import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 
 export const ROUTES: Routes = [
+
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
   { path: 'moradores', component: MoradoresComponent },
