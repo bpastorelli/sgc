@@ -26,7 +26,10 @@ export class MoradorComponent implements OnInit {
   residenciasVinculadas: Residencias[];
   situacaoCadastral = [
         { id: 1, label: "Ativo" },
-        { id: 0, label: "Inativo" }]
+        { id: 0, label: "Inativo" }];
+  situacaoAssociacao = [
+          { id: 1, label: "Sim" },
+          { id: 0, label: "Não" }]
 
   constructor(
               private authenticationService: AuthenticationService,
@@ -39,7 +42,6 @@ export class MoradorComponent implements OnInit {
 
       this.acao = this.route.snapshot.paramMap.get('acao');
       this.codigo = this.route.snapshot.paramMap.get('codigo');
-
 
       if(this.authenticationService.currentUserValue){
         if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){

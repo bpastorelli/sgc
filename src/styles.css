@@ -348,7 +348,7 @@ th{
 }
 
 .main-footer{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   background-color: rgb(207, 200, 200);
   width: 100%;
@@ -402,6 +402,14 @@ th{
 
 pagination-controls{
   font-size: 11px;
+}
+
+.label{
+  font-size: 12px;
+  font: bold;
+  color: black;
+  position: inherit;
+
 }
 
 a { cursor: pointer }
