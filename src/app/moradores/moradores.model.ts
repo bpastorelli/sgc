@@ -10,6 +10,7 @@ export interface Moradores {
     telefone: string;
     celular: string;
     residenciaId: string;
-    posicao: number
+    posicao: number;
+    associado: number;
 
 }

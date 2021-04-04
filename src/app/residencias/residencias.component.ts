@@ -1,6 +1,6 @@
 import { properties } from './../../properties/properties';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Residencias } from './residencias.model';
 import { ResidenciasService } from './residencias.service';

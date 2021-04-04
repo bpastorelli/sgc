@@ -1,8 +1,8 @@
 const proxy = [
   {
     context: '/api',
-    target: 'http://localhost:8084',
-    pathRewrite: {'^/api' : ''}
+    target: 'https://powerful-savannah-73743.herokuapp.com',
+    pathRewrite: {'^/api': ''}
   }
 ];
 

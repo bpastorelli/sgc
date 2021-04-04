@@ -58,6 +58,19 @@
           </div>
 
           <div class="col-xs-12">
+            <p class="control-label"> Associado? </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <select
+                name="associado"
+                id="associado"
+                class="form-control"
+                [(ngModel)]="morador.associado">
+                <option *ngFor="let item of situacaoAssociacao" [value]="item.id" aria-placeholder="Associado?">{{ item.label }}</option>
+            </select>
+          </div>
+
+          <div class="col-xs-12">
             <p class="control-label"> Situação: </p>
           </div>
           <div class="col-sm-2 col-xs-6">
@@ -69,6 +82,7 @@
                 <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
             </select>
           </div>
+
         </div>
 
         <div *ngIf="!create">
@@ -147,21 +161,21 @@
               </div>
 
               <div class="col-sm-6 col-xs-12">
-                <mt-input-container errorMessage="Campo obrigatório com mínimo 10 caracteres" label="Nome">
+                <app-input-container errorMessage="Campo obrigatório com mínimo 10 caracteres" label="Nome">
                   <input class="form-control" name="nome" ngModel required minlength="10" placeholder="Nome" autocomplete="off">
-                </mt-input-container>
+                </app-input-container>
               </div>
 
               <div class="col-sm-2 col-xs-6">
-                <mt-input-container errorMessage="Campo obrigatório e somente números" label="CPF">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="CPF">
                   <input class="form-control" name="cpf" ngModel required maxlength="11" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
-                </mt-input-container>
+                </app-input-container>
               </div>
 
               <div class="col-sm-2 col-xs-6">
-                <mt-input-container errorMessage="Campo obrigatório e somente números" label="RG">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="RG">
                   <input class="form-control" name="rg" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
-                </mt-input-container>
+                </app-input-container>
               </div>
 
               <div class="col-xs-12">
@@ -169,9 +183,9 @@
               </div>
 
               <div class="col-sm-4 col-xs-6">
-                <mt-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
+                <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
                   <input class="form-control" name="email" ngModel required minlength="5" placeholder="e-mail" autocomplete="off">
-                </mt-input-container>
+                </app-input-container>
               </div>
 
               <div class="col-sm-2 col-xs-6">
@@ -188,8 +202,23 @@
                 </div>
               </div>
 
+              <div class="col-xs-12">
+                <p class="control-label"> Associado? </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <select
+                    required
+                    placeholder="Associado?"
+                    name="associado"
+                    id="associado"
+                    class="form-control"
+                    ngModel>
+                    <option *ngFor="let item of situacaoAssociacao" [value]="item.id">{{ item.label }}</option>
+                </select>
+              </div>
+
               <div *ngIf="acao==='create'" class="col-sm-2 col-xs-6">
-                <mt-input-container errorMessage="Cam po obrigatório e somente números" label="Código Residência">
+                <mt-input-container errorMessage="Campo obrigatório e somente números" label="Código Residência">
                   <input class="form-control" type="hidden" name="residenciaId" [(ngModel)]="codigo" minlength="1" placeholder="Código Residência" autocomplete="off">
                 </mt-input-container>
               </div>

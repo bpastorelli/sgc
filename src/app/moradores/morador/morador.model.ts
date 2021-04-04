@@ -13,5 +13,6 @@ export interface Morador {
     dataAtualizacao: Date;
     dataCriacao: Date;
     posicao: number;
+    associado: number;
 
 }

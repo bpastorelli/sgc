@@ -7,16 +7,19 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ResidenciasComponent } from './residencias/residencias.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
-import { SummaryAddComponent } from './summary/dd/summary-add.component';
+import { SummaryAddComponent } from './summary/add/summary-add.component';
 import { SummaryEditComponent } from './summary/edit/summary-edit.component';
 import { VisitantesComponent } from './visitantes/visitantes.component';
 import { VisitanteComponent } from './visitantes/visitante/visitante.component';
 import { VisitasComponent } from './visitantes/visitas/visitas.component';
+import { VisitaComponent } from './visitantes/visita/visita.component';
+import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent},
   { path: 'moradores', component: MoradoresComponent },
+  { path: 'visita/residencia/:codigo', component: VisitaComponent },
   { path: 'visitas', component: VisitasComponent },
   { path: 'visitante/:codigo', component: VisitanteComponent },
   { path: 'visitantes', component: VisitantesComponent },
@@ -28,7 +31,8 @@ export const ROUTES: Routes = [
   { path: 'residencia/:acao/morador/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao', component: ResidenciaComponent },
   { path: 'summary-edit', component: SummaryEditComponent },
-  { path: 'summary-add', component: SummaryAddComponent }
+  { path: 'summary-add', component: SummaryAddComponent },
+  { path: 'summary-visita', component: SummaryVisitaComponent }
 
   // otherwise redirect to home
   //{ path: '**', redirectTo: '' }

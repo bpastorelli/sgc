@@ -27,9 +27,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MoradorComponent } from './moradores/morador/morador.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
 import { ResidenciasComponent } from './residencias/residencias.component';
+import { VisitaComponent } from './visitantes/visita/visita.component';
 import { VisitantesComponent } from './visitantes/visitantes.component';
 import { VisitanteComponent } from './visitantes/visitante/visitante.component';
 import { VisitasComponent } from './visitantes/visitas/visitas.component';
+import { SummaryVisitaComponent } from './summary/add/summary-visita.component'
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { VisitasComponent } from './visitantes/visitas/visitas.component';
     VisitantesComponent,
     VisitanteComponent,
     VisitasComponent,
+    VisitaComponent,
+    SummaryVisitaComponent,
   ],
   imports: [
     BrowserModule,
