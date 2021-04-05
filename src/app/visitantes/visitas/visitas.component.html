@@ -53,9 +53,9 @@
           <thead>
             <tr class="row">
                 <th style="width: 6px;" scope="col"></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'id', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'id', 'DESC')">ID</div></th>
                 <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')">Nome</div></th>
                 <th scope="col">RG</th>
+                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'placa', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'id', 'DESC')">Placa</div></th>
                 <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'DESC')">Data Entrada</div></th>
                 <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'DESC')">Hora Entrada</div></th>
                 <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'DESC')">Data Saída</div></th>
@@ -69,9 +69,9 @@
             <tr class="row" *ngFor="let visita of visitas | paginate: { itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" ><img *ngIf="visita.posicao == 0" class="img" src="assets/img/balls/verde.png">
                                       <img *ngIf="visita.posicao != 0" class="img" src="assets/img/balls/amarelo.png"></td>
-              <td class="textCenter"><div>{{ formatId(visita.id, 6) }}</div></td>
               <td ><div>{{ visita.nome.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.rg }}</div></td>
+              <td class="textCenter"><div>{{ visita.placa.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.dataEntrada }}</div></td>
               <td class="textCenter"><div>{{ visita.horaEntrada }}</div></td>
               <td class="textCenter"><div>{{ visita.dataSaida }}</div></td>

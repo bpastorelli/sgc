@@ -10,15 +10,6 @@
         <div class="row invoice-info">
 
           <div class="col-xs-12">
-            <p class="control-label"> Matrícula:</p>
-          </div>
-          <div class="col-sm-2 col-xs-12">
-            <app-input-container errorMessage="Campo obrigatório!" label="Matrícula">
-              <input class="form-control" disabled #matricula type="text" name="matricula" [(ngModel)]="residencia.matricula" required maxlength="10" placeholder="Matrícula" autocomplete="off">
-            </app-input-container>
-          </div>
-
-          <div class="col-xs-12">
             <p class="control-label"> Endereço completo:</p>
           </div>
 
@@ -69,7 +60,7 @@
 
             <div class="col-sm-1 col-xs-6">
               <app-input-container errorMessage="Campo obrigatório!" label="UF">
-                <input class="form-control" #uf name="uf" [(ngModel)]="ufResp" required minlength="2" placeholder="UF" autocomplete="off">
+                <input class="form-control" #uf name="uf" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" autocomplete="off">
               </app-input-container>
             </div>
 
@@ -144,15 +135,6 @@
     <div class="row invoice-info">
 
       <div class="col-xs-12">
-        <p class="control-label"> Matrícula:</p>
-      </div>
-      <div class="col-sm-2 col-xs-12">
-        <app-input-container errorMessage="Campo obrigatório!" label="Matrícula">
-          <input class="form-control" #matricula ngModel type="text" name="matricula" required maxlength="10" placeholder="Matrícula" autocomplete="off">
-        </app-input-container>
-      </div>
-
-      <div class="col-xs-12">
         <p class="control-label"> Endereço completo:</p>
       </div>
 
@@ -203,7 +185,7 @@
 
       <div class="col-sm-1 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório!" label="UF">
-          <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" required minlength="2" placeholder="UF" autocomplete="off">
+          <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" autocomplete="off">
         </app-input-container>
       </div>
 

@@ -104,7 +104,7 @@ export class ResidenciaComponent implements OnInit {
 
   getResidenciaById(codigo: string) {
 
-    this.residenciasService.residencias(codigo, null, null, "0")
+    this.residenciasService.residencias(codigo, null, "0")
       .subscribe(
         data=>{
           this.residencias = data;

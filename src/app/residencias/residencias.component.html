@@ -3,12 +3,6 @@
   <section class="content">
 
   <form #form="ngForm" novalidate>
-    <div class="col-sm-2 col-xs-6">
-      <div class="form-group">
-        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Matrícula</label>
-        <input type="text" class="form-control" #matriculaPesquisa id="inputMatriculaPesquisa" placeholder="Matrícula">
-      </div>
-    </div>
 
     <div class="col-sm-4 col-xs-6">
       <div class="form-group">
@@ -25,7 +19,7 @@
     </div>
 
     <div class="col-sm-1 col-xs-2">
-      <button (click)="getResidencias('0', matriculaPesquisa.value, enderecoPesquisa.value, numeroPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      <button (click)="getResidencias('0', enderecoPesquisa.value, numeroPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
       </button>
     </div>
 
@@ -34,7 +28,6 @@
           <thead>
             <tr>
                 <th><span>ID</span></th>
-                <th>Matrícula</th>
                 <th>Endereço</th>
                 <th>Número</th>
                 <th>Complemento</th>
@@ -49,7 +42,6 @@
           <tbody>
             <tr *ngFor="let residencia of residencias | paginate: { itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ formatId(residencia.id, 6) }}</div></td>
-              <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.matricula }}</div></td>
               <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.endereco.toUpperCase() }}</div></td>
               <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.numero }}</div></td>
               <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.complemento.toUpperCase() }}</div></td>

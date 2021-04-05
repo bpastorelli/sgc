@@ -24,16 +24,16 @@ export class ResidenciasComponent implements OnInit {
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
-      this.getResidencias("0", null, null, "0");
+      this.getResidencias("0", null, "0");
     }else{
       this.router.navigate(['/login']);
     }
 
   }
 
-  getResidencias(codigo: string, matricula: string, endereco: string, numero: string){
+  getResidencias(codigo: string, endereco: string, numero: string){
 
-    this.residenciasService.residencias(codigo, matricula, endereco, numero)
+    this.residenciasService.residencias(codigo, endereco, numero)
     .subscribe(
       data=>{
         console.log(data);
@@ -48,7 +48,7 @@ export class ResidenciasComponent implements OnInit {
 
   getResidenciaById(codigo: string){
 
-    this.residenciasService.residencias(codigo, null, null, "0")
+    this.residenciasService.residencias(codigo, null, "0")
     .subscribe(
         data=>{
           console.log("Buscando residencia...");
