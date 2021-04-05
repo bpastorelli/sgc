@@ -1,7 +1,9 @@
 const proxy = [
   {
     context: '/api',
-    target: 'https://powerful-savannah-73743.herokuapp.com',
+    target: 'http://viacep.com.br/ws',
+    secure: true,
+    changeOrigin: true,
     pathRewrite: {'^/api': ''}
   }
 ];

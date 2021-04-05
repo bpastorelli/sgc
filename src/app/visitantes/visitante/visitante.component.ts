@@ -11,14 +11,15 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
   selector: 'app-visitante',
   templateUrl: './visitante.component.html'
 })
+
 export class VisitanteComponent implements OnInit {
 
   id: string
   acao: string;
   codigo: string;
   create: boolean = true;
-  pag: Number = 1;
-  contador: Number = properties.itemsPerPage;
+  pag: number = 1;
+  contador: number = properties.itemsPerPage;
   errorMessage;
 
   logradouroResp: string;
@@ -49,7 +50,6 @@ export class VisitanteComponent implements OnInit {
           this.create = false;
           this.getVisitanteById(this.codigo);
       }
-      console.log(this.create)
     }else{
       this.router.navigate(['/login']);
     }
@@ -89,16 +89,7 @@ export class VisitanteComponent implements OnInit {
         data=>{
             this.visitantes = data;
             this.visitantes.forEach(v => {
-            this.visitantes.forEach(r => {
-                if(r.endereco.toString() != null){
-                    this.logradouroResp = r.endereco;
-                    this.bairroResp = r.bairro;
-                    this.localidadeResp = r.cidade;
-                    this.ufResp = r.uf;
-                }else{
-                    this.getCep(v.cep)
-                }
-              });
+                this.getCep(v.cep)
             });
         }, err=>{
            this.errorMessage = err.message;
@@ -111,15 +102,15 @@ export class VisitanteComponent implements OnInit {
 
   getCep(cep: string){
 
-    if(cep.length > 0){
+    if(cep != null){
       this.cepService.getCep(cep)
         .subscribe(
           data=>{
             this.cepResponse = data;
-            this.logradouroResp = data.logradouro;
-            this.bairroResp = data.bairro;
-            this.localidadeResp = data.localidade;
-            this.ufResp = data.uf;
+            this.logradouroResp = data.logradouro.toUpperCase();
+            this.bairroResp = data.bairro.toUpperCase();
+            this.localidadeResp = data.localidade.toUpperCase();
+            this.ufResp = data.uf.toUpperCase();
         },err =>{
             this.errorMessage = err.message;
             throw err;
