@@ -112,7 +112,7 @@
       </thead>
       <tbody>
         <tr class="row" *ngFor="let morador of moradoresVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
-          <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome }}</div></td>
+          <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome.toUpperCase() }}</div></td>
           <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>
           <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.telefone }}</div></td>
           <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.celular }}</div></td>

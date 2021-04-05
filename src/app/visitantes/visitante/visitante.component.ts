@@ -89,7 +89,16 @@ export class VisitanteComponent implements OnInit {
         data=>{
             this.visitantes = data;
             this.visitantes.forEach(v => {
-                this.getCep(v.cep)
+            this.visitantes.forEach(r => {
+                if(r.endereco.toString() != null){
+                    this.logradouroResp = r.endereco;
+                    this.bairroResp = r.bairro;
+                    this.localidadeResp = r.cidade;
+                    this.ufResp = r.uf;
+                }else{
+                    this.getCep(v.cep)
+                }
+              });
             });
         }, err=>{
            this.errorMessage = err.message;
