@@ -123,13 +123,13 @@
           </thead>
         <tbody>
           <tr *ngFor="let residencia of residenciasVinculadas | paginate: { itemsPerPage: contador, currentPage: pag }">
-            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.endereco }}</div></td>
+            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.endereco.toUpperCase() }}</div></td>
             <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.numero }}</div></td>
-            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.complemento }}</div></td>
-            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.bairro }}</div></td>
+            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.complemento.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.bairro.toUpperCase() }}</div></td>
             <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.cep }}</div></td>
-            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.cidade }}</div></td>
-            <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.uf }}</div></td>
+            <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.cidade.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.uf.toUpperCase() }}</div></td>
             <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.dataVinculo }}</div></td>
           </tr>
         </tbody>
