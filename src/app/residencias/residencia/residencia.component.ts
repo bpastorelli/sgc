@@ -104,16 +104,16 @@ export class ResidenciaComponent implements OnInit {
 
   getResidenciaById(codigo: string) {
 
-    this.residenciasService.residencias(codigo, null, null, "0")
+    this.residenciasService.residencias(codigo, null, "0")
       .subscribe(
         data=>{
           this.residencias = data;
           this.residencias.forEach(r => {
             if(r.endereco.toString() != null){
-                this.logradouroResp = r.endereco;
-                this.bairroResp = r.bairro;
-                this.localidadeResp = r.cidade;
-                this.ufResp = r.uf;
+                this.logradouroResp = r.endereco.toUpperCase();
+                this.bairroResp = r.bairro.toUpperCase();
+                this.localidadeResp = r.cidade.toUpperCase();
+                this.ufResp = r.uf.toUpperCase();
             }else{
                 this.getCep(r.cep)
             }
@@ -143,16 +143,18 @@ export class ResidenciaComponent implements OnInit {
 
   getCep(cep: string){
 
-    if(cep != ""){
+    console.log(`O cep é ${cep}`);
 
+    if(cep != ""){
+        console.log('Vai buscar o CEP')
         this.cepService.getCep(cep)
           .subscribe(
             data=>{
               this.cepResponse = data;
-              this.logradouroResp = data.logradouro;
-              this.bairroResp = data.bairro;
-              this.localidadeResp = data.localidade;
-              this.ufResp = data.uf;
+              this.logradouroResp = data.logradouro.toUpperCase();
+              this.bairroResp = data.bairro.toUpperCase();
+              this.localidadeResp = data.localidade.toUpperCase();
+              this.ufResp = data.uf.toUpperCase();
           },err =>{
               this.errorMessage = err.message;
               throw err;

@@ -13,6 +13,7 @@ export interface Visita{
   bairro: string,
   cidade: string,
   uf: string,
+  placa: string,
   posicao: number
 
 }

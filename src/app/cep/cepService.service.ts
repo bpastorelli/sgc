@@ -11,14 +11,12 @@ export class CepService {
   constructor(private http: HttpClient) { }
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'}),
   };
 
   getCep(cep: string): Observable<Cep> {
 
-    const headers = { 'Authorization': '', 'Content-Type': 'application/json' }
-
-    return this.http.get<any>(`${environment.apiUrlCep}/${cep}/json`, { headers } )
+    return this.http.get<any>(`${environment.apiUrlCep}/${cep}/json`, this.httpOptions)
 
   }
 

@@ -1,11 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { ErrorHandler } from '../app.error-handler';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Visita } from './visitas/visitas.model';
 import { Visitante } from './visitante.model';
 import { VisitaRequest } from './visita/visitaRequest.model';
-import { ExtractData } from './../app.extract-data';
 import { environment } from './../../environments/environment.prod';
 import { map } from 'rxjs/operators';
 

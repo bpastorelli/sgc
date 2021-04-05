@@ -1,7 +1,6 @@
 export interface Residencias {
 
   id: number,
-  matricula: string,
   endereco: string,
   numero: string,
   complemento: string,

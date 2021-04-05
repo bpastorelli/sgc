@@ -82,7 +82,7 @@ export class VisitaComponent implements OnInit {
 
   getResidenciaById(codigo: string){
 
-    this.residenciasService.residencias(codigo, null, null, "0")
+    this.residenciasService.residencias(codigo, null, "0")
       .subscribe(
         data=>{
           this.residencias = data;
@@ -92,6 +92,12 @@ export class VisitaComponent implements OnInit {
         }
     );
     return this.residencias;
+
+  }
+
+  getVeiculo(placa: string){
+
+
 
   }
 

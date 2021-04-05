@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-sm-2 col-xs-4">
-              <input class="form-control" #rg name="rg" (keyup.enter)="getVisitante(rg.value)" (blur)="getVisitante(rg.value)" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
+              <input class="form-control" #rg name="rg" (keyup.enter)="getVisitante(rg.value)" (blur)="getVisitante(rg.value)" (keyup.enter)="onEnter(rg.value)" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
             </div>
 
             <div class="col-sm-6 col-xs-12">
@@ -49,6 +49,14 @@
               <app-input errorMessage="Campo obrigatório!" label="UF">
                 <input class="form-control" disabled name="uf" [(ngModel)]="ufResp" maxlength="2" placeholder="UF" autocomplete="off">
               </app-input>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label">Dados do veículo:</p>
+            </div>
+
+            <div class="col-sm-2 col-xs-4">
+              <input class="form-control" #placa name="placa" (keyup.enter)="getVeiculo(placa.value)" (blur)="getVeiculo(placa.value)" ngModel required minlength="8" maxlength="8" placeholder="Placa" autocomplete="off">
             </div>
 
             <!-- /.row -->
