@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sgc-tres-marias",
+            "outputPath": "C:/MAMP/htdocs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,7 +67,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "sgc-tres-marias:build:production"
+              "browserTarget": "sgc-tres-marias:build:production",
+              "proxyConfig": "./proxy-prod.config.js"
             }
           }
         },

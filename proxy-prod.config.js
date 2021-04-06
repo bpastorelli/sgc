@@ -1,11 +1,12 @@
 const proxy = [
   {
     context: '/api',
-    target: 'https://viacep.com.br/ws',
+    target: 'http://viacep.com.br/ws',
     secure: false,
     changeOrigin: true,
-    pathRewrite: {'^/api': ''}
-  }
+    pathRewrite: {'^/api': ''},
+    loglevel: 'debug'
+  },
 ];
 
 module.exports = proxy;
