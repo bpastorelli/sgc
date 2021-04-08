@@ -33,10 +33,11 @@ export const ROUTES: Routes = [
   { path: 'residencia/:acao', component: ResidenciaComponent },
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },
-  { path: 'summary-visita', component: SummaryVisitaComponent }
+  { path: 'summary-visita', component: SummaryVisitaComponent },
 
   // otherwise redirect to home
-  //{ path: '**', redirectTo: '' }
+   //{ path: '**', redirectTo: 'login' }
+
 ];
 
 export const appRoutingModule = RouterModule.forRoot(ROUTES);

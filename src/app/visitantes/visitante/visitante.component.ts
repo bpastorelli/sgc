@@ -1,10 +1,10 @@
-import { properties } from './../../../properties/properties';
 import { Cep } from './../../cep/cep.model';
+import { Visitante } from '../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { CepService } from './../../cep/cepService.service';
-import { Visitante } from '../visitante.model';
-import { VisitantesService } from './../visitantes.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { VisitantesService } from './../visitantes.service';
+import { properties } from './../../../properties/properties';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
@@ -63,8 +63,7 @@ export class VisitanteComponent implements OnInit {
         this.visitante = data;
         this.router.navigate(['/summary-add']);
     },err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.errorMessage = err;
     });
 
   }
@@ -76,8 +75,7 @@ export class VisitanteComponent implements OnInit {
         this.visitante = data;
         this.router.navigate(['/summary-edit']);
     },err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.errorMessage = err;
     });
 
   }
@@ -92,8 +90,7 @@ export class VisitanteComponent implements OnInit {
                 this.getCep(v.cep)
             });
         }, err=>{
-           this.errorMessage = err.message;
-           throw err;
+           this.errorMessage = err;
       }
     );
     return this.visitantes;
@@ -112,8 +109,7 @@ export class VisitanteComponent implements OnInit {
             this.localidadeResp = data.localidade.toUpperCase();
             this.ufResp = data.uf.toUpperCase();
         },err =>{
-            this.errorMessage = err.message;
-            throw err;
+            this.errorMessage = err;
         });
     }
   }
