@@ -35,9 +35,9 @@ export class VisitantesService {
 
   }
 
-  postVisitante(visitante: Visitante): Observable<Visitante>{
+  postVisitante(visitante: Visitante): Observable<any>{
 
-    return this.http.post(`${environment.apiUrl}/associados/visitante/incluir`
+    return this.http.post<Visitante>(`${environment.apiUrl}/associados/visitante/incluir`
         , JSON.stringify(visitante)
         , this.httpOptions)
         .pipe(
@@ -46,7 +46,7 @@ export class VisitantesService {
 
   }
 
-  putVisitante(visitante: Visitante, id: string): Observable<Visitante>{
+  putVisitante(visitante: Visitante, id: string): Observable<any>{
 
     return this.http.put<Visitante>(`${environment.apiUrl}/associados/visitante/${id}`
         , JSON.stringify(visitante)
@@ -57,7 +57,7 @@ export class VisitantesService {
 
   }
 
-  baixarVisita(id: string): Observable<Visita>{
+  baixarVisita(id: string): Observable<any>{
 
     return this.http.put<Visita>(`${environment.apiUrl}/associados/visita/encerrar`
         , `{ "id": "${id}" }`
@@ -68,9 +68,9 @@ export class VisitantesService {
 
   }
 
-  postVisita(visitaRequest: VisitaRequest): Observable<Visita>{
+  postVisita<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
-    return this.http.post(`${environment.apiUrl}/associados/visita/incluir`
+    return this.http.post<Visita>(`${environment.apiUrl}/associados/visita/incluir`
         , JSON.stringify(visitaRequest)
         , this.httpOptions)
         .pipe(

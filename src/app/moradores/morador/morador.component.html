@@ -15,46 +15,57 @@
           </div>
 
           <div class="col-xs-12">
-            <p class="control-label"> Dados pessoais: </p>
+            <p class="control-label"> Nome: </p>
           </div>
           <div  class="col-sm-6 col-xs-12">
-            <mt-input-container errorMessage="Campo obrigatório!" label="Nome">
+            <app-input-container errorMessage="Campo obrigatório!" label="Nome">
               <input class="form-control" type="text" [(ngModel)]="morador.nome" #nome name="nome" required minlength="10" placeholder="Nome" autocomplete="off">
-            </mt-input-container>
-          </div>
-
-          <div  class="col-sm-2 col-xs-6">
-            <mt-input-container errorMessage="Campo obrigatório!" label="CPF">
-              <input class="form-control" type="text" [(ngModel)]="morador.cpf" #cpf name="cpf" disabled required minlength="10" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
-            </mt-input-container>
-          </div>
-
-          <div class="col-sm-2 col-xs-6">
-            <mt-input-container errorMessage="Campo obrigatório!" label="RG">
-              <input class="form-control" name="rg" [(ngModel)]="morador.rg" #rg minlength="5" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
-            </mt-input-container>
+            </app-input-container>
           </div>
 
           <div class="col-xs-12">
-            <p class="control-label"> Contato: </p>
+            <p class="control-label"> CPF: </p>
+          </div>
+          <div  class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="CPF">
+              <input class="form-control" type="text" [(ngModel)]="morador.cpf" #cpf name="cpf" disabled required minlength="10" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
+            </app-input-container>
           </div>
 
+          <div class="col-xs-12">
+            <p class="control-label"> RG: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="RG">
+              <input class="form-control" name="rg" [(ngModel)]="morador.rg" #rg minlength="5" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> E-mail: </p>
+          </div>
           <div class="col-sm-4 col-xs-6">
-            <mt-input-container errorMessage="Campo obrigatório!" label="e-mail">
+            <app-input-container errorMessage="Campo obrigatório!" label="e-mail">
               <input class="form-control" name="email" [(ngModel)]="morador.email" #email required minlength="5" placeholder="e-mail" autocomplete="off">
-            </mt-input-container>
+            </app-input-container>
           </div>
 
+          <div class="col-xs-12">
+            <p class="control-label"> Telefone: </p>
+          </div>
           <div class="col-sm-2 col-xs-6">
             <div class="form-group">
               <input type="text" class="form-control" name="telefone" [(ngModel)]="morador.telefone" maxlength="11" #telefone placeholder="Telefone">
             </div>
           </div>
 
+          <div class="col-xs-12">
+            <p class="control-label"> Celular: </p>
+          </div>
           <div class="col-sm-2 col-xs-6">
-            <mt-input-container errorMessage="Campo obrigatório com mínimo!" label="Celular">
+            <app-input-container errorMessage="Campo obrigatório com mínimo!" label="Celular">
               <input class="form-control" name="celular" [(ngModel)]="morador.celular" #celular required maxlength="11" placeholder="Celular" autocomplete="off">
-            </mt-input-container>
+            </app-input-container>
           </div>
 
           <div class="col-xs-12">
@@ -156,22 +167,28 @@
           <form #formCreate="ngForm" novalidate>
 
             <div class="row invoice-info">
-              <div class="col-xs-12">
-                <p class="control-label">Dados pessoais:</p>
-              </div>
 
+              <div class="col-xs-12">
+                <p class="control-label"> Nome: </p>
+              </div>
               <div class="col-sm-6 col-xs-12">
                 <app-input-container errorMessage="Campo obrigatório com mínimo 10 caracteres" label="Nome">
                   <input class="form-control" name="nome" ngModel required minlength="10" placeholder="Nome" autocomplete="off">
                 </app-input-container>
               </div>
 
+              <div class="col-xs-12">
+                <p class="control-label"> CPF: </p>
+              </div>
               <div class="col-sm-2 col-xs-6">
                 <app-input-container errorMessage="Campo obrigatório e somente números" label="CPF">
                   <input class="form-control" name="cpf" ngModel required maxlength="11" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
                 </app-input-container>
               </div>
 
+              <div class="col-xs-12">
+                <p class="control-label"> RG: </p>
+              </div>
               <div class="col-sm-2 col-xs-6">
                 <app-input-container errorMessage="Campo obrigatório e somente números" label="RG">
                   <input class="form-control" name="rg" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
@@ -179,15 +196,17 @@
               </div>
 
               <div class="col-xs-12">
-                <p class="control-label">Contato:</p>
+                <p class="control-label">E-mail:</p>
               </div>
-
               <div class="col-sm-4 col-xs-6">
                 <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
                   <input class="form-control" name="email" ngModel required minlength="5" placeholder="e-mail" autocomplete="off">
                 </app-input-container>
               </div>
 
+              <div class="col-xs-12">
+                <p class="control-label"> Telefone: </p>
+              </div>
               <div class="col-sm-2 col-xs-6">
                 <div class="form-group">
                   <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Telefone</label>
@@ -195,6 +214,9 @@
                 </div>
               </div>
 
+              <div class="col-xs-12">
+                <p class="control-label"> Celular: </p>
+              </div>
               <div class="col-sm-2 col-xs-6">
                 <div class="form-group">
                   <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Celular</label>

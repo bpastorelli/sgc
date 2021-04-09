@@ -61,7 +61,7 @@ export class VisitaComponent implements OnInit {
             this.cidadeResp = data.cidade.toUpperCase();
             this.ufResp = data.uf.toUpperCase();
         },err =>{
-            this.errorMessage = err.message;
+            this.errorMessage = err;
             throw err;
         });
     }
@@ -87,7 +87,7 @@ export class VisitaComponent implements OnInit {
         data=>{
           this.residencias = data;
         }, err=>{
-          this.errorMessage = err.message;
+          this.errorMessage = err;
           throw err;
         }
     );

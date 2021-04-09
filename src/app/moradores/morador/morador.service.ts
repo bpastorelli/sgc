@@ -29,7 +29,7 @@ constructor(private http: HttpClient) { }
 
   }
 
-  postMorador(morador: Morador): Observable<Morador> {
+  postMorador(morador: Morador): Observable<any> {
 
     return this.http.post<Morador>(`${environment.apiUrl}/associados/morador/novo`
         , JSON.stringify(morador)

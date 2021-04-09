@@ -10,21 +10,26 @@
         <div class="row invoice-info">
 
           <div class="col-xs-12">
-            <p class="control-label"> Endereço completo:</p>
+            <p class="control-label"> CEP:</p>
           </div>
-
-          <div class="col-sm-2 col-xs-6">
+          <div class="col-sm-2 col-xs-2">
             <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
-              <input class="form-control" #cep (blur)="getCep(residencia.cep)" name="cep" [(ngModel)]="residencia.cep" required minlength="8" placeholder="CEP" autocomplete="off">
+              <input class="form-control" #cep (blur)="getCep(residencia.cep)" name="cep" [(ngModel)]="residencia.cep" required maxlength="8" placeholder="CEP" autocomplete="off">
             </app-input-container>
           </div>
 
+          <div class="col-xs-12">
+            <p class="control-label"> Endereço:</p>
+          </div>
           <div class="col-sm-6 col-xs-6">
             <app-input-container errorMessage="Campo obrigatório!" label="Endereço">
               <input class="form-control" #endereco type="text" name="endereco" [(ngModel)]="logradouroResp" required maxlength="100" placeholder="Endereço" autocomplete="off">
             </app-input-container>
           </div>
 
+          <div class="col-xs-12">
+            <p class="control-label"> Número:</p>
+          </div>
           <div class="col-sm-2 col-xs-6">
             <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
               <input class="form-control" #numero name="numero" [(ngModel)]="residencia.numero" required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
@@ -58,6 +63,9 @@
               </app-input-container>
             </div>
 
+            <div class="col-xs-12">
+              <p class="control-label"> UF:</p>
+            </div>
             <div class="col-sm-1 col-xs-6">
               <app-input-container errorMessage="Campo obrigatório!" label="UF">
                 <input class="form-control" #uf name="uf" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" autocomplete="off">
@@ -135,21 +143,26 @@
     <div class="row invoice-info">
 
       <div class="col-xs-12">
-        <p class="control-label"> Endereço completo:</p>
+        <p class="control-label"> CEP:</p>
       </div>
-
       <div class="col-sm-2 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
           <input class="form-control" #cep name="cep" (blur)="getCep(cep.value)" ngModel type="text" required minlength="8" placeholder="CEP" autocomplete="off">
         </app-input-container>
       </div>
 
+      <div class="col-xs-12">
+        <p class="control-label"> Emdereço:</p>
+      </div>
       <div class="col-sm-6 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório!" label="Endereço">
           <input class="form-control" #endereco ngModel type="text" name="endereco" [(ngModel)]="logradouroResp" required maxlength="100" placeholder="Endereço" autocomplete="off">
         </app-input-container>
       </div>
 
+      <div class="col-xs-12">
+        <p class="control-label"> Número:</p>
+      </div>
       <div class="col-sm-2 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
           <input class="form-control" #numero ngModel type="text" name="numero" required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
@@ -183,6 +196,9 @@
         </app-input-container>
       </div>
 
+      <div class="col-xs-12">
+        <p class="control-label"> UF:</p>
+      </div>
       <div class="col-sm-1 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório!" label="UF">
           <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" autocomplete="off">
