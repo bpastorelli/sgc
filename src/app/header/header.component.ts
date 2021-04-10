@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-      this.nome = `${this.currentUser.nome}!`;
+      this.nome = `Olá ${this.currentUser.nome}!`;
       this.montaMenu();
 
    }

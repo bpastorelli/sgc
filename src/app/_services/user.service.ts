@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { User } from './../_models/user';
 
 @Injectable({ providedIn: 'root' })
@@ -10,6 +10,6 @@ export class UserService {
 
     getAll() {
 
-        return this.http.get<User[]>(`${environment.apiUrl}/associados/morador/filtro?id=&cpf=&rg=&email=&nome=&pag=0&ord=nome&dir=ASC&size=1000000`)
+        //return this.http.get<User[]>(`${environment.apiUrl}/associados/morador/filtro?id=&cpf=&rg=&email=&nome=&pag=0&ord=nome&dir=ASC&size=1000000`)
     }
 }

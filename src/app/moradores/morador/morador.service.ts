@@ -1,6 +1,6 @@
 import { ErrorHandler } from 'src/app/app.error-handler';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Morador } from './../morador/morador.model';

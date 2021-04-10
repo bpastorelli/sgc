@@ -25,11 +25,11 @@ export class MoradorComponent implements OnInit {
   moradores: Moradores[];
   residenciasVinculadas: Residencias[];
   situacaoCadastral = [
-        { id: 1, label: "Ativo" },
-        { id: 0, label: "Inativo" }];
+        { id: 1, label: "ATIVO" },
+        { id: 0, label: "INATIVO" }];
   situacaoAssociacao = [
-          { id: 1, label: "Sim" },
-          { id: 0, label: "Não" }]
+          { id: 1, label: "SIM" },
+          { id: 0, label: "NÃO" }]
 
   constructor(
               private authenticationService: AuthenticationService,
@@ -57,11 +57,12 @@ export class MoradorComponent implements OnInit {
 
   postMoradores(morador: Morador) {
 
+    morador.cpf = morador.cpf.replace('.','').replace('-','');
+
     this.moradorService.postMoradores(morador)
       .subscribe(data => {
         this.mor = data;
         this.id = data.id;
-        alert(this.id);
         this.router.navigate([`/summary-add`]);
     },err=>{
         this.errorMessage = err;
@@ -71,11 +72,12 @@ export class MoradorComponent implements OnInit {
 
   postMorador(morador: Morador){
 
+    morador.cpf = morador.cpf.replace('.','').replace('-','');
+
     this.moradorService.postMorador(morador)
       .subscribe(data => {
         this.mor = data;
         this.id = data.id;
-        console.log(this.mor.id)
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
         this.errorMessage = err;
@@ -146,8 +148,5 @@ export class MoradorComponent implements OnInit {
     this.pag = event;
   }
 
-}
-function next(next: any, arg1: (data: any) => void, arg2: (err: any) => never) {
-  throw new Error('Function not implemented.');
 }
 

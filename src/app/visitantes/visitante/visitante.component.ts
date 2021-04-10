@@ -28,11 +28,11 @@ export class VisitanteComponent implements OnInit {
   ufResp: string;
 
   public cepResponse: Cep;
-  public visitante: Visitante;
+  public visit: Visitante;
   public visitantes: Visitante[];
   public situacaoCadastral = [
-        { id: 1, label: "Ativo" },
-        { id: 0, label: "Inativo" }]
+        { id: 1, label: "ATIVO" },
+        { id: 0, label: "INATIVO" }]
 
   constructor(
               private router: Router,
@@ -58,10 +58,14 @@ export class VisitanteComponent implements OnInit {
 
   postVisitante(visitante: Visitante){
 
+    if(visitante.cpf != null)
+      visitante.cpf = visitante.cpf.replace('.','').replace('-','');
+
     this.visitantesService.postVisitante(visitante)
       .subscribe(data => {
-        this.visitante = data;
-        this.router.navigate(['/summary-add']);
+        this.visit = data;
+        this.id = data.id;
+        this.router.navigate(['/veiculo/novo/visitante/', this.id]);
     },err=>{
         this.errorMessage = err;
     });
@@ -70,9 +74,12 @@ export class VisitanteComponent implements OnInit {
 
   putVisitante(visitante: Visitante, id: string){
 
+    if(visitante.cpf != null)
+      visitante.cpf = visitante.cpf.replace('.','').replace('-','');
+
     this.visitantesService.putVisitante(visitante, id)
       .subscribe(data => {
-        this.visitante = data;
+        this.visit = data;
         this.router.navigate(['/summary-edit']);
     },err=>{
         this.errorMessage = err;

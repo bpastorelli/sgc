@@ -32,7 +32,7 @@
     <section class="content">
         <table class="table-striped">
           <thead>
-            <tr class="row">
+            <tr>
                 <th scope="col"><span>ID</span></th>
                 <th scope="col"><div >Nome</div></th>
                 <th scope="col">RG</th>
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="row" *ngFor="let visitante of visitantes | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr *ngFor="let visitante of visitantes | paginate: { itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ formatId(visitante.id, 6) }}</div></td>
               <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.nome.toUpperCase() }}</div></td>
               <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.rg }}</div></td>
@@ -68,7 +68,9 @@
               nextLabel="Próximo"></pagination-controls>
           </div>
         </div>
-    </section>
-  </form>
-</section>
+
+      </section>
+    </form>
+   </section>
+ </section>
 

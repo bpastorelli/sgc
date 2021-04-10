@@ -14,9 +14,9 @@ export class VisitasComponent implements OnInit {
   public visita: Visita;
   public visitas: Visita[];
   public situacaoVisita = [
-    { id: 2, label: "Todas" },
-    { id: 1, label: "Em aberto" },
-    { id: 0, label: "Encerradas" }]
+    { id: 2, label: "TODAS" },
+    { id: 1, label: "EM ABERTO" },
+    { id: 0, label: "ENCERRADAS" }]
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;

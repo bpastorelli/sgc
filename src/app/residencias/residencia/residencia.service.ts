@@ -1,14 +1,11 @@
-import { error } from '@angular/compiler/src/util';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Residencias } from './../residencias.model';
 import { Moradores } from './../../moradores/moradores.model';
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../environments/environment';
 
-import { retry, catchError, map, flatMap, filter, toArray } from 'rxjs/operators';
-import { ErrorHandler } from './../../app.error-handler';
-import { of, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ResidenciaService {

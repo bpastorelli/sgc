@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UppercaseInputComponent } from './shared/input/uppercaseInput.component';
 
 import { appRoutingModule, ROUTES } from './app.routing';
 import { LoginComponent } from './login/login.component';
@@ -23,7 +24,9 @@ import { MoradoresService } from './moradores/moradores.service';
 import { ResidenciaService } from './residencias/residencia/residencia.service';
 import { ResidenciasService } from './residencias/residencias.service';
 import { VisitantesService } from './visitantes/visitantes.service';
+import { VeiculosService } from './veiculos/veiculos.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { MoradorComponent } from './moradores/morador/morador.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
 import { ResidenciasComponent } from './residencias/residencias.component';
@@ -31,7 +34,9 @@ import { VisitaComponent } from './visitantes/visita/visita.component';
 import { VisitantesComponent } from './visitantes/visitantes.component';
 import { VisitanteComponent } from './visitantes/visitante/visitante.component';
 import { VisitasComponent } from './visitantes/visitas/visitas.component';
-import { SummaryVisitaComponent } from './summary/add/summary-visita.component'
+import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
+import { VeiculosComponent } from './veiculos/veiculos.component';
+import { VeiculoComponent } from './veiculos/veiculo/veiculo.component'
 
 @NgModule({
   declarations: [
@@ -49,7 +54,11 @@ import { SummaryVisitaComponent } from './summary/add/summary-visita.component'
     VisitanteComponent,
     VisitasComponent,
     VisitaComponent,
+    VeiculosComponent,
     SummaryVisitaComponent,
+    VeiculosComponent,
+    VeiculoComponent,
+    UppercaseInputComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,7 @@ import { SummaryVisitaComponent } from './summary/add/summary-visita.component'
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    NgxMaskModule.forRoot(),
     appRoutingModule,
     RouterModule.forRoot(ROUTES)
   ],
@@ -66,6 +76,7 @@ import { SummaryVisitaComponent } from './summary/add/summary-visita.component'
     ResidenciaService,
     ResidenciasService,
     VisitantesService,
+    VeiculosService,
     CepService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

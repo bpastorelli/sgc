@@ -51,7 +51,7 @@
     <section class="content">
         <table class="table-striped">
           <thead>
-            <tr class="row">
+            <tr>
                 <th style="width: 6px;" scope="col"></th>
                 <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')">Nome</div></th>
                 <th scope="col">RG</th>
@@ -66,7 +66,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="row" *ngFor="let visita of visitas | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr *ngFor="let visita of visitas | paginate: { itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" ><img *ngIf="visita.posicao == 0" class="img" src="assets/img/balls/verde.png">
                                       <img *ngIf="visita.posicao != 0" class="img" src="assets/img/balls/amarelo.png"></td>
               <td ><div>{{ visita.nome.toUpperCase() }}</div></td>
@@ -82,6 +82,7 @@
             </tr>
           </tbody>
         </table>
+
         <!--inclindo o controle de paginação.-->
         <div style="padding: 20px;">
           <div class="text-right">
@@ -90,7 +91,9 @@
               nextLabel="Próximo"></pagination-controls>
           </div>
         </div>
-    </section>
-  </form>
-</section>
+
+      </section>
+    </form>
+   </section>
+ </section>
 

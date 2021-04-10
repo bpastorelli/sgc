@@ -5,6 +5,11 @@
       <strong>Atenção! </strong>{{ errorMessage }}
     </div>
     <section class="invoice">
+
+      <label class="labelPagina">
+        Cadastro de Residência
+      </label>
+
       <form #formEdit="ngForm" *ngFor="let residencia of residencias" novalidate>
 
         <div class="row invoice-info">
@@ -102,7 +107,7 @@
 
     <table class="table-striped">
       <thead>
-        <tr class="row">
+        <tr>
             <th #nome scope="col">Nome</th>
             <th scope="col">E-mail</th>
             <th scope="col">Telefone</th>
@@ -110,7 +115,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="row" *ngFor="let morador of moradoresVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
+        <tr *ngFor="let morador of moradoresVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
           <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome.toUpperCase() }}</div></td>
           <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>
           <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.telefone }}</div></td>
@@ -139,7 +144,12 @@
   <div *ngIf="errorMessage" class="alert alert-warning">
     <strong>Atenção! </strong>{{ errorMessage }}
   </div>
+
+  <label class="labelPagina">
+    Cadastro de Residência
+  </label>
   <form #formCreate="ngForm" novalidate>
+
     <div class="row invoice-info">
 
       <div class="col-xs-12">
@@ -152,7 +162,7 @@
       </div>
 
       <div class="col-xs-12">
-        <p class="control-label"> Emdereço:</p>
+        <p class="control-label"> Endereço:</p>
       </div>
       <div class="col-sm-6 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório!" label="Endereço">
