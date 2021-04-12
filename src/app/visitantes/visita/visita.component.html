@@ -4,8 +4,8 @@
       <div *ngIf="errorMessage" class="alert alert-warning">
         <strong>Atenção! </strong>{{ errorMessage }}
       </div>
-
-        <form #formCreate="ngForm" novalidate>
+        {{ formCreateVisita.valid }}
+        <form #formCreateVisita="ngForm" novalidate>
 
           <div class="row invoice-info">
             <div class="col-xs-12">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="col-sm-6 col-xs-12">
-              <input class="form-control" disabled name="nome" [(ngModel)]="nomeResp" required maxlength="50" placeholder="Nome" autocomplete="off">
+              <input class="form-control" disabled name="nome" [(ngModel)]="nomeResp" maxlength="50" placeholder="Nome" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
@@ -56,14 +56,35 @@
             </div>
 
             <div class="col-sm-2 col-xs-4">
-              <input class="form-control" #placa name="placa" (keyup.enter)="getVeiculo(placa.value)" (blur)="getVeiculo(placa.value)" ngModel minlength="8" maxlength="8" placeholder="Placa" autocomplete="off">
+              <input class="form-control" #placa name="placa" mask="AAA-AAAA" (keyup.enter)="getVeiculo(placa.value)" (blur)="getVeiculo(placa.value)" ngModel minlength="7" maxlength="8" placeholder="Placa" autocomplete="on">
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label">Marca:</p>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <input class="form-control" disabled name="marca" [(ngModel)]="veiculo.marca" maxlength="50" placeholder="Marca" autocomplete="off">
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label">Modelo:</p>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <input class="form-control" disabled name="modelo" [(ngModel)]="veiculo.modelo" maxlength="50" placeholder="Modelo" autocomplete="off">
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label">Ano:</p>
+            </div>
+            <div class="col-sm-2 col-xs-6">
+              <input class="form-control" disabled name="ano" [(ngModel)]="veiculo.ano" maxlength="4" placeholder="Ano" autocomplete="off">
             </div>
 
             <!-- /.row -->
             </div>
               <div class="col-xs-12">
-                <button class="pointer" (click)="postVisita(formCreate.value)" class="btn btn-success pull-right"
-                  [disabled]="!formCreate.valid"><i></i> Salvar
+                <button class="pointer" (click)="postVisita(formCreateVisita.value)" class="btn btn-success pull-right"
+                  [disabled]="!formCreateVisita.valid"><i></i> Salvar
                 </button>
               </div>
         </form>

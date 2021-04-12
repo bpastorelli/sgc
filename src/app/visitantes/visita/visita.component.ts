@@ -4,10 +4,13 @@ import { Visita } from './../visitas/visitas.model';
 import { Residencias } from './../../residencias/residencias.model';
 import { VisitaRequest } from './../visita/visitaRequest.model';
 import { ResidenciasService } from './../../residencias/residencias.service';
+import { VeiculosService } from './../../veiculos/veiculos.service';
 import { VisitantesService } from './../visitantes.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './../../_services/authentication.service';
+import { Veiculo } from 'src/app/veiculos/veiculo.model';
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-visita',
@@ -23,11 +26,13 @@ export class VisitaComponent implements OnInit {
   ufResp: string;
   errorMessage;
 
-  public visita: Visita;
-  public visitantes: Visitante[];
-  public residencias: Residencias[];
+  visita: Visita;
+  visitantes: Visitante[];
+  veiculo: Veiculo;
+  residencias: Residencias[];
 
   constructor(private residenciasService: ResidenciasService,
+              private veiculoService: VeiculosService,
               private visitantesService: VisitantesService,
               private router: Router,
               private route: ActivatedRoute,
@@ -62,7 +67,6 @@ export class VisitaComponent implements OnInit {
             this.ufResp = data.uf.toUpperCase();
         },err =>{
             this.errorMessage = err;
-            throw err;
         });
     }
   }
@@ -97,8 +101,16 @@ export class VisitaComponent implements OnInit {
 
   getVeiculo(placa: string){
 
-
-
+    if(placa.length > 0){
+      this.veiculoService.getVeiculoByPlaca(placa)
+        .subscribe(
+          data=>{
+            this.veiculo = data;
+          }, err=>{
+            this.errorMessage = err;
+          }
+        );
+    }
   }
 
 }

@@ -71,7 +71,7 @@
                                       <img *ngIf="visita.posicao != 0" class="img" src="assets/img/balls/amarelo.png"></td>
               <td ><div>{{ visita.nome.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.rg }}</div></td>
-              <td class="textCenter"><div>{{ visita.placa.toUpperCase() }}</div></td>
+              <td class="textCenter"><div>{{ formatPlaca(visita.placa.toUpperCase()) }}</div></td>
               <td class="textCenter"><div>{{ visita.dataEntrada }}</div></td>
               <td class="textCenter"><div>{{ visita.horaEntrada }}</div></td>
               <td class="textCenter"><div>{{ visita.dataSaida }}</div></td>

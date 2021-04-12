@@ -46,6 +46,15 @@
           </div>
 
           <div class="col-xs-12">
+            <p class="control-label"> Cor: </p>
+          </div>
+          <div  class="col-sm-4 col-xs-12">
+            <app-input-container label="Cor">
+              <input class="form-control" type="text" [(ngModel)]="veiculos.cor" (ngModelChange)="veiculos.cor=$event.toUpperCase()" required #cor name="cor" maxlength="20" placeholder="Cor" autocomplete="on">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
             <p class="control-label">Ano:</p>
           </div>
           <div class="col-sm-2 col-xs-6">
@@ -127,7 +136,7 @@
               <p class="control-label"> Marca: </p>
             </div>
             <div class="col-sm-6 col-xs-12">
-              <input class="form-control" name="marca" #marca (ngModelChange)="marca.value=$event.toUpperCase()"  ngModel maxlength="50" placeholder="Marca" autocomplete="off">
+              <input class="form-control" name="marca" #marca (ngModelChange)="marca.value=$event.toUpperCase()" ngModel maxlength="50" placeholder="Marca" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
@@ -135,15 +144,26 @@
             </div>
             <div class="col-sm-6 col-xs-12">
               <app-input-container errorMessage="Campo obrigatório" label="Modelo">
-                <input class="form-control" name="modelo" #modelo (ngModelChange)="modelo.value=$event.toUpperCase()"  ngModel required maxlength="50" placeholder="Modelo" autocomplete="off">
+                <input class="form-control" name="modelo" #modelo (ngModelChange)="modelo.value=$event.toUpperCase()" ngModel required maxlength="50" placeholder="Modelo" autocomplete="off">
+              </app-input-container>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Cor: </p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <app-input-container label="Cor">
+                <input class="form-control" name="cor" #cor (ngModelChange)="cor.value=$event.toUpperCase()"  ngModel maxlength="20" placeholder="Cor" autocomplete="on">
               </app-input-container>
             </div>
 
             <div class="col-xs-12">
               <p class="control-label"> Ano:</p>
             </div>
-            <div class="col-sm-2 col-xs-6">
-              <input class="form-control" #ano ngModel type="text" name="complemento" maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
+            <div class="col-sm-6 col-xs-12">
+              <app-input-container label="Ano">
+                <input class="form-control" name="ano" #ano  ngModel maxlength="4" placeholder="Ano" autocomplete="on">
+              </app-input-container>
             </div>
 
             <div *ngIf="acao==='novo'" class="col-sm-2 col-xs-6">

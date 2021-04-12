@@ -23,6 +23,8 @@ export class VeiculosService {
 
   postVeiculo(veiculo: Veiculo): Observable<any>{
 
+    console.log(veiculo);
+
     return this.http.post<Veiculo>(`${environment.apiUrl}/associados/veiculo/novo`
         , JSON.stringify(veiculo)
         , this.httpOptions)
@@ -33,6 +35,8 @@ export class VeiculosService {
   }
 
   putVeiculo(veiculo: Veiculo, id: string): Observable<any>{
+
+    console.log(veiculo);
 
     return this.http.put<Veiculo>(`${environment.apiUrl}/associados/veiculo/veiculo/${id}`
         , JSON.stringify(veiculo)
@@ -46,6 +50,12 @@ export class VeiculosService {
   getVeiculoById(id: string): Observable<Veiculo[]>{
 
       return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/id/${id}`);
+
+  }
+
+  getVeiculoByPlaca(placa: string): Observable<Veiculo>{
+
+    return this.http.get<Veiculo>(`${environment.apiUrl}/associados/veiculo/placa/${placa}`);
 
   }
 

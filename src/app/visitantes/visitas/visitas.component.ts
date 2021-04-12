@@ -95,6 +95,20 @@ export class VisitasComponent implements OnInit {
 
   }
 
+  formatPlaca(placa: string){
+
+    if(!placa)
+      return;
+
+    var p1 = placa.substring(0,3);
+    var p2 = placa.substring(3,7);
+
+    placa = `${p1}-${p2}`
+
+    return placa;
+
+  }
+
   pageChanged(event){
     this.pag = event;
   }

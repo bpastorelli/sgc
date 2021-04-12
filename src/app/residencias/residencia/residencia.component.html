@@ -32,9 +32,6 @@
             </app-input-container>
           </div>
 
-          <div class="col-xs-12">
-            <p class="control-label"> Número:</p>
-          </div>
           <div class="col-sm-2 col-xs-6">
             <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
               <input class="form-control" #numero name="numero" [(ngModel)]="residencia.numero" required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
@@ -170,9 +167,6 @@
         </app-input-container>
       </div>
 
-      <div class="col-xs-12">
-        <p class="control-label"> Número:</p>
-      </div>
       <div class="col-sm-2 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
           <input class="form-control" #numero ngModel type="text" name="numero" required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
