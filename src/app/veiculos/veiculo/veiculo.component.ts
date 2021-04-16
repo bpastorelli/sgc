@@ -1,4 +1,4 @@
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VeiculosService } from './../veiculos.service';
 import { Veiculo } from './../veiculo.model';
 import { Component, OnInit } from '@angular/core';
@@ -33,9 +33,6 @@ export class VeiculoComponent implements OnInit {
 
     this.acao = this.route.snapshot.paramMap.get('acao');
     this.codigo = this.route.snapshot.paramMap.get('codigo');
-
-    console.log(this.acao);
-    console.log(this.codigo);
 
     if(this.authenticationService.currentUserValue){
       if(this.codigo != "create" && this.codigo != "novo" && this.acao === null){

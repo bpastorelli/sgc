@@ -59,4 +59,16 @@ export class VeiculosService {
 
   }
 
+  getVeiculosByVisitanteId(id: string): Observable<Veiculo[]>{
+
+    return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/vinculo/visitante/${id}`)
+
+  }
+
+  getVeiculosByVisitanteRg(rg: string): Observable<Veiculo[]>{
+
+    return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/vinculo/visitante/rg/${rg}`)
+
+  }
+
 }

@@ -147,9 +147,28 @@
     <section *ngIf="!create" class="invoice">
 
       <div class="col-xs-12">
-        <p class="control-label"><b>Residências vinculadas:</b></p>
+        <p class="control-label"><b>Veículos vinculados:</b></p>
       </div>
       <table class="table-striped">
+
+        <thead>
+          <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Cor</th>
+              <th>Ano</th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let veiculo of veiculosVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <td class="textCenter"><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.placa.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.marca.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.modelo.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.cor.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="edtiVeiculo(veiculo.id)">{{ veiculo.ano }}</div></td>
+          </tr>
+        </tbody>
 
       </table>
 

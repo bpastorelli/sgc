@@ -76,6 +76,6 @@ export class VisitantesService {
         .pipe(
           map(response => response['data'])
         );
-    }
-
   }
+
+}

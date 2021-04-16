@@ -3,9 +3,10 @@ import { Visitante } from '../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { CepService } from './../../cep/cepService.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { VeiculosService } from './../../veiculos/veiculos.service';
 import { VisitantesService } from './../visitantes.service';
-import { properties } from './../../../properties/properties';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { Veiculo } from 'src/app/veiculos/veiculo.model';
 
 @Component({
   selector: 'app-visitante',
@@ -19,7 +20,7 @@ export class VisitanteComponent implements OnInit {
   codigo: string;
   create: boolean = true;
   pag: number = 1;
-  contador: number = properties.itemsPerPage;
+  contador: number = 5;
   errorMessage;
 
   logradouroResp: string;
@@ -30,6 +31,7 @@ export class VisitanteComponent implements OnInit {
   public cepResponse: Cep;
   public visit: Visitante;
   public visitantes: Visitante[];
+  public veiculosVinculados: Veiculo[];
   public situacaoCadastral = [
         { id: 1, label: "ATIVO" },
         { id: 0, label: "INATIVO" }]
@@ -39,6 +41,7 @@ export class VisitanteComponent implements OnInit {
               private route: ActivatedRoute,
               private cepService: CepService,
               private visitantesService: VisitantesService,
+              private veiculosService: VeiculosService,
               private authenticationService: AuthenticationService
               ) { }
   ngOnInit() {
@@ -49,6 +52,7 @@ export class VisitanteComponent implements OnInit {
       if(this.codigo != "create" && this.codigo != "novo"){
           this.create = false;
           this.getVisitanteById(this.codigo);
+          this.getVeiculoByVisitanteId(this.codigo);
       }
     }else{
       this.router.navigate(['/login']);
@@ -101,6 +105,26 @@ export class VisitanteComponent implements OnInit {
       }
     );
     return this.visitantes;
+
+  }
+
+  getVeiculoByVisitanteId(id: string){
+
+    this.veiculosService.getVeiculosByVisitanteId(id)
+      .subscribe(
+        data=>{
+          this.veiculosVinculados =  data;
+        },err=>{
+          this.errorMessage = err;
+        }
+
+      );
+
+  }
+
+  editVeiculo(codigo: string){
+
+    this.router.navigate(['/veiculo/', codigo]);
 
   }
 

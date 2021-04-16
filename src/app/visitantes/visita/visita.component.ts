@@ -9,8 +9,7 @@ import { VisitantesService } from './../visitantes.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './../../_services/authentication.service';
-import { Veiculo } from 'src/app/veiculos/veiculo.model';
-import { Console } from 'node:console';
+import { Veiculo } from './../../veiculos/veiculo.model';
 
 @Component({
   selector: 'app-visita',
@@ -19,6 +18,7 @@ import { Console } from 'node:console';
 export class VisitaComponent implements OnInit {
 
   codigo: string;
+  idResp: string;
   nomeResp: string;
   enderecoResp: string;
   numeroResp: string;
@@ -26,13 +26,18 @@ export class VisitaComponent implements OnInit {
   ufResp: string;
   errorMessage;
 
-  visita: Visita;
-  visitantes: Visitante[];
-  veiculo: Veiculo;
-  residencias: Residencias[];
+  pag : Number = 1;
+  contador : Number = 5;
+
+  public visita: Visita;
+  public veiculo: Veiculo;
+  public veiculosVinculados: Veiculo[];
+  public visitante: Visitante[];
+  public residencias: Residencias[];
 
   constructor(private residenciasService: ResidenciasService,
               private veiculoService: VeiculosService,
+              private veiculosService: VeiculosService,
               private visitantesService: VisitantesService,
               private router: Router,
               private route: ActivatedRoute,
@@ -41,17 +46,17 @@ export class VisitaComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.authenticationService.currentUserValue){
-      this.codigo = this.route.snapshot.paramMap.get('codigo');
-      this.getResidenciaById(this.codigo);
+    if(!this.authenticationService.currentUserValue){
+      this.router.navigate(['/login']);
     }else{
-      this.router.navigate(['\login']);
+      this.codigo = this.route.snapshot.paramMap.get('codigo');
     }
 
   }
 
   onEnter(rg: string) {
     this.getVisitante(rg);
+    this.getVeiculoByVisitanteRg(rg);
   }
 
   getVisitante(rg: string){
@@ -60,15 +65,28 @@ export class VisitaComponent implements OnInit {
       this.visitantesService.getVisitante(rg, null)
         .subscribe(
           data=>{
+            this.idResp = data.id;
             this.nomeResp = data.nome.toUpperCase();
             this.enderecoResp = data.endereco.toUpperCase();
             this.numeroResp = data.numero;
             this.cidadeResp = data.cidade.toUpperCase();
             this.ufResp = data.uf.toUpperCase();
-        },err =>{
+          },err =>{
+            this.idResp = null;
+            this.nomeResp = null;
+            this.enderecoResp = null;
+            this.numeroResp = null;
+            this.cidadeResp = null;
+            this.ufResp = null;
             this.errorMessage = err;
-        });
+          });
     }
+  }
+
+  editVeiculo(codigo: string){
+
+    this.router.navigate(['/veiculo/', codigo]);
+
   }
 
   postVisita(visitaRequest: VisitaRequest){
@@ -92,7 +110,6 @@ export class VisitaComponent implements OnInit {
           this.residencias = data;
         }, err=>{
           this.errorMessage = err;
-          throw err;
         }
     );
     return this.residencias;
@@ -111,6 +128,22 @@ export class VisitaComponent implements OnInit {
           }
         );
     }
+  }
+
+  getVeiculoByVisitanteRg(rg: string){
+
+    this.veiculosService.getVeiculosByVisitanteRg(rg)
+      .subscribe(
+        data=>{
+          this.veiculosVinculados = data;
+        },err=>{
+          this.errorMessage = err;
+        }
+    );
+  }
+
+  pageChanged(event){
+    this.pag = event;
   }
 
 }
