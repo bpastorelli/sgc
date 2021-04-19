@@ -63,7 +63,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "sgc-tres-marias:build",
-            "proxyConfig": ""
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {

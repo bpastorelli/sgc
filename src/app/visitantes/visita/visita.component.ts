@@ -17,14 +17,18 @@ import { Veiculo } from './../../veiculos/veiculo.model';
 })
 export class VisitaComponent implements OnInit {
 
+  item: string;
   codigo: string;
   idResp: string;
+  placaResp: string;
   nomeResp: string;
   enderecoResp: string;
   numeroResp: string;
   cidadeResp: string;
   ufResp: string;
   errorMessage;
+
+  createVeiculo: boolean = false;
 
   pag : Number = 1;
   contador : Number = 5;
@@ -93,6 +97,8 @@ export class VisitaComponent implements OnInit {
 
     visitaRequest.residenciaId = this.codigo;
 
+    console.log(visitaRequest)
+
     this.visitantesService.postVisita(visitaRequest)
       .subscribe(data => {
           this.visita = data;
@@ -123,6 +129,9 @@ export class VisitaComponent implements OnInit {
         .subscribe(
           data=>{
             this.veiculo = data;
+            if(data == null){
+              this.createVeiculo = true;
+            }
           }, err=>{
             this.errorMessage = err;
           }
@@ -144,6 +153,11 @@ export class VisitaComponent implements OnInit {
 
   pageChanged(event){
     this.pag = event;
+  }
+
+  onCreate(event){
+    this.createVeiculo = false;
+    this.placaResp = event;
   }
 
 }

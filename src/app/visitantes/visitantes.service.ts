@@ -12,6 +12,8 @@ export class VisitantesService {
 
   constructor(private http: HttpClient) { }
 
+  stringJson: string;
+
   // Headers
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
