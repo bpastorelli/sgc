@@ -1,0 +1,64 @@
+<section class="content-header">
+  <section class="content">
+  <form #form="ngForm" novalidate>
+
+    <div class="col-sm-2 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Placa</label>
+        <input type="text" class="form-control" mask="AAA-AAAA" #placaPesquisa ngModel (ngModelChange)="placaPesquisa.value=$event.toUpperCase()" id="inputPlacaPesquisa"  placeholder="Placa">
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Marca</label>
+        <input type="text" class="form-control" #marcaPesquisa ngModel (ngModelChange)="marcaPesquisa.value=$event.toUpperCase()" id="inputMarcaPesquisa"  placeholder="Marca">
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Modelo</label>
+        <input type="text" class="form-control" #modeloPesquisa ngModel (ngModelChange)="modeloPesquisa.value=$event.toUpperCase()" id="inputModeloPesquisa"  placeholder="Modelo">
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-xs-2">
+      <button (click)="getVeiculos(placaPesquisa.value, marcaPesquisa.value, modeloPesquisa.value, 0)" class="btn btn-success pull-right"><i></i> Pesquisar
+      </button>
+    </div>
+
+    <section class="content">
+        <table class="table-striped">
+          <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Cor</th>
+                <th>Ano</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let veiculo of veiculos | paginate: { itemsPerPage: contador, currentPage: pag }">
+              <td class="textCenter"><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ formatPlaca(veiculo.placa.toUpperCase()) }}</div></td>
+              <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.marca }}</div></td>
+              <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.modelo }}</div></td>
+              <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.cor }}</div></td>
+              <td><div class="textCenter" (click)="editVeiculo(veiculo.id)">{{ veiculo.ano }}</div></td>
+            </tr>
+          </tbody>
+        </table>
+        <!--inclindo o controle de paginação.-->
+        <div style="padding: 20px;">
+          <div class="text-right">
+            <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo"></pagination-controls>
+          </div>
+        </div>
+    </section>
+   </form>
+  </section>
+</section>
+

@@ -1,7 +1,11 @@
+import { VeiculoVisita } from "../visita/veiculoVisita.model";
+
 export interface VisitaRequest{
 
-  rg: string;
-  cpf: string;
-  residenciaId: string;
+  cpf: string,
+  rg: string,
+  residenciaId: string,
+  placa: string,
+  veiculoVisita: VeiculoVisita
 
 }

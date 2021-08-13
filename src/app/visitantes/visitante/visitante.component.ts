@@ -3,9 +3,10 @@ import { Visitante } from '../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { CepService } from './../../cep/cepService.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { VeiculosService } from './../../veiculos/veiculos.service';
 import { VisitantesService } from './../visitantes.service';
-import { properties } from './../../../properties/properties';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { Veiculo } from 'src/app/veiculos/veiculo.model';
 
 @Component({
   selector: 'app-visitante',
@@ -19,7 +20,7 @@ export class VisitanteComponent implements OnInit {
   codigo: string;
   create: boolean = true;
   pag: number = 1;
-  contador: number = properties.itemsPerPage;
+  contador: number = 5;
   errorMessage;
 
   logradouroResp: string;
@@ -28,17 +29,19 @@ export class VisitanteComponent implements OnInit {
   ufResp: string;
 
   public cepResponse: Cep;
-  public visitante: Visitante;
+  public visit: Visitante;
   public visitantes: Visitante[];
+  public veiculosVinculados: Veiculo[];
   public situacaoCadastral = [
-        { id: 1, label: "Ativo" },
-        { id: 0, label: "Inativo" }]
+        { id: 1, label: "ATIVO" },
+        { id: 0, label: "INATIVO" }]
 
   constructor(
               private router: Router,
               private route: ActivatedRoute,
               private cepService: CepService,
               private visitantesService: VisitantesService,
+              private veiculosService: VeiculosService,
               private authenticationService: AuthenticationService
               ) { }
   ngOnInit() {
@@ -49,6 +52,7 @@ export class VisitanteComponent implements OnInit {
       if(this.codigo != "create" && this.codigo != "novo"){
           this.create = false;
           this.getVisitanteById(this.codigo);
+          this.getVeiculoByVisitanteId(this.codigo);
       }
     }else{
       this.router.navigate(['/login']);
@@ -58,10 +62,14 @@ export class VisitanteComponent implements OnInit {
 
   postVisitante(visitante: Visitante){
 
+    if(visitante.cpf != null)
+      visitante.cpf = visitante.cpf.replace('.','').replace('-','');
+
     this.visitantesService.postVisitante(visitante)
       .subscribe(data => {
-        this.visitante = data;
-        this.router.navigate(['/summary-add']);
+        this.visit = data;
+        this.id = data.id;
+        this.router.navigate(['/veiculo/novo/visitante/', this.id]);
     },err=>{
         this.errorMessage = err;
     });
@@ -70,9 +78,12 @@ export class VisitanteComponent implements OnInit {
 
   putVisitante(visitante: Visitante, id: string){
 
+    if(visitante.cpf != null)
+      visitante.cpf = visitante.cpf.replace('.','').replace('-','');
+
     this.visitantesService.putVisitante(visitante, id)
       .subscribe(data => {
-        this.visitante = data;
+        this.visit = data;
         this.router.navigate(['/summary-edit']);
     },err=>{
         this.errorMessage = err;
@@ -94,6 +105,26 @@ export class VisitanteComponent implements OnInit {
       }
     );
     return this.visitantes;
+
+  }
+
+  getVeiculoByVisitanteId(id: string){
+
+    this.veiculosService.getVeiculosByVisitanteId(id)
+      .subscribe(
+        data=>{
+          this.veiculosVinculados =  data;
+        },err=>{
+          this.errorMessage = err;
+        }
+
+      );
+
+  }
+
+  editVeiculo(codigo: string){
+
+    this.router.navigate(['/veiculo/', codigo]);
 
   }
 

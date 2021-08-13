@@ -1,3 +1,3 @@
 export const properties = {
-    itemsPerPage: 18,
+    itemsPerPage: 20,
 };

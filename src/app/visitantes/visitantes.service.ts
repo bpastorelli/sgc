@@ -4,13 +4,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Visita } from './visitas/visitas.model';
 import { Visitante } from './visitante.model';
 import { VisitaRequest } from './visita/visitaRequest.model';
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class VisitantesService {
 
   constructor(private http: HttpClient) { }
+
+  stringJson: string;
 
   // Headers
   httpOptions = {
@@ -76,6 +78,6 @@ export class VisitantesService {
         .pipe(
           map(response => response['data'])
         );
-    }
-
   }
+
+}

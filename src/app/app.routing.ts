@@ -1,3 +1,4 @@
+import { VeiculosComponent } from './veiculos/veiculos.component';
 import { Routes, RouterModule } from '@angular/router'
 
 import { AuthGuard } from './_helpers/auth.guard';
@@ -14,6 +15,7 @@ import { VisitanteComponent } from './visitantes/visitante/visitante.component';
 import { VisitasComponent } from './visitantes/visitas/visitas.component';
 import { VisitaComponent } from './visitantes/visita/visita.component';
 import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
+import { VeiculoComponent } from './veiculos/veiculo/veiculo.component';
 
 export const ROUTES: Routes = [
 
@@ -24,6 +26,9 @@ export const ROUTES: Routes = [
   { path: 'visitas', component: VisitasComponent },
   { path: 'visitante/:codigo', component: VisitanteComponent },
   { path: 'visitantes', component: VisitantesComponent },
+  { path: 'veiculo/:codigo', component: VeiculoComponent },
+  { path: 'veiculo/:acao/visitante/:codigo', component: VeiculoComponent },
+  { path: 'veiculos', component: VeiculosComponent },
   { path: 'morador/:codigo', component: MoradorComponent },
   { path: 'morador/residencia/:codigo', component: MoradorComponent },
   { path: 'morador/:acao/residencia/:codigo', component: MoradorComponent },
@@ -36,7 +41,7 @@ export const ROUTES: Routes = [
   { path: 'summary-visita', component: SummaryVisitaComponent },
 
   // otherwise redirect to home
-   //{ path: '**', redirectTo: 'login' }
+   //{ path: '**', redirectTo: '' }
 
 ];
 

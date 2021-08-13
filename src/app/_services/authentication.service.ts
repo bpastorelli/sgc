@@ -1,16 +1,18 @@
+import { AcessoModulo } from './../_models/acessoModulo';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from './../../environments/environment.prod';
+import { environment } from './../../environments/environment';
 import { User } from './../_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
+    public acessoModulo: Observable<AcessoModulo>;
     private router: Router;
 
     constructor(private http: HttpClient) {
@@ -28,8 +30,20 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user.token));
                 this.currentUserSubject.next(user);
+                this.acessos(user.id, 4);
                 return user;
             }));
+    }
+
+    acessos(idUsuario: number, idModulo: number) {
+        return this.http.get<any>(`${environment.apiUrl}/access/acessoModulo/busca?idUsuario=${idUsuario}&idModulo=${idModulo}`)
+          .subscribe(
+            data=>{
+              this.acessoModulo = data;
+            }, err=>{
+              console.log(err);
+            }
+          );
     }
 
     logout() {

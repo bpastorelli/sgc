@@ -1,72 +1,197 @@
-<!--Inicio do Form de Inclusão-->
-<section class="container">
-  <section class="Invoice">
+<section  class="content">
+
+  <!--Inicio Form de Edição-->
+  <section class="invoice" >
+
       <div *ngIf="errorMessage" class="alert alert-warning">
         <strong>Atenção! </strong>{{ errorMessage }}
       </div>
 
-        <form #formCreate="ngForm" novalidate>
+      <label class="labelPagina">
+        Incluir Visita
+      </label>
+      <form #formEdit="ngForm" novalidate>
 
-          <div class="row invoice-info">
-            <div class="col-xs-12">
-              <p class="control-label">Dados do visitante:</p>
-            </div>
+        <div class="row invoice-info">
+          <div class="col-sm-2 col-xs-6">
+            <input  class="form-control" type="hidden" [(ngModel)]="codigo"  #id name="id" maxlength="11" disabled placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
+          </div>
 
-            <div class="col-sm-2 col-xs-4">
-              <input class="form-control" #rg name="rg" (keyup.enter)="getVisitante(rg.value)" (blur)="getVisitante(rg.value)" (keyup.enter)="onEnter(rg.value)" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
-            </div>
-
-            <div class="col-sm-6 col-xs-12">
-              <input class="form-control" disabled name="nome" [(ngModel)]="nomeResp" required maxlength="50" placeholder="Nome" autocomplete="off">
-            </div>
+          <div>
 
             <div class="col-xs-12">
-              <p class="control-label">Endereço:</p>
+              <p class="control-label"> RG: </p>
+            </div>
+            <div class="col-sm-2 col-xs-2">
+              <input class="form-control" #rg style="font-weight:bold" ngModel (blur)="getVisitante(rg.value)" (blur)="getVeiculoByVisitanteRg(rg.value)" type="text" name="rg" maxlength="10" placeholder="RG" autocomplete="off">
             </div>
 
-            <div class="col-sm-6 col-xs-12">
-              <input class="form-control" disabled name="endereco" [(ngModel)]="enderecoResp" maxlength="50" placeholder="Endereço" autocomplete="off">
+            <div class="col-xs-12">
+              <p class="control-label"> Nome: </p>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+              <input class="form-control" #nome ngModel type="text" name="nome" disabled [(ngModel)]="nomeResp" maxlength="100" placeholder="Nome" autocomplete="off">
             </div>
 
-            <div class="col-sm-2 col-xs-12">
-              <input class="form-control" disabled name="numero" [(ngModel)]="numeroResp" maxlength="50" placeholder="Número" autocomplete="off">
+            <div class="col-xs-12">
+              <p class="control-label"> Logradouro: </p>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+              <input class="form-control" #endereco ngModel type="text" name="endereco" disabled [(ngModel)]="enderecoResp" maxlength="100" placeholder="Endereço" autocomplete="off">
+            </div>
+
+            <div class="col-sm-2 col-xs-6">
+              <input class="form-control" #numero ngModel type="text" name="numero" disabled [(ngModel)]="numeroResp" minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
               <p class="control-label">Cidade:</p>
             </div>
-
-            <div class="col-sm-6 col-xs-12">
-              <app-input errorMessage="Campo obrigatório!" label="Cidade">
-                <input class="form-control" disabled name="cidade" [(ngModel)]="cidadeResp" maxlength="50" placeholder="Cidade" autocomplete="off">
-              </app-input>
+            <div class="col-sm-4 col-xs-6">
+              <input class="form-control" #cidade ngModel type="text" name="cidade" disabled [(ngModel)]="cidadeResp"  maxlength="50" placeholder="Cidade" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
-              <p class="control-label">UF:</p>
+              <p class="control-label"> UF: </p>
             </div>
             <div class="col-sm-1 col-xs-6">
-              <app-input errorMessage="Campo obrigatório!" label="UF">
-                <input class="form-control" disabled name="uf" [(ngModel)]="ufResp" maxlength="2" placeholder="UF" autocomplete="off">
-              </app-input>
+              <input class="form-control" #uf name="uf" ngModel type="text" disabled [(ngModel)]="ufResp" maxlength="2" placeholder="UF" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
-              <p class="control-label">Dados do veículo:</p>
+              <p class="control-label"> Dados de veiculo: </p>
+            </div>
+            <div class="col-sm-2 col-xs-2">
+              <input class="form-control" (ngModelChange)="placa.value=$event.toUpperCase()" style="font-weight:bold" [(ngModel)]="placaResp" #placa mask="AAA-AAAA" (blur)="getVeiculo(placa.value)" (blur)="getVeiculo(placa.value)" type="text" name="placa" maxlength="8" placeholder="Placa" autocomplete="off">
             </div>
 
-            <div class="col-sm-2 col-xs-4">
-              <input class="form-control" #placa name="placa" (keyup.enter)="getVeiculo(placa.value)" (blur)="getVeiculo(placa.value)" ngModel minlength="8" maxlength="8" placeholder="Placa" autocomplete="off">
-            </div>
+        </div>
 
-            <!-- /.row -->
+        <div formGroupName="veiculo">
+          <div *ngIf="createVeiculo">
+            <div class="col-xs-12">
+              <p class="control-label"> Marca: </p>
             </div>
+            <div class="col-sm-4 col-xs-4">
+              <input class="form-control" (ngModelChange)="marca.value=$event.toUpperCase()" #marca ngModel type="text" name="marca" ngModel maxlength="20" placeholder="Marca" autocomplete="off">
+            </div>
+          </div>
+
+          <div *ngIf="createVeiculo">
+            <div class="col-xs-12">
+              <p class="control-label"> Modelo: </p>
+            </div>
+            <div *ngIf="createVeiculo" class="col-sm-4 col-xs-4">
+              <input class="form-control" (ngModelChange)="modelo.value=$event.toUpperCase()" #modelo ngModel type="text" name="modelo" ngModel maxlength="20" placeholder="Modelo" autocomplete="off">
+            </div>
+          </div>
+
+          <div *ngIf="createVeiculo">
+            <div class="col-xs-12">
+              <p class="control-label"> Cor: </p>
+            </div>
+            <div *ngIf="createVeiculo" class="col-sm-2 col-xs-4">
+              <input class="form-control" (ngModelChange)="cor.value=$event.toUpperCase()" #cor ngModel type="text" name="cor" ngModel maxlength="20" placeholder="Cor" autocomplete="off">
+            </div>
+          </div>
+
+          <div *ngIf="createVeiculo">
+            <div class="col-xs-12">
+              <p class="control-label"> Ano: </p>
+            </div>
+            <div *ngIf="createVeiculo" class="col-sm-2 col-xs-4">
+              <input class="form-control" #ano ngModel type="text" name="ano" ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+        <div>
+          <div class="row">
               <div class="col-xs-12">
-                <button class="pointer" (click)="postVisita(formCreate.value)" class="btn btn-success pull-right"
-                  [disabled]="!formCreate.valid"><i></i> Salvar
+                <button (click)="postVisita(formEdit.value)" class="btn btn-success pull-right"
+                [disabled]="!formEdit.valid"><i></i> Salvar
                 </button>
               </div>
-        </form>
-  </section>
-<!--Fim do Form de Inclusão-->
-</section>
+          </div>
+        </div>
+
+      </form>
+
+    <!--Fim Invoice-->
+    </section>
+
+    <!--Fim do Form de Edição-->
+    <section class="invoice">
+
+      <div class="col-xs-12">
+        <p class="control-label"><b>Veículos vinculados: selecione ou digite a Placa</b></p>
+      </div>
+      <table class="table-striped">
+
+        <thead>
+          <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Cor</th>
+              <th>Ano</th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let veiculo of veiculosVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.placa.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.marca.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.modelo.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.cor.toUpperCase() }}</div></td>
+            <td class="textCenter" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())"><div class="pointer">{{ veiculo.ano }}</div></td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <!--inclindo o controle de paginação.-->
+      <div style="padding: 20px;">
+        <div class="text-right">
+          <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+            previousLabel="Anterior"
+            nextLabel="Próximo">
+          </pagination-controls>
+        </div>
+      </div>
+
+    </section>
+ <!--Fim da Content-->
+ </section>
+
+ <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Localizar um visitante</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="false">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

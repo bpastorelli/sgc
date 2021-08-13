@@ -14,9 +14,9 @@ export class VisitasComponent implements OnInit {
   public visita: Visita;
   public visitas: Visita[];
   public situacaoVisita = [
-    { id: 2, label: "Todas" },
-    { id: 1, label: "Em aberto" },
-    { id: 0, label: "Encerradas" }]
+    { id: 2, label: "TODAS" },
+    { id: 1, label: "EM ABERTO" },
+    { id: 0, label: "ENCERRADAS" }]
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
@@ -92,6 +92,20 @@ export class VisitasComponent implements OnInit {
       return p1+"."+p2+"."+p3+"-"+p4
 
     }
+
+  }
+
+  formatPlaca(placa: string){
+
+    if(!placa)
+      return;
+
+    var p1 = placa.substring(0,3);
+    var p2 = placa.substring(3,7);
+
+    placa = `${p1}-${p2}`
+
+    return placa;
 
   }
 

@@ -291,6 +291,10 @@ th{
   text-align: center;
 }
 
+H1{
+  font-size: 14px;
+}
+
 .textCenter{
   text-align: center;
 }
@@ -416,6 +420,13 @@ pagination-controls{
   color: black;
   position: inherit;
 
+}
+
+.labelPagina{
+  font-size: 14px;
+  font: bold;
+  padding: 4px;
+  text-align: left;
 }
 
 a { cursor: pointer }

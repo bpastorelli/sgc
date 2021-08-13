@@ -1,0 +1,211 @@
+<section  class="content">
+
+  <!--Inicio Form de Edição-->
+  <section *ngIf="!create" class="invoice" >
+
+      <div *ngIf="errorMessage" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ errorMessage }}
+      </div>
+
+      <form #formEdit="ngForm" novalidate >
+
+        <label class="labelPagina">
+          Cadastro de Veículo
+        </label>
+
+        <div class="row invoice-info">
+          <div class="col-sm-2 col-xs-6">
+            <input  class="form-control" type="hidden" [(ngModel)]="veiculos.id"  #id name="id" maxlength="11" placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Placa: </p>
+          </div>
+          <div  class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="Nome">
+              <input class="form-control" type="text" mask="AAA-AAAA" [(ngModel)]="veiculos.placa" disabled #placa name="placa" required maxlength="8" placeholder="Placa" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Marca: </p>
+          </div>
+          <div  class="col-sm-6 col-xs-12">
+            <app-input-container errorMessage="Campo obrigatório!" label="Marca">
+              <input class="form-control" type="text" [(ngModel)]="veiculos.marca" (ngModelChange)="veiculos.marca=$event.toUpperCase()" required #marca name="marca" minlength="2" maxlength="50" placeholder="Marca" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Modelo: </p>
+          </div>
+          <div  class="col-sm-6 col-xs-12">
+            <app-input-container errorMessage="Campo obrigatório!" label="Modelo">
+              <input class="form-control" type="text" [(ngModel)]="veiculos.modelo" (ngModelChange)="veiculos.modelo=$event.toUpperCase()" required #modelo name="modelo" maxlength="50" placeholder="Modelo" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Cor: </p>
+          </div>
+          <div  class="col-sm-4 col-xs-12">
+            <app-input-container label="Cor">
+              <input class="form-control" type="text" [(ngModel)]="veiculos.cor" (ngModelChange)="veiculos.cor=$event.toUpperCase()" required #cor name="cor" maxlength="20" placeholder="Cor" autocomplete="on">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label">Ano:</p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <input class="form-control" name="ano" #ano [(ngModel)]="veiculos.ano" ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Situação: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <select
+                name="posicao"
+                id="posicao"
+                class="form-control"
+                [(ngModel)]="veiculos.posicao">
+                <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div *ngIf="!create">
+          <div class="row">
+              <div class="col-xs-12">
+                <button (click)="putVeiculo(formEdit.value, id.value)" class="btn btn-success pull-right"
+                [disabled]="!formEdit.valid"><i></i> Atualizar
+                </button>
+              </div>
+          </div>
+        </div>
+
+      </form>
+
+    <!--Fim Invoice-->
+  </section>
+
+  <!--Fim do Form de Edição-->
+  <section *ngIf="!create" class="invoice">
+
+      <div class="col-xs-12">
+        <p class="control-label"><b>Visitantes vinculados:</b></p>
+      </div>
+      <table class="table-striped">
+
+      </table>
+
+      <!--inclindo o controle de paginação.-->
+      <div style="padding: 20px;">
+        <div class="text-right">
+          <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+            previousLabel="Anterior"
+            nextLabel="Próximo">
+          </pagination-controls>
+        </div>
+      </div>
+
+    </section>
+
+    <!--Inicio do Form de Inclusão-->
+
+    <section *ngIf="create" class="invoice">
+
+      <div *ngIf="errorMessage" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ errorMessage }}
+      </div>
+
+        <form #formCreate="ngForm" novalidate>
+
+          <div class="row invoice-info">
+            <div class="col-xs-12">
+              <p class="control-label">Placa:</p>
+            </div>
+            <div class="col-sm-2 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório com mínimo 8 caracteres" label="Placa">
+                <input class="form-control" name="placa" mask="AAA-AAAA" #placa (ngModelChange)="placa.value=$event.toUpperCase()"  ngModel required maxlength="8" placeholder="Placa" autocomplete="off">
+              </app-input-container>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Marca: </p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <input class="form-control" name="marca" #marca (ngModelChange)="marca.value=$event.toUpperCase()" ngModel maxlength="50" placeholder="Marca" autocomplete="off">
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Modelo: </p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <app-input-container errorMessage="Campo obrigatório" label="Modelo">
+                <input class="form-control" name="modelo" #modelo (ngModelChange)="modelo.value=$event.toUpperCase()" ngModel required maxlength="50" placeholder="Modelo" autocomplete="off">
+              </app-input-container>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Cor: </p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <app-input-container label="Cor">
+                <input class="form-control" name="cor" #cor (ngModelChange)="cor.value=$event.toUpperCase()"  ngModel maxlength="20" placeholder="Cor" autocomplete="on">
+              </app-input-container>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Ano:</p>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <app-input-container label="Ano">
+                <input class="form-control" name="ano" #ano  ngModel maxlength="4" placeholder="Ano" autocomplete="on">
+              </app-input-container>
+            </div>
+
+            <div *ngIf="acao==='novo'" class="col-sm-2 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Visitante">
+                <input class="form-control" type="hidden" name="visitanteId" [(ngModel)]="codigo" minlength="1" placeholder="Código Visitante" autocomplete="off">
+              </app-input-container>
+            </div>
+
+          <!-- /.row -->
+          </div>
+
+          <div *ngIf="acao === 'novo'">
+            <div *ngIf="create" class="row">
+              <div class="col-xs-12">
+                <button class="pointer" (click)="postVeiculo(formCreate.value)" class="btn btn-success pull-right"
+                  [disabled]="!formCreate.valid"><i></i> Salvar
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div style="height: 34px;">
+
+          </div>
+
+        </form>
+
+  <!--Fim do Form de Inclusão-->
+  </section>
+
+
+ <!--Fim da Content-->
+ </section>
+
+
+
+
+
+
+
+
+
+

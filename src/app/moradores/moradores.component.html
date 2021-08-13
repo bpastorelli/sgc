@@ -1,4 +1,5 @@
 <section class="content-header">
+
   <section class="content">
     <form #form="ngForm" novalidate>
 
@@ -35,22 +36,22 @@
       </button>
     </div>
 
-    <div class="container">
+    <section class="content">
       <table class="table-striped">
           <thead>
-            <tr class="row">
-                <th style="width: 6px;" scope="col"></th>
-                <th scope="col">ID</th>
-                <th scope="col">Nome</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">CPF</th>
-                <th scope="col">RG</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Celular</th>
+            <tr>
+              <th style="width: 6px;" scope="col"></th>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">E-mail</th>
+              <th scope="col">CPF</th>
+              <th scope="col">RG</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Celular</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="row" *ngFor="let morador of moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr *ngFor="let morador of moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" ><img *ngIf="morador.associado == 1" class="img" src="assets/img/balls/verde.png">
                                       <img *ngIf="morador.associado != 1" class="img" src="assets/img/balls/vermelho.png"></td>
               <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ formatId(morador.id, 6) }}</div></td>
@@ -63,8 +64,8 @@
             </tr>
           </tbody>
         </table>
-      </div>
-        <!--inclindo o controle de paginação.-->
+
+      <!--inclindo o controle de paginação.-->
       <div style="padding: 20px;">
         <div class="text-right">
           <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
@@ -73,6 +74,8 @@
           ></pagination-controls>
         </div>
       </div>
+
+    </section>
     </form>
   </section>
 </section>
