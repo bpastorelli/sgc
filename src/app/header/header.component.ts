@@ -1,3 +1,4 @@
+import { AcessoModulo } from './../_models/acessoModulo';
 import { LoginComponent } from './../login/login.component';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
@@ -11,8 +12,10 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
+
   currentUser: User;
   isLoggedIn$: Observable<boolean>;
+  acessoModulos: AcessoModulo[];
   nome: string;
   menuMoradores;
   menuResidencias;
@@ -27,8 +30,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-      this.nome = `Olá ${this.currentUser.nome}!`;
-      this.montaMenu();
+    this.authenticationService.acessos(this.currentUser.id, true)
+    .subscribe(
+      data=>{
+        this.acessoModulos = data;
+      }, err=>{
+        console.log(err);
+      }
+    );
+
+    this.nome = `Olá ${this.currentUser.nome}!`;
 
    }
 
@@ -38,28 +49,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  montaMenu(){
+  montaMenu(acesso: boolean){
 
-    this.menuMoradores =
-      `<li routerLink="active"><a [routerLink]="['/moradores']"/> Moradores</a>
-          <ul>
-            <li routerLink="active"><a [routerLink]="['morador/novo']"> Incluir</a></li>
-            <li routerLink="active"><a [routerLink]="['/moradores']"> Moradores</a>
-          </ul>
-       </li>
-        <li routerLink="active"><a [routerLink]="['/residencias']"> Residência</a>
-          <ul>
-            <li routerLink="active"><a [routerLink]="['residencia/create']"> Incluir</a></li>
-            <li routerLink="active"><a [routerLink]="['/residencias']"> Residências</a>
-          </ul>
-        </li>
-        <li routerLink="active"><a [routerLink]="['/visitantes']"> Visitante</a>
-          <ul>
-            <li routerLink="active"><a [routerLink]="['visitante/create']"> Incluir</a></li>
-            <li routerLink="active"><a [routerLink]="['/visitas']"> Visitas</a></li>
-            <li routerLink="active"><a [routerLink]="['/visitantes']"> Visitantes</a>
-          </ul>
-        </li>`;
+      return this.authenticationService.acessos(this.currentUser.id, acesso);
 
   }
 

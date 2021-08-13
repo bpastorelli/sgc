@@ -11,13 +11,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
         <ul class="menu">
-            <li routerLink="active"><a [routerLink]="['/moradores']"> Moradores</a>
-              <ul>
-                <li routerLink="active"><a [routerLink]="['/morador/novo']"> Incluir</a></li>
-                <li routerLink="active"><a [routerLink]="['/moradores']"> Moradores</a>
-              </ul>
+            <li *ngFor="let modulo of acessoModulos" routerLink="active"><a [routerLink]="[modulo.path]"> {{ modulo.descricao }}</a>
             </li>
-            <li routerLink="active"><a [routerLink]="['/residencias']"> Residência</a>
+            <!-- <li routerLink="active"><a [routerLink]="['/residencias']"> Residência</a>
               <ul>
                 <li routerLink="active"><a [routerLink]="['/residencia/create']"> Incluir</a></li>
                 <li routerLink="active"><a [routerLink]="['/residencias']"> Residências</a>
@@ -34,7 +30,7 @@
               <ul>
                 <li routerLink="active"><a [routerLink]="['/veiculos']"> Veiculos</a></li>
               </ul>
-            </li>
+            </li>-->
         </ul>
       </div>
       <!-- /.navbar-collapse -->
