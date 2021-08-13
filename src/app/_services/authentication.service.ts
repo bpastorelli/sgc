@@ -10,9 +10,10 @@ import { User } from './../_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+    private acesso: boolean;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-    public acessoModulo: Observable<AcessoModulo>;
+    public acessoModulos: AcessoModulo[];
     private router: Router;
 
     constructor(private http: HttpClient) {
@@ -30,20 +31,12 @@ export class AuthenticationService {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user.token));
                 this.currentUserSubject.next(user);
-                this.acessos(user.id, 4);
                 return user;
             }));
     }
 
-    acessos(idUsuario: number, idModulo: number) {
-        return this.http.get<any>(`${environment.apiUrl}/access/acessoModulo/busca?idUsuario=${idUsuario}&idModulo=${idModulo}`)
-          .subscribe(
-            data=>{
-              this.acessoModulo = data;
-            }, err=>{
-              console.log(err);
-            }
-          );
+    acessos(idUsuario: number, acesso: boolean) : Observable<AcessoModulo[]> {
+        return this.http.get<AcessoModulo[]>(`${environment.apiUrl}/access/acessoModulo/buscaModulos?idUsuario=${idUsuario}&acesso=${acesso}`)
     }
 
     logout() {
