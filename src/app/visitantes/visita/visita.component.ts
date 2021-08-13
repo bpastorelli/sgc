@@ -1,6 +1,7 @@
 import { Visitante } from './../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { Visita } from './../visitas/visitas.model';
+import { Veiculo } from './../../veiculos/veiculo.model';
 import { Residencias } from './../../residencias/residencias.model';
 import { VisitaRequest } from './../visita/visitaRequest.model';
 import { ResidenciasService } from './../../residencias/residencias.service';
@@ -9,7 +10,6 @@ import { VisitantesService } from './../visitantes.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './../../_services/authentication.service';
-import { Veiculo } from './../../veiculos/veiculo.model';
 
 @Component({
   selector: 'app-visita',
@@ -97,7 +97,8 @@ export class VisitaComponent implements OnInit {
 
     visitaRequest.residenciaId = this.codigo;
 
-    console.log(visitaRequest)
+    if(typeof(visitaRequest.placa) === 'undefined')
+      visitaRequest.placa = "";
 
     this.visitantesService.postVisita(visitaRequest)
       .subscribe(data => {
@@ -124,7 +125,7 @@ export class VisitaComponent implements OnInit {
 
   getVeiculo(placa: string){
 
-    if(placa.length > 0){
+    if(placa.length > 0 || placa == null){
       this.veiculoService.getVeiculoByPlaca(placa)
         .subscribe(
           data=>{
@@ -155,9 +156,11 @@ export class VisitaComponent implements OnInit {
     this.pag = event;
   }
 
-  onCreate(event){
+  selecionaVeiculo(data){
     this.createVeiculo = false;
-    this.placaResp = event;
+    this.placaResp = data;
   }
+
+
 
 }

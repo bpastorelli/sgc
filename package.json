@@ -23,6 +23,7 @@
     "@azure/ng-deploy": "^0.2.3",
     "bootstrap": "^3.3.7",
     "cors": "^2.8.5",
+    "ng-bootstrap-modal": "^1.1.19",
     "ng-form-group": "^1.4.2",
     "ng-mask": "^3.1.1",
     "ngx-mask": "^11.1.5",

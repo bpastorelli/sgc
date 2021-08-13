@@ -141,11 +141,11 @@
           </thead>
         <tbody>
           <tr *ngFor="let veiculo of veiculosVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
-            <td class="textCenter"><div class="pointer" (click)="onCreate(veiculo.placa.toUpperCase())">{{ veiculo.placa.toUpperCase() }}</div></td>
-            <td><div class="pointer">{{ veiculo.marca.toUpperCase() }}</div></td>
-            <td><div class="pointer">{{ veiculo.modelo.toUpperCase() }}</div></td>
-            <td><div class="pointer">{{ veiculo.cor.toUpperCase() }}</div></td>
-            <td class="textCenter"><div class="pointer">{{ veiculo.ano }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.placa.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.marca.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.modelo.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.cor.toUpperCase() }}</div></td>
+            <td class="textCenter" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())"><div class="pointer">{{ veiculo.ano }}</div></td>
           </tr>
         </tbody>
 
@@ -164,6 +164,27 @@
     </section>
  <!--Fim da Content-->
  </section>
+
+ <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Localizar um visitante</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="false">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
