@@ -36,7 +36,6 @@ export class ResidenciasComponent implements OnInit {
     this.residenciasService.residencias(codigo, endereco, numero)
     .subscribe(
       data=>{
-        console.log(data);
         this.residencias = data;
       }, err=>{
         console.log(err);

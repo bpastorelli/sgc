@@ -1,11 +1,12 @@
+import { AcessoFuncionalidade } from './../_models/acessoFuncionalidade';
 import { AcessoModulo } from './../_models/acessoModulo';
-import { LoginComponent } from './../login/login.component';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_models/user';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Observable } from 'rxjs/Observable';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,9 @@ export class HeaderComponent implements OnInit {
   currentUser: User;
   isLoggedIn$: Observable<boolean>;
   acessoModulos: AcessoModulo[];
+  funcionalidades: AcessoFuncionalidade[];
+  funcionalidadesFiltro: AcessoFuncionalidade[];
+  acessoFuncionalidades: AcessoFuncionalidade[];
   nome: string;
   menuMoradores;
   menuResidencias;
@@ -30,18 +34,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.authenticationService.acessos(this.currentUser.id, true)
-    .subscribe(
-      data=>{
-        this.acessoModulos = data;
-      }, err=>{
-        console.log(err);
-      }
-    );
-
+    this.montaMenuModulos(true);
+    this.buscaFuncionalidades();
     this.nome = `Olá ${this.currentUser.nome}!`;
 
-   }
+  }
 
   logout(){
 
@@ -49,9 +46,46 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  montaMenu(acesso: boolean){
+  montaMenuModulos(acesso: boolean){
 
-      return this.authenticationService.acessos(this.currentUser.id, acesso);
+    console.log(this.currentUser.id);
+
+    this.authenticationService.acessosModulos(this.currentUser.id, true)
+      .subscribe(
+        data=>{
+          this.acessoModulos = data;
+        }, err=>{
+          console.log(err);
+        }
+      );
+
+  }
+
+  buscaFuncionalidades(){
+
+    console.log(this.currentUser.id);
+
+    this.authenticationService.acessosFuncionalidades(this.currentUser.id, 0, true)
+      .subscribe(
+        data=>{
+          this.acessoFuncionalidades = data;
+          localStorage.setItem('funcionalidades', JSON.stringify(this.acessoFuncionalidades));
+        }, err=>{
+          console.log(err);
+        }
+      );
+
+  }
+
+  montaMenuFuncionalidades(idModulo: number){
+
+
+    console.log(idModulo);
+    var item = localStorage.getItem('funcionalidades');
+    this.funcionalidades = JSON.parse(item);
+
+    this.funcionalidadesFiltro = this.funcionalidades.filter(p => p.idModulo == idModulo);
+    console.log(this.funcionalidadesFiltro);
 
   }
 

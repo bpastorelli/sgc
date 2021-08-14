@@ -3,6 +3,7 @@ import { CepService } from './cep/cepService.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { CallbackPipe } from './callback.pipe';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -58,7 +59,8 @@ import { VeiculoComponent } from './veiculos/veiculo/veiculo.component'
     SummaryVisitaComponent,
     VeiculosComponent,
     VeiculoComponent,
-    UppercaseInputComponent
+    UppercaseInputComponent,
+    CallbackPipe
   ],
   imports: [
     BrowserModule,

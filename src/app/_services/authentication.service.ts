@@ -1,3 +1,4 @@
+import { AcessoFuncionalidade } from './../_models/acessoFuncionalidade';
 import { AcessoModulo } from './../_models/acessoModulo';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -14,6 +15,7 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public acessoModulos: AcessoModulo[];
+    public acessoFuncionalidades: AcessoFuncionalidade[];
     private router: Router;
 
     constructor(private http: HttpClient) {
@@ -35,8 +37,12 @@ export class AuthenticationService {
             }));
     }
 
-    acessos(idUsuario: number, acesso: boolean) : Observable<AcessoModulo[]> {
+    acessosModulos(idUsuario: number, acesso: boolean) : Observable<AcessoModulo[]> {
         return this.http.get<AcessoModulo[]>(`${environment.apiUrl}/access/acessoModulo/buscaModulos?idUsuario=${idUsuario}&acesso=${acesso}`)
+    }
+
+    acessosFuncionalidades(idUsuario: number, idModulo: number, acesso: boolean) : Observable<AcessoFuncionalidade[]> {
+      return this.http.get<AcessoFuncionalidade[]>(`${environment.apiUrl}/access/acessoFuncionalidade/filtro?idUsuario=${idUsuario}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=10`)
     }
 
     logout() {
