@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
 
     this.montaMenuModulos(true);
     this.buscaFuncionalidades();
+    this.montaMenuFuncionalidades(14);
     this.nome = `Olá ${this.currentUser.nome}!`;
 
   }
@@ -47,8 +48,6 @@ export class HeaderComponent implements OnInit {
   }
 
   montaMenuModulos(acesso: boolean){
-
-    console.log(this.currentUser.id);
 
     this.authenticationService.acessosModulos(this.currentUser.id, true)
       .subscribe(
@@ -62,8 +61,6 @@ export class HeaderComponent implements OnInit {
   }
 
   buscaFuncionalidades(){
-
-    console.log(this.currentUser.id);
 
     this.authenticationService.acessosFuncionalidades(this.currentUser.id, 0, true)
       .subscribe(
@@ -79,13 +76,14 @@ export class HeaderComponent implements OnInit {
 
   montaMenuFuncionalidades(idModulo: number){
 
+      console.log(idModulo);
+      var item = localStorage.getItem('funcionalidades');
+      this.funcionalidades = JSON.parse(item);
 
-    console.log(idModulo);
-    var item = localStorage.getItem('funcionalidades');
-    this.funcionalidades = JSON.parse(item);
+      console.log(this.funcionalidades);
 
-    this.funcionalidadesFiltro = this.funcionalidades.filter(p => p.idModulo == idModulo);
-    console.log(this.funcionalidadesFiltro);
+      this.funcionalidadesFiltro = this.funcionalidades.filter(p => p.idModulo == idModulo);
+      console.log(this.funcionalidadesFiltro);
 
   }
 
