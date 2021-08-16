@@ -32,6 +32,7 @@ export class AuthenticationService {
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user.token));
+                localStorage.setItem('idUsuario', JSON.stringify(user.id))
                 this.currentUserSubject.next(user);
                 return user;
             }));
@@ -42,7 +43,7 @@ export class AuthenticationService {
     }
 
     acessosFuncionalidades(idUsuario: number, idModulo: number, acesso: boolean) : Observable<AcessoFuncionalidade[]> {
-      return this.http.get<AcessoFuncionalidade[]>(`${environment.apiUrl}/access/acessoFuncionalidade/filtro?idUsuario=${idUsuario}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=10`)
+      return this.http.get<AcessoFuncionalidade[]>(`${environment.apiUrl}/access/acessoFuncionalidade/filtro?idUsuario=${idUsuario}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=1000000`)
     }
 
     logout() {

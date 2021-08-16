@@ -18,10 +18,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   acessoModulos: AcessoModulo[] = [];
   funcionalidades: AcessoFuncionalidade[];
-  funcionalidadesFiltro: AcessoFuncionalidade[];
   acessoFuncionalidades: AcessoFuncionalidade[];
-
-  lista: ListaFuncionalidades[] = [];
 
   nome: string;
   menuMoradores;
@@ -38,8 +35,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
     this.buscaFuncionalidades();
-    this.montaMenuModulos(true);
-    this.nome = `Olá ${this.currentUser.nome}!`;
+    this.montaMenuModulosFuncionalidades(true);
+    this.nome = `Olá ${this.currentUser.nome.toLowerCase()}!`;
 
   }
 
@@ -49,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  montaMenuModulos(acesso: boolean){
+  montaMenuModulosFuncionalidades(acesso: boolean){
 
     //Busca os módulos do usuário
     this.authenticationService.acessosModulos(1, true)
@@ -58,7 +55,6 @@ export class HeaderComponent implements OnInit {
           data.forEach(m => {
             this.acessoModulos.push(m);
             this.acessoModulos[this.index(m.idModulo)].funcionalidades = this.montaMenuFuncionalidades(m.idModulo);
-            console.log(this.acessoModulos);
           });
         }, err=>{
           console.log(err);
@@ -79,8 +75,6 @@ export class HeaderComponent implements OnInit {
         }
       );
 
-      console.log(this.acessoFuncionalidades);
-
   }
 
   montaMenuFuncionalidades(idModulo: number){
@@ -88,7 +82,7 @@ export class HeaderComponent implements OnInit {
       var item = localStorage.getItem('funcionalidades');
       this.funcionalidades = JSON.parse(item);
 
-      return this.funcionalidades.filter(p => p.idModulo == idModulo);
+      return this.funcionalidades.filter(p => p.idModulo == idModulo && p.acesso == true);
 
   }
 
@@ -98,7 +92,6 @@ export class HeaderComponent implements OnInit {
     item = this.acessoModulos.filter(p => p.idModulo == idModulo);
 
     var index = this.acessoModulos.indexOf(item[0]);
-    console.log(`O index de ${idModulo} é ${index}`);
     return index;
 
   }
