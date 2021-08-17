@@ -1,3 +1,4 @@
+import { ModulosComponent } from './modulos/modulos.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { Routes, RouterModule } from '@angular/router'
 
@@ -36,6 +37,7 @@ export const ROUTES: Routes = [
   { path: 'residencia/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao/morador/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao', component: ResidenciaComponent },
+  { path: 'modulos', component: ModulosComponent},
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },
   { path: 'summary-visita', component: SummaryVisitaComponent },

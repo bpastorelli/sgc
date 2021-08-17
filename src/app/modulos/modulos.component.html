@@ -1,0 +1,52 @@
+<section class="content-header">
+
+  <section class="content">
+
+  <form #form="ngForm" novalidate>
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Descrição</label>
+        <input type="text" class="form-control" #descricaoPesquisa id="inputDescricaoPesquisa"  placeholder="Descrição">
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-xs-2">
+      <button (click)="getModulos(0, descricaoPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      </button>
+    </div>
+
+    <section class="content">
+        <table class="table-striped">
+          <thead>
+            <tr>
+                <th><span>ID</span></th>
+                <th>Descrição</th>
+                <th>Path</th>
+                <th>Posição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let modulo of modulos | paginate: { itemsPerPage: contador, currentPage: pag }">
+              <td class="textCenter"><div class="pointer">{{ formatId(modulo.id, 6) }}</div></td>
+              <td><div class="pointer">{{ modulo.descricao.toUpperCase() }}</div></td>
+              <td class="textCenter"><div class="pointer">{{ modulo.pathModulo.toLowerCase() }}</div></td>
+              <td><div class="pointer">{{ posicaoDescricao(modulo.posicao) }}</div></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!--inclindo o controle de paginação.-->
+        <div style="padding: 20px;">
+          <div class="text-right">
+            <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo"></pagination-controls>
+          </div>
+        </div>
+
+    </section>
+   </form>
+  </section>
+</section>
+

@@ -16,14 +16,6 @@
                 <li *ngFor="let funcionalidade of modulo.funcionalidades" routerLink="active"><a [routerLink]="[funcionalidade.path]"> {{ funcionalidade.descricao }}</a></li>
               </ul>
             </li>
-            <!--
-            <li routerLink="active"><a [routerLink]="['/visitantes']"> Visitante</a>
-              <ul>
-                <li routerLink="active"><a [routerLink]="['/visitante/create']"> Incluir</a></li>
-                <li routerLink="active"><a [routerLink]="['/visitas']"> Visitas</a></li>
-                <li routerLink="active"><a [routerLink]="['/visitantes']"> Visitantes</a>
-              </ul>
-            </li>-->
         </ul>
       </div>
       <!-- /.navbar-collapse -->

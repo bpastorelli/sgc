@@ -1,3 +1,4 @@
+import { ModulosService } from './modulos/modulos.service';
 import { CepComponent } from './cep/cep.component';
 import { CepService } from './cep/cepService.service';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -37,7 +38,8 @@ import { VisitanteComponent } from './visitantes/visitante/visitante.component';
 import { VisitasComponent } from './visitantes/visitas/visitas.component';
 import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
-import { VeiculoComponent } from './veiculos/veiculo/veiculo.component'
+import { VeiculoComponent } from './veiculos/veiculo/veiculo.component';
+import { ModulosComponent } from './modulos/modulos.component'
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { VeiculoComponent } from './veiculos/veiculo/veiculo.component'
     VeiculosComponent,
     VeiculoComponent,
     UppercaseInputComponent,
-    CallbackPipe
+    CallbackPipe,
+    ModulosComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ import { VeiculoComponent } from './veiculos/veiculo/veiculo.component'
     VisitantesService,
     VeiculosService,
     CepService,
+    ModulosService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
