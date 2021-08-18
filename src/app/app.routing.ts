@@ -1,4 +1,3 @@
-import { ModulosComponent } from './modulos/modulos.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { Routes, RouterModule } from '@angular/router'
 
@@ -17,6 +16,8 @@ import { VisitasComponent } from './visitantes/visitas/visitas.component';
 import { VisitaComponent } from './visitantes/visita/visita.component';
 import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 import { VeiculoComponent } from './veiculos/veiculo/veiculo.component';
+import { ModuloComponent } from './modulos/modulo/modulo.component';
+import { ModulosComponent } from './modulos/modulos.component';
 
 export const ROUTES: Routes = [
 
@@ -37,6 +38,7 @@ export const ROUTES: Routes = [
   { path: 'residencia/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao/morador/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao', component: ResidenciaComponent },
+  { path: 'modulo/:codigo', component: ModuloComponent},
   { path: 'modulos', component: ModulosComponent},
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },

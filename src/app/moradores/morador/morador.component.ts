@@ -91,7 +91,6 @@ export class MoradorComponent implements OnInit {
       .subscribe(data => {
         this.mor = data;
         this.id = data.id;
-        console.log(`Residencia id: ${this.mor.residenciaId}`)
         if(this.mor.residenciaId != null)
           this.router.navigate([`/summary-edit`]);
         else

@@ -87,8 +87,6 @@ export class ResidenciaComponent implements OnInit {
 
   putResidencia(residencia: Residencias, id: string){
 
-    console.log(`Código de residecia ${id}`)
-
     this.residenciaService.putResidencia(residencia, id)
       .subscribe(data => {
         this.residencia = data;

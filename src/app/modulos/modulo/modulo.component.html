@@ -1,0 +1,131 @@
+<section  class="content">
+
+  <!--Inicio Form de Edição-->
+  <section *ngIf="!create" class="invoice" >
+
+      <div *ngIf="errorMessage" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ errorMessage }}
+      </div>
+
+      <label class="labelPagina">
+        Cadastro de Módulo
+      </label>
+      <form #formEdit="ngForm" novalidate *ngFor="let modulo of modulos">
+
+        <div class="row invoice-info">
+
+          <div class="col-xs-12">
+            <p class="control-label"> Descrição: </p>
+          </div>
+          <div  class="col-sm-6 col-xs-12">
+            <app-input-container errorMessage="Campo obrigatório!" label="Descrição">
+              <input class="form-control" type="text" [(ngModel)]="modulo.descricao" #descricao name="descricao" required minlength="5" maxlength="30" placeholder="Descrição" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Path do Módulo: </p>
+          </div>
+          <div  class="col-sm-4 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="Path">
+              <input class="form-control" type="text" [(ngModel)]="modulo.pathModulo" (ngModelChange)="modulo.descricao=$event.toLowerCase()"  #pathModulo name="pathModulo" required minlength="5" maxlength="40" placeholder="Path" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Situação: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <select
+                name="posicao"
+                id="posicao"
+                class="form-control"
+                [(ngModel)]="modulo.posicao">
+                <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div *ngIf="!create">
+          <div class="row">
+              <div class="col-xs-11">
+                <button (click)="putModulo(formEdit.value)" class="btn btn-success pull-right"
+                [disabled]="!formEdit.valid"><i></i> Atualizar
+                </button>
+                <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                </button>
+              </div>
+          </div>
+        </div>
+
+      </form>
+
+  <!--Fim Invoice-->
+  </section>
+
+  <!--Fim do Form de Edição-->
+
+  <!--Inicio do Form de Inclusão-->
+  <section *ngIf="create" class="invoice">
+
+      <div *ngIf="errorMessage" class="alert alert-warning">
+          <strong>Atenção! </strong>{{ errorMessage }}
+      </div>
+      <label class="labelPagina">
+        Cadastro de Módulo
+      </label>
+      <form #formCreate="ngForm" novalidate>
+
+            <div class="row invoice-info">
+
+              <div class="col-xs-12">
+                <p class="control-label"> Nome: </p>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="Nome">
+                  <input class="form-control" name="descricao" #descricao ngModel required minlength="5" maxlength="30" placeholder="Descrição" autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Path do Módulo: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="Path">
+                  <input class="form-control" name="pathModulo" #pathModulo ngModel required minlength="5" maxlength="30" placeholder="Path"  autocomplete="off">
+                </app-input-container>
+              </div>
+
+            <!-- /.row -->
+            </div>
+
+            <div *ngIf="create">
+              <div class="row">
+                  <div class="col-xs-11">
+                    <button (click)="postModulo(formCreate.value)" class="btn btn-success pull-right"
+                    [disabled]="!formCreate.valid"><i></i> Salvar
+                    </button>
+                    <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                    </button>
+                  </div>
+              </div>
+            </div>
+
+      </form>
+
+  <!--Fim do Form de Inclusão-->
+  </section>
+
+ <!--Fim da Content-->
+ </section>
+
+
+
+
+
+
+
+
+
+

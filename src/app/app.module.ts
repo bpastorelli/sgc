@@ -39,7 +39,8 @@ import { VisitasComponent } from './visitantes/visitas/visitas.component';
 import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { VeiculoComponent } from './veiculos/veiculo/veiculo.component';
-import { ModulosComponent } from './modulos/modulos.component'
+import { ModulosComponent } from './modulos/modulos.component';
+import { ModuloComponent } from './modulos/modulo/modulo.component'
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ModulosComponent } from './modulos/modulos.component'
     VeiculoComponent,
     UppercaseInputComponent,
     CallbackPipe,
-    ModulosComponent
+    ModulosComponent,
+    ModuloComponent
   ],
   imports: [
     BrowserModule,
