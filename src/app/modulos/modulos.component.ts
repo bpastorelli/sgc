@@ -25,16 +25,16 @@ export class ModulosComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-      this.getModulos(0, null);
+      this.getModulos(0, null, null);
     }else{
       this.router.navigate(['/login']);
     }
 
   }
 
-  getModulos(id: number, descricao: string){
+  getModulos(id: number, descricao: string, path: string){
 
-    this.modulosService.getModulos(id, descricao)
+    this.modulosService.getModulos(id, descricao, path)
       .subscribe(
         data=>{
           this.modulos = data;
@@ -57,6 +57,12 @@ export class ModulosComponent implements OnInit {
   posicaoDescricao(posicao: number){
 
     return posicao == 1 ? "ATIVO" : "INATIVO";
+
+  }
+
+  editModulo(codigo: string){
+
+    this.router.navigate([`/modulo/`, codigo])
 
   }
 
