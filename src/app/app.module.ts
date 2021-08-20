@@ -1,3 +1,4 @@
+import { AcessoFuncionalidadeService } from './acessos-funcionalidades/acessos-funcionalidades.service';
 import { ModulosService } from './modulos/modulos.service';
 import { CepComponent } from './cep/cep.component';
 import { CepService } from './cep/cepService.service';
@@ -40,7 +41,10 @@ import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { VeiculoComponent } from './veiculos/veiculo/veiculo.component';
 import { ModulosComponent } from './modulos/modulos.component';
-import { ModuloComponent } from './modulos/modulo/modulo.component'
+import { ModuloComponent } from './modulos/modulo/modulo.component';
+import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,8 @@ import { ModuloComponent } from './modulos/modulo/modulo.component'
     UppercaseInputComponent,
     CallbackPipe,
     ModulosComponent,
-    ModuloComponent
+    ModuloComponent,
+    AcessosFuncionalidadesComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,9 @@ import { ModuloComponent } from './modulos/modulo/modulo.component'
     NgxPaginationModule,
     NgxMaskModule.forRoot(),
     appRoutingModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    BrowserAnimationsModule,
+    CdkTableModule,
   ],
   providers: [
     MoradorService,
@@ -86,6 +93,7 @@ import { ModuloComponent } from './modulos/modulo/modulo.component'
     VeiculosService,
     CepService,
     ModulosService,
+    AcessoFuncionalidadeService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
