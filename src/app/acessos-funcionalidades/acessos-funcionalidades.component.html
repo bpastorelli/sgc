@@ -48,7 +48,7 @@
       <div style="width: 70%;">
         <div class="row">
             <div class="col-xs-11">
-              <button (click)="putAcessos(form.value, idUsuario, idModulo )" class="btn btn-success pull-right"
+              <button (click)="putAcessos(myForm.value, idUsuario, idModulo )" class="btn btn-success pull-right"
               [disabled]="!form.valid"><i></i> Salvar
               </button>
               <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -59,7 +59,15 @@
 
     <br>
 
+    <!--<form [formGroup]="myForm">
+      <div *ngFor="let data of perfilFuncionalidades">
+
+        <input type="checkbox" (change)="onChange(data, $event.target.checked)"> {{data.acesso}}<br>
+      </div>
+    </form>-->
+
     <section class="content">
+      <form [formGroup]="myForm">
         <table ngModel class="table-striped" style="width: 70%;">
           <thead>
             <tr>
@@ -72,20 +80,18 @@
             <tr  *ngFor="let func of perfilFuncionalidades | paginate: { itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" >
                 <div class="pointer">{{ formatId(func.idFuncionalidade, 6) }}</div>
-                <input type="hidden" ngModel #idFuncionalidade [value]="func.idFuncionalidade">
               </td>
               <td>
                   <div class="pointer">{{ func.funcionalidade.toUpperCase() }}</div>
               </td>
               <td class="textCenter">
                 <div class="pointer">
-                  <input type="checkbox" name="acesso" id="acesso" ngModel #acesso [checked]="func.acesso" />
+                  <input type="checkbox" (change)="addAcesso(func, $event.target.checked)" name="acesso" id="acesso" #acesso [checked]="func.acesso" />
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-
 
         <!--inclindo o controle de paginação.-->
         <div style="padding: 20px; width: 70%;">
@@ -95,6 +101,7 @@
               nextLabel="Próximo"></pagination-controls>
           </div>
         </div>
+      </form>
 
     </section>
    </form>

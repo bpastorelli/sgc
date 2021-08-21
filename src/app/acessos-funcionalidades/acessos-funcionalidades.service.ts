@@ -50,4 +50,6 @@ export class AcessoFuncionalidadeService {
 
   }
 
+  getModulos(){}
+
 }

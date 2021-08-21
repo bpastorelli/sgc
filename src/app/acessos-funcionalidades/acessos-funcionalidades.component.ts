@@ -10,6 +10,7 @@ import { MoradoresService } from '../moradores/moradores.service';
 import { ModulosService } from './../modulos/modulos.service';
 import { Moradores } from '../moradores/moradores.model';
 import { AcessoFuncionalidade } from '../_models/acessoFuncionalidade';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-acessos-funcionalidades',
@@ -18,15 +19,17 @@ import { AcessoFuncionalidade } from '../_models/acessoFuncionalidade';
 
 export class AcessosFuncionalidadesComponent implements OnInit {
 
-  public modulos: Modulo[];
-  public usuarios: Moradores[];
-  public perfilFuncionalidades: PerfilFuncionalidade[];
+  myForm: FormGroup;
+  modulos: Modulo[];
+  usuarios: Moradores[];
+  perfilFuncionalidades: PerfilFuncionalidade[];
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
   constructor(
     private router: Router,
+    private fb: FormBuilder,
     private usuariosService: MoradoresService,
     private modulosService: ModulosService,
     private acessosFuncService: AcessoFuncionalidadeService,
@@ -37,6 +40,10 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
     this.getUsuarios(1);
     this.getModulos(0, null, null);
+
+    this.myForm = this.fb.group({
+      acessos: this.fb.array([])
+    });
 
   }
 
@@ -78,9 +85,9 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   }
 
-  putAcessos(acessos: AcessoFuncionalidade[], idUsuario: number, idModulo: number){
+  putAcessos(acesso: AcessoFuncionalidade, idUsuario: number, idModulo: number){
 
-    console.log(JSON.stringify(acessos));
+    console.log(JSON.stringify(acesso));
 
   }
 
@@ -97,6 +104,20 @@ export class AcessosFuncionalidadesComponent implements OnInit {
     var num = parseInt(n, 10);
     len = parseInt(len, 10);
     return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
+  }
+
+  addAcesso(acesso: AcessoFuncionalidade, isChecked: boolean) {
+    const acessosFormArray = <FormArray>this.myForm.controls.acessos;
+
+    if(isChecked) {
+       acesso.acesso = true;
+       acessosFormArray.push(new FormControl(acesso));
+       console.log(acessosFormArray.value);
+    } else {
+       acesso.acesso = false;
+       acessosFormArray.push(new FormControl(acesso));
+       console.log(acessosFormArray.value);
+    }
   }
 
 }
