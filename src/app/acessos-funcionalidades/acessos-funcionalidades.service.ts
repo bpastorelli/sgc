@@ -27,30 +27,6 @@ export class AcessoFuncionalidadeService {
 
   }
 
-  putModulo(modulo: PerfilFuncionalidade[], id: number){
-
-    return this.http.put<PerfilFuncionalidade>(`${environment.apiUrl}/access/modulo/idModulo/${id}`
-      , JSON.stringify(modulo)
-      , this.httpOptions)
-      .pipe(
-        map(response => response['data'])
-      );
-
-  }
-
-  postModulo(perfil: PerfilFuncionalidade[]){
-
-    console.log(perfil);
-
-    return this.http.post<PerfilFuncionalidade>(`${environment.apiUrl}/access/modulo/incluir`
-      , JSON.stringify(perfil)
-      , this.httpOptions)
-      .pipe(
-        map(response => response['data'])
-      );
-
-  }
-
   putAcessoFuncionalidade(perfil: PerfilFuncionalidadeRequest[], idUsuario: number, idModulo: number){
 
     return this.http.put<PerfilFuncionalidade>(`${environment.apiUrl}/access/acessoFuncionalidade/idUsuario/${idUsuario}/idModulo/${idModulo}`
@@ -61,7 +37,5 @@ export class AcessoFuncionalidadeService {
       );
 
   }
-
-  getModulos(){}
 
 }

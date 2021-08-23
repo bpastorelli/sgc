@@ -78,7 +78,6 @@
                   <div class="pointer">{{ func.funcionalidade.toUpperCase() }}</div>
               </td>
               <td class="textCenter">
-                {{func.acesso}}
                 <div class="pointer">
                   <input type="checkbox" (change)="addAcesso(func, $event.target.checked)" name="acesso" id="acesso" #acesso [checked]="func.acesso" />
                 </div>
