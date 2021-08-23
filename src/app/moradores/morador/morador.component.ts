@@ -21,7 +21,7 @@ export class MoradorComponent implements OnInit {
   contador: Number = 5;
   errorMessage;
 
-  private mor = {} as Morador;
+  mor = {} as Morador;
   moradores: Moradores[];
   residenciasVinculadas: Residencias[];
   situacaoCadastral = [
@@ -121,8 +121,8 @@ export class MoradorComponent implements OnInit {
     this.moradorService.getResidenciasVinculadas(codigo)
       .subscribe(
           data=>{
-              console.log(data);
-              this.residenciasVinculadas = data;
+            console.log(data);
+            this.residenciasVinculadas = data;
           }, err=>{
             this.errorMessage = err;
           }

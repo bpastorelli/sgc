@@ -1,3 +1,4 @@
+import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { Routes, RouterModule } from '@angular/router'
 
@@ -40,6 +41,7 @@ export const ROUTES: Routes = [
   { path: 'residencia/:acao', component: ResidenciaComponent },
   { path: 'modulo/:codigo', component: ModuloComponent},
   { path: 'modulos', component: ModulosComponent},
+  { path: 'acessoFuncionalidade/create', component: AcessosFuncionalidadesComponent },
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },
   { path: 'summary-visita', component: SummaryVisitaComponent },

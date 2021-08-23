@@ -1,6 +1,6 @@
 export class AcessoFuncionalidade {
-  id: number;
   idModulo: number;
+  idFuncionalidade: number;
   descricao: string;
   path: string;
   acesso: boolean;
