@@ -1,3 +1,4 @@
+import { SummaryAddComponent } from './../summary/add/summary-add.component';
 
 import { properties } from 'src/properties/properties';
 import { AcessoFuncionalidadeService } from './acessos-funcionalidades.service';
@@ -11,6 +12,9 @@ import { ModulosService } from './../modulos/modulos.service';
 import { Moradores } from '../moradores/moradores.model';
 import { AcessoFuncionalidade } from '../_models/acessoFuncionalidade';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { PerfilFuncionalidadeRequest } from './acesso-funcionalidades-request.model';
+import { request } from 'node:http';
+import { Console } from 'node:console';
 
 @Component({
   selector: 'app-acessos-funcionalidades',
@@ -22,7 +26,10 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   myForm: FormGroup;
   modulos: Modulo[];
   usuarios: Moradores[];
-  perfilFuncionalidades: PerfilFuncionalidade[];
+  requestList: PerfilFuncionalidadeRequest[] = [];
+  selecionados: PerfilFuncionalidade[] = [];
+  perfilFuncionalidadeRequest: PerfilFuncionalidadeRequest;
+  perfilFuncionalidades: PerfilFuncionalidade[] = [];
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
@@ -85,9 +92,45 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   }
 
-  putAcessos(acesso: AcessoFuncionalidade, idUsuario: number, idModulo: number){
+  putAcessos(idUsuario: number, idModulo: number){
 
-    console.log(JSON.stringify(acesso));
+    console.log(idUsuario);
+    console.log(idModulo);
+
+    this.selecionados.forEach(x => {
+
+        let perfil = new PerfilFuncionalidadeRequest();
+        perfil.idFuncionalidade = x.idFuncionalidade;
+        perfil.acesso = x.acesso;
+        this.requestList.push(perfil);
+
+    });
+
+    this.acessosFuncService.putAcessoFuncionalidade(this.requestList, idUsuario, idModulo)
+      .subscribe(data => {
+        this.perfilFuncionalidadeRequest = data
+        this.router.navigate([`/summary-edit`]);
+    },
+    (err) =>{
+        console.log(err);;
+    });
+
+    this.requestList = [];
+    this.selecionados = [];
+
+  }
+
+  addAcesso(acesso: PerfilFuncionalidade, isChecked: boolean) {
+
+    if(isChecked) {
+        acesso.acesso = true;
+    } else {
+        acesso.acesso = false;
+    }
+
+    this.selecionados.push(acesso);
+
+    console.log(this.selecionados);
 
   }
 
@@ -106,18 +149,5 @@ export class AcessosFuncionalidadesComponent implements OnInit {
     return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
   }
 
-  addAcesso(acesso: AcessoFuncionalidade, isChecked: boolean) {
-    const acessosFormArray = <FormArray>this.myForm.controls.acessos;
-
-    if(isChecked) {
-       acesso.acesso = true;
-       acessosFormArray.push(new FormControl(acesso));
-       console.log(acessosFormArray.value);
-    } else {
-       acesso.acesso = false;
-       acessosFormArray.push(new FormControl(acesso));
-       console.log(acessosFormArray.value);
-    }
-  }
-
 }
+

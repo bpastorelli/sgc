@@ -9,6 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { map } from 'rxjs/operators';
+import { PerfilFuncionalidadeRequest } from './acesso-funcionalidades-request.model';
 
 @Injectable()
 export class AcessoFuncionalidadeService {
@@ -42,6 +43,17 @@ export class AcessoFuncionalidadeService {
     console.log(perfil);
 
     return this.http.post<PerfilFuncionalidade>(`${environment.apiUrl}/access/modulo/incluir`
+      , JSON.stringify(perfil)
+      , this.httpOptions)
+      .pipe(
+        map(response => response['data'])
+      );
+
+  }
+
+  putAcessoFuncionalidade(perfil: PerfilFuncionalidadeRequest[], idUsuario: number, idModulo: number){
+
+    return this.http.put<PerfilFuncionalidade>(`${environment.apiUrl}/access/acessoFuncionalidade/idUsuario/${idUsuario}/idModulo/${idModulo}`
       , JSON.stringify(perfil)
       , this.httpOptions)
       .pipe(
