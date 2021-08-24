@@ -20,9 +20,9 @@ export class ModulosService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  getModulos(id: number, descricao: string, path: string): Observable<Modulo[]> {
+  getModulos(id: number, descricao: string, path: string, posicao: number): Observable<Modulo[]> {
 
-    return this.http.get<Modulo[]>(`${environment.apiUrl}/access/modulo/filtro?id=${id}&descricao=${descricao}&path=${path}&posicao=&pag=0&ord=descricao&dir=ASC&size=1000000`)
+    return this.http.get<Modulo[]>(`${environment.apiUrl}/access/modulo/filtro?id=${id}&descricao=${descricao}&path=${path}&posicao=${posicao}&pag=0&ord=descricao&dir=ASC&size=1000000`)
 
   }
 
@@ -38,8 +38,6 @@ export class ModulosService {
   }
 
   postModulo(modulo: Modulo){
-
-    console.log(modulo);
 
     return this.http.post<Modulo>(`${environment.apiUrl}/access/modulo/incluir`
       , JSON.stringify(modulo)

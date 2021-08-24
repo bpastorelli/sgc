@@ -52,7 +52,7 @@ export class ModuloComponent implements OnInit {
   getModuloById(codigo: number){
 
 
-    this.modulosService.getModulos(codigo, null, null)
+    this.modulosService.getModulos(codigo, null, null, -1)
       .subscribe(
         data=>{
           this.modulos = data;

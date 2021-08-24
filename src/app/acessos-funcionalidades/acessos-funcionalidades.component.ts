@@ -46,7 +46,7 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   ngOnInit(): void {
 
     this.getUsuarios(1);
-    this.getModulos(0, null, null);
+    this.getModulos(0, null, null, 1);
 
     this.myForm = this.fb.group({
       acessos: this.fb.array([])
@@ -67,9 +67,9 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   }
 
-  getModulos(id: number, descricao: string, path: string){
+  getModulos(id: number, descricao: string, path: string, posicao: number){
 
-    this.modulosService.getModulos(id, descricao, path)
+    this.modulosService.getModulos(id, descricao, path, posicao)
       .subscribe(
         data=>{
           this.modulos = data;
@@ -93,9 +93,6 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   }
 
   putAcessos(idUsuario: number, idModulo: number){
-
-    console.log(idUsuario);
-    console.log(idModulo);
 
     this.selecionados.forEach(x => {
 
@@ -130,12 +127,11 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
     this.selecionados.push(acesso);
 
-    console.log(this.selecionados);
-
   }
 
   cancelar(){
 
+    this.router.navigate(['/'])
 
   }
 

@@ -25,16 +25,16 @@ export class ModulosComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-      this.getModulos(0, null, null);
+      this.getModulos(0, null, null, -1);
     }else{
       this.router.navigate(['/login']);
     }
 
   }
 
-  getModulos(id: number, descricao: string, path: string){
+  getModulos(id: number, descricao: string, path: string, posicao: number){
 
-    this.modulosService.getModulos(id, descricao, path)
+    this.modulosService.getModulos(id, descricao, path, posicao)
       .subscribe(
         data=>{
           this.modulos = data;
