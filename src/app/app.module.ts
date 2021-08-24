@@ -1,3 +1,4 @@
+import { AcessoModuloService } from './acessos-modulos/acessos-modulos.service';
 import { AcessoFuncionalidadeService } from './acessos-funcionalidades/acessos-funcionalidades.service';
 import { ModulosService } from './modulos/modulos.service';
 import { CepComponent } from './cep/cep.component';
@@ -45,6 +46,7 @@ import { ModuloComponent } from './modulos/modulo/modulo.component';
 import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
+import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     CallbackPipe,
     ModulosComponent,
     ModuloComponent,
-    AcessosFuncionalidadesComponent
+    AcessosFuncionalidadesComponent,
+    AcessosModulosComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +97,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     CepService,
     ModulosService,
     AcessoFuncionalidadeService,
+    AcessoModuloService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
