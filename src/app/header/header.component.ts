@@ -17,8 +17,8 @@ export class HeaderComponent implements OnInit {
   currentUser: User;
   isLoggedIn$: Observable<boolean>;
   acessoModulos: AcessoModulo[] = [];
-  funcionalidades: AcessoFuncionalidade[];
-  acessoFuncionalidades: AcessoFuncionalidade[];
+  funcionalidades: AcessoFuncionalidade[] = [];
+  acessoFuncionalidades: AcessoFuncionalidade[] = [];
 
   nome: string;
   menuMoradores;
@@ -34,9 +34,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.buscaFuncionalidades();
-    this.montaMenuModulosFuncionalidades(true);
-    this.nome = `Olá ${this.currentUser.nome.toLowerCase()}!`;
+    this.buscaFuncionalidades(JSON.parse(localStorage.getItem('idUsuario')));
+    this.montaMenuModulosFuncionalidades(JSON.parse(localStorage.getItem('idUsuario')), true);
+    this.nome = this.currentUser.nome.toUpperCase();
 
   }
 
@@ -46,10 +46,10 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  montaMenuModulosFuncionalidades(acesso: boolean){
+  montaMenuModulosFuncionalidades(idUsuario: string, acesso: boolean){
 
     //Busca os módulos do usuário
-    this.authenticationService.acessosModulos(1, true)
+    this.authenticationService.acessosModulos(idUsuario, acesso)
       .subscribe(
         data=>{
           data.forEach(m => {
@@ -62,10 +62,10 @@ export class HeaderComponent implements OnInit {
       );
   }
 
-  buscaFuncionalidades(){
+  buscaFuncionalidades(idUsuario: string){
 
     //Busca funcionalidades por módulo
-    this.authenticationService.acessosFuncionalidades(this.currentUser.id, 0, true)
+    this.authenticationService.acessosFuncionalidades(idUsuario, "0", true)
       .subscribe(
         data=>{
           this.acessoFuncionalidades = data;
@@ -77,19 +77,19 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  montaMenuFuncionalidades(idModulo: number){
+  montaMenuFuncionalidades(idModulo: string){
 
       var item = localStorage.getItem('funcionalidades');
       this.funcionalidades = JSON.parse(item);
 
-      return this.funcionalidades.filter(p => p.idModulo == idModulo && p.acesso == true);
+      return this.funcionalidades.filter(p => p.idModulo === idModulo && p.acesso == true);
 
   }
 
-  index(idModulo: number){
+  index(idModulo: string){
 
     let item = new Array<AcessoModulo>();
-    item = this.acessoModulos.filter(p => p.idModulo == idModulo);
+    item = this.acessoModulos.filter(p => p.idModulo === idModulo);
 
     var index = this.acessoModulos.indexOf(item[0]);
     return index;

@@ -58,9 +58,7 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  getAcessosModulo(idUsuario: number){
-
-    console.log(idUsuario);
+  getAcessosModulo(idUsuario: string){
 
     this.acessosModulo.getAcessosModulos(idUsuario)
       .subscribe(
@@ -85,7 +83,7 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  putAcessos(idUsuario: number){
+  putAcessos(idUsuario: string){
 
     this.selecionados.forEach(x => {
 

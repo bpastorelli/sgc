@@ -21,13 +21,13 @@ export class AcessoModuloService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  getAcessosModulos(idUsuario: number): Observable<AcessosModulos[]> {
+  getAcessosModulos(idUsuario: string): Observable<AcessosModulos[]> {
 
     return this.http.get<AcessosModulos[]>(`${environment.apiUrl}/access/acessoModulo/filtroPorUsuario?idUsuario=${idUsuario}&posicao=1&pag=0&size=1000000&ord=id&dir=ASC`)
 
   }
 
-  putAcessoModulo(perfil: AcessosModulosRequest[], idUsuario: number){
+  putAcessoModulo(perfil: AcessosModulosRequest[], idUsuario: string){
 
     return this.http.put<AcessosModulosRequest>(`${environment.apiUrl}/access/acessoModulo/idUsuario/${idUsuario}`
       , JSON.stringify(perfil)

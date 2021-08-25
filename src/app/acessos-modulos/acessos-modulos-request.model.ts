@@ -1,6 +1,6 @@
 export class AcessosModulosRequest {
 
-  public idModulo: number;
+  public idModulo: string;
   public acesso: boolean;
 
 }
