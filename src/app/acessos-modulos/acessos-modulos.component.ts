@@ -92,15 +92,15 @@ export class AcessosModulosComponent implements OnInit {
       perfil.acesso = x.acesso;
       this.requestList.push(perfil);
 
-  });
+    });
 
-  this.acessosModulo.putAcessoModulo(this.requestList, idUsuario)
-    .subscribe(data => {
-      this.acessosModulo = data
-      this.router.navigate([`/summary-edit`]);
-    },
-    (err) =>{
-        console.log(err);;
+    this.acessosModulo.putAcessoModulo(this.requestList, idUsuario)
+      .subscribe(data => {
+        this.acessosModulo = data
+        this.router.navigate([`/summary-edit`]);
+      },
+      (err) =>{
+          console.log(err);;
     });
 
     this.requestList = [];

@@ -1,5 +1,3 @@
-import { SummaryAddComponent } from './../summary/add/summary-add.component';
-
 import { properties } from 'src/properties/properties';
 import { AcessoFuncionalidadeService } from './acessos-funcionalidades.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,11 +8,8 @@ import { Modulo } from '../modulos/modulo.model';
 import { MoradoresService } from '../moradores/moradores.service';
 import { ModulosService } from './../modulos/modulos.service';
 import { Moradores } from '../moradores/moradores.model';
-import { AcessoFuncionalidade } from '../_models/acessoFuncionalidade';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { PerfilFuncionalidadeRequest } from './acesso-funcionalidades-request.model';
-import { request } from 'node:http';
-import { Console } from 'node:console';
 
 @Component({
   selector: 'app-acessos-funcionalidades',
@@ -45,8 +40,8 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getUsuarios(1);
-    this.getModulos(0, null, null, 1);
+    this.getUsuarios(1); //Recupera usuários com posição = 1 (ATIVO)
+    this.getModulos(0, null, null, 1); //Recupera todos os módulos com posicao 1 (ATIVO)
 
     this.myForm = this.fb.group({
       acessos: this.fb.array([])
@@ -55,6 +50,9 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   }
 
   getAcessosFuncionalidade(idUsuario: number, idModulo: number){
+
+    this.requestList = [];
+    this.selecionados = [];
 
     this.acessosFuncService.getAcessosFuncionalidade(idUsuario, idModulo)
       .subscribe(
@@ -95,12 +93,10 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   putAcessos(idUsuario: number, idModulo: number){
 
     this.selecionados.forEach(x => {
-
         let perfil = new PerfilFuncionalidadeRequest();
         perfil.idFuncionalidade = x.idFuncionalidade;
         perfil.acesso = x.acesso;
         this.requestList.push(perfil);
-
     });
 
     this.acessosFuncService.putAcessoFuncionalidade(this.requestList, idUsuario, idModulo)
