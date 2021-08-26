@@ -1,7 +1,8 @@
 export interface PerfilFuncionalidade {
 
-  idModulo: number,
-  idFuncionalidade: number,
+  is: string;
+  idModulo: string,
+  idFuncionalidade: string,
   funcionalidade: string,
   acesso: boolean
 

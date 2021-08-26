@@ -13,7 +13,7 @@
         <ul class="menu">
             <li *ngFor="let modulo of acessoModulos" routerLink="active" id="{{modulo.id}}" ><a [routerLink]="[modulo.path]"> {{ modulo.descricao }}</a>
               <ul>
-                <li *ngFor="let funcionalidade of modulo.funcionalidades" routerLink="active"><a [routerLink]="[funcionalidade.path]"> {{ funcionalidade.descricao }}</a></li>
+                <li *ngFor="let funcionalidade of modulo.funcionalidades" routerLink="active"><a [routerLink]="[funcionalidade.path]"> {{ funcionalidade.funcionalidade }}</a></li>
               </ul>
             </li>
         </ul>

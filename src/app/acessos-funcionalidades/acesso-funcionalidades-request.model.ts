@@ -1,6 +1,6 @@
 export class PerfilFuncionalidadeRequest {
 
-  public idFuncionalidade: number;
+  public idFuncionalidade: string;
   public acesso: boolean;
 
 }

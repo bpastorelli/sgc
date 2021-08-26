@@ -11,7 +11,7 @@ import { User } from './../_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private acesso: boolean;
+
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public acessoModulos: AcessoModulo[];
@@ -38,12 +38,18 @@ export class AuthenticationService {
             }));
     }
 
-    acessosModulos(idUsuario: number, acesso: boolean) : Observable<AcessoModulo[]> {
+    acessosModulos(idUsuario: string, acesso: boolean) : Observable<AcessoModulo[]> {
+
+      if(idUsuario.toString() != 'undefined'){
         return this.http.get<AcessoModulo[]>(`${environment.apiUrl}/access/acessoModulo/buscaModulos?idUsuario=${idUsuario}&acesso=${acesso}`)
+      }
     }
 
-    acessosFuncionalidades(idUsuario: number, idModulo: number, acesso: boolean) : Observable<AcessoFuncionalidade[]> {
-      return this.http.get<AcessoFuncionalidade[]>(`${environment.apiUrl}/access/acessoFuncionalidade/filtro?idUsuario=${idUsuario}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=1000000`)
+    acessosFuncionalidades(idUsuario: string, idModulo: string, acesso: boolean) : Observable<AcessoFuncionalidade[]> {
+
+      if(idUsuario.toString() != 'undefined' || idModulo.toString() != 'undefined'){
+        return this.http.get<AcessoFuncionalidade[]>(`${environment.apiUrl}/access/acessoFuncionalidade/filtro?idUsuario=${idUsuario}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=1000000`)
+      }
     }
 
     logout() {

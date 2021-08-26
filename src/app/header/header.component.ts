@@ -14,15 +14,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HeaderComponent implements OnInit {
 
+  public theBoundCallback: Function;
+
   currentUser: User;
   isLoggedIn$: Observable<boolean>;
   acessoModulos: AcessoModulo[] = [];
-  funcionalidades: AcessoFuncionalidade[];
-  acessoFuncionalidades: AcessoFuncionalidade[];
 
   nome: string;
-  menuMoradores;
-  menuResidencias;
 
   constructor(
       private login: AppComponent,
@@ -34,9 +32,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.buscaFuncionalidades();
-    this.montaMenuModulosFuncionalidades(true);
-    this.nome = `Olá ${this.currentUser.nome.toLowerCase()}!`;
+    this.montaMenuModulosFuncionalidades(JSON.parse(localStorage.getItem('idUsuario')), true);
+    this.nome = this.currentUser.nome.toUpperCase();
 
   }
 
@@ -46,53 +43,25 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  montaMenuModulosFuncionalidades(acesso: boolean){
+  private montaMenuModulosFuncionalidades(idUsuario: string, acesso: boolean){
 
     //Busca os módulos do usuário
-    this.authenticationService.acessosModulos(1, true)
+    this.authenticationService.acessosModulos(idUsuario, acesso)
       .subscribe(
         data=>{
-          data.forEach(m => {
-            this.acessoModulos.push(m);
-            this.acessoModulos[this.index(m.idModulo)].funcionalidades = this.montaMenuFuncionalidades(m.idModulo);
-          });
+          this.acessoModulos = data;
         }, err=>{
           console.log(err);
         }
       );
   }
 
-  buscaFuncionalidades(){
-
-    //Busca funcionalidades por módulo
-    this.authenticationService.acessosFuncionalidades(this.currentUser.id, 0, true)
-      .subscribe(
-        data=>{
-          this.acessoFuncionalidades = data;
-          localStorage.setItem('funcionalidades', JSON.stringify(this.acessoFuncionalidades));
-        }, err=>{
-          console.log(err);
-        }
-      );
-
-  }
-
-  montaMenuFuncionalidades(idModulo: number){
-
-      var item = localStorage.getItem('funcionalidades');
-      this.funcionalidades = JSON.parse(item);
-
-      return this.funcionalidades.filter(p => p.idModulo == idModulo && p.acesso == true);
-
-  }
-
-  index(idModulo: number){
+  index(idModulo: string){
 
     let item = new Array<AcessoModulo>();
-    item = this.acessoModulos.filter(p => p.idModulo == idModulo);
+    item = this.acessoModulos.filter(p => p.idModulo === idModulo);
 
-    var index = this.acessoModulos.indexOf(item[0]);
-    return index;
+    return this.acessoModulos.indexOf(item[0]);
 
   }
 

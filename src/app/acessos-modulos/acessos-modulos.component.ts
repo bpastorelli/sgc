@@ -58,9 +58,7 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  getAcessosModulo(idUsuario: number){
-
-    console.log(idUsuario);
+  getAcessosModulo(idUsuario: string){
 
     this.acessosModulo.getAcessosModulos(idUsuario)
       .subscribe(
@@ -85,7 +83,7 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  putAcessos(idUsuario: number){
+  putAcessos(idUsuario: string){
 
     this.selecionados.forEach(x => {
 
@@ -94,15 +92,15 @@ export class AcessosModulosComponent implements OnInit {
       perfil.acesso = x.acesso;
       this.requestList.push(perfil);
 
-  });
+    });
 
-  this.acessosModulo.putAcessoModulo(this.requestList, idUsuario)
-    .subscribe(data => {
-      this.acessosModulo = data
-      this.router.navigate([`/summary-edit`]);
-    },
-    (err) =>{
-        console.log(err);;
+    this.acessosModulo.putAcessoModulo(this.requestList, idUsuario)
+      .subscribe(data => {
+        this.acessosModulo = data
+        this.router.navigate([`/summary-edit`]);
+      },
+      (err) =>{
+          console.log(err);;
     });
 
     this.requestList = [];
