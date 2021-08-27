@@ -56,7 +56,7 @@
                 <div class="pointer">{{ formatId(mod.idModulo, 6) }}</div>
               </td>
               <td>
-                  <div class="pointer">{{ mod.descricao.toUpperCase() }}</div>
+                  <div class="pointer" (click)="openModal(idUsuario.value, mod.idModulo)">{{ mod.descricao.toUpperCase() }}</div>
               </td>
               <td class="textCenter">
                 <div class="pointer">
@@ -81,3 +81,58 @@
    </form>
   </section>
 </section>
+
+<jw-modal id="custom-modal-1">
+  <h1><b>Acessos a Funcionalidades </b></h1>
+
+  <section class="content">
+    <form [formGroup]="myForm">
+      <table ngModel class="table-striped" style="width: 100%;">
+        <thead>
+          <tr>
+              <th style="width: 50px;" scope="col"><span>ID</span></th>
+              <th>Funcionalidade</th>
+              <th style="width: 30px;" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let func of perfilFuncionalidades | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <td class="textCenter" >
+              <div class="pointer">{{ formatId(func.idFuncionalidade, 6) }}</div>
+            </td>
+            <td>
+                <div class="pointer">{{ func.funcionalidade.toUpperCase() }}</div>
+            </td>
+            <td class="textCenter">
+              <div class="pointer">
+                <input type="checkbox" (change)="addAcessoFuncionalidade(func, $event.target.checked)" name="acesso" id="acesso" #acesso [checked]="func.acesso" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--inclindo o controle de paginação.-->
+      <div style="padding: 20px; width: 100%;">
+        <div class="text-right">
+          <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+            previousLabel="Anterior"
+            nextLabel="Próximo"></pagination-controls>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <button (click)="putAcessosFuncionalidade(idUsuario.value, idModulo)" class="btn btn-success pull-right"
+          [disabled]="!form.valid"><i></i> Salvar
+          </button>
+          <button (click)="closeModal('custom-modal-1')" class="btn btn-primary pull-right"><i></i> Cancelar
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </section>
+
+</jw-modal>

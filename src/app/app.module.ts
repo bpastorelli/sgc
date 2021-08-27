@@ -1,3 +1,4 @@
+import { ModalModule } from './_modal/modal.module';
 import { AcessoModuloService } from './acessos-modulos/acessos-modulos.service';
 import { AcessoFuncionalidadeService } from './acessos-funcionalidades/acessos-funcionalidades.service';
 import { ModulosService } from './modulos/modulos.service';
@@ -45,7 +46,6 @@ import { ModulosComponent } from './modulos/modulos.component';
 import { ModuloComponent } from './modulos/modulo/modulo.component';
 import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkTableModule } from '@angular/cdk/table';
 import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
 
 @NgModule({
@@ -85,7 +85,7 @@ import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.compo
     appRoutingModule,
     RouterModule.forRoot(ROUTES),
     BrowserAnimationsModule,
-    CdkTableModule,
+    ModalModule,
   ],
   providers: [
     MoradorService,
