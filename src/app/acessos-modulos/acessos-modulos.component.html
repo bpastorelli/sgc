@@ -51,7 +51,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr  *ngFor="let mod of perfilModulos | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr  *ngFor="let mod of perfilModulos | paginate: { id: 'pagination1', itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" >
                 <div class="pointer">{{ formatId(mod.idModulo, 6) }}</div>
               </td>
@@ -70,7 +70,7 @@
         <!--inclindo o controle de paginação.-->
         <div style="padding: 20px; width: 60%;">
           <div class="text-right">
-            <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+            <pagination-controls id="pagination1" class="pointer" (pageChange)="pageChanged($event)"
               previousLabel="Anterior"
               nextLabel="Próximo"></pagination-controls>
           </div>
@@ -97,7 +97,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let func of perfilFuncionalidades | paginate: { itemsPerPage: contadorFunc, currentPage: pagFunc }">
+            <tr *ngFor="let func of perfilFuncionalidades | paginate: { id: 'pagination2', itemsPerPage: contadorFunc, currentPage: pagFunc }">
               <td class="textCenter" >
                 <div class="pointer">{{ formatId(func.idFuncionalidade, 6) }}</div>
               </td>
@@ -116,7 +116,7 @@
         <!--inclindo o controle de paginação.-->
         <div style="padding: 20px; width: 100%;">
           <div class="text-right">
-            <pagination-controls class="pointer" (pageChange)="pageChangedFunc($event)"
+            <pagination-controls id="pagination2" class="pointer" (pageChange)="pageChangedFunc($event)"
               previousLabel="Anterior"
               nextLabel="Próximo"></pagination-controls>
           </div>
