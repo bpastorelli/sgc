@@ -1,5 +1,5 @@
 import { AcessoModuloService } from './acessos-modulos.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ComponentRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { properties } from 'src/properties/properties';
@@ -21,29 +21,34 @@ import { PerfilFuncionalidadeRequest } from '../acessos-funcionalidades/acesso-f
 })
 export class AcessosModulosComponent implements OnInit {
 
+  pag: Number = 1;
+  pagFunc: Number = 1;
 
-  pag : Number = 1 ;
-  contador : Number = properties.itemsPerPage;
+  contador: Number = properties.itemsPerPage;
+  contadorFunc: Number = properties.itemPerPageModal;
+
   idModulo: number;
   bodyText: string;
 
   myForm: FormGroup;
+  myFormModal: FormGroup;
+
   modulos: Modulo[] = [];
   usuarios: Moradores[] = [];
-  perfilModulos: AcessosModulos[] = [];
   selecionados: AcessosModulos[] = [];
-  selecionadosFunc: PerfilFuncionalidade[] = [];
+  perfilModulos: AcessosModulos[] = [];
   requestList: AcessosModulosRequest[] = [];
-  requestListFunc: PerfilFuncionalidadeRequest[] = [];
+  selecionadosFunc: PerfilFuncionalidade[] = [];
   perfilFuncionalidades: PerfilFuncionalidade[] = [];
+  requestListFunc: PerfilFuncionalidadeRequest[] = [];
 
   constructor(
     private router: Router,
-    private acessosFuncService: AcessoFuncionalidadeService,
-    private usuariosService: MoradoresService,
-    private modulosService: ModulosService,
-    private acessosModulo: AcessoModuloService,
     private modalService: ModalService,
+    private modulosService: ModulosService,
+    private usuariosService: MoradoresService,
+    private acessosModulo: AcessoModuloService,
+    private acessosFuncService: AcessoFuncionalidadeService,
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +56,6 @@ export class AcessosModulosComponent implements OnInit {
     this.getUsuarios(1);
 
   }
-
 
   getUsuarios(posicao: number){
 
@@ -130,17 +134,12 @@ export class AcessosModulosComponent implements OnInit {
 
   putAcessosFuncionalidade(idUsuario: number, idModulo: number){
 
-    console.log(idUsuario);
-    console.log(idModulo);
-
     this.selecionadosFunc.forEach(x => {
         let perfil = new PerfilFuncionalidadeRequest();
         perfil.idFuncionalidade = x.idFuncionalidade;
         perfil.acesso = x.acesso;
         this.requestListFunc.push(perfil);
     });
-
-    console.log(this.requestListFunc);
 
     this.acessosFuncService.putAcessoFuncionalidade(this.requestListFunc, idUsuario, idModulo)
       .subscribe(data => {
@@ -181,22 +180,37 @@ export class AcessosModulosComponent implements OnInit {
   }
 
   pageChanged(event){
+
     this.pag = event;
+
+  }
+
+  pageChangedFunc(event){
+
+    console.log(event);
+    this.pagFunc = event;
+
   }
 
   formatId (n, len) {
+
     var num = parseInt(n, 10);
     len = parseInt(len, 10);
     return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
+
   }
 
   openModal(idUsuario: number, idModulo: number) {
-      this.idModulo = idModulo;
-      this.getAcessosFuncionalidade(idUsuario, idModulo);
+
+    this.idModulo = idModulo;
+    this.getAcessosFuncionalidade(idUsuario, idModulo);
+
   }
 
   closeModal(id: string) {
-      this.modalService.close(id);
+
+    this.modalService.close(id);
+
   }
 
 }
