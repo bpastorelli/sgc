@@ -29,7 +29,7 @@
 
         <div class="row">
             <div class="col-xs-11">
-              <button (click)="putAcessos(idUsuario.value)" class="btn btn-success pull-right"
+              <button *ngIf="selecionados.length > 0" (click)="putAcessos(idUsuario.value)" class="btn btn-success pull-right"
               [disabled]="!form.valid"><i></i> Salvar
               </button>
               <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -53,13 +53,13 @@
           <tbody>
             <tr  *ngFor="let mod of perfilModulos | paginate: { id: 'pagination1', itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" >
-                <div class="pointer" *ngIf="mod.acesso; else templateIdModulo" (click)="openModal(idUsuario.value, mod.idModulo)">{{ formatId(mod.idModulo, 6) }}</div>
+                <div class="pointer" *ngIf="mod.acesso == true; else templateIdModulo" (click)="openModal(idUsuario.value, mod.idModulo, mod.descricao)">{{ formatId(mod.idModulo, 6) }}</div>
                 <ng-template #templateIdModulo>
                   {{ formatId(mod.idModulo, 6) }}
                 </ng-template>
               </td>
               <td>
-                  <div class="pointer" *ngIf="mod.acesso; else templateDescricao" (click)="openModal(idUsuario.value, mod.idModulo)">{{ mod.descricao.toUpperCase() }}</div>
+                  <div class="pointer" *ngIf="mod.acesso == true; else templateDescricao" (click)="openModal(idUsuario.value, mod.idModulo, mod.descricao)">{{ mod.descricao.toUpperCase() }}</div>
                   <ng-template #templateDescricao>
                     {{ mod.descricao.toUpperCase() }}
                   </ng-template>
@@ -90,7 +90,7 @@
 
 <section class="content">
   <jw-modal id="custom-modal-1">
-    <h1><b>Acessos a Funcionalidades </b></h1>
+    <h1><b>Acessos às Funcionalidades do Módulo: {{nomeModulo}}</b></h1>
 
     <section class="content">
       <form #formFunc="ngForm" [formGroup]="myFormModal">
@@ -130,7 +130,7 @@
 
         <div class="row">
           <div class="col-xs-12">
-            <button (click)="putAcessosFuncionalidade(idUsuario.value, idModulo)" class="btn btn-success pull-right"><i></i> Salvar
+            <button *ngIf="selecionadosFunc.length > 0" (click)="putAcessosFuncionalidade(idUsuario.value, idModulo)" class="btn btn-success pull-right"><i></i> Salvar
             </button>
             <button (click)="closeModal('custom-modal-1')" class="btn btn-primary pull-right"><i></i> Cancelar
             </button>
