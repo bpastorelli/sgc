@@ -28,7 +28,7 @@ export class AcessosModulosComponent implements OnInit {
   contadorModal: Number = properties.itemPerPageModal;
 
   idModulo: number;
-  bodyText: string;
+  nomeModulo: string;
 
   myForm: FormGroup;
   myFormModal: FormGroup;
@@ -150,7 +150,7 @@ export class AcessosModulosComponent implements OnInit {
         this.perfilFuncionalidades = data
         this.requestListFunc = [];
         this.selecionadosFunc = [];
-        this.router.navigate([`/summary-edit`]);
+        this.closeModal("custom-modal-1");
     },
     (err) =>{
         console.log(err);;
@@ -203,9 +203,10 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  openModal(idUsuario: number, idModulo: number) {
+  openModal(idUsuario: number, idModulo: number, nomeModulo: string) {
 
     this.idModulo = idModulo;
+    this.nomeModulo = nomeModulo;
     this.getAcessosFuncionalidade(idUsuario, idModulo);
 
   }
