@@ -260,6 +260,8 @@
                   <button class="pointer" (click)="postMoradores(formCreate.value)" class="btn btn-success pull-right"
                   [disabled]="!formCreate.valid"><i></i> Salvar
                   </button>
+                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                  </button>
                 </div>
               </div>
             </div>
@@ -269,6 +271,8 @@
                 <div class="col-xs-12">
                   <button class="pointer" (click)="postMorador(formCreate.value)" class="btn btn-success pull-right"
                   [disabled]="!formCreate.valid"><i></i> Avançar
+                  </button>
+                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
                   </button>
                 </div>
               </div>

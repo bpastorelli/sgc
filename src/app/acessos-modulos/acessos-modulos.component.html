@@ -53,10 +53,16 @@
           <tbody>
             <tr  *ngFor="let mod of perfilModulos | paginate: { id: 'pagination1', itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" >
-                <div class="pointer">{{ formatId(mod.idModulo, 6) }}</div>
+                <div class="pointer" *ngIf="mod.acesso; else templateIdModulo" (click)="openModal(idUsuario.value, mod.idModulo)">{{ formatId(mod.idModulo, 6) }}</div>
+                <ng-template #templateIdModulo>
+                  {{ formatId(mod.idModulo, 6) }}
+                </ng-template>
               </td>
               <td>
-                  <div class="pointer" (click)="openModal(idUsuario.value, mod.idModulo)">{{ mod.descricao.toUpperCase() }}</div>
+                  <div class="pointer" *ngIf="mod.acesso; else templateDescricao" (click)="openModal(idUsuario.value, mod.idModulo)">{{ mod.descricao.toUpperCase() }}</div>
+                  <ng-template #templateDescricao>
+                    {{ mod.descricao.toUpperCase() }}
+                  </ng-template>
               </td>
               <td class="textCenter">
                 <div class="pointer">
@@ -93,16 +99,16 @@
             <tr>
                 <th style="width: 50px;" scope="col"><span>ID</span></th>
                 <th>Funcionalidade</th>
-                <th style="width: 30px;" scope="col"></th>
+                <th style="width: 30px;" scope="col">Acesso</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let func of perfilFuncionalidades | paginate: { id: 'pagination2', itemsPerPage: contadorFunc, currentPage: pagFunc }">
+            <tr *ngFor="let func of perfilFuncionalidades | paginate: { id: 'pagination2', itemsPerPage: contadorModal, currentPage: pagModal }">
               <td class="textCenter" >
-                <div class="pointer">{{ formatId(func.idFuncionalidade, 6) }}</div>
+                <div>{{ formatId(func.idFuncionalidade, 6) }}</div>
               </td>
               <td>
-                  <div class="pointer">{{ func.funcionalidade.toUpperCase() }}</div>
+                  <div>{{ func.funcionalidade.toUpperCase() }}</div>
               </td>
               <td class="textCenter">
                 <div class="pointer">
@@ -116,7 +122,7 @@
         <!--inclindo o controle de paginação.-->
         <div style="padding: 20px; width: 100%;">
           <div class="text-right">
-            <pagination-controls id="pagination2" class="pointer" (pageChange)="pageChangedFunc($event)"
+            <pagination-controls id="pagination2" class="pointer" (pageChange)="pageChangedModal($event)"
               previousLabel="Anterior"
               nextLabel="Próximo"></pagination-controls>
           </div>

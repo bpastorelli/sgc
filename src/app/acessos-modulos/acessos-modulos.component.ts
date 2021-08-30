@@ -22,10 +22,10 @@ import { PerfilFuncionalidadeRequest } from '../acessos-funcionalidades/acesso-f
 export class AcessosModulosComponent implements OnInit {
 
   pag: Number = 1;
-  pagFunc: Number = 1;
+  pagModal: Number = 1;
 
   contador: Number = properties.itemsPerPage;
-  contadorFunc: Number = properties.itemPerPageModal;
+  contadorModal: Number = properties.itemPerPageModal;
 
   idModulo: number;
   bodyText: string;
@@ -53,6 +53,10 @@ export class AcessosModulosComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.requestList = [];
+    this.requestListFunc = [];
+    this.selecionados = [];
+    this.selecionadosFunc = [];
     this.getUsuarios(1);
 
   }
@@ -144,37 +148,37 @@ export class AcessosModulosComponent implements OnInit {
     this.acessosFuncService.putAcessoFuncionalidade(this.requestListFunc, idUsuario, idModulo)
       .subscribe(data => {
         this.perfilFuncionalidades = data
+        this.requestListFunc = [];
+        this.selecionadosFunc = [];
         this.router.navigate([`/summary-edit`]);
     },
     (err) =>{
         console.log(err);;
     });
 
-    this.requestList = [];
-    this.selecionados = [];
-
   }
 
   getAcessosFuncionalidade(idUsuario: number, idModulo: number){
 
-    this.requestList = [];
-    this.selecionados = [];
+    this.requestListFunc = [];
+    this.selecionadosFunc = [];
 
     this.acessosFuncService.getAcessosFuncionalidade(idUsuario, idModulo)
       .subscribe(
         data=>{
           this.perfilFuncionalidades = data;
+          this.modalService.open("custom-modal-1");
         }, err=>{
           console.log(err);
         }
       );
 
-      this.modalService.open("custom-modal-1");
-
   }
 
   cancelar(){
 
+    this.requestList = [];
+    this.selecionados = [];
     this.router.navigate(['/'])
 
   }
@@ -185,10 +189,9 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  pageChangedFunc(event){
+  pageChangedModal(event){
 
-    console.log(event);
-    this.pagFunc = event;
+    this.pagModal = event;
 
   }
 
@@ -209,6 +212,8 @@ export class AcessosModulosComponent implements OnInit {
 
   closeModal(id: string) {
 
+    this.requestListFunc = [];
+    this.selecionadosFunc = [];
     this.modalService.close(id);
 
   }

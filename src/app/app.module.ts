@@ -1,3 +1,4 @@
+import { FuncionalidadeService } from './funcionalidades/funcionalidades.service';
 import { ModalModule } from './_modal/modal.module';
 import { AcessoModuloService } from './acessos-modulos/acessos-modulos.service';
 import { AcessoFuncionalidadeService } from './acessos-funcionalidades/acessos-funcionalidades.service';
@@ -47,6 +48,8 @@ import { ModuloComponent } from './modulos/modulo/modulo.component';
 import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
+import { FuncionalidadesComponent } from './funcionalidades/funcionalidades.component';
+import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcionalidade.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,9 @@ import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.compo
     ModulosComponent,
     ModuloComponent,
     AcessosFuncionalidadesComponent,
-    AcessosModulosComponent
+    AcessosModulosComponent,
+    FuncionalidadesComponent,
+    FuncionalidadeComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +103,7 @@ import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.compo
     ModulosService,
     AcessoFuncionalidadeService,
     AcessoModuloService,
+    FuncionalidadeService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
