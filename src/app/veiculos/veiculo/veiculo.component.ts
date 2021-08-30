@@ -82,5 +82,11 @@ export class VeiculoComponent implements OnInit {
 
   }
 
+  cancelar(){
+
+    this.router.navigate(['veiculos'])
+
+  }
+
 
 }

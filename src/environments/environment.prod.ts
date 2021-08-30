@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://powerful-savannah-73743.herokuapp.com',
+  apiUrl: 'http://localhost:8084',
   apiUrlCep: 'https://viacep.com.br/ws'
 };

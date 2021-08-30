@@ -149,4 +149,10 @@ export class VisitanteComponent implements OnInit {
     this.pag = event;
   }
 
+  cancelar(){
+
+    this.router.navigate(['visitantes'])
+
+  }
+
 }

@@ -20,6 +20,8 @@ import { SummaryVisitaComponent } from './summary/add/summary-visita.component';
 import { VeiculoComponent } from './veiculos/veiculo/veiculo.component';
 import { ModuloComponent } from './modulos/modulo/modulo.component';
 import { ModulosComponent } from './modulos/modulos.component';
+import { FuncionalidadesComponent } from './funcionalidades/funcionalidades.component';
+import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcionalidade.component';
 
 export const ROUTES: Routes = [
 
@@ -44,6 +46,8 @@ export const ROUTES: Routes = [
   { path: 'modulos', component: ModulosComponent},
   { path: 'acessoFuncionalidade/create', component: AcessosFuncionalidadesComponent },
   { path: 'acessoModulo/create', component: AcessosModulosComponent },
+  { path: 'funcionalidades', component: FuncionalidadesComponent},
+  { path: 'funcionalidade/:codigo', component: FuncionalidadeComponent},
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },
   { path: 'summary-visita', component: SummaryVisitaComponent },
