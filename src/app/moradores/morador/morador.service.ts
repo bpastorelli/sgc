@@ -4,7 +4,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Morador } from './../morador/morador.model';
-import { Residencias } from './../../residencias/residencias.model';
+import { Residencia } from './../../residencias/residencias.model';
 
 import { catchError, map } from 'rxjs/operators';
 
@@ -56,9 +56,9 @@ constructor(private http: HttpClient) { }
 
   }
 
-  getResidenciasVinculadas(moradorId: string): Observable<Residencias[]>{
+  getResidenciasVinculadas(moradorId: string): Observable<Residencia[]>{
 
-    return this.http.get<Residencias[]>(`${environment.apiUrl}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
+    return this.http.get<Residencia[]>(`${environment.apiUrl}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
 
   }
 

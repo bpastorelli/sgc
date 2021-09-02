@@ -2,7 +2,7 @@ import { properties } from './../../properties/properties';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
-import { Residencias } from './residencias.model';
+import { Residencia } from './residencias.model';
 import { ResidenciasService } from './residencias.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ResidenciasService } from './residencias.service';
   templateUrl: './residencias.component.html'
 })
 export class ResidenciasComponent implements OnInit {
-  public residencias: Residencias[]
+  public residencias: Residencia[]
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
