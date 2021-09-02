@@ -1,4 +1,4 @@
-import { Residencias } from './residencias.model';
+import { Residencia } from './residencias.model';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -13,9 +13,9 @@ export class ResidenciasService {
 
   constructor(private http: HttpClient){}
 
-  residencias(id: string, endereco: string, numero: string): Observable<Residencias[]> {
+  residencias(id: string, endereco: string, numero: string): Observable<Residencia[]> {
 
-    return this.http.get<Residencias[]>(`${environment.apiUrl}/associados/residencia/filtro?id=${id}&endereco=${endereco}&numero=${numero}&pag=0&ord=endereco&dir=ASC&size=1000000`)
+    return this.http.get<Residencia[]>(`${environment.apiUrl}/associados/residencia/filtro?id=${id}&endereco=${endereco}&numero=${numero}&pag=0&ord=endereco&dir=ASC&size=1000000`)
 
   }
 

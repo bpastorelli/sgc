@@ -50,6 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
 import { FuncionalidadesComponent } from './funcionalidades/funcionalidades.component';
 import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcionalidade.component';
+import { ContribuicoesComponent } from './contribuicoes/contribuicoes.component';
+import { ImportarContribuicoesComponent } from './contribuicoes/importar-contribuicoes/importar-contribuicoes.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcio
     AcessosFuncionalidadesComponent,
     AcessosModulosComponent,
     FuncionalidadesComponent,
-    FuncionalidadeComponent
+    FuncionalidadeComponent,
+    ContribuicoesComponent,
+    ImportarContribuicoesComponent
   ],
   imports: [
     BrowserModule,

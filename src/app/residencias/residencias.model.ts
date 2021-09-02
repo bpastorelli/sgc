@@ -1,4 +1,4 @@
-export interface Residencias {
+export interface Residencia {
 
   id: number,
   endereco: string,

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { Residencias } from './../residencias.model';
+import { Residencia } from './../residencias.model';
 import { Moradores } from './../../moradores/moradores.model';
 import { environment } from './../../../environments/environment';
 
@@ -19,25 +19,25 @@ export class ResidenciaService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  postResidencia(residencias: Residencias): Observable<Residencias> {
+  postResidencia(residencias: Residencia): Observable<Residencia> {
 
-    return this.http.post<Residencias>(`${environment.apiUrl}/associados/residencia`
+    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia`
         ,JSON.stringify(residencias)
         ,this.httpOptions)
 
   }
 
-  postNovaResidencia(residencia: Residencias): Observable<Residencias>{
+  postNovaResidencia(residencia: Residencia): Observable<Residencia>{
 
-    return this.http.post<Residencias>(`${environment.apiUrl}/associados/residencia/nova`
+    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia/nova`
         ,JSON.stringify(residencia)
         ,this.httpOptions)
 
   }
 
-  putResidencia(residencia: Residencias, id: string): Observable<any>{
+  putResidencia(residencia: Residencia, id: string): Observable<any>{
 
-    return this.http.put<Residencias>(`${environment.apiUrl}/associados/residencia/${id}`
+    return this.http.put<Residencia>(`${environment.apiUrl}/associados/residencia/${id}`
         , JSON.stringify(residencia)
         , this.httpOptions)
         .pipe(

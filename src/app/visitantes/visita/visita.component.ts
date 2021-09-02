@@ -2,7 +2,7 @@ import { Visitante } from './../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { Visita } from './../visitas/visitas.model';
 import { Veiculo } from './../../veiculos/veiculo.model';
-import { Residencias } from './../../residencias/residencias.model';
+import { Residencia } from './../../residencias/residencias.model';
 import { VisitaRequest } from './../visita/visitaRequest.model';
 import { ResidenciasService } from './../../residencias/residencias.service';
 import { VeiculosService } from './../../veiculos/veiculos.service';
@@ -37,7 +37,7 @@ export class VisitaComponent implements OnInit {
   public veiculo: Veiculo;
   public veiculosVinculados: Veiculo[];
   public visitante: Visitante[];
-  public residencias: Residencias[];
+  public residencias: Residencia[];
 
   constructor(private residenciasService: ResidenciasService,
               private veiculoService: VeiculosService,

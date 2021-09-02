@@ -1,0 +1,66 @@
+<div class="form-group">
+  <div *ngIf="errorsList.length > 0" class="alert alert-warning">
+    <div *ngFor="let item of errorsList">
+      <strong >Atenção! </strong>{{ item }}
+    </div>
+  </div>
+  <form #formEdit="ngForm" [formGroup]="uploadForm">
+
+    <section class="invoice">
+      <div>
+        <input required type="file" name="profile" (change)="onFileSelect($event)" />
+      </div>
+    </section>
+    <br>
+    <section class="invoice">
+      <div>
+        <button (click)="onSubmit()" class="btn btn-success pull-left"
+        [disabled]="!formEdit.valid"><i></i> Importar
+        </button>
+        <button (click)="cancelar()" class="btn btn-primary pull-left"><i></i> Cancelar
+        </button>
+      </div>
+    </section>
+
+        <!--Fim do Form de Edição-->
+        <section *ngIf="contribuicoes.length > 0" class="invoice">
+
+          <div class="col-xs-12">
+            <p class="control-label"><b>Registros importados:</b></p>
+          </div>
+          <table class="table-striped">
+            <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Morador</th>
+                  <th>CPF</th>
+                  <th>Data Pagamento</th>
+                  <th>Valor</th>
+                  <th>Residencia</th>
+                </tr>
+              </thead>
+            <tbody>
+              <tr *ngFor="let item of contribuicoes | paginate: { itemsPerPage: contador, currentPage: pag }">
+                <td class="textCenter"><div>{{ formatId(item.id, 6) }}</div></td>
+                <td><div>{{ item.nome }}</div></td>
+                <td class="textCenter"><div>{{ formatCPF(item.cpf) }}</div></td>
+                <td class="textCenter"><div>{{ item.dataPagamento }}</div></td>
+                <td class="text-right"><div>{{ item.valor }}</div></td>
+                <td><div>{{ item.endereco }}</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <!--inclindo o controle de paginação.-->
+          <div style="padding: 20px;">
+            <div class="text-right">
+              <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+                previousLabel="Anterior"
+                nextLabel="Próximo">
+              </pagination-controls>
+            </div>
+          </div>
+
+        </section>
+
+  </form>
+</div>

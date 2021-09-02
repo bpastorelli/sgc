@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MoradorService } from './morador.service';
 import { Morador } from './../morador/morador.model';
 import { Moradores } from './../../moradores/moradores.model';
-import { Residencias } from './../../residencias/residencias.model';
+import { Residencia } from './../../residencias/residencias.model';
 import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -23,7 +23,7 @@ export class MoradorComponent implements OnInit {
 
   mor = {} as Morador;
   moradores: Moradores[];
-  residenciasVinculadas: Residencias[];
+  residenciasVinculadas: Residencia[];
   situacaoCadastral = [
         { id: 1, label: "ATIVO" },
         { id: 0, label: "INATIVO" }];
@@ -121,7 +121,6 @@ export class MoradorComponent implements OnInit {
     this.moradorService.getResidenciasVinculadas(codigo)
       .subscribe(
           data=>{
-            console.log(data);
             this.residenciasVinculadas = data;
           }, err=>{
             this.errorMessage = err;

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CepService } from 'src/app/cep/cepService.service';
 import { Moradores } from 'src/app/moradores/moradores.model';
-import { Residencias } from '../residencias.model';
+import { Residencia } from '../residencias.model';
 import { ResidenciasService } from '../residencias.service';
 import { ResidenciaService } from './residencia.service';
 import { AuthenticationService } from './../../_services/authentication.service';
@@ -21,8 +21,8 @@ export class ResidenciaComponent implements OnInit {
   residenciaId: string;
 
   public cepResponse: Cep
-  public residencia: Residencias
-  public residencias: Residencias[]
+  public residencia: Residencia
+  public residencias: Residencia[]
   public moradoresVinculados: Moradores[]
 
   logradouroResp: string;
@@ -61,7 +61,7 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
-  postResidencia(residencia: Residencias){
+  postResidencia(residencia: Residencia){
 
     this.residenciaService.postResidencia(residencia)
       .subscribe(data => {
@@ -73,7 +73,7 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
-  postNovaResidencia(residencia: Residencias){
+  postNovaResidencia(residencia: Residencia){
 
     this.residenciaService.postNovaResidencia(residencia)
       .subscribe(data => {
@@ -85,7 +85,7 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
-  putResidencia(residencia: Residencias, id: string){
+  putResidencia(residencia: Residencia, id: string){
 
     this.residenciaService.putResidencia(residencia, id)
       .subscribe(data => {
