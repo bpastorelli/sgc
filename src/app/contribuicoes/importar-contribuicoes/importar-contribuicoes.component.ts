@@ -54,6 +54,8 @@ export class ImportarContribuicoesComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('profile').value);
 
+    console.log(this.uploadForm.get('profile').value);
+
     this.importarContribuicao.postImportacao(formData)
       .subscribe(data =>{
           this.contribuicoes = data;

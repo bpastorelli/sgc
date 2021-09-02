@@ -4,18 +4,37 @@
       <strong >Atenção! </strong>{{ item }}
     </div>
   </div>
+  <div>
+    <strong style="font-size: 20px;">Padrão de preenchimento do arquivo</strong>
+      <p>
+      <div>
+        <p>
+          Linha 1: Cabeçalho do arquivo. Exemplo: | cpf | dataPagamento | valor |
+        </p>
+        <p>
+          Coluna A, Linha 2 (cpf): CPF formatado ou não formatado. Exemplo: 23456789034 ou 234.567.890-34
+        </p>
+        <p>
+          Coluna B, Linha 2 (dataPagamento): Data do no formato dd/MM/yyyy. Exemplo: 23/09/2020
+        </p>
+        <p>
+          Coluna C, Linha 2 (valor): Valor no formato decimal com separador de decimais com virgula. Exemplo: 23,50
+        </p>
+      </div>
+  </div>
+  <br>
   <form #formEdit="ngForm" [formGroup]="uploadForm">
 
     <section class="invoice">
       <div>
-        <input required type="file" name="profile" (change)="onFileSelect($event)" />
+        <input required #file ngModel type="file" name="profile" (change)="onFileSelect($event)" />
       </div>
     </section>
     <br>
     <section class="invoice">
       <div>
         <button (click)="onSubmit()" class="btn btn-success pull-left"
-        [disabled]="!formEdit.valid"><i></i> Importar
+        [disabled]="!uploadForm.valid"><i></i> Importar
         </button>
         <button (click)="cancelar()" class="btn btn-primary pull-left"><i></i> Cancelar
         </button>
