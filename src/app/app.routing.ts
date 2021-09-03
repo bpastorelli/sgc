@@ -23,6 +23,7 @@ import { ModulosComponent } from './modulos/modulos.component';
 import { FuncionalidadesComponent } from './funcionalidades/funcionalidades.component';
 import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcionalidade.component';
 import { ImportarContribuicoesComponent } from './contribuicoes/importar-contribuicoes/importar-contribuicoes.component';
+import { ContribuicoesComponent } from './contribuicoes/contribuicoes.component';
 
 export const ROUTES: Routes = [
 
@@ -50,6 +51,7 @@ export const ROUTES: Routes = [
   { path: 'funcionalidades', component: FuncionalidadesComponent},
   { path: 'funcionalidade/:codigo', component: FuncionalidadeComponent},
   { path: 'importar', component: ImportarContribuicoesComponent },
+  { path: 'contribuicoes', component: ContribuicoesComponent },
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },
   { path: 'summary-visita', component: SummaryVisitaComponent },

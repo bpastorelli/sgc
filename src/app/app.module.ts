@@ -1,3 +1,4 @@
+import { ContribuicoesService } from './contribuicoes/contribuicoes.service';
 import { FuncionalidadeService } from './funcionalidades/funcionalidades.service';
 import { ModalModule } from './_modal/modal.module';
 import { AcessoModuloService } from './acessos-modulos/acessos-modulos.service';
@@ -108,6 +109,7 @@ import { ImportarContribuicoesComponent } from './contribuicoes/importar-contrib
     AcessoFuncionalidadeService,
     AcessoModuloService,
     FuncionalidadeService,
+    ContribuicoesService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
