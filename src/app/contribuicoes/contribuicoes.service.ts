@@ -24,7 +24,7 @@ export class ContribuicoesService {
 
   getContribuicoes(dataInicio: Date, dataFim: Date, moradorId: number): Observable<Contribuicao[]> {
 
-    return this.http.get<Contribuicao[]>(`${environment.apiUrl}/associados/lancamento/filtroPorDatas?dataInicio=${dataInicio}&dataFim=${dataFim}&moradorId=${moradorId}&pag=0&ord=dataPagamento&dir=ASC&qtdePorPagina=1000000`)
+    return this.http.get<Contribuicao[]>(`${environment.apiUrl}/associados/lancamento/filtroPorDatas?dataInicio=${dataInicio}&dataFim=${dataFim}&moradorId=${moradorId}&pag=0&ord=dataPagamento&dir=DESC&qtdePorPagina=1000000`)
 
   }
 
