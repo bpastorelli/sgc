@@ -1,1 +1,83 @@
-<p>contribuicoes works!</p>
+<section class="content-header">
+
+  <section class="content">
+
+  <form #form="ngForm" novalidate>
+
+    <div class="col-sm-2 col-xs-4">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Data Início</label>
+        <input type="text" class="form-control" #dataInicio id="dataInicio"  placeholder="Data Início">
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-xs-4">
+      <div class="form-group">
+        <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Data Fim</label>
+        <input type="text" class="form-control" #dataFim id="dataFim"  placeholder="Data Fim">
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-xs-6">
+      <div class="form-group">
+        <div class="col-sm-12 col-xs-6">
+          <select #moradorId
+              required
+              placeholder="Morador"
+              name="moradorId"
+              id="moradorId"
+              class="form-control"
+              ngModel="0">
+              <option [value]="0"> TODOS </option>
+              <option *ngFor="let item of moradores" [value]="item.id" >{{ item.nome.toUpperCase() }}</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-1 col-xs-2">
+      <button (click)="getContribuicoes(dataInicio.value, dataFim.value, moradorId.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      </button>
+    </div>
+
+    <section class="content">
+
+          <table class="table-striped">
+            <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Morador</th>
+                  <th>CPF</th>
+                  <th>Data Pagamento</th>
+                  <th>Valor</th>
+                  <th>Residencia</th>
+                </tr>
+              </thead>
+            <tbody>
+              <tr *ngFor="let item of contribuicoes | paginate: { itemsPerPage: contador, currentPage: pag }">
+                <td class="textCenter"><div>{{ formatId(item.id, 6) }}</div></td>
+                <td><div>{{ item.nome }}</div></td>
+                <td class="textCenter"><div>{{ formatCPF(item.cpf) }}</div></td>
+                <td class="textCenter"><div>{{ item.dataPagamento }}</div></td>
+                <td class="text-right"><div>{{ item.valor }}</div></td>
+                <td><div>{{ item.endereco }}</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <!--inclindo o controle de paginação.-->
+          <div style="padding: 20px;">
+            <div class="text-right">
+              <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+                previousLabel="Anterior"
+                nextLabel="Próximo">
+              </pagination-controls>
+            </div>
+          </div>
+
+    </section>
+
+   </form>
+  </section>
+</section>
+
