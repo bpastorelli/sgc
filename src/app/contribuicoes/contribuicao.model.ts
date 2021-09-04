@@ -5,6 +5,7 @@ export interface Contribuicao {
   cpf: string,
 	dataPagamento: Date,
 	periodo: string,
+  documento: string,
 	valor: number,
 	endereco: string,
 
