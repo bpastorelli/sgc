@@ -18,26 +18,8 @@
       </div>
     </div>
 
-    <div class="col-sm-4 col-xs-6">
-      <div class="form-group">
-        <div class="col-sm-12 col-xs-6">
-          <select #moradorId
-              required
-              placeholder="Morador"
-              name="moradorId"
-              id="moradorId"
-              class="form-control"
-              ngModel="0">
-              <option [value]="0"> TODOS </option>
-              <option *ngFor="let item of moradores" [value]="item.id" >{{ item.nome.toUpperCase() }}</option>
-          </select>
-        </div>
-
-      </div>
-    </div>
-
     <div class="col-sm-1 col-xs-2">
-      <button (click)="getContribuicoes(dataInicio.value, dataFim.value, moradorId.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      <button (click)="getContribuicoes(dataInicio.value, dataFim.value)" class="btn btn-success pull-right"><i></i> Pesquisar
       </button>
     </div>
 
@@ -47,7 +29,6 @@
             <thead>
               <tr>
                   <th>ID</th>
-                  <th>Morador</th>
                   <th>CPF</th>
                   <th>Data Pagamento</th>
                   <th>N. Documento</th>
@@ -58,7 +39,6 @@
             <tbody>
               <tr *ngFor="let item of contribuicoes | paginate: { itemsPerPage: contador, currentPage: pag }">
                 <td class="textCenter"><div>{{ formatId(item.id, 6) }}</div></td>
-                <td><div>{{ item.nome }}</div></td>
                 <td class="textCenter"><div>{{ formatCPF(item.cpf) }}</div></td>
                 <td class="textCenter"><div>{{ item.dataPagamento }}</div></td>
                 <td class="textCenter"><div>{{ item.documento }}</div></td>

@@ -53,6 +53,7 @@ import { FuncionalidadesComponent } from './funcionalidades/funcionalidades.comp
 import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcionalidade.component';
 import { ContribuicoesComponent } from './contribuicoes/contribuicoes.component';
 import { ImportarContribuicoesComponent } from './contribuicoes/importar-contribuicoes/importar-contribuicoes.component';
+import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuicoes/minhas-contribuicoes.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ImportarContribuicoesComponent } from './contribuicoes/importar-contrib
     FuncionalidadesComponent,
     FuncionalidadeComponent,
     ContribuicoesComponent,
-    ImportarContribuicoesComponent
+    ImportarContribuicoesComponent,
+    MinhasContribuicoesComponent
   ],
   imports: [
     BrowserModule,

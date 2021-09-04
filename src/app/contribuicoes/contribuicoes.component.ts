@@ -39,9 +39,6 @@ export class ContribuicoesComponent implements OnInit {
 
   getContribuicoes(dataInicio: Date, dataFim: Date, moradorId: number){
 
-    console.log(dataInicio);
-    console.log(dataFim);
-
     this.contribuicoesService.getContribuicoes(dataInicio, dataFim, moradorId)
       .subscribe(
         data=>{

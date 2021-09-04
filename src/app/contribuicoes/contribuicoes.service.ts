@@ -28,4 +28,10 @@ export class ContribuicoesService {
 
   }
 
+  getContribuicoesPorUsuario(moradorId: number): Observable<Contribuicao[]> {
+
+    return this.http.get<Contribuicao[]>(`${environment.apiUrl}/associados/lancamento/filtroPorDatas?dataInicio=&dataFim=&moradorId=${moradorId}&pag=0&ord=dataPagamento&dir=DESC&qtdePorPagina=1000000`)
+
+  }
+
 }
