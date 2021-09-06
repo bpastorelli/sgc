@@ -28,7 +28,7 @@
           <table class="table-striped">
             <thead>
               <tr>
-                  <th>ID</th>
+                  <th>Nome</th>
                   <th>CPF</th>
                   <th>Data Pagamento</th>
                   <th>N. Documento</th>
@@ -38,7 +38,7 @@
               </thead>
             <tbody>
               <tr *ngFor="let item of contribuicoes | paginate: { itemsPerPage: contador, currentPage: pag }">
-                <td class="textCenter"><div>{{ formatId(item.id, 6) }}</div></td>
+                <td><div>{{ item.nome }}</div></td>
                 <td class="textCenter"><div>{{ formatCPF(item.cpf) }}</div></td>
                 <td class="textCenter"><div>{{ item.dataPagamento }}</div></td>
                 <td class="textCenter"><div>{{ item.documento }}</div></td>

@@ -53,15 +53,64 @@
           <thead>
             <tr>
                 <th style="width: 6px;" scope="col"></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')">Visitante</div></th>
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" >Visitante</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')" >Visitante</div></th>
+                </ng-container>
+
                 <th scope="col">RG</th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'placa', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'id', 'DESC')">Placa</div></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'DESC')">Data Entrada</div></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'DESC')">Hora Entrada</div></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'DESC')">Data Saída</div></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaSaida', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaSaida', 'DESC')">Hora Saída</div></th>
-                <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.endereco', 'ASC')" (dblclick)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'visitante.endereco', 'DESC')">Endereço de Visita</div></th>
-                <th scope="col">Número</th>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'placa', 'ASC')" >Placa</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'placa', 'DESC')" >Placa</div></th>
+                </ng-container>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'ASC')" >Data Entrada</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataEntrada', 'DESC')" >Data Entrada</div></th>
+                </ng-container>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'ASC')" >Hora Entrada</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaEntrada', 'DESC')" >Hora Entrada</div></th>
+                </ng-container>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'ASC')" >Data Saída</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'dataSaida', 'DESC')" >Data Saída</div></th>
+                </ng-container>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaSaida', 'ASC')" >Hora Saída</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'horaSaida', 'DESC')" >Hora Saída</div></th>
+                </ng-container>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'residencia.endereco', 'ASC')" >Endereço de Visita</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'residencia.endereco', 'DESC')" >Endereço de Visita</div></th>
+                </ng-container>
+
+                <ng-container *ngIf="dir.value === 'DESC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'residencia.numero', 'ASC')" >Número</div></th>
+                </ng-container>
+                <ng-container *ngIf="dir.value === 'ASC'">
+                  <th scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, posicaoPesquisa.value, 'residencia.numero', 'DESC')" >Número</div></th>
+                </ng-container>
+
                 <th scope="col">Encerrar</th>
             </tr>
           </thead>

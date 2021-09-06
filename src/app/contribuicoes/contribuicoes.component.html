@@ -52,18 +52,18 @@
                   <th>Data Pagamento</th>
                   <th>N. Documento</th>
                   <th>Valor</th>
-                  <th>Residencia</th>
+                  <th>Endereço</th>
                 </tr>
               </thead>
             <tbody>
               <tr *ngFor="let item of contribuicoes | paginate: { itemsPerPage: contador, currentPage: pag }">
-                <td class="textCenter"><div>{{ formatId(item.id, 6) }}</div></td>
-                <td><div>{{ item.nome }}</div></td>
-                <td class="textCenter"><div>{{ formatCPF(item.cpf) }}</div></td>
-                <td class="textCenter"><div>{{ item.dataPagamento }}</div></td>
-                <td class="textCenter"><div>{{ item.documento }}</div></td>
-                <td class="text-right"><div>{{ item.valor }}</div></td>
-                <td><div>{{ item.endereco }}</div></td>
+                <td style="width: 5%" class="textCenter"><div>{{ formatId(item.id, 6) }}</div></td>
+                <td style="width: 25%"><div>{{ item.nome }}</div></td>
+                <td style="width: 10%" class="textCenter"><div>{{ formatCPF(item.cpf) }}</div></td>
+                <td style="width: 10%" class="textCenter"><div>{{ item.dataPagamento }}</div></td>
+                <td style="width: 12%" class="textCenter"><div>{{ item.documento }}</div></td>
+                <td style="width: 8%" class="text-right"><div>{{ item.valor }}</div></td>
+                <td style="width: 30%"><div>{{ item.endereco }}</div></td>
               </tr>
             </tbody>
           </table>
