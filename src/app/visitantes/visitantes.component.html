@@ -33,16 +33,16 @@
         <table class="table-striped">
           <thead>
             <tr>
-                <th scope="col"><span>ID</span></th>
-                <th scope="col"><div >Nome</div></th>
-                <th scope="col">RG</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Número</th>
-                <th scope="col">Cidade</th>
-                <th scope="col">UF</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Celular</th>
-                <th scope="col">Última Visita</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="id"><span>ID</span></th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="nome"><div >Nome</div></th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="rg">RG</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="endereco">Endereço</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="numero">Número</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="cidade">Cidade</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="uf">UF</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="telefone">Telefone</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="celular">Celular</th>
+                <th scope="col" class="pointer" [appSort]="visitantes" data-order="desc" data-name="ultimaVisita">Última Visita</th>
             </tr>
           </thead>
           <tbody>

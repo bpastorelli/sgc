@@ -33,7 +33,7 @@ import { ResidenciasService } from './residencias/residencias.service';
 import { VisitantesService } from './visitantes/visitantes.service';
 import { VeiculosService } from './veiculos/veiculos.service';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NgxMaskModule } from 'ngx-mask';
 import { MoradorComponent } from './moradores/morador/morador.component';
 import { ResidenciaComponent } from './residencias/residencia/residencia.component';
 import { ResidenciasComponent } from './residencias/residencias.component';
@@ -54,6 +54,7 @@ import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcio
 import { ContribuicoesComponent } from './contribuicoes/contribuicoes.component';
 import { ImportarContribuicoesComponent } from './contribuicoes/importar-contribuicoes/importar-contribuicoes.component';
 import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuicoes/minhas-contribuicoes.component';
+import { SortDirective } from './_directive/sort.directive';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuico
     FuncionalidadeComponent,
     ContribuicoesComponent,
     ImportarContribuicoesComponent,
-    MinhasContribuicoesComponent
+    MinhasContribuicoesComponent,
+    SortDirective
   ],
   imports: [
     BrowserModule,

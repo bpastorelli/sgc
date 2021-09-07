@@ -27,14 +27,14 @@
         <table class="table-striped">
           <thead>
             <tr>
-                <th><span>ID</span></th>
-                <th>Endereço</th>
-                <th>Número</th>
-                <th>Complemento</th>
-                <th>Bairro</th>
-                <th>CEP</th>
-                <th>Cidade</th>
-                <th>UF</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="id"><span>ID</span></th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="endereco">Endereço</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="numero">Número</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="complemento">Complemento</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="bairro">Bairro</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="cep">CEP</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="cidade">Cidade</th>
+                <th class="pointer" scope="col" [appSort]="residencias" data-order="desc" data-name="uf">UF</th>
                 <th></th>
                 <th></th>
             </tr>
