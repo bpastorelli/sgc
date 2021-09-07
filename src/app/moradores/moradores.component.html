@@ -41,13 +41,13 @@
           <thead>
             <tr>
               <th style="width: 6px;" scope="col"></th>
-              <th scope="col">ID</th>
-              <th scope="col">Nome</th>
-              <th scope="col">E-mail</th>
-              <th scope="col">CPF</th>
-              <th scope="col">RG</th>
-              <th scope="col">Telefone</th>
-              <th scope="col">Celular</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="id">ID</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="nome">Nome</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="email">E-mail</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="cpf" >CPF</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="rg">RG</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="telefone">Telefone</th>
+              <th class="pointer" scope="col" [appSort]="moradores" data-order="desc" data-name="celular">Celular</th>
             </tr>
           </thead>
           <tbody>
