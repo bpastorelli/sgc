@@ -1,7 +1,3 @@
-
-import { HttpClient  } from '@angular/common/http';
-
-
 export class ExtractData{
 
   static extract(res: Response){

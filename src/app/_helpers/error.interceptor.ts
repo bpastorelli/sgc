@@ -3,6 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 
 import { AuthenticationService } from './../_services/authentication.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -10,22 +11,16 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(req)
-          .catch(errorResponse => {
-              let errMsg: string;
+          .pipe(catchError(err => {
 
-              if (errorResponse.status === 401) {
+              if (err.status === 401) {
                 // auto logout if 401 response returned from api
                 this.authenticationService.logout();
                 location.reload(true);
               }
 
-              if (errorResponse instanceof HttpErrorResponse) {
-                  const err = errorResponse.message || JSON.stringify(errorResponse.error);
-                  errMsg = `${errorResponse.error || ''}`;
-              } else {
-                  errMsg = errorResponse.message ? errorResponse.message : errorResponse.toString();
-              }
-              return throwError(errMsg);
-          });
+              const error = err.error.message || err.statusText;
+              return throwError(error);
+          }));
     }
 }

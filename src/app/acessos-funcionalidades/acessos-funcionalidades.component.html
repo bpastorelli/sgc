@@ -71,8 +71,8 @@
         <table ngModel class="table-striped" style="width: 60%;">
           <thead>
             <tr>
-                <th style="width: 50px;" scope="col"><span>ID</span></th>
-                <th>Funcionalidade</th>
+                <th class="pointer" scope="col" [appSort]="perfilFuncionalidades" data-order="desc" data-name="id" style="width: 50px;"><span>ID</span></th>
+                <th class="pointer" scope="col" [appSort]="perfilFuncionalidades" data-order="desc" data-name="funcionalidade">Funcionalidade</th>
                 <th style="width: 30px;" scope="col"></th>
             </tr>
           </thead>

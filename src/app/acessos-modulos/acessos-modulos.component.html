@@ -45,8 +45,8 @@
         <table ngModel class="table-striped" style="width: 60%;">
           <thead>
             <tr>
-                <th style="width: 50px;" scope="col"><span>ID</span></th>
-                <th>Nome do Módulo</th>
+                <th class="pointer" scope="col" [appSort]="perfilModulos" data-order="desc" data-name="id" style="width: 50px;"><span>ID</span></th>
+                <th class="pointer" scope="col" [appSort]="perfilModulos" data-order="desc" data-name="descricao">Nome do Módulo</th>
                 <th style="width: 30px;" scope="col"></th>
             </tr>
           </thead>
@@ -97,8 +97,8 @@
         <table ngModel class="table-striped" style="width: 100%;">
           <thead>
             <tr>
-                <th style="width: 50px;" scope="col"><span>ID</span></th>
-                <th>Funcionalidade</th>
+                <th class="pointer" scope="col" [appSort]="perfilFuncionalidades" data-order="desc" data-name="id" style="width: 50px;"><span>ID</span></th>
+                <th class="pointer" scope="col" [appSort]="perfilFuncionalidades" data-order="desc" data-name="funcionalidade">Funcionalidade</th>
                 <th style="width: 30px;" scope="col">Acesso</th>
             </tr>
           </thead>
@@ -131,6 +131,7 @@
         <div class="row">
           <div class="col-xs-12">
             <button *ngIf="selecionadosFunc.length > 0" (click)="putAcessosFuncionalidade(idUsuario.value, idModulo)" class="btn btn-success pull-right"><i></i> Salvar
+              <i class="fa fa-floppy-o" aria-hidden="false"></i>
             </button>
             <button (click)="closeModal('custom-modal-1')" class="btn btn-primary pull-right"><i></i> Cancelar
             </button>
