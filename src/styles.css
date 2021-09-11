@@ -75,8 +75,6 @@ body {
   width: 80%;
   float: left
 }
-.place-info-box-text {
-}
 
 .place-info-box-star {
   display: block;
@@ -189,8 +187,6 @@ th{
   margin-bottom: 10px;
   text-transform: uppercase;
   width: 80%;
-}
-.menu-item-info-box-text {
 }
 
 .menu-item-info-box-more {
@@ -427,6 +423,21 @@ pagination-controls{
   font: bold;
   padding: 4px;
   text-align: left;
+}
+
+.formLogin{
+
+  position: relative;
+  top: 20%;
+  width: 20%;
+  display: inline-block;
+
+}
+
+.bodyLogin{
+
+  text-align: center;
+
 }
 
 a { cursor: pointer }

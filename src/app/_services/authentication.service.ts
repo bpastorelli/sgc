@@ -1,10 +1,11 @@
+import { NgModel } from '@angular/forms';
 import { AcessoFuncionalidade } from './../_models/acessoFuncionalidade';
 import { AcessoModulo } from './../_models/acessoModulo';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { delay, dematerialize, map, materialize, mergeMap } from 'rxjs/operators';
 
 import { environment } from './../../environments/environment';
 import { User } from './../_models/user';
@@ -12,6 +13,7 @@ import { User } from './../_models/user';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
+    private user: User;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public acessoModulos: AcessoModulo[];

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from './../_services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,9 @@ export class LoginComponent implements OnInit {
         }
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
   ngOnInit() {
       //localStorage.removeItem('currentUser');
       this.loginForm = this.formBuilder.group({
@@ -55,9 +59,9 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService.login(username, password)
-        .subscribe(
+        .pipe(first())
+            .subscribe(
             data => {
-                this.loggedIn.next(true);
                 this.router.navigate([this.returnUrl]);
             },
             error => {
@@ -68,7 +72,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
       this.loggedIn.next(false);
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
   }
 
 }

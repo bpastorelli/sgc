@@ -3,9 +3,10 @@
     <div class="alert alert-info">
     </div>
     <div class="">
-        <h4 class="card-header">SGC - Três Marias</h4>
-        <div class="card-body">
-            <form #loginForm="ngForm" >
+      <div>
+          <h4>SGC - Três Marias</h4>
+          <body class="bodyLogin">
+            <form class="formLogin" #loginForm="ngForm" novalidate>
                 <div class="form-group">
                     <div class="full-width-input">
                       <app-input errorMessage="Campo obrigatório com mínimo!" label="Username">
@@ -25,8 +26,9 @@
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                       Acessar
                 </button>
-                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
             </form>
+          </body>
+          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
         </div>
     </div>
   </div>
