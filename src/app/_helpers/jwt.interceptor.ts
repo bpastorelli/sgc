@@ -24,5 +24,6 @@ constructor(private authenticationService: AuthenticationService) { }
         }
 
         return next.handle(request);
+
     }
 }

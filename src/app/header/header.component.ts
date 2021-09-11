@@ -1,5 +1,3 @@
-import { ListaFuncionalidades } from './../_models/listaFuncionalidades';
-import { AcessoFuncionalidade } from './../_models/acessoFuncionalidade';
 import { AcessoModulo } from './../_models/acessoModulo';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +5,8 @@ import { User } from '../_models/user';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Observable } from 'rxjs/Observable';
+
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
 
   public theBoundCallback: Function;
 
+  primeiroAcesso: boolean = false;
   currentUser: User;
   isLoggedIn$: Observable<boolean>;
   acessoModulos: AcessoModulo[] = [];
@@ -32,8 +33,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    this.montaMenuModulosFuncionalidades(JSON.parse(localStorage.getItem('idUsuario')), true);
-    this.nome = this.currentUser.nome.toUpperCase();
+    this.primeiroAcesso = this.currentUser.primeiroAcesso;
+
+    if(!this.currentUser.primeiroAcesso && this.currentUser.primeiroAcesso.toString() != 'undefined'){
+      this.montaMenuModulosFuncionalidades(JSON.parse(localStorage.getItem('idUsuario')), true);
+      this.nome = this.currentUser.nome.toUpperCase();
+    }
 
   }
 
@@ -63,6 +68,10 @@ export class HeaderComponent implements OnInit {
 
     return this.acessoModulos.indexOf(item[0]);
 
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
   }
 
 }

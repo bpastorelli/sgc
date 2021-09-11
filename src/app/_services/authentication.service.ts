@@ -1,11 +1,10 @@
-import { NgModel } from '@angular/forms';
+import { Password } from './../_models/password';
 import { AcessoFuncionalidade } from './../_models/acessoFuncionalidade';
 import { AcessoModulo } from './../_models/acessoModulo';
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { delay, dematerialize, map, materialize, mergeMap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from './../../environments/environment';
 import { User } from './../_models/user';
@@ -13,17 +12,20 @@ import { User } from './../_models/user';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-    private user: User;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public acessoModulos: AcessoModulo[];
     public acessoFuncionalidades: AcessoFuncionalidade[];
-    private router: Router;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
+
+    // Headers
+    httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
@@ -38,6 +40,15 @@ export class AuthenticationService {
                 this.currentUserSubject.next(user);
                 return user;
             }));
+    }
+
+    alterarSenha(idUsuario: number, password: Password){
+        return this.http.post<any>(`${environment.apiUrl}/token/alterarSenha?idUsuario=${idUsuario}`
+          , JSON.stringify(password)
+          , this.httpOptions)
+        .pipe(
+          map(response => response['data'])
+        );
     }
 
     acessosModulos(idUsuario: string, acesso: boolean) : Observable<AcessoModulo[]> {

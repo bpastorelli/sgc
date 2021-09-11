@@ -436,9 +436,14 @@ pagination-controls{
 
 .bodyLogin{
 
+  position: fixed;
+  top: 20%;
+  left: 10%;
+  right: 10%;
   text-align: center;
 
 }
 
 a { cursor: pointer }
+
 

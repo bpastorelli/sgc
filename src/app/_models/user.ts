@@ -4,4 +4,5 @@ export class User {
   senha: string;
   nome: string;
   token?: string;
+  primeiroAcesso: boolean;
 }
