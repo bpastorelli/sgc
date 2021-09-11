@@ -1,0 +1,46 @@
+<p></p>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" #exampleModal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sua senha expirou, insira uma nova senha:</h5>
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>-->
+      </div>
+      <div class="modal-body">
+
+        <form #formFunc="ngForm" [formGroup]="myFormModalPsw">
+          <div class="form-group">
+
+            <div class="full-width-input">
+              <app-input errorMessage="Campo obrigatório com mínimo!" label="Senha atual">
+                <input class="form-control" type="passwordOld" name="passwordOld" #passwordOld ngModel required maxlength="30" placeholder="Senha atual" autocomplete="off">
+              </app-input>
+            </div>
+
+            <div class="full-width-input">
+              <app-input errorMessage="Campo obrigatório com mínimo!" label="Nova senha">
+                <input class="form-control" type="newPassword" name="newPassword" #newPassword ngModel required maxlength="30" placeholder="Nova senha" autocomplete="off">
+              </app-input>
+            </div>
+
+            <div class="full-width-input">
+              <app-input errorMessage="Campo obrigatório com mínimo!" label="Password">
+                <input class="form-control" type="confirmPassword" name="confirmPassword" #confirmPassword ngModel required maxlength="30" placeholder="Confirme a senha" autocomplete="off">
+              </app-input>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <button type="button" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

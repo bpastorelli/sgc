@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Password } from './../_models/password';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ModalService } from '../_modal';
 import { AuthenticationService } from './../_services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { User } from '../_models/user';
+
+declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -12,11 +16,18 @@ import { first } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
+  user: User;
+
   loginForm: FormGroup;
+  myFormModal: FormGroup;
+  myFormModalPsw: FormGroup;
+
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = '';
+  error;
+
+  passwordLocal: string = null;
 
   private loggedIn = new BehaviorSubject<boolean>(false);
 
@@ -26,6 +37,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private modalService: ModalService,
 
   ) {
         // redirect to home if already logged in
@@ -37,7 +49,9 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
+
   ngOnInit() {
+
       //localStorage.removeItem('currentUser');
       this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
@@ -55,24 +69,64 @@ export class LoginComponent implements OnInit {
 
   logar(username: string, password: string) {
 
-    this.submitted = true;
-
     this.loading = true;
+    this.submitted = true;
+    this.passwordLocal = password;
+
     this.authenticationService.login(username, password)
         .pipe(first())
             .subscribe(
             data => {
-                this.router.navigate([this.returnUrl]);
+                this.user = data;
+                if(this.user.primeiroAcesso){
+                  this.open('customModal2');
+                  this.loading = false;
+                }else{
+                  this.router.navigate([this.returnUrl]);
+                }
             },
             error => {
-                this.error = error;
-                this.loading = false;
+              this.loading = false;
+              this.open("customModal1");
+              this.error = error;
             });
+  }
+
+  alterarSenha(password: Password){
+
+    this.loading = true;
+
+    this.authenticationService.alterarSenha(this.authenticationService.currentUserValue.id, password)
+    .pipe(first())
+        .subscribe(
+        data => {
+            this.user = data;
+            this.loading = false;
+            this.close('customModal2');
+            this.router.navigate(['/login']);
+        },
+        error => {
+          this.error = error;
+        });
+
   }
 
   logout() {
       this.loggedIn.next(false);
       this.router.navigate(['/']);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+
+  open(id: string) {
+    this.error = null;
+    $('#' + id).modal('show');
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
   }
 
 }

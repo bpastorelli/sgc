@@ -55,6 +55,7 @@ import { ContribuicoesComponent } from './contribuicoes/contribuicoes.component'
 import { ImportarContribuicoesComponent } from './contribuicoes/importar-contribuicoes/importar-contribuicoes.component';
 import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuicoes/minhas-contribuicoes.component';
 import { SortDirective } from './_directive/sort.directive';
+import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { SortDirective } from './_directive/sort.directive';
     ContribuicoesComponent,
     ImportarContribuicoesComponent,
     MinhasContribuicoesComponent,
-    SortDirective
+    SortDirective,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,

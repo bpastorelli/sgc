@@ -1,7 +1,4 @@
-import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuicoes/minhas-contribuicoes.component';
-import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
-import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
-import { VeiculosComponent } from './veiculos/veiculos.component';
+import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.component';
 import { Routes, RouterModule } from '@angular/router'
 
 import { AuthGuard } from './_helpers/auth.guard';
@@ -25,6 +22,10 @@ import { FuncionalidadesComponent } from './funcionalidades/funcionalidades.comp
 import { FuncionalidadeComponent } from './funcionalidades/funcionalidade/funcionalidade.component';
 import { ImportarContribuicoesComponent } from './contribuicoes/importar-contribuicoes/importar-contribuicoes.component';
 import { ContribuicoesComponent } from './contribuicoes/contribuicoes.component';
+import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuicoes/minhas-contribuicoes.component';
+import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
+import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
+import { VeiculosComponent } from './veiculos/veiculos.component';
 
 export const ROUTES: Routes = [
 
@@ -57,6 +58,7 @@ export const ROUTES: Routes = [
   { path: 'summary-edit', component: SummaryEditComponent },
   { path: 'summary-add', component: SummaryAddComponent },
   { path: 'summary-visita', component: SummaryVisitaComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
 
   // otherwise redirect to home
    //{ path: '**', redirectTo: '' }

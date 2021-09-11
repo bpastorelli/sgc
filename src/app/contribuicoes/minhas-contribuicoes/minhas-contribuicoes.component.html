@@ -28,12 +28,12 @@
           <table class="table-striped">
             <thead>
               <tr>
-                  <th>Nome</th>
-                  <th>CPF</th>
-                  <th>Data Pagamento</th>
-                  <th>N. Documento</th>
-                  <th>Valor</th>
-                  <th>Residencia</th>
+                  <th class="pointer" scope="col" [appSort]="contribuicoes" data-order="desc" data-name="nome">Nome</th>
+                  <th class="pointer" scope="col" [appSort]="contribuicoes" data-order="desc" data-name="cpf">CPF</th>
+                  <th class="pointer" scope="col" [appSort]="contribuicoes" data-order="desc" data-name="dataPagamento">Data Pagamento</th>
+                  <th class="pointer" scope="col" [appSort]="contribuicoes" data-order="desc" data-name="documento">N. Documento</th>
+                  <th class="pointer" scope="col" [appSort]="contribuicoes" data-order="desc" data-name="valor">Valor</th>
+                  <th class="pointer" scope="col" [appSort]="contribuicoes" data-order="desc" data-name="endereco">Residencia</th>
                 </tr>
               </thead>
             <tbody>
