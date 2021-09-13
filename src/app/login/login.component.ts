@@ -108,6 +108,7 @@ export class LoginComponent implements OnInit {
             this.app.logout();
         },
         error => {
+          this.loading = false;
           this.error = error;
         });
 

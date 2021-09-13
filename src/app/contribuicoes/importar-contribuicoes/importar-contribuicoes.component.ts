@@ -5,6 +5,8 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Contribuicao } from '../contribuicao.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+declare var $: any;
+
 @Component({
   selector: 'app-importar-contribuicoes',
   templateUrl: './importar-contribuicoes.component.html'
@@ -14,7 +16,10 @@ export class ImportarContribuicoesComponent implements OnInit {
   pag: Number = 1;
   contador: Number = 10;
 
-  errorMessage: string;
+  loading: boolean = false;
+
+  error;
+  errorMessage;
   errorsList: string[] = [];
   uploadForm: FormGroup;
   contribuicoes: Contribuicao[] = [];
@@ -48,20 +53,21 @@ export class ImportarContribuicoesComponent implements OnInit {
 
   onSubmit(){
 
+    this.loading = true;
     this.errorsList = [];
     this.contribuicoes = [];
 
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('profile').value);
 
-    console.log(this.uploadForm.get('profile').value);
-
     this.importarContribuicao.postImportacao(formData)
       .subscribe(data =>{
+          this.loading = false;
           this.contribuicoes = data;
         }, err=>{
+          this.loading = false;
           this.errorMessage = err;
-          this.errorsList = this.errorMessage.split(",");
+          this.errorsList = this.errorMessage;
         }
       );
 
@@ -94,6 +100,15 @@ export class ImportarContribuicoesComponent implements OnInit {
 
     this.router.navigate(['/'])
 
+  }
+
+  open(id: string) {
+    this.error = null;
+    $('#' + id).modal('show');
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
   }
 
 }
