@@ -1,3 +1,4 @@
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.component';
 import { Routes, RouterModule } from '@angular/router'
 
@@ -59,6 +60,7 @@ export const ROUTES: Routes = [
   { path: 'summary-add', component: SummaryAddComponent },
   { path: 'summary-visita', component: SummaryVisitaComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'alterarsenha/:acao', component: AlterarSenhaComponent },
 
   // otherwise redirect to home
    //{ path: '**', redirectTo: '' }

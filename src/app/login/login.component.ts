@@ -1,9 +1,8 @@
 import { AppComponent } from './../app.component';
 import { Password } from './../_models/password';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from '../_modal';
 import { AuthenticationService } from './../_services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -34,12 +33,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
 
+    private app: AppComponent,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private modalService: ModalService,
-    private app: AppComponent,
 
   ) {
         // redirect to home if already logged in
@@ -112,15 +110,6 @@ export class LoginComponent implements OnInit {
           this.error = error;
         });
 
-  }
-
-  logout() {
-      this.loggedIn.next(false);
-      this.router.navigate(['/']);
-  }
-
-  closeModal(id: string) {
-    this.modalService.close(id);
   }
 
   open(id: string) {
