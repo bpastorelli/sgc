@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="customModal2" #customModal2 tabindex="-1" role="dialog" aria-labelledby="custoModal2Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="acao === 'alterar'" class="modal-title" id="customModal2Label"><strong> Alterar Senha </strong></h5>
+        <h5 *ngIf="acao != 'alterar'" class="modal-title" id="customModal2Label">Sua senha expirou, insira uma nova senha!</h5>
+      </div>
+      <div class="modal-body">
+
+        <form #formAlterarPsw="ngForm" novalidate>
+          <div class="form-group">
+
+            <div class="full-width-input">
+              <app-input errorMessage="Campo obrigatório!" label="Senha atual">
+                <input class="form-control" [required] [(ngModel)]="passwordLocal" type="password" name="senha" #senha maxlength="30" placeholder="Senha atual" autocomplete="off">
+              </app-input>
+            </div>
+
+            <div class="full-width-input">
+              <app-input errorMessage="Campo obrigatório!" label="Nova senha">
+                <input class="form-control" required ngModel type="password" name="novaSenha" #novaSenha maxlength="30" placeholder="Nova senha" autocomplete="off">
+              </app-input>
+            </div>
+
+            <div class="full-width-input">
+              <app-input errorMessage="Campo obrigatório!" label="Password">
+                <input class="form-control" required ngModel type="password" name="confirmarSenha" #confirmarSenha maxlength="30" placeholder="Confirme a senha" autocomplete="off">
+              </app-input>
+            </div>
+            <div *ngIf="error" class="alert alert-warning">
+              <strong>Atenção! </strong>{{ error }}
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer" >
+
+        <button *ngIf="acao === 'alterar'" style="width: 100px" type="button" class="btn btn-primary" (click)="close('customModal2')">
+          Cancelar
+        </button>
+
+        <button style="width: 100px" [disabled]="loading" [disabled]="!formAlterarPsw.valid" type="button" class="btn btn-success" (click)="alterarSenha(formAlterarPsw.value)">
+          <div *ngIf="!loading">Salvar</div>
+          <div *ngIf="loading">Salvando...</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
