@@ -1,30 +1,15 @@
 <div class="form-group">
+
+  <div class="modal-footer" >
+    <button type="button" class="btn btn-secondary" (click)="open('customModal')" data-dismiss="modal"> Instruções de Preenchimento </button>
+   </div>
+
   <div *ngIf="errorsList.length > 0" class="alert alert-warning">
     <div *ngFor="let item of errorsList">
       <strong >Atenção! </strong>{{ item }}
     </div>
   </div>
-  <div>
-    <strong style="font-size: 20px;">Padrão de preenchimento do arquivo</strong>
-      <p>
-      <div>
-        <p>
-          Linha 1: Cabeçalho do arquivo. Exemplo: | cpf | dataPagamento | valor |
-        </p>
-        <p>
-          Coluna A, Linha 2 (cpf): CPF formatado ou não formatado. Exemplo: 23456789034 ou 234.567.890-34
-        </p>
-        <p>
-          Coluna B, Linha 2 (dataPagamento): Data do no formato dd/MM/yyyy. Exemplo: 23/09/2020
-        </p>
-        <p>
-          Coluna C, Linha 2 (valor): Valor no formato decimal com separador de decimais com virgula. Exemplo: 23,50
-        </p>
-        <p>
-          Coluna D, Linha 2 (documento): Número do documento constante no boleto. Não obrigatório.
-        </p>
-      </div>
-  </div>
+
   <br>
   <form #formEdit="ngForm" [formGroup]="uploadForm">
 
@@ -36,9 +21,12 @@
     <br>
     <section class="invoice">
       <div>
-        <button (click)="onSubmit()" class="btn btn-success pull-left"
-        [disabled]="!uploadForm.valid"><i></i> Importar
+
+        <button style="width: 100px" [disabled]="loading" [disabled]="!uploadForm.valid" type="button" class="btn btn-success pull-left" (click)="onSubmit()">
+          <div *ngIf="!loading">Importar</div>
+          <div *ngIf="loading">Importando...</div>
         </button>
+
         <button (click)="cancelar()" class="btn btn-primary pull-left"><i></i> Cancelar
         </button>
       </div>
@@ -85,4 +73,44 @@
         </section>
 
   </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="customModal" #customModal2 tabindex="-1" role="dialog" aria-labelledby="custoModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customModal2Label">
+          <strong style="font-size: 20px;">Padrão de preenchimento do Arquivo</strong>
+        </h5>
+      </div>
+      <div class="modal-body">
+
+        <div>
+            <p>
+            <div>
+              <p>
+                Linha 1: Cabeçalho do arquivo. Exemplo: | cpf | dataPagamento | valor |
+              </p>
+              <p>
+                Coluna A, Linha 2 (cpf): CPF formatado ou não formatado. Exemplo: 23456789034 ou 234.567.890-34
+              </p>
+              <p>
+                Coluna B, Linha 2 (dataPagamento): Data do no formato dd/MM/yyyy. Exemplo: 23/09/2020
+              </p>
+              <p>
+                Coluna C, Linha 2 (valor): Valor no formato decimal com separador de decimais com virgula. Exemplo: 23,50
+              </p>
+              <p>
+                Coluna D, Linha 2 (documento): Número do documento constante no boleto. Não obrigatório.
+              </p>
+            </div>
+        </div>
+
+      </div>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Fechar </button>
+      </div>
+    </div>
+  </div>
 </div>

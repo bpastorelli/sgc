@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { Password } from './../_models/password';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private modalService: ModalService,
+    private app: AppComponent,
 
   ) {
         // redirect to home if already logged in
@@ -100,12 +102,13 @@ export class LoginComponent implements OnInit {
     .pipe(first())
         .subscribe(
         data => {
-            this.user = data;
             this.loading = false;
             this.close('customModal2');
-            this.router.navigate(['/login']);
+            this.loggedIn.next(false);
+            this.app.logout();
         },
         error => {
+          this.loading = false;
           this.error = error;
         });
 
