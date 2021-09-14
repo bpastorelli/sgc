@@ -35,10 +35,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let modulo of modulos | paginate: { itemsPerPage: contador, currentPage: pag }">
-              <td class="textCenter" (click)="editModulo(modulo.id)"><div class="pointer">{{ formatId(modulo.id, 6) }}</div></td>
-              <td><div class="pointer" (click)="editModulo(modulo.id)">{{ modulo.descricao.toUpperCase() }}</div></td>
-              <td><div class="pointer" (click)="editModulo(modulo.id)">{{ modulo.pathModulo.toLowerCase() }}</div></td>
-              <td><div class="pointer" (click)="editModulo(modulo.id)">{{ posicaoDescricao(modulo.posicao) }}</div></td>
+              <td style="width: 10%" class="textCenter" (click)="editModulo(modulo.id)"><div class="pointer">{{ formatId(modulo.id, 6) }}</div></td>
+              <td style="width: 40%"><div class="pointer" (click)="editModulo(modulo.id)">{{ modulo.descricao.toUpperCase() }}</div></td>
+              <td style="width: 40%"><div class="pointer" (click)="editModulo(modulo.id)">{{ modulo.pathModulo.toLowerCase() }}</div></td>
+              <td style="width: 10%"><div class="pointer" (click)="editModulo(modulo.id)">{{ posicaoDescricao(modulo.posicao) }}</div></td>
             </tr>
           </tbody>
         </table>
