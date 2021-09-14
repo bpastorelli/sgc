@@ -59,7 +59,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="customModal2Label">Sua senha expirou, insira uma nova senha!</h5>
+        <h5 class="modal-title" id="customModal2Label"><strong>Sua senha expirou, insira uma nova senha!</strong></h5>
       </div>
       <div class="modal-body">
 
@@ -92,9 +92,11 @@
 
       </div>
       <div class="modal-footer" >
-        <button style="width: 100px" [disabled]="loading" [disabled]="!formAlterarPsw.valid" type="button" class="btn btn-primary" (click)="alterarSenha(formAlterarPsw.value)">
-          <div *ngIf="!loading">Salvar</div>
-          <div *ngIf="loading">Salvando...</div>
+        <button style="width: 100px" [disabled]="loading" [disabled]="!formAlterarPsw.valid" type="button" class="btn btn-success" (click)="alterarSenha(formAlterarPsw.value)">
+          <div *ngIf="!loading else loadingTemplate">Salvar</div>
+          <ng-template #loadingTemplate>
+            <div>Salvando...</div>
+          </ng-template >
         </button>
       </div>
     </div>

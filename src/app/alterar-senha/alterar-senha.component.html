@@ -13,19 +13,19 @@
 
             <div class="full-width-input">
               <app-input errorMessage="Campo obrigatório!" label="Senha atual">
-                <input class="form-control" [required] [(ngModel)]="passwordLocal" type="password" name="senha" #senha maxlength="30" placeholder="Senha atual" autocomplete="off">
+                <input class="form-control" required [(ngModel)]="passwordLocal" type="password" name="senha" #senha minlength="5" maxlength="30" placeholder="Senha atual" autocomplete="off">
               </app-input>
             </div>
 
             <div class="full-width-input">
               <app-input errorMessage="Campo obrigatório!" label="Nova senha">
-                <input class="form-control" required ngModel type="password" name="novaSenha" #novaSenha maxlength="30" placeholder="Nova senha" autocomplete="off">
+                <input class="form-control" required ngModel type="password" name="novaSenha" #novaSenha minlength="5" maxlength="30" placeholder="Nova senha" autocomplete="off">
               </app-input>
             </div>
 
             <div class="full-width-input">
               <app-input errorMessage="Campo obrigatório!" label="Password">
-                <input class="form-control" required ngModel type="password" name="confirmarSenha" #confirmarSenha maxlength="30" placeholder="Confirme a senha" autocomplete="off">
+                <input class="form-control" required ngModel type="password" name="confirmarSenha" #confirmarSenha minlength="5" maxlength="30" placeholder="Confirme a senha" autocomplete="off">
               </app-input>
             </div>
             <div *ngIf="error" class="alert alert-warning">
@@ -43,8 +43,10 @@
         </button>
 
         <button style="width: 100px" [disabled]="loading" [disabled]="!formAlterarPsw.valid" type="button" class="btn btn-success" (click)="alterarSenha(formAlterarPsw.value)">
-          <div *ngIf="!loading">Salvar</div>
-          <div *ngIf="loading">Salvando...</div>
+          <div *ngIf="!loading else loadingTemplate">Salvar</div>
+          <ng-template #loadingTemplate>
+            <div>Salvando...</div>
+          </ng-template >
         </button>
       </div>
     </div>

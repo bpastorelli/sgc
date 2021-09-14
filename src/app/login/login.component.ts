@@ -94,8 +94,8 @@ export class LoginComponent implements OnInit {
 
   alterarSenha(password: Password){
 
+    this.error = null;
     this.loading = true;
-
     this.authenticationService.alterarSenha(this.authenticationService.currentUserValue.id, password)
     .pipe(first())
         .subscribe(

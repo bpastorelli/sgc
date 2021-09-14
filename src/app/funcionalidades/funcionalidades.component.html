@@ -46,10 +46,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let funcionalidade of funcionalidades | paginate: { itemsPerPage: contador, currentPage: pag }">
-              <td class="textCenter" (click)="editFuncionalidade(funcionalidade.id)"><div class="pointer">{{ formatId(funcionalidade.id, 6) }}</div></td>
-              <td><div class="pointer" (click)="editFuncionalidade(funcionalidade.id)">{{ funcionalidade.descricao.toUpperCase() }}</div></td>
-              <td><div class="pointer" (click)="editFuncionalidade(funcionalidade.id)">{{ funcionalidade.pathFuncionalidade.toLowerCase() }}</div></td>
-              <td><div class="pointer" (click)="editFuncionalidade(funcionalidade.id)">{{ posicaoDescricao(funcionalidade.posicao) }}</div></td>
+              <td style="width: 10%" class="textCenter" (click)="editFuncionalidade(funcionalidade.id)"><div class="pointer">{{ formatId(funcionalidade.id, 6) }}</div></td>
+              <td style="width: 40%"><div class="pointer" (click)="editFuncionalidade(funcionalidade.id)">{{ funcionalidade.descricao.toUpperCase() }}</div></td>
+              <td style="width: 40%"><div class="pointer" (click)="editFuncionalidade(funcionalidade.id)">{{ funcionalidade.pathFuncionalidade.toLowerCase() }}</div></td>
+              <td style="width: 10%"><div class="pointer" (click)="editFuncionalidade(funcionalidade.id)">{{ posicaoDescricao(funcionalidade.posicao) }}</div></td>
             </tr>
           </tbody>
         </table>

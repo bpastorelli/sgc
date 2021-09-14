@@ -45,26 +45,28 @@ export class AlterarSenhaComponent implements OnInit {
     this.acao = this.route.snapshot.paramMap.get('acao');
     if(this.acao === 'alterar')
       this.open('customModal2');
-    console.log(this.acao);
 
   }
 
   alterarSenha(password: Password){
 
+    this.error = null;
     this.loading = true;
 
-    this.authenticationService.alterarSenha(this.authenticationService.currentUserValue.id, password)
+    this.authenticationService.alterarSenha(Number(localStorage.getItem('idUsuario')), password)
     .pipe(first())
         .subscribe(
         data => {
             this.loading = false;
-            this.close('customModal2');
             this.loggedIn.next(false);
+            this.close('customModal2');
             this.app.logout();
         },
         error => {
-          this.loading = false;
+          console.log(this.error);
           this.error = error;
+          this.loading = false;
+          this.loggedIn.next(false);
         });
 
   }
