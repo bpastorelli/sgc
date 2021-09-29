@@ -63,7 +63,6 @@ export class AlterarSenhaComponent implements OnInit {
             this.app.logout();
         },
         error => {
-          console.log(this.error);
           this.error = error;
           this.loading = false;
           this.loggedIn.next(false);
