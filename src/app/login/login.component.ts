@@ -96,18 +96,20 @@ export class LoginComponent implements OnInit {
 
     this.error = null;
     this.loading = true;
+
     this.authenticationService.alterarSenha(this.authenticationService.currentUserValue.id, password)
     .pipe(first())
         .subscribe(
         data => {
             this.loading = false;
-            this.close('customModal2');
             this.loggedIn.next(false);
+            this.close('customModal2');
             this.app.logout();
         },
         error => {
-          this.loading = false;
           this.error = error;
+          this.loading = false;
+          this.loggedIn.next(false);
         });
 
   }

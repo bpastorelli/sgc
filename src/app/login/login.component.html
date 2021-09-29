@@ -63,7 +63,7 @@
       </div>
       <div class="modal-body">
 
-        <form #formAlterarPsw="ngForm" novalidate>
+        <form #formAlterarPswLogin="ngForm" novalidate>
           <div class="form-group">
 
             <div class="full-width-input">
@@ -92,9 +92,9 @@
 
       </div>
       <div class="modal-footer" >
-        <button style="width: 100px" [disabled]="loading" [disabled]="!formAlterarPsw.valid" type="button" class="btn btn-success" (click)="alterarSenha(formAlterarPsw.value)">
-          <div *ngIf="!loading else loadingTemplate">Salvar</div>
-          <ng-template #loadingTemplate>
+        <button style="width: 100px" [disabled]="loading" [disabled]="!formAlterarPswLogin.valid" type="button" class="btn btn-success" (click)="alterarSenha(formAlterarPswLogin.value)">
+          <div *ngIf="!loading else loadingTemplateLogin">Salvar</div>
+          <ng-template #loadingTemplateLogin>
             <div>Salvando...</div>
           </ng-template >
         </button>

@@ -23,6 +23,8 @@ export class VisitasComponent implements OnInit {
   posicaoDefault: number = 1;
   errorMessage;
 
+  date = new Date(Date.parse('01/01/9999'));
+
   @Input() ordenar;
   @Input() direction;
 
@@ -38,19 +40,19 @@ export class VisitasComponent implements OnInit {
     if(this.authenticationService.currentUserValue){
         this.ordenar = "dataEntrada";
         this.direction = 'DESC';
-        this.getVisitas(null, null, null, this.posicaoDefault, this.ordenar, this.direction);
+        this.getVisitas(null, null, null, "01/01/9999", "01/01/9999", this.posicaoDefault, this.ordenar, this.direction);
     }else{
         this.router.navigate(['/login'])
     }
 
   }
 
-  baixarVisita(id: string, nome: string, rg: string, cpf: string){
+  baixarVisita(id: string, nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string){
 
     this.visitantesService.baixarVisita(id)
       .subscribe(data => {
         this.visita = data;
-        this.getVisitas(nome, rg, cpf, this.posicaoDefault, this.ordenar, this.direction);
+        this.getVisitas(nome, rg, cpf, dataInicio, dataFim, this.posicaoDefault, this.ordenar, this.direction);
     },err=>{
         this.errorMessage = err.message;
         throw err;
@@ -58,12 +60,13 @@ export class VisitasComponent implements OnInit {
 
   }
 
-  getVisitas(nome: string, rg: string, cpf: string, posicao: number, ord: string, dir: string){
+  getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string){
 
     this.ordenar = ord;
     this.direction = dir;
+    this.errorMessage = null;
 
-    this.visitantesService.getVisitas(nome, rg, cpf, posicao, ord, dir)
+    this.visitantesService.getVisitas(nome, rg, cpf, dataInicio, dataFim, posicao, ord, dir)
     .subscribe(
       data=>{
             this.visitas = data;

@@ -67,6 +67,10 @@ export class AcessosModulosComponent implements OnInit {
       .subscribe(
         data=>{
           this.usuarios = data;
+          this.usuarios.forEach((p, index) => {
+            if(Number(p.id) == Number(JSON.parse(localStorage.getItem('idUsuario'))))
+              this.usuarios.splice(index, 1);
+          });
         }, err=>{
           console.log(err);
         }

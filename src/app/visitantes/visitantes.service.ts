@@ -31,9 +31,9 @@ export class VisitantesService {
 
   }
 
-  getVisitas(nome: string, rg: string, cpf: string, posicao: number, ord: string, dir: string): Observable<Visita[]> {
+  getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string): Observable<Visita[]> {
 
-    return this.http.get<Visita[]>(`${environment.apiUrl}/associados/visita/filtro?nome=${nome}&rg=${rg}&cpf=${cpf}&posicao=${posicao}&pag=0&ord=${ord}&dir=${dir}&size=1000000`)
+    return this.http.get<Visita[]>(`${environment.apiUrl}/associados/visita/filtro?nome=${nome}&rg=${rg}&cpf=${cpf}&posicao=${posicao}&dataInicio=${dataInicio}&dataFim=${dataFim}&pag=0&ord=${ord}&dir=${dir}&size=1000000`)
 
   }
 
