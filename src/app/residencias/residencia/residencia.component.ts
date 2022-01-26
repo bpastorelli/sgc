@@ -85,6 +85,20 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
+  postNovaResidenciaAmqp(residencia: Residencia){
+
+    console.log(residencia);
+
+    this.residenciaService.postNovaResidenciaAmqp(residencia)
+      .subscribe(data => {
+        this.residencia = data;
+        this.router.navigate(['/summary-add']);
+      },err=>{
+          this.errorMessage = err;
+      });
+
+  }
+
   putResidencia(residencia: Residencia, id: string){
 
     this.residenciaService.putResidencia(residencia, id)

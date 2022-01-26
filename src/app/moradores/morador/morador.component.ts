@@ -7,6 +7,7 @@ import { Residencia } from './../../residencias/residencias.model';
 import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-morador',
@@ -95,8 +96,7 @@ export class MoradorComponent implements OnInit {
       .subscribe(data => {
         this.guide = data;
         this.id = data.ticket;
-        console.log(data);
-        this.router.navigate(['/residencia/novo/morador/', this.id]);
+        this.router.navigate(['/residencia/novo2/morador/', this.id]);
     },err=>{
         this.errorMessage = err;
     });
@@ -131,6 +131,22 @@ export class MoradorComponent implements OnInit {
       }
     );
     return this.moradores;
+
+  }
+
+  getMoradorByTicket(ticket: string) {
+
+    this.moradorService.getTicketMorador(ticket)
+    .subscribe(
+      data=>{
+        this.mor = data;
+        console.log(this.mor);
+        console.log(this.mor.id);
+      }, err=>{
+        this.errorMessage = err;
+      }
+    );
+    return this.mor;
 
   }
 
