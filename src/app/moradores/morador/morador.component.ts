@@ -1,3 +1,4 @@
+import { Publisher } from './../../_models/publisher';
 import { Component, OnInit } from '@angular/core';
 import { MoradorService } from './morador.service';
 import { Morador } from './../morador/morador.model';
@@ -22,6 +23,7 @@ export class MoradorComponent implements OnInit {
   errorMessage;
 
   mor = {} as Morador;
+  guide = {} as Publisher;
   moradores: Moradores[];
   residenciasVinculadas: Residencia[];
   situacaoCadastral = [
@@ -78,6 +80,22 @@ export class MoradorComponent implements OnInit {
       .subscribe(data => {
         this.mor = data;
         this.id = data.id;
+        this.router.navigate(['/residencia/novo/morador/', this.id]);
+    },err=>{
+        this.errorMessage = err;
+    });
+
+  }
+
+  postMoradorAmqp(morador: Morador){
+
+    morador.cpf = morador.cpf.replace('.','').replace('-','');
+
+    this.moradorService.postMoradorAmqp(morador)
+      .subscribe(data => {
+        this.guide = data;
+        this.id = data.ticket;
+        console.log(data);
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
         this.errorMessage = err;
