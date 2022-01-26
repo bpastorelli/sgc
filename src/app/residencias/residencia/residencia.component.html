@@ -217,7 +217,7 @@
 
       <div *ngIf="acao==='novo2'" class="col-sm-2 col-xs-6">
         <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Morador">
-          <input class="form-control" type="text" name="ticketMorador" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
+          <input class="form-control" type="hidden" name="ticketMorador" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
         </app-input-container>
       </div>
 
