@@ -35,6 +35,14 @@ export class ResidenciaService {
 
   }
 
+  postNovaResidenciaAmqp(residencia: Residencia): Observable<Residencia>{
+
+    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia/amqp/nova`
+        ,JSON.stringify(residencia)
+        ,this.httpOptions)
+
+  }
+
   putResidencia(residencia: Residencia, id: string): Observable<any>{
 
     return this.http.put<Residencia>(`${environment.apiUrl}/associados/residencia/${id}`

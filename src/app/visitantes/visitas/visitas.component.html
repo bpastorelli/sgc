@@ -62,10 +62,10 @@
                 <th style="width: 2%;" scope="col"></th>
 
                 <ng-container *ngIf="dir.value === 'DESC'">
-                  <th style="width: 22%" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" >Visitante</div></th>
+                  <th style="width: 20%" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'visitante.nome', 'ASC')" >Visitante</div></th>
                 </ng-container>
                 <ng-container *ngIf="dir.value === 'ASC'">
-                  <th style="width: 22%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')" >Visitante</div></th>
+                  <th style="width: 20%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'visitante.nome', 'DESC')" >Visitante</div></th>
                 </ng-container>
 
                 <th style="width: 7%;" scope="col">RG</th>
@@ -78,31 +78,31 @@
                 </ng-container>
 
                 <ng-container *ngIf="dir.value === 'DESC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataEntrada', 'ASC')" >Data Entrada</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataEntrada', 'ASC')" >Data Entrada</div></th>
                 </ng-container>
                 <ng-container *ngIf="dir.value === 'ASC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataEntrada', 'DESC')" >Data Entrada</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataEntrada', 'DESC')" >Data Entrada</div></th>
                 </ng-container>
 
                 <ng-container *ngIf="dir.value === 'DESC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaEntrada', 'ASC')" >Hora Entrada</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaEntrada', 'ASC')" >Hora Entrada</div></th>
                 </ng-container>
                 <ng-container *ngIf="dir.value === 'ASC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaEntrada', 'DESC')" >Hora Entrada</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaEntrada', 'DESC')" >Hora Entrada</div></th>
                 </ng-container>
 
                 <ng-container *ngIf="dir.value === 'DESC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataSaida', 'ASC')" >Data Saída</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataSaida', 'ASC')" >Data Saída</div></th>
                 </ng-container>
                 <ng-container *ngIf="dir.value === 'ASC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataSaida', 'DESC')" >Data Saída</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'dataSaida', 'DESC')" >Data Saída</div></th>
                 </ng-container>
 
                 <ng-container *ngIf="dir.value === 'DESC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaSaida', 'ASC')" >Hora Saída</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaSaida', 'ASC')" >Hora Saída</div></th>
                 </ng-container>
                 <ng-container *ngIf="dir.value === 'ASC'">
-                  <th style="width: 6%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaSaida', 'DESC')" >Hora Saída</div></th>
+                  <th style="width: 6,5%;" scope="col"><div class="pointer" (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 'horaSaida', 'DESC')" >Hora Saída</div></th>
                 </ng-container>
 
                 <ng-container *ngIf="dir.value === 'DESC'">

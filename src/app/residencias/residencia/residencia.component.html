@@ -215,6 +215,12 @@
         </app-input-container>
       </div>
 
+      <div *ngIf="acao==='novo2'" class="col-sm-2 col-xs-6">
+        <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Morador">
+          <input class="form-control" type="text" name="ticketMorador" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
+        </app-input-container>
+      </div>
+
       <!-- /.row -->
       </div>
 
@@ -231,6 +237,16 @@
       <div *ngIf="acao === 'novo'"  class="row">
         <div class="col-xs-12">
           <button (click)="postNovaResidencia(formCreate.value)" class="btn btn-success pull-right"
+          [disabled]="!formCreate.valid"><i></i> Finalizar
+          </button>
+          <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="acao === 'novo2'"  class="row">
+        <div class="col-xs-12">
+          <button (click)="postNovaResidenciaAmqp(formCreate.value)" class="btn btn-success pull-right"
           [disabled]="!formCreate.valid"><i></i> Finalizar
           </button>
           <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar

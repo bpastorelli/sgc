@@ -40,6 +40,21 @@ constructor(private http: HttpClient) { }
 
   }
 
+  postMoradorAmqp(morador: Morador): Observable<any> {
+
+    return this.http.post<Morador>(`${environment.apiUrl}/associados/morador/amqp/novo`
+        , JSON.stringify(morador)
+        , this.httpOptions)
+        .pipe(
+          map(response => response['data']),
+        );
+  }
+
+  getTicketMorador(ticket: string): Observable<any>{
+
+    return this.http.get<Morador>(`${environment.apiUrl}/associados/morador/amqp/ticket?ticket=${ticket}`);
+  }
+
   putMorador(morador: Morador, id: string): Observable<any> {
 
     return this.http.put<Morador>(`${environment.apiUrl}/associados/morador/morador/${id}`
@@ -52,8 +67,11 @@ constructor(private http: HttpClient) { }
 
   getMorador(id: string) : Observable<Morador>{
 
-    return this.http.get<Morador>(`${environment.apiUrl}/associados/morador/id/${id}`)
-
+    return this.http.get<Morador>(`${environment.apiUrl}/associados/morador/id/${id}`
+        , this.httpOptions)
+        .pipe(
+          map(response => response['data'])
+        );
   }
 
   getResidenciasVinculadas(moradorId: string): Observable<Residencia[]>{
