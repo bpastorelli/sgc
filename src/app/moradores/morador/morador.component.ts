@@ -88,7 +88,7 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  postMoradorAmqp(morador: Morador){
+  postMoradorAmqp(morador: Morador, cadastrResidencia: boolean){
 
     morador.cpf = morador.cpf.replace('.','').replace('-','');
 
@@ -96,7 +96,10 @@ export class MoradorComponent implements OnInit {
       .subscribe(data => {
         this.mor = data;
         this.id = data.ticket;
-        this.router.navigate(['/residencia/novo2/morador/', this.id]);
+        if(cadastrResidencia)
+            this.router.navigate(['/residencia/novo2/morador/', this.id]);
+        else
+          this.router.navigate([`/summary-edit`]);
     },err=>{
         this.errorMessage = err;
     });
