@@ -94,7 +94,7 @@ export class MoradorComponent implements OnInit {
 
     this.moradorService.postMoradorAmqp(morador)
       .subscribe(data => {
-        this.guide = data;
+        this.mor = data;
         this.id = data.ticket;
         this.router.navigate(['/residencia/novo2/morador/', this.id]);
     },err=>{
@@ -113,6 +113,23 @@ export class MoradorComponent implements OnInit {
           this.router.navigate([`/summary-edit`]);
         else
           this.router.navigate(['/residencia/novo/morador/', this.id]);
+    },
+    (err) =>{
+        this.errorMessage = err;
+    });
+
+  }
+
+  putMoradorAmqp(moradorEdit: Morador, id: string){
+
+    this.moradorService.putMorador(moradorEdit, id)
+      .subscribe(data => {
+        this.mor = data;
+        this.id = data.guide;
+        if(this.mor.residenciaId != null)
+          this.router.navigate([`/summary-edit`]);
+        else
+          this.router.navigate(['/residencia/novo2/morador/', this.id]);
     },
     (err) =>{
         this.errorMessage = err;

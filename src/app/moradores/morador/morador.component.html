@@ -102,7 +102,7 @@
         <div *ngIf="!create">
           <div class="row">
               <div class="col-xs-11">
-                <button (click)="putMorador(formEdit.value, id.value)" class="btn btn-success pull-right"
+                <button (click)="putMoradorAmqp(formEdit.value, id.value)" class="btn btn-success pull-right"
                 [disabled]="!formEdit.valid"><i></i> Atualizar
                 </button>
                 <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
