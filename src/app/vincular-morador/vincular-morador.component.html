@@ -1,0 +1,67 @@
+<section class="content-header">
+
+  <section class="content">
+    <div *ngIf="errorMessage" class="alert alert-warning">
+      <strong>Atenção! </strong>{{ errorMessage }}
+    </div>
+
+    <label class="labelPagina">
+      Vinculo de morador a uma residência
+    </label>
+
+  <form #form="ngForm" novalidate>
+      <div class="col-sm-4 col-xs-6">
+        <div class="form-group">
+          <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Selecione o módulo:</label>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Selecione o Morador </p>
+          </div>
+          <div class="col-sm-12 col-xs-6">
+            <select #moradorId
+                required
+                placeholder="Moradores"
+                name="moradorId"
+                id="moradorId"
+                class="form-control"
+                ngModel="0">
+                <option [value]="0"> SELECIONE </option>
+                <option *ngFor="let item of usuarios" [value]="item.id" ngModel="0">{{ item.nome.toUpperCase() }}</option>
+            </select>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Selecione a Residência </p>
+          </div>
+          <div class="col-sm-12 col-xs-6">
+            <select #residenciaId
+                required
+                placeholder="Residencias"
+                name="residenciaId"
+                id="residenciaId"
+                class="form-control"
+                ngModel="0">
+                <option [value]="0"> SELECIONE </option>
+                <option *ngFor="let item of residencias" [value]="item.id" ngModel="0">{{ item.endereco.toUpperCase() + ", " + item.numero + " - " + item.bairro.toUpperCase()}}</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="width: 65%;">
+
+        <div class="row">
+            <div class="col-xs-11">
+              <button (click)="postVinculo(form.value)" class="btn btn-success pull-right"
+              [disabled]="!form.valid"><i></i> Salvar
+              </button>
+              <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+              </button>
+            </div>
+        </div>
+      </div>
+
+    </form>
+  </section>
+</section>

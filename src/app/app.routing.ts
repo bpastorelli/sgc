@@ -1,7 +1,7 @@
-import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.component';
 import { Routes, RouterModule } from '@angular/router'
 
+import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { MoradorComponent } from './moradores/morador/morador.component';
 import { MoradoresComponent } from './moradores/moradores.component';
@@ -27,6 +27,7 @@ import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuico
 import { AcessosModulosComponent } from './acessos-modulos/acessos-modulos.component';
 import { AcessosFuncionalidadesComponent } from './acessos-funcionalidades/acessos-funcionalidades.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
+import { VincularMoradorComponent } from './vincular-morador/vincular-morador.component';
 
 export const ROUTES: Routes = [
 
@@ -47,6 +48,7 @@ export const ROUTES: Routes = [
   { path: 'residencia/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao/morador/:codigo', component: ResidenciaComponent },
   { path: 'residencia/:acao', component: ResidenciaComponent },
+  { path: 'vincularmorador/create', component: VincularMoradorComponent},
   { path: 'modulo/:codigo', component: ModuloComponent},
   { path: 'modulos', component: ModulosComponent},
   { path: 'acessoFuncionalidade/create', component: AcessosFuncionalidadesComponent },

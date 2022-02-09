@@ -1,3 +1,4 @@
+import { VincularMoradorService } from './vincular-morador/vincular-morador.service';
 import { ContribuicoesService } from './contribuicoes/contribuicoes.service';
 import { FuncionalidadeService } from './funcionalidades/funcionalidades.service';
 import { ModalModule } from './_modal/modal.module';
@@ -57,6 +58,7 @@ import { MinhasContribuicoesComponent } from './contribuicoes/minhas-contribuico
 import { SortDirective } from './_directive/sort.directive';
 import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.component';
 import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
+import { VincularMoradorComponent } from './vincular-morador/vincular-morador.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,8 @@ import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
     MinhasContribuicoesComponent,
     SortDirective,
     UnauthorizedComponent,
-    AlterarSenhaComponent
+    AlterarSenhaComponent,
+    VincularMoradorComponent
   ],
   imports: [
     BrowserModule,
@@ -118,6 +121,7 @@ import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
     AcessoModuloService,
     FuncionalidadeService,
     ContribuicoesService,
+    VincularMoradorService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
