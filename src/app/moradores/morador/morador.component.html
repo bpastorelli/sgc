@@ -102,7 +102,7 @@
         <div *ngIf="!create">
           <div class="row">
               <div class="col-xs-11">
-                <button (click)="putMorador(formEdit.value, id.value)" class="btn btn-success pull-right"
+                <button (click)="putMoradorAmqp(formEdit.value, id.value)" class="btn btn-success pull-right"
                 [disabled]="!formEdit.valid"><i></i> Atualizar
                 </button>
                 <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -257,7 +257,7 @@
             <div *ngIf="acao==='create'">
               <div *ngIf="create" class="row">
                 <div class="col-xs-12">
-                  <button class="pointer" (click)="postMoradores(formCreate.value)" class="btn btn-success pull-right"
+                  <button class="pointer" (click)="postMoradorAmqp(formCreate.value, false)" class="btn btn-success pull-right"
                   [disabled]="!formCreate.valid"><i></i> Salvar
                   </button>
                   <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -269,7 +269,7 @@
             <div *ngIf="acao != 'create'">
               <div *ngIf="create" class="row">
                 <div class="col-xs-12">
-                  <button class="pointer" (click)="postMoradorAmqp(formCreate.value)" class="btn btn-success pull-right"
+                  <button class="pointer" (click)="postMoradorAmqp(formCreate.value, true)" class="btn btn-success pull-right"
                   [disabled]="!formCreate.valid"><i></i> Avançar
                   </button>
                   <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar

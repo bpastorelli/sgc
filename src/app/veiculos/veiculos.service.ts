@@ -23,8 +23,6 @@ export class VeiculosService {
 
   postVeiculo(veiculo: Veiculo): Observable<any>{
 
-    console.log(veiculo);
-
     return this.http.post<Veiculo>(`${environment.apiUrl}/associados/veiculo/novo`
         , JSON.stringify(veiculo)
         , this.httpOptions)

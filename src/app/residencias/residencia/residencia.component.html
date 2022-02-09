@@ -226,7 +226,7 @@
 
       <div *ngIf="acao===null" class="row">
         <div class="col-xs-12">
-          <button (click)="postResidencia(formCreate.value)" class="btn btn-success pull-right"
+          <button (click)="postNovaResidenciaAmqp(formCreate.value)" class="btn btn-success pull-right"
           [disabled]="!formCreate.valid"><i></i> Salvar
           </button>
           <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -236,7 +236,7 @@
 
       <div *ngIf="acao === 'novo'"  class="row">
         <div class="col-xs-12">
-          <button (click)="postNovaResidencia(formCreate.value)" class="btn btn-success pull-right"
+          <button (click)="postResidencia(formCreate.value)" class="btn btn-success pull-right"
           [disabled]="!formCreate.valid"><i></i> Finalizar
           </button>
           <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
