@@ -48,6 +48,17 @@ export class VisitantesService {
 
   }
 
+  postVisitanteAmqp(visitante: Visitante): Observable<any>{
+
+    return this.http.post<Visitante>(`${environment.apiUrl}/associados/visitante/amqp/incluir`
+        , JSON.stringify(visitante)
+        , this.httpOptions)
+        .pipe(
+          map(response => response['data'])
+        );
+
+  }
+
   putVisitante(visitante: Visitante, id: string): Observable<any>{
 
     return this.http.put<Visitante>(`${environment.apiUrl}/associados/visitante/${id}`

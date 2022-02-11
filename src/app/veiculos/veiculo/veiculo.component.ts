@@ -58,6 +58,19 @@ export class VeiculoComponent implements OnInit {
 
   }
 
+  postVeiculoAmqp(veiculo: Veiculo){
+
+    this.veiculosService.postVeiculoAmqp(veiculo)
+      .subscribe(data => {
+        this.veiculo = data;
+        this.id = data.id;
+        this.router.navigate([`/summary-add`]);
+    },err=>{
+        this.errorMessage = err;
+    });
+
+  }
+
   putVeiculo(veiculo: Veiculo, id: string){
 
     this.veiculosService.putVeiculo(veiculo, id)

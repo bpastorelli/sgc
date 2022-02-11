@@ -169,7 +169,15 @@
 
             <div *ngIf="acao==='novo'" class="col-sm-2 col-xs-6">
               <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Visitante">
+                <input class="form-control" type="hidden" name="ticketVisitante" minlength="1" placeholder="Código Visitante" autocomplete="off">
                 <input class="form-control" type="hidden" name="visitanteId" [(ngModel)]="codigo" minlength="1" placeholder="Código Visitante" autocomplete="off">
+              </app-input-container>
+            </div>
+
+            <div *ngIf="acao==='amqp'" class="col-sm-2 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Visitante">
+                <input class="form-control" type="hidden" name="ticketVisitante" [(ngModel)]="codigo" minlength="1" placeholder="Código Visitante" autocomplete="off">
+                <input class="form-control" type="hidden" name="visitanteId" minlength="1" placeholder="Código Visitante" autocomplete="off">
               </app-input-container>
             </div>
 
@@ -188,7 +196,17 @@
             </div>
           </div>
 
-
+          <div *ngIf="acao === 'amqp'">
+            <div *ngIf="create" class="row">
+              <div class="col-xs-12">
+                <button class="pointer" (click)="postVeiculoAmqp(formCreate.value)" class="btn btn-success pull-right"
+                  [disabled]="!formCreate.valid"><i></i> Salvar
+                </button>
+                <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
 
           <div style="height: 34px;">
 
