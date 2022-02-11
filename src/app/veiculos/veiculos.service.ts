@@ -32,6 +32,17 @@ export class VeiculosService {
 
   }
 
+  postVeiculoAmqp(veiculo: Veiculo): Observable<any>{
+
+    return this.http.post<Veiculo>(`${environment.apiUrl}/associados/veiculo/amqp/novo`
+        , JSON.stringify(veiculo)
+        , this.httpOptions)
+        .pipe(
+          map(response => response['data'])
+        );
+
+  }
+
   putVeiculo(veiculo: Veiculo, id: string): Observable<any>{
 
     console.log(veiculo);

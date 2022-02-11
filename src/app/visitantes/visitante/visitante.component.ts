@@ -76,6 +76,22 @@ export class VisitanteComponent implements OnInit {
 
   }
 
+  postVisitanteAmqp(visitante: Visitante){
+
+    if(visitante.cpf != null)
+      visitante.cpf = visitante.cpf.replace('.','').replace('-','');
+
+    this.visitantesService.postVisitanteAmqp(visitante)
+      .subscribe(data => {
+        this.visit = data;
+        this.id = data.ticket;
+        this.router.navigate(['/veiculo/amqp/visitante/', this.id]);
+    },err=>{
+        this.errorMessage = err;
+    });
+
+  }
+
   putVisitante(visitante: Visitante, id: string){
 
     if(visitante.cpf != null)

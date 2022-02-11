@@ -295,7 +295,7 @@
             <div *ngIf="codigo === 'create'">
               <div *ngIf="create" class="row">
                 <div class="col-xs-12">
-                  <button class="pointer" (click)="postVisitante(formCreate.value)" class="btn btn-success pull-right"
+                  <button class="pointer" (click)="postVisitanteAmqp(formCreate.value)" class="btn btn-success pull-right"
                     [disabled]="!formCreate.valid"><i></i> Avançar
                   </button>
                   <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar

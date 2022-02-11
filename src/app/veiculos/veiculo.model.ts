@@ -6,6 +6,7 @@ export interface Veiculo{
   modelo: string,
   cor: string,
   ano: String,
-  posicao: string
+  posicao: string,
+  guide: string
 
 }
