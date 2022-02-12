@@ -109,6 +109,22 @@ export class VisitaComponent implements OnInit {
       });
   }
 
+  postVisitaAmqp(visitaRequest: VisitaRequest){
+
+    visitaRequest.residenciaId = this.codigo;
+
+    if(typeof(visitaRequest.placa) === 'undefined')
+      visitaRequest.placa = "";
+
+    this.visitantesService.postVisitaAmqp(visitaRequest)
+      .subscribe(data => {
+          this.visita = data;
+          this.router.navigate(['/summary-visita']);
+      },err=>{
+          this.errorMessage = err;
+      });
+  }
+
   getResidenciaById(codigo: string){
 
     this.residenciasService.residencias(codigo, null, "0")

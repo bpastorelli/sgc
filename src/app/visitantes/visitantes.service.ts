@@ -91,4 +91,14 @@ export class VisitantesService {
         );
   }
 
+  postVisitaAmqp<Visita>(visitaRequest: VisitaRequest): Observable<any>{
+
+    return this.http.post<Visita>(`${environment.apiUrl}/associados/visita/amqp/incluir`
+        , JSON.stringify(visitaRequest)
+        , this.httpOptions)
+        .pipe(
+          map(response => response['data'])
+        );
+  }
+
 }
