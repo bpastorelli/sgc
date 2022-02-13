@@ -26,9 +26,17 @@ export class VisitaComponent implements OnInit {
   numeroResp: string;
   cidadeResp: string;
   ufResp: string;
+
+  marcaResp: string;
+  modeloResp: string;
+  corResp: string;
+  anoResp: string;
+
   errorMessage;
 
   createVeiculo: boolean = false;
+  mostraVeiculo: boolean = false;
+
 
   pag : Number = 1;
   contador : Number = 5;
@@ -146,7 +154,7 @@ export class VisitaComponent implements OnInit {
         .subscribe(
           data=>{
             this.veiculo = data;
-            if(data == null){
+            if(this.veiculo == null){
               this.createVeiculo = true;
             }
           }, err=>{
