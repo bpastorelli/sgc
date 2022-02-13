@@ -58,11 +58,18 @@
               <input class="form-control" #uf name="uf" ngModel type="text" disabled [(ngModel)]="ufResp" maxlength="2" placeholder="UF" autocomplete="off">
             </div>
 
+            <p></p>
+            <p></p>
+
             <div class="col-xs-12">
-              <p class="control-label"> Dados de veiculo: </p>
+              <p class="control-label"> <b>Dados de veiculo:</b> </p>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Placa: </p>
             </div>
             <div class="col-sm-2 col-xs-2">
-              <input class="form-control" (ngModelChange)="placa.value=$event.toUpperCase()" style="font-weight:bold" [(ngModel)]="placaResp" #placa mask="AAA-AAAA" (blur)="getVeiculo(placa.value)" (blur)="getVeiculo(placa.value)" type="text" name="placa" maxlength="8" placeholder="Placa" autocomplete="off">
+              <input class="form-control" (ngModelChange)="placa.value=$event.toUpperCase()" style="font-weight:bold" [(ngModel)]="placaResp" ngModel #placa mask="AAA-AAAA" (blur)="getVeiculo(placa.value)" type="text" name="placa" maxlength="8" placeholder="Placa" autocomplete="off">
             </div>
 
         </div>
@@ -100,9 +107,10 @@
               <p class="control-label"> Ano: </p>
             </div>
             <div *ngIf="createVeiculo" class="col-sm-2 col-xs-4">
-              <input class="form-control" #ano ngModel type="text" name="ano" ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
+              <input class="form-control" ngModel type="text" name="ano" ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
             </div>
           </div>
+
 
         </div>
       </div>
