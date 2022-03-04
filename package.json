@@ -21,7 +21,7 @@
     "@angular/router": "~11.2.6",
     "@auth0/angular-jwt": "^5.0.2",
     "@azure/ng-deploy": "^0.2.3",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "cors": "^2.8.5",
     "ng-bootstrap-modal": "^1.1.19",
     "ng-form-group": "^1.4.2",
