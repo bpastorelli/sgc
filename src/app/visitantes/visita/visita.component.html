@@ -23,7 +23,10 @@
               <p class="control-label"> RG: </p>
             </div>
             <div class="col-sm-2 col-xs-2">
-              <input class="form-control" #rg style="font-weight:bold" ngModel (blur)="getVisitante(rg.value)" (blur)="getVeiculoByVisitanteRg(rg.value)" type="text" name="rg" maxlength="10" placeholder="RG" autocomplete="off">
+              <input class="form-control" #rg style="font-weight:bold" ngModel type="text" name="rg" maxlength="10" placeholder="RG" autocomplete="off">
+            </div>
+            <div class="pointer" ngModel (click)="getVisitante(rg.value)" (click)="getVeiculoByVisitanteRg(rg.value)">
+              <img class="lupa" src="assets/img/pesquisa/pesquisa.png">
             </div>
 
             <div class="col-xs-12">

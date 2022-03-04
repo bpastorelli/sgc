@@ -10,6 +10,7 @@ import { VisitantesService } from './../visitantes.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './../../_services/authentication.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-visita',
@@ -73,7 +74,6 @@ export class VisitaComponent implements OnInit {
 
   getVisitante(rg: string){
 
-    if(rg.length > 0){
       this.visitantesService.getVisitante(rg, null)
         .subscribe(
           data=>{
@@ -92,7 +92,6 @@ export class VisitaComponent implements OnInit {
             this.ufResp = null;
             this.errorMessage = err;
           });
-    }
   }
 
   editVeiculo(codigo: string){
@@ -166,14 +165,17 @@ export class VisitaComponent implements OnInit {
 
   getVeiculoByVisitanteRg(rg: string){
 
-    this.veiculosService.getVeiculosByVisitanteRg(rg)
+    if(rg.length > 0){
+      this.veiculosService.getVeiculosByVisitanteRg(rg)
       .subscribe(
         data=>{
           this.veiculosVinculados = data;
         },err=>{
           this.errorMessage = err;
         }
-    );
+      );
+    }
+
   }
 
   pageChanged(event){
