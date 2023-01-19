@@ -54,7 +54,8 @@ export class VincularMoradorComponent implements OnInit {
 
   getUsuarios(posicao: number){
 
-    this.usuariosService.getMoradoresByPosicao(posicao)
+
+    /*this.usuariosService.getMoradoresByPosicao(posicao)
       .subscribe(
         data=>{
           this.usuarios = data;
@@ -65,7 +66,7 @@ export class VincularMoradorComponent implements OnInit {
         }, err=>{
           console.log(err);
         }
-      );
+      );*/
   }
 
   getResidencias(id: string, endereco: string, numero: string){

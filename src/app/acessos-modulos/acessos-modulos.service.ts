@@ -14,6 +14,8 @@ import { AcessosModulosRequest } from './acessos-modulos-request.model';
 @Injectable()
 export class AcessoModuloService {
 
+  private acessosModuloUrl = environment.protocol + environment.apiUrl;
+
   constructor(private http: HttpClient){}
 
   // Headers
@@ -23,13 +25,13 @@ export class AcessoModuloService {
 
   getAcessosModulos(idUsuario: string): Observable<AcessosModulos[]> {
 
-    return this.http.get<AcessosModulos[]>(`${environment.apiUrl}/access/acessoModulo/filtroPorUsuario?idUsuario=${idUsuario}&posicao=1&pag=0&size=1000000&ord=id&dir=ASC`)
+    return this.http.get<AcessosModulos[]>(`${this.acessosModuloUrl}/access/acessoModulo/filtroPorUsuario?idUsuario=${idUsuario}&posicao=1&pag=0&size=1000000&ord=id&dir=ASC`)
 
   }
 
   putAcessoModulo(perfil: AcessosModulosRequest[], idUsuario: string){
 
-    return this.http.put<AcessosModulosRequest>(`${environment.apiUrl}/access/acessoModulo/idUsuario/${idUsuario}`
+    return this.http.put<AcessosModulosRequest>(`${this.acessosModuloUrl}/access/acessoModulo/idUsuario/${idUsuario}`
       , JSON.stringify(perfil)
       , this.httpOptions)
       .pipe(

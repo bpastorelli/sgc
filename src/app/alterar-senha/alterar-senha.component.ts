@@ -1,3 +1,4 @@
+import { ErroRegistro } from '../_models/erro-registro';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -7,6 +8,7 @@ import { AppComponent } from '..';
 import { Password } from '../_models/password';
 import { User } from '../_models/user';
 import { AuthenticationService } from '../_services/authentication.service';
+import { RegistroException } from '../_models/registro-exception';
 
 declare var $: any;
 
@@ -26,7 +28,7 @@ export class AlterarSenhaComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error;
+  public erros: RegistroException ;
 
   passwordLocal: string = null;
 
@@ -50,10 +52,10 @@ export class AlterarSenhaComponent implements OnInit {
 
   alterarSenha(password: Password){
 
-    this.error = null;
+    this.erros = null;
     this.loading = true;
 
-    this.authenticationService.alterarSenha(Number(localStorage.getItem('idUsuario')), password)
+    this.authenticationService.alterarSenha(Number(localStorage.getItem('id')), password)
     .pipe(first())
         .subscribe(
         data => {
@@ -62,8 +64,11 @@ export class AlterarSenhaComponent implements OnInit {
             this.close('customModal2');
             this.app.logout();
         },
-        error => {
-          this.error = error;
+        errors => {
+          this.erros = errors;
+
+          console.log(this.erros.erros);
+
           this.loading = false;
           this.loggedIn.next(false);
         });
@@ -71,7 +76,7 @@ export class AlterarSenhaComponent implements OnInit {
   }
 
   open(id: string) {
-    this.error = null;
+    this.erros = null;
     $('#' + id).modal('show');
   }
 

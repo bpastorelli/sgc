@@ -79,14 +79,14 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   getUsuarios(posicao: number){
 
-    this.usuariosService.getMoradoresByPosicao(posicao)
+    /*this.usuariosService.getMoradoresByPosicao(posicao)
       .subscribe(
         data=>{
           this.usuarios = data;
         }, err=>{
           console.log(err);
         }
-      );
+      );*/
 
   }
 

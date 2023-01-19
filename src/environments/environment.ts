@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'localhost:4200/api',
+  protocol: 'http://',
+  moradorUrl: '/morador',
+  filtro: '/filtro',
+  token: '/token',
+  alterar: '/amqp/alterar',
+  apiUrl: 'localhost:4200/api/sgc',
   apiUrlCep: `https://viacep.com.br/ws`
 };
 

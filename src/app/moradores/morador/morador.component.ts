@@ -1,13 +1,12 @@
+import { ResidenciaResponse } from './../../residencias/residencia-response.model';
+import { MoradorResponse } from './morador-response.model';
 import { Publisher } from './../../_models/publisher';
 import { Component, OnInit } from '@angular/core';
 import { MoradorService } from './morador.service';
 import { Morador } from './../morador/morador.model';
-import { Moradores } from './../../moradores/moradores.model';
-import { Residencia } from './../../residencias/residencias.model';
 import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-morador',
@@ -25,8 +24,9 @@ export class MoradorComponent implements OnInit {
 
   mor = {} as Morador;
   guide = {} as Publisher;
-  moradores: Moradores[];
-  residenciasVinculadas: Residencia[];
+  moradores: MoradorResponse[] = [];
+  residenciasVinculadas: ResidenciaResponse[];
+
   situacaoCadastral = [
         { id: 1, label: "ATIVO" },
         { id: 0, label: "INATIVO" }];
@@ -37,7 +37,6 @@ export class MoradorComponent implements OnInit {
   constructor(
               private authenticationService: AuthenticationService,
               private moradorService: MoradorService,
-              private moradoresService: MoradoresService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -49,8 +48,7 @@ export class MoradorComponent implements OnInit {
       if(this.authenticationService.currentUserValue){
         if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
             this.create = false;
-            this.getMoradorById(this.codigo.toString());
-            this.getResidenciasVinculados(this.codigo.toString());
+            this.getMoradorById(this.codigo);
         }
       }else{
           this.router.navigate(['/login']);
@@ -106,7 +104,7 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  putMorador(moradorEdit: Morador, id: string){
+  putMorador(moradorEdit: Morador, id: number){
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
@@ -123,31 +121,32 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  putMoradorAmqp(moradorEdit: Morador, id: string){
+  putMoradorAmqp(moradorEdit: Morador, id: number){
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
-        this.mor = data;
-        this.id = data.guide;
-        if(this.mor.residenciaId != null)
+        console.log(data['ticket']);
+
+        this.id = data['ticket'];
+        if(this.id != null)
           this.router.navigate([`/summary-edit`]);
         else
           this.router.navigate(['/residencia/novo2/morador/', this.id]);
     },
     (err) =>{
-        this.errorMessage = err;
+        this.errorMessage = err['erros'];
     });
 
   }
 
   getMoradorById(codigo: string) {
 
-    this.moradoresService.getMoradores(codigo, null, null, null, null)
+    this.moradorService.getMorador(codigo)
     .subscribe(
       data=>{
         this.moradores = data;
       }, err=>{
-        this.errorMessage = err;
+        this.errorMessage = err['detalhe'];
       }
     );
     return this.moradores;

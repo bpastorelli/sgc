@@ -1,3 +1,4 @@
+import { MoradoresFilterModel } from './moradores-filter.model';
 import { Injectable } from '@angular/core';
 import { Moradores } from "./moradores.model";
 import { HttpClient } from '@angular/common/http';
@@ -5,21 +6,29 @@ import { environment } from './../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 import { Morador } from './morador/morador.model';
+import { Params } from '@angular/router';
+import { BaseService } from '../_services/base.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
-export class MoradoresService {
+export class MoradoresService extends BaseService {
 
-  constructor(private http: HttpClient){}
+  private moradoresUrl: string = environment.protocol + environment.apiUrl + environment.moradorUrl + environment.filtro;
 
-  getMoradores(id: string, nome: string, cpf: string, rg: string, email: string): Observable<Moradores[]> {
-
-    return this.http.get<Moradores[]>(`${environment.apiUrl}/associados/morador/filtro?id=${id}&cpf=${cpf}&rg=${rg}&email=${email}&nome=${nome}&pag=0&ord=nome&dir=ASC&size=1000000`)
-
+  constructor(private http: HttpClient){
+    super();
   }
 
-  getMoradoresByPosicao(posicao: number){
+  getMoradores(request: MoradoresFilterModel): Observable<Array<Moradores>> {
 
-    return this.http.get<Moradores[]>(`${environment.apiUrl}/associados/morador/filtroPorPosicao?posicao=${posicao}&pag=0&size=1000000&ord=nome&dir=ASC`)
+    let queryParams: Params = {};
+    if(request){
+      queryParams = this.setParameter(request);
+    }
+
+    return this.http.get<Array<Moradores>>(this.moradoresUrl, {params: queryParams})
+    .pipe(
+        map(response => response));
 
   }
 

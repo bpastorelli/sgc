@@ -1,3 +1,5 @@
+import { Residencia } from "src/app/residencias/residencias.model";
+
 export interface Morador {
 
     id: string;
@@ -14,6 +16,7 @@ export interface Morador {
     dataCriacao: Date;
     posicao: number;
     associado: number;
+    residencias: Residencia[];
     guide: string;
 
 }

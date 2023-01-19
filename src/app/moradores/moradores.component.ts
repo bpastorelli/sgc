@@ -1,3 +1,5 @@
+import { FormBuilder } from '@angular/forms';
+import { MoradoresFilterModel } from './moradores-filter.model';
 import { properties } from './../../properties/properties';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +21,14 @@ export class MoradoresComponent implements OnInit {
   pag : Number = 1;
   contador : Number = properties.itemsPerPage;
 
+  formGroup: any;
+
+  request: any = {};
+
+  requestDto: MoradoresFilterModel = new MoradoresFilterModel();
+
   constructor(
+      private fb: FormBuilder,
       private router: Router,
       private moradoresService: MoradoresService,
       private authenticationService: AuthenticationService
@@ -28,7 +37,8 @@ export class MoradoresComponent implements OnInit {
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
-        this.getMoradores("0", null, null, null, null);
+        this.loadForm();
+        this.getMoradores();
         this.router.navigate(['/moradores']);
     }else{
         this.router.navigate(['/login']);
@@ -36,9 +46,23 @@ export class MoradoresComponent implements OnInit {
 
   }
 
-  getMoradores(codigo: string, nome: string, cpf: string, rg: string, email: string){
+  getMoradores(nome?: string, rg?: string, cpf?: string, email?: string){
 
-    return this.moradoresService.getMoradores(codigo, nome, cpf, rg, email)
+    this.requestDto = new MoradoresFilterModel();
+
+    if(nome)
+      this.requestDto.nome = nome;
+
+    if(rg)
+      this.requestDto.rg = rg;
+
+    if(cpf)
+      this.requestDto.cpf = cpf;
+
+    if(email)
+      this.requestDto.email = email;
+
+    return this.moradoresService.getMoradores(this.requestDto)
       .subscribe(
         data=>{
           this.moradores = data;
@@ -48,9 +72,37 @@ export class MoradoresComponent implements OnInit {
       );
   }
 
+  getMoradoresByPosicao(posicao){
+
+    return this.moradoresService.getMoradores(this.requestDto)
+      .subscribe(
+        data=>{
+          this.moradores = data;
+        }, err=>{
+          console.log(err);
+        }
+      );
+
+  }
+
+  preparaCamposRequest(item: MoradoresFilterModel){
+
+    if(item.nome)
+      this.requestDto.nome = item.nome;
+
+    if(item.cpf)
+      this.requestDto.cpf = item.cpf;
+
+    if(item.rg)
+      this.requestDto.rg = item.rg;
+
+    if(item.email)
+      this.requestDto.email = item.email;
+
+  }
+
   getIdMorador(codigo: string){
 
-    console.log(`Código enviado: ${codigo}`)
     this.router.navigate([`/morador/`, codigo])
 
   }
@@ -88,6 +140,18 @@ export class MoradoresComponent implements OnInit {
     }else{
       return telefone;
     }
+
+  }
+
+  loadForm(){
+
+    this.formGroup = this.fb.group({
+      nome: [''],
+      cpf: [''],
+      rg: [''],
+      email: [''],
+
+    });
 
   }
 

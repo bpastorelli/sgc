@@ -63,7 +63,7 @@ export class AcessosModulosComponent implements OnInit {
 
   getUsuarios(posicao: number){
 
-    this.usuariosService.getMoradoresByPosicao(posicao)
+    /*this.usuariosService.getMoradoresByPosicao(posicao)
       .subscribe(
         data=>{
           this.usuarios = data;
@@ -74,7 +74,7 @@ export class AcessosModulosComponent implements OnInit {
         }, err=>{
           console.log(err);
         }
-      );
+      );*/
 
   }
 

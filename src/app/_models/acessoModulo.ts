@@ -2,9 +2,10 @@ import { AcessoFuncionalidade } from "./acessoFuncionalidade";
 
 export class AcessoModulo {
   id: string;
+  idUsuario: string;
   idModulo: string;
-  descricao: string;
-  path: string;
+  nomeModulo: string;
+  pathModulo: string;
   acesso: boolean;
   funcionalidades: AcessoFuncionalidade[];
 }

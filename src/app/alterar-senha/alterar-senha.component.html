@@ -28,8 +28,8 @@
                 <input class="form-control" required ngModel type="password" name="confirmarSenha" #confirmarSenha minlength="5" maxlength="30" placeholder="Confirme a senha" autocomplete="off">
               </app-input>
             </div>
-            <div *ngIf="error" class="alert alert-warning">
-              <strong>Atenção! </strong>{{ error }}
+            <div *ngFor="let erro of erros.erros" class="alert alert-warning">
+              <strong>Atenção! </strong>{{ erro.detalhe }}
             </div>
 
           </div>

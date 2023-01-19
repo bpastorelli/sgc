@@ -11,9 +11,9 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
         <ul class="menu">
-            <li *ngFor="let modulo of acessoModulos" routerLink="active" id="{{modulo.id}}" ><a [routerLink]="[modulo.path]"> {{ modulo.descricao }}</a>
+            <li *ngFor="let modulo of acessoModulos" routerLink="active" id="{{modulo.id}}" ><a [routerLink]="[modulo.pathModulo]"> {{ modulo.nomeModulo }}</a>
               <ul>
-                <li *ngFor="let funcionalidade of modulo.funcionalidades" routerLink="active"><a [routerLink]="[funcionalidade.path]"> {{ funcionalidade.funcionalidade }}</a></li>
+                <li *ngFor="let funcionalidade of modulo.funcionalidades" routerLink="active"><a [routerLink]="[funcionalidade.pathFuncionalidade]"> {{ funcionalidade.nomeFuncionalidade }}</a></li>
               </ul>
             </li>
         </ul>

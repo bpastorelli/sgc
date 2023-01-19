@@ -1,4 +1,6 @@
-export interface Moradores {
+import { ResidenciaResponse } from "src/app/residencias/residencia-response.model";
+
+export class MoradorResponse {
 
     id: string;
     nome: string;
@@ -10,8 +12,11 @@ export interface Moradores {
     telefone: string;
     celular: string;
     residenciaId: string;
+    dataAtualizacao: Date;
+    dataCriacao: Date;
     posicao: number;
     associado: number;
+    residencias: ResidenciaResponse[];
     guide: string;
 
 }
