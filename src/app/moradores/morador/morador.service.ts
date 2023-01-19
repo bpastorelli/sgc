@@ -50,11 +50,11 @@ constructor(private http: HttpClient) {
 
   postMoradorAmqp(morador: Morador): Observable<any> {
 
-    return this.http.post<Morador>(`${environment.apiUrl}/associados/morador/amqp/novo`
+    return this.http.post<Morador>(this.moradorUrl + environment.novo
         , JSON.stringify(morador)
-        , this.httpOptions)
+        , { headers: this.httpOptions.headers })
         .pipe(
-          map(response => response['data']),
+          map(response => response),
         );
   }
 

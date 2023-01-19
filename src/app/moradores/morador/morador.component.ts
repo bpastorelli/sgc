@@ -7,6 +7,7 @@ import { Morador } from './../morador/morador.model';
 import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 @Component({
   selector: 'app-morador',
@@ -21,6 +22,8 @@ export class MoradorComponent implements OnInit {
   pag: Number = 1;
   contador: Number = 5;
   errorMessage;
+
+  erros: ErroRegistro[] = [];
 
   mor = {} as Morador;
   guide = {} as Publisher;
@@ -66,7 +69,7 @@ export class MoradorComponent implements OnInit {
         this.id = data.id;
         this.router.navigate([`/summary-add`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
@@ -81,12 +84,14 @@ export class MoradorComponent implements OnInit {
         this.id = data.id;
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
 
   postMoradorAmqp(morador: Morador, cadastrResidencia: boolean){
+
+    this.erros = [];
 
     morador.cpf = morador.cpf.replace('.','').replace('-','');
 
@@ -99,12 +104,14 @@ export class MoradorComponent implements OnInit {
         else
           this.router.navigate([`/summary-edit`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
 
   putMorador(moradorEdit: Morador, id: number){
+
+    this.erros = [];
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
@@ -116,7 +123,7 @@ export class MoradorComponent implements OnInit {
           this.router.navigate(['/residencia/novo/morador/', this.id]);
     },
     (err) =>{
-        this.errorMessage = err;
+      this.erros = err['erros'];
     });
 
   }
@@ -125,16 +132,16 @@ export class MoradorComponent implements OnInit {
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
-        console.log(data['ticket']);
 
-        this.id = data['ticket'];
-        if(this.id != null)
+        //this.id = data['ticket'];
+        this.guide = data;
+        if(this.guide.ticket != null)
           this.router.navigate([`/summary-edit`]);
         else
           this.router.navigate(['/residencia/novo2/morador/', this.id]);
     },
     (err) =>{
-        this.errorMessage = err['erros'];
+       this.erros = err['erros'];
     });
 
   }
@@ -146,7 +153,7 @@ export class MoradorComponent implements OnInit {
       data=>{
         this.moradores = data;
       }, err=>{
-        this.errorMessage = err['detalhe'];
+        this.erros = err['erros'];
       }
     );
     return this.moradores;
