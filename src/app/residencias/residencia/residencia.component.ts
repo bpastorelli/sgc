@@ -63,23 +63,10 @@ export class ResidenciaComponent implements OnInit {
       if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
           this.create = false;
           this.getResidenciaById(this.codigo);
-          this.getMoradoresVinculados(this.codigo);
       }
     }else{
       this.router.navigate(['/login']);
     }
-
-  }
-
-  postResidencia(residencia: Residencia){
-
-    this.residenciaService.postResidencia(residencia)
-      .subscribe(data => {
-        this.residencia = data;
-        this.router.navigate(['/summary-add']);
-      },err=>{
-        this.errorMessage = err;
-      });
 
   }
 
@@ -112,6 +99,7 @@ export class ResidenciaComponent implements OnInit {
   getResidenciaById(codigo: string) {
 
     this.requestFilterDto = new ResidenciasFilterModel();
+    this.residencias = [];
 
     if(codigo)
       this.requestFilterDto.id = codigo;

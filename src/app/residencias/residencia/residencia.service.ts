@@ -15,29 +15,27 @@ export class ResidenciaService extends BaseService {
 
   constructor(private http: HttpClient) {
     super();
-   }
-
-  postResidencia(residencias: Residencia): Observable<Residencia> {
-
-    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia`
-        ,JSON.stringify(residencias)
-        ,this.httpOptions)
-
   }
 
   postNovaResidencia(residencia: Residencia): Observable<Residencia>{
 
-    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia/nova`
-        ,JSON.stringify(residencia)
-        ,this.httpOptions)
+    return this.http.post<Residencia>(this.residenciaUrl + environment.nova
+      , JSON.stringify(residencia)
+      , { headers: this.httpOptions.headers })
+      .pipe(
+        map(response => response),
+      );
 
   }
 
   postNovaResidenciaAmqp(residencia: Residencia): Observable<Residencia>{
 
-    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia/amqp/nova`
-        ,JSON.stringify(residencia)
-        ,this.httpOptions)
+    return this.http.post<Residencia>(this.residenciaUrl + environment.nova
+      , JSON.stringify(residencia)
+      , { headers: this.httpOptions.headers })
+      .pipe(
+        map(response => response),
+      );
 
   }
 
@@ -50,5 +48,6 @@ export class ResidenciaService extends BaseService {
           map(response => response)
         );
   }
+
 
 }
