@@ -1,3 +1,5 @@
+import { ErroRegistro } from './../../_models/erro-registro';
+import { ResidenciasFilterModel } from './../residencias-filter.model';
 import { Cep } from './../../cep/cep.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +9,7 @@ import { Residencia } from '../residencias.model';
 import { ResidenciasService } from '../residencias.service';
 import { ResidenciaService } from './residencia.service';
 import { AuthenticationService } from './../../_services/authentication.service';
+import { ResidenciaResponse } from '../residencia-response.model';
 
 @Component({
   selector: 'app-residencia',
@@ -20,10 +23,17 @@ export class ResidenciaComponent implements OnInit {
   codigo: string;
   residenciaId: string;
 
-  public cepResponse: Cep
-  public residencia: Residencia
-  public residencias: Residencia[]
-  public moradoresVinculados: Moradores[]
+  requestFilterDto: ResidenciasFilterModel;
+
+  erros: ErroRegistro[] = [];
+
+  cepResponse: Cep;
+
+  residencia: Residencia;
+
+  residencias: ResidenciaResponse[];
+
+  moradoresVinculados: Moradores[];
 
   logradouroResp: string;
   bairroResp: string;
@@ -94,14 +104,19 @@ export class ResidenciaComponent implements OnInit {
         this.residencia = data;
         this.router.navigate(['/summary-edit']);
       },err => {
-          this.errorMessage = err;
+          this.erros = err['erros'];
       });
 
   }
 
   getResidenciaById(codigo: string) {
 
-    this.residenciasService.residencias(codigo, null, "0")
+    this.requestFilterDto = new ResidenciasFilterModel();
+
+    if(codigo)
+      this.requestFilterDto.id = codigo;
+
+    this.residenciasService.residencias(this.requestFilterDto)
       .subscribe(
         data=>{
           this.residencias = data;
@@ -116,7 +131,7 @@ export class ResidenciaComponent implements OnInit {
             }
           });
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
     );
     return this.residencias;
@@ -125,7 +140,7 @@ export class ResidenciaComponent implements OnInit {
 
   getMoradoresVinculados(codigo: string){
 
-    this.residenciaService.getMoradoresVinculados(codigo)
+    /*this.residenciaService.getMoradoresVinculados(codigo)
       .subscribe(
           data=>{
               console.log(data);
@@ -134,7 +149,7 @@ export class ResidenciaComponent implements OnInit {
             console.log(err);
           }
       );
-      return this.moradoresVinculados;
+      return this.moradoresVinculados;*/
 
   }
 

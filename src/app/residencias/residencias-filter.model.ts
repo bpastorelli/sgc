@@ -1,10 +1,11 @@
-export class MoradoresFilterModel{
+export class ResidenciasFilterModel{
 
   id?: string;
-  nome?: string;
-  cpf?: string;
-  rg?: string;
-  email?: string;
+  endereco?: string;
+  numero?: string;
+  cep?: string;
+  cidade?: string;
+  uf?: string;
   posicao?: number;
   content: boolean = true;
   sort?: string = 'nome';

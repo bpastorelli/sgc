@@ -1,3 +1,4 @@
+import { ErroRegistro } from './../../_models/erro-registro';
 import { Visitante } from './../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { Visita } from './../visitas/visitas.model';
@@ -11,6 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './../../_services/authentication.service';
 import { empty } from 'rxjs';
+import { ResidenciasFilterModel } from 'src/app/residencias/residencias-filter.model';
+import { ResidenciaResponse } from 'src/app/residencias/residencia-response.model';
 
 @Component({
   selector: 'app-visita',
@@ -46,7 +49,10 @@ export class VisitaComponent implements OnInit {
   public veiculo: Veiculo;
   public veiculosVinculados: Veiculo[];
   public visitante: Visitante[];
-  public residencias: Residencia[];
+  public residencias: ResidenciaResponse[];
+  requestFilterDto: ResidenciasFilterModel;
+
+  erros: ErroRegistro[] = [];
 
   constructor(private residenciasService: ResidenciasService,
               private veiculoService: VeiculosService,
@@ -134,12 +140,17 @@ export class VisitaComponent implements OnInit {
 
   getResidenciaById(codigo: string){
 
-    this.residenciasService.residencias(codigo, null, "0")
+    this.requestFilterDto = new ResidenciasFilterModel();
+
+    if(codigo)
+      this.requestFilterDto.id = codigo;
+
+    this.residenciasService.residencias(this.requestFilterDto)
       .subscribe(
         data=>{
           this.residencias = data;
         }, err=>{
-          this.errorMessage = err;
+          this.erros = err['erros'];
         }
     );
     return this.residencias;

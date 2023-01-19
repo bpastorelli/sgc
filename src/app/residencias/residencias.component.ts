@@ -4,16 +4,24 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Residencia } from './residencias.model';
 import { ResidenciasService } from './residencias.service';
+import { ErroRegistro } from '../_models/erro-registro';
+import { ResidenciasFilterModel } from './residencias-filter.model';
+import { ResidenciaResponse } from './residencia-response.model';
 
 @Component({
   selector: 'app-residencias',
   templateUrl: './residencias.component.html'
 })
 export class ResidenciasComponent implements OnInit {
-  public residencias: Residencia[]
+
+  residencias: ResidenciaResponse[] = [];
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
+
+  erros: ErroRegistro[] = [];
+
+  requestDto: ResidenciasFilterModel = new ResidenciasFilterModel();
 
   constructor(
       private residenciasService: ResidenciasService,
@@ -24,21 +32,32 @@ export class ResidenciasComponent implements OnInit {
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
-      this.getResidencias("0", null, "0");
+      this.getResidencias();
     }else{
       this.router.navigate(['/login']);
     }
 
   }
 
-  getResidencias(codigo: string, endereco: string, numero: string){
+  getResidencias(codigo?: string, endereco?: string, numero?: string){
 
-    this.residenciasService.residencias(codigo, endereco, numero)
+    this.requestDto = new ResidenciasFilterModel();
+
+    if(codigo)
+      this.requestDto.id = codigo;
+
+    if(endereco)
+      this.requestDto.endereco = endereco;
+
+    if(numero)
+      this.requestDto.numero = numero;
+
+    this.residenciasService.residencias(this.requestDto)
     .subscribe(
       data=>{
         this.residencias = data;
       }, err=>{
-        console.log(err);
+        this.erros = err['erros'];
       }
     );
     return this.residencias;
@@ -47,13 +66,17 @@ export class ResidenciasComponent implements OnInit {
 
   getResidenciaById(codigo: string){
 
-    this.residenciasService.residencias(codigo, null, "0")
+    this.requestDto = new ResidenciasFilterModel();
+
+    if(codigo)
+      this.requestDto.id = codigo;
+
+    this.residenciasService.residencias(this.requestDto)
     .subscribe(
         data=>{
-          console.log("Buscando residencia...");
           this.residencias = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
     );
     return this.residencias;

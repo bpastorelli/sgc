@@ -1,3 +1,4 @@
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { FormBuilder } from '@angular/forms';
 import { MoradoresFilterModel } from './moradores-filter.model';
 import { properties } from './../../properties/properties';
@@ -24,6 +25,8 @@ export class MoradoresComponent implements OnInit {
   formGroup: any;
 
   request: any = {};
+
+  erros: ErroRegistro[] = [];
 
   requestDto: MoradoresFilterModel = new MoradoresFilterModel();
 
@@ -67,12 +70,17 @@ export class MoradoresComponent implements OnInit {
         data=>{
           this.moradores = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
   }
 
   getMoradoresByPosicao(posicao){
+
+    this.requestDto = new MoradoresFilterModel();
+
+    if(posicao)
+      this.requestDto.posicao = posicao;
 
     return this.moradoresService.getMoradores(this.requestDto)
       .subscribe(
