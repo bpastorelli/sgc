@@ -79,7 +79,7 @@ export class ResidenciaComponent implements OnInit {
         this.residencia = data;
         this.router.navigate(['/summary-add']);
       },err=>{
-          this.errorMessage = err;
+        this.erros = err['erros'];
       });
 
   }
