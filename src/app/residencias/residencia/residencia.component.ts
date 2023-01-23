@@ -4,7 +4,6 @@ import { Cep } from './../../cep/cep.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CepService } from 'src/app/cep/cepService.service';
-import { Moradores } from 'src/app/moradores/moradores.model';
 import { Residencia } from '../residencias.model';
 import { ResidenciasService } from '../residencias.service';
 import { ResidenciaService } from './residencia.service';
@@ -32,8 +31,6 @@ export class ResidenciaComponent implements OnInit {
   residencia: Residencia;
 
   residencias: ResidenciaResponse[];
-
-  moradoresVinculados: Moradores[];
 
   logradouroResp: string;
   bairroResp: string;
@@ -123,21 +120,6 @@ export class ResidenciaComponent implements OnInit {
         }
     );
     return this.residencias;
-
-  }
-
-  getMoradoresVinculados(codigo: string){
-
-    /*this.residenciaService.getMoradoresVinculados(codigo)
-      .subscribe(
-          data=>{
-              console.log(data);
-              this.moradoresVinculados = data;
-          }, err=>{
-            console.log(err);
-          }
-      );
-      return this.moradoresVinculados;*/
 
   }
 

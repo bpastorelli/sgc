@@ -1,3 +1,5 @@
+import { ErroRegistro } from './../_models/erro-registro';
+import { MoradoresFilterModel } from './../moradores/moradores-filter.model';
 import { AcessoModuloService } from './acessos-modulos.service';
 import { Component, OnInit, ElementRef, ViewChild, ComponentRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -14,6 +16,7 @@ import { ModalService } from '../_modal';
 import { AcessoFuncionalidadeService } from '../acessos-funcionalidades/acessos-funcionalidades.service';
 import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
 import { PerfilFuncionalidadeRequest } from '../acessos-funcionalidades/acesso-funcionalidades-request.model';
+import { AcessoFuncionalidadeFilter } from '../acessos-funcionalidades/acesso-funcionalidade-filter.model';
 
 @Component({
   selector: 'app-acessos-modulos',
@@ -26,6 +29,8 @@ export class AcessosModulosComponent implements OnInit {
 
   contador: Number = properties.itemsPerPage;
   contadorModal: Number = properties.itemPerPageModal;
+
+  erros: ErroRegistro[] = [];
 
   idModulo: number;
   nomeModulo: string;
@@ -41,6 +46,9 @@ export class AcessosModulosComponent implements OnInit {
   selecionadosFunc: PerfilFuncionalidade[] = [];
   perfilFuncionalidades: PerfilFuncionalidade[] = [];
   requestListFunc: PerfilFuncionalidadeRequest[] = [];
+
+  requestFilter: MoradoresFilterModel;
+  requestAcessosFuncionalidadeFilter: AcessoFuncionalidadeFilter = new AcessoFuncionalidadeFilter();
 
   constructor(
     private router: Router,
@@ -63,7 +71,12 @@ export class AcessosModulosComponent implements OnInit {
 
   getUsuarios(posicao: number){
 
-    /*this.usuariosService.getMoradoresByPosicao(posicao)
+    this.requestFilter = new MoradoresFilterModel();
+
+    if(posicao)
+      this.requestFilter.posicao = posicao;
+
+    this.usuariosService.getMoradores(this.requestFilter)
       .subscribe(
         data=>{
           this.usuarios = data;
@@ -72,9 +85,9 @@ export class AcessosModulosComponent implements OnInit {
               this.usuarios.splice(index, 1);
           });
         }, err=>{
-          console.log(err);
+           this.erros = err['erros'];
         }
-      );*/
+      );
 
   }
 
@@ -85,7 +98,7 @@ export class AcessosModulosComponent implements OnInit {
         data=>{
           this.perfilModulos = data;
         }, err=>{
-          console.log(err);
+           this.erros = err['erros'];
         }
       );
 
@@ -132,7 +145,7 @@ export class AcessosModulosComponent implements OnInit {
         this.router.navigate([`/summary-edit`]);
       },
       (err) =>{
-          console.log(err);;
+          this.erros = err['erros'];
     });
 
     this.requestList = [];
@@ -162,18 +175,26 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  getAcessosFuncionalidade(idUsuario: number, idModulo: number){
+  getAcessosFuncionalidade(idUsuario: string, idModulo: string){
 
     this.requestListFunc = [];
     this.selecionadosFunc = [];
 
-    this.acessosFuncService.getAcessosFuncionalidade(idUsuario, idModulo)
+    this.requestAcessosFuncionalidadeFilter = new AcessoFuncionalidadeFilter();
+
+    if(idUsuario)
+      this.requestAcessosFuncionalidadeFilter.idUsuario;
+
+    if(idModulo)
+      this.requestAcessosFuncionalidadeFilter.idModulo = idModulo;
+
+    this.acessosFuncService.getAcessosFuncionalidade(this.requestAcessosFuncionalidadeFilter)
       .subscribe(
         data=>{
           this.perfilFuncionalidades = data;
           this.modalService.open("custom-modal-1");
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
 
@@ -207,9 +228,8 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  openModal(idUsuario: number, idModulo: number, nomeModulo: string) {
+  openModal(idUsuario: string, idModulo: string, nomeModulo: string) {
 
-    this.idModulo = idModulo;
     this.nomeModulo = nomeModulo;
     this.getAcessosFuncionalidade(idUsuario, idModulo);
 

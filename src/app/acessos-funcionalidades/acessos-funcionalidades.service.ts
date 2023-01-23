@@ -1,3 +1,5 @@
+import { AcessoFuncionalidadeFilter } from './acesso-funcionalidade-filter.model';
+import { BaseService } from 'src/app/_services/base.service';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,20 +12,27 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { map } from 'rxjs/operators';
 import { PerfilFuncionalidadeRequest } from './acesso-funcionalidades-request.model';
+import { Params } from '@angular/router';
 
 @Injectable()
-export class AcessoFuncionalidadeService {
+export class AcessoFuncionalidadeService extends BaseService {
 
-  constructor(private http: HttpClient){}
+  private acessoFuncionalideUrl: string = environment.protocol + environment.apiUrl + environment.access + environment.perfil + environment.funcionalidade + environment.filtro;
 
-  // Headers
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
+  constructor(private http: HttpClient){
+    super();
+  }
 
-  getAcessosFuncionalidade(idUsuario: number, idModulo: number): Observable<PerfilFuncionalidade[]> {
+  getAcessosFuncionalidade(request: AcessoFuncionalidadeFilter): Observable<Array<PerfilFuncionalidade>> {
 
-    return this.http.get<PerfilFuncionalidade[]>(`${environment.apiUrl}/access/acessoFuncionalidade/filtroPorUsuario?idUsuario=${idUsuario}&idModulo=${idModulo}&posicao=1&pag=0&size=1000000&ord=descricao&dir=ASC`)
+    let queryParams: Params = {};
+    if(request){
+      queryParams = this.setParameter(request);
+    }
+
+    return this.http.get<Array<PerfilFuncionalidade>>(this.acessoFuncionalideUrl, {params: queryParams})
+      .pipe(
+        map(response => response));
 
   }
 

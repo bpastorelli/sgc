@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   protocol: 'http://',
+  access: '/access',
   moradorUrl: '/morador',
   residenciaUrl: '/residencia',
   filtro: '/filtro',
@@ -13,6 +14,9 @@ export const environment = {
   novo: '/amqp/novo',
   nova: '/amqp/nova',
   processo: '/amqp/processo',
+  perfil: '/perfil',
+  acessoModulo: '/acessoModulo',
+  funcionalidade: '/funcionalidade',
   apiUrl: 'localhost:4200/api/sgc',
   apiUrlCep: `https://viacep.com.br/ws`
 };

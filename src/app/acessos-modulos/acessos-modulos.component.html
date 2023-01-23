@@ -53,15 +53,15 @@
           <tbody>
             <tr  *ngFor="let mod of perfilModulos | paginate: { id: 'pagination1', itemsPerPage: contador, currentPage: pag }">
               <td class="textCenter" >
-                <div class="pointer" *ngIf="mod.acesso == true; else templateIdModulo" (click)="openModal(idUsuario.value, mod.idModulo, mod.descricao)">{{ formatId(mod.idModulo, 6) }}</div>
+                <div class="pointer" *ngIf="mod.acesso == true; else templateIdModulo" (click)="openModal(idUsuario.value, mod.idModulo, mod.nomeModulo)">{{ formatId(mod.idModulo, 6) }}</div>
                 <ng-template #templateIdModulo>
                   {{ formatId(mod.idModulo, 6) }}
                 </ng-template>
               </td>
               <td>
-                  <div class="pointer" *ngIf="mod.acesso == true; else templateDescricao" (click)="openModal(idUsuario.value, mod.idModulo, mod.descricao)">{{ mod.descricao.toUpperCase() }}</div>
+                  <div class="pointer" *ngIf="mod.acesso == true; else templateDescricao" (click)="openModal(idUsuario.value, mod.idModulo, mod.nomeModulo)">{{ mod.nomeModulo.toUpperCase() }}</div>
                   <ng-template #templateDescricao>
-                    {{ mod.descricao.toUpperCase() }}
+                    {{ mod.nomeModulo.toUpperCase() }}
                   </ng-template>
               </td>
               <td class="textCenter">
@@ -108,7 +108,7 @@
                 <div>{{ formatId(func.idFuncionalidade, 6) }}</div>
               </td>
               <td>
-                  <div>{{ func.funcionalidade.toUpperCase() }}</div>
+                  <div>{{ func.nomeFuncionalidade.toUpperCase() }}</div>
               </td>
               <td class="textCenter">
                 <div class="pointer">
