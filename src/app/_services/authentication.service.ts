@@ -44,14 +44,14 @@ export class AuthenticationService {
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user.token));
-                localStorage.setItem('id', JSON.stringify(user.id))
+                localStorage.setItem('idUsuario', JSON.stringify(user.id))
                 this.currentUserSubject.next(user);
                 return user;
             }));
     }
 
     alterarSenha(id: number, password: Password){
-        return this.http.post<any>(`${environment.apiUrl}/token/alterarSenha?id=${id}`
+        return this.http.post<any>(`${environment.protocol + environment.apiUrl}/token/alterarSenha?id=${id}`
           , JSON.stringify(password)
           , this.httpOptions)
         .pipe(

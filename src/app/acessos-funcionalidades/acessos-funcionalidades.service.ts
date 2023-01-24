@@ -38,7 +38,7 @@ export class AcessoFuncionalidadeService extends BaseService {
 
   putAcessoFuncionalidade(perfil: PerfilFuncionalidadeRequest[], idUsuario: string){
 
-    return this.http.put<PerfilFuncionalidade>(`${environment.apiUrl + environment.access + environment.acessoFuncionalidade }/alterar?idUsuario=${idUsuario}`
+    return this.http.put<PerfilFuncionalidade>(`${environment.protocol + environment.apiUrl + environment.access + environment.acessoFuncionalidade }/alterar?idUsuario=${idUsuario}`
       , JSON.stringify(perfil)
       , this.httpOptions)
       .pipe(
