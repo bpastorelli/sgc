@@ -16,6 +16,7 @@ export const environment = {
   processo: '/amqp/processo',
   perfil: '/perfil',
   acessoModulo: '/acessoModulo',
+  acessoFuncionalidade: '/acessoFuncionalidade',
   funcionalidade: '/funcionalidade',
   apiUrl: 'localhost:4200/api/sgc',
   apiUrlCep: `https://viacep.com.br/ws`

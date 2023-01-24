@@ -57,6 +57,8 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   getAcessosFuncionalidade(idUsuario: string, idModulo: string){
 
+    console.log(idUsuario);
+
     this.requestList = [];
     this.selecionados = [];
 
@@ -104,16 +106,17 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   }
 
-  putAcessos(idUsuario: number, idModulo: number){
+  putAcessos(idUsuario: string, idModulo: string){
 
     this.selecionados.forEach(x => {
         let perfil = new PerfilFuncionalidadeRequest();
+        perfil.idModulo = idModulo;
         perfil.idFuncionalidade = x.idFuncionalidade;
         perfil.acesso = x.acesso;
         this.requestList.push(perfil);
     });
 
-    this.acessosFuncService.putAcessoFuncionalidade(this.requestList, idUsuario, idModulo)
+    this.acessosFuncService.putAcessoFuncionalidade(this.requestList, idUsuario)
       .subscribe(data => {
         this.perfilFuncionalidadeRequest = data
         this.router.navigate([`/summary-edit`]);
