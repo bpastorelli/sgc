@@ -1,3 +1,4 @@
+import { BaseService } from 'src/app/_services/base.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
@@ -8,73 +9,45 @@ import { environment } from './../../../environments/environment';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class ResidenciaService {
+export class ResidenciaService extends BaseService {
 
-  constructor(private http: HttpClient) { }
+  private residenciaUrl = environment.protocol + environment.apiUrl + environment.residenciaUrl;
 
-  errorMsg: string;
-
-  // Headers
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
-
-  postResidencia(residencias: Residencia): Observable<Residencia> {
-
-    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia`
-        ,JSON.stringify(residencias)
-        ,this.httpOptions)
-
+  constructor(private http: HttpClient) {
+    super();
   }
 
   postNovaResidencia(residencia: Residencia): Observable<Residencia>{
 
-    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia/nova`
-        ,JSON.stringify(residencia)
-        ,this.httpOptions)
+    return this.http.post<Residencia>(this.residenciaUrl + environment.nova
+      , JSON.stringify(residencia)
+      , { headers: this.httpOptions.headers })
+      .pipe(
+        map(response => response),
+      );
 
   }
 
   postNovaResidenciaAmqp(residencia: Residencia): Observable<Residencia>{
 
-    return this.http.post<Residencia>(`${environment.apiUrl}/associados/residencia/amqp/nova`
-        ,JSON.stringify(residencia)
-        ,this.httpOptions)
+    return this.http.post<Residencia>(this.residenciaUrl + environment.nova
+      , JSON.stringify(residencia)
+      , { headers: this.httpOptions.headers })
+      .pipe(
+        map(response => response),
+      );
 
   }
 
-  putResidencia(residencia: Residencia, id: string): Observable<any>{
+  putResidencia(request: Residencia, id: string): Observable<any>{
 
-    return this.http.put<Residencia>(`${environment.apiUrl}/associados/residencia/${id}`
-        , JSON.stringify(residencia)
-        , this.httpOptions)
+    return this.http.put<Residencia>(`${this.residenciaUrl + environment.alterar}?id=${id}`
+        , JSON.stringify(request)
+        , { headers: this.httpOptions.headers } )
         .pipe(
-          map(response => response['data'])
+          map(response => response)
         );
   }
 
-  getMoradoresVinculados(residenciaId: string): Observable<Moradores[]>{
-
-    return this.http.get<Moradores[]>(`${environment.apiUrl}/associados/vinculo-residencia/moradores/residencia/${residenciaId}`)
-
-  }
-
-  private getServerErrorMessage(error: HttpErrorResponse): string {
-    switch (error.status) {
-        case 404: {
-            return `Not Found: ${error.message}`;
-        }
-        case 403: {
-            return `Access Denied: ${error.message}`;
-        }
-        case 500: {
-            return `Internal Server Error: ${error.message}`;
-        }
-        default: {
-            return `Unknown Server Error: ${error.message}`;
-        }
-
-    }
-}
 
 }

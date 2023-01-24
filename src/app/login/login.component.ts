@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
             error => {
               this.loading = false;
               this.open("customModal1");
-              this.error = error;
+              this.error = error['error'];
             });
   }
 

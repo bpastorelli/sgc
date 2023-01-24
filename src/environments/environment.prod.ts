@@ -1,5 +1,18 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:9090',
+  protocol: 'http://',
+  access: '/access',
+  moradorUrl: '/morador',
+  residenciaUrl: '/residencia',
+  filtro: '/filtro',
+  token: '/token',
+  alterar: '/amqp/alterar',
+  novo: '/amqp/novo',
+  nova: '/amqp/nova',
+  processo: '/amqp/processo',
+  perfil: '/perfil',
+  funcionalidade: '/funcionalidade',
+  acessoModulo: '/acessoModulo',
+  apiUrl: 'localhost:9090/sgc',
   apiUrlCep: 'https://viacep.com.br/ws'
 };

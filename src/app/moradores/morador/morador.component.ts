@@ -1,13 +1,13 @@
+import { ResidenciaResponse } from './../../residencias/residencia-response.model';
+import { MoradorResponse } from './morador-response.model';
 import { Publisher } from './../../_models/publisher';
 import { Component, OnInit } from '@angular/core';
 import { MoradorService } from './morador.service';
 import { Morador } from './../morador/morador.model';
-import { Moradores } from './../../moradores/moradores.model';
-import { Residencia } from './../../residencias/residencias.model';
 import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Observable } from 'rxjs';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 @Component({
   selector: 'app-morador',
@@ -23,10 +23,13 @@ export class MoradorComponent implements OnInit {
   contador: Number = 5;
   errorMessage;
 
+  erros: ErroRegistro[] = [];
+
   mor = {} as Morador;
   guide = {} as Publisher;
-  moradores: Moradores[];
-  residenciasVinculadas: Residencia[];
+  moradores: MoradorResponse[] = [];
+  residenciasVinculadas: ResidenciaResponse[];
+
   situacaoCadastral = [
         { id: 1, label: "ATIVO" },
         { id: 0, label: "INATIVO" }];
@@ -37,7 +40,6 @@ export class MoradorComponent implements OnInit {
   constructor(
               private authenticationService: AuthenticationService,
               private moradorService: MoradorService,
-              private moradoresService: MoradoresService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -49,8 +51,7 @@ export class MoradorComponent implements OnInit {
       if(this.authenticationService.currentUserValue){
         if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
             this.create = false;
-            this.getMoradorById(this.codigo.toString());
-            this.getResidenciasVinculados(this.codigo.toString());
+            this.getMoradorById(this.codigo);
         }
       }else{
           this.router.navigate(['/login']);
@@ -68,7 +69,7 @@ export class MoradorComponent implements OnInit {
         this.id = data.id;
         this.router.navigate([`/summary-add`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
@@ -83,12 +84,14 @@ export class MoradorComponent implements OnInit {
         this.id = data.id;
         this.router.navigate(['/residencia/novo/morador/', this.id]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
 
   postMoradorAmqp(morador: Morador, cadastrResidencia: boolean){
+
+    this.erros = [];
 
     morador.cpf = morador.cpf.replace('.','').replace('-','');
 
@@ -101,12 +104,14 @@ export class MoradorComponent implements OnInit {
         else
           this.router.navigate([`/summary-edit`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
 
-  putMorador(moradorEdit: Morador, id: string){
+  putMorador(moradorEdit: Morador, id: number){
+
+    this.erros = [];
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
@@ -118,36 +123,37 @@ export class MoradorComponent implements OnInit {
           this.router.navigate(['/residencia/novo/morador/', this.id]);
     },
     (err) =>{
-        this.errorMessage = err;
+      this.erros = err['erros'];
     });
 
   }
 
-  putMoradorAmqp(moradorEdit: Morador, id: string){
+  putMoradorAmqp(moradorEdit: Morador, id: number){
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
-        this.mor = data;
-        this.id = data.guide;
-        if(this.mor.residenciaId != null)
+
+        //this.id = data['ticket'];
+        this.guide = data;
+        if(this.guide.ticket != null)
           this.router.navigate([`/summary-edit`]);
         else
           this.router.navigate(['/residencia/novo2/morador/', this.id]);
     },
     (err) =>{
-        this.errorMessage = err;
+       this.erros = err['erros'];
     });
 
   }
 
   getMoradorById(codigo: string) {
 
-    this.moradoresService.getMoradores(codigo, null, null, null, null)
+    this.moradorService.getMorador(codigo)
     .subscribe(
       data=>{
         this.moradores = data;
       }, err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
       }
     );
     return this.moradores;

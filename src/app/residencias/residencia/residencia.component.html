@@ -1,8 +1,8 @@
 <section class="content">
 
   <section *ngIf="!create" class="invoice">
-    <div *ngIf="errorMessage" class="alert alert-warning">
-      <strong>Atenção! </strong>{{ errorMessage }}
+    <div *ngFor="let erro of erros" class="alert alert-warning">
+      <strong>Atenção! </strong>{{ erro.detalhe }}
     </div>
     <section class="invoice">
 
@@ -111,8 +111,8 @@
             <th scope="col">Celular</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let morador of moradoresVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
+      <tbody *ngFor="let residencia of residencias">
+        <tr *ngFor="let morador of residencia.moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
           <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome.toUpperCase() }}</div></td>
           <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>
           <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.telefone }}</div></td>
@@ -138,8 +138,8 @@
 
 
 <section class="invoice">
-  <div *ngIf="errorMessage" class="alert alert-warning">
-    <strong>Atenção! </strong>{{ errorMessage }}
+  <div *ngFor="let erro of erros" class="alert alert-warning">
+    <strong>Atenção! </strong>{{ erro.detalhe }}
   </div>
 
   <label class="labelPagina">

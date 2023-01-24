@@ -1,7 +1,8 @@
 export interface AcessosModulos {
 
   idModulo: string,
-  descricao: string,
+  nomeModulo: string,
+  pathModulo: string,
   acesso: boolean
 
 }

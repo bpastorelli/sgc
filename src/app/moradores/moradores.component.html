@@ -1,7 +1,7 @@
 <section class="content-header">
 
   <section class="content">
-    <form #form="ngForm" novalidate>
+    <form #formPesquisa="ngForm" novalidate>
 
     <div class="col-sm-3 col-xs-6">
       <div class="form-group">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="col-sm-1 col-xs-2">
-      <button (click)="getMoradores('0', nomePesquisa.value, cpfPesquisa.value, rgPesquisa.value, emailPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      <button (click)="getMoradores(nomePesquisa.value, rgPesquisa.value, cpfPesquisa.value, emailPesquisa.value)" class="btn btn-success pull-right"><i></i> Pesquisar
       </button>
     </div>
 

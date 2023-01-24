@@ -1,3 +1,4 @@
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { Residencia } from './../residencias/residencias.model';
 import { VincularMoradorService } from './vincular-morador.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,6 +9,8 @@ import { Publisher } from '../_models/publisher';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResidenciasService } from '../residencias/residencias.service';
+import { ResidenciasFilterModel } from '../residencias/residencias-filter.model';
+import { ResidenciaResponse } from '../residencias/residencia-response.model';
 
 @Component({
   selector: 'app-vincular-morador',
@@ -19,7 +22,12 @@ export class VincularMoradorComponent implements OnInit {
   ticket: string;
   guide = {} as Publisher;
   usuarios: Moradores[] = [];
-  residencias: Residencia[] = [];
+  residencias: ResidenciaResponse[] = [];
+
+  erros: ErroRegistro[] = [];
+
+  requestFilterDto: ResidenciasFilterModel;
+
   errorMessage;
 
   constructor(
@@ -54,7 +62,8 @@ export class VincularMoradorComponent implements OnInit {
 
   getUsuarios(posicao: number){
 
-    this.usuariosService.getMoradoresByPosicao(posicao)
+
+    /*this.usuariosService.getMoradoresByPosicao(posicao)
       .subscribe(
         data=>{
           this.usuarios = data;
@@ -65,12 +74,23 @@ export class VincularMoradorComponent implements OnInit {
         }, err=>{
           console.log(err);
         }
-      );
+      );*/
   }
 
   getResidencias(id: string, endereco: string, numero: string){
 
-    this.residenciasService.residencias(id, endereco, numero)
+    this.requestFilterDto = new ResidenciasFilterModel();
+
+    if(id)
+      this.requestFilterDto.id = id;
+
+    if(endereco)
+      this.requestFilterDto.endereco = endereco;
+
+    if(numero)
+      this.requestFilterDto.numero = numero;
+
+    this.residenciasService.residencias(this.requestFilterDto)
       .subscribe(
         data=>{
           this.residencias = data;

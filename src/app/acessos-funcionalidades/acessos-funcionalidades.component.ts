@@ -1,3 +1,5 @@
+import { ErroRegistro } from './../_models/erro-registro';
+import { AcessoFuncionalidadeFilter } from './acesso-funcionalidade-filter.model';
 import { properties } from 'src/properties/properties';
 import { AcessoFuncionalidadeService } from './acessos-funcionalidades.service';
 import { Component, OnInit } from '@angular/core';
@@ -26,6 +28,10 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   perfilFuncionalidadeRequest: PerfilFuncionalidadeRequest;
   perfilFuncionalidades: PerfilFuncionalidade[] = [];
 
+  requestFilter: AcessoFuncionalidadeFilter;
+
+  erros: ErroRegistro[] = [];
+
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
@@ -49,17 +55,25 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   }
 
-  getAcessosFuncionalidade(idUsuario: number, idModulo: number){
+  getAcessosFuncionalidade(idUsuario: string, idModulo: string){
 
     this.requestList = [];
     this.selecionados = [];
 
-    this.acessosFuncService.getAcessosFuncionalidade(idUsuario, idModulo)
+    this.requestFilter = new AcessoFuncionalidadeFilter();
+
+    if(idUsuario)
+      this.requestFilter.idUsuario = idUsuario;
+
+    if(idModulo)
+      this.requestFilter.idModulo = idModulo;
+
+    this.acessosFuncService.getAcessosFuncionalidade(this.requestFilter)
       .subscribe(
         data=>{
           this.perfilFuncionalidades = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
 
@@ -72,21 +86,21 @@ export class AcessosFuncionalidadesComponent implements OnInit {
         data=>{
           this.modulos = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
   }
 
   getUsuarios(posicao: number){
 
-    this.usuariosService.getMoradoresByPosicao(posicao)
+    /*this.usuariosService.getMoradoresByPosicao(posicao)
       .subscribe(
         data=>{
           this.usuarios = data;
         }, err=>{
           console.log(err);
         }
-      );
+      );*/
 
   }
 

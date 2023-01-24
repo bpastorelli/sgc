@@ -51,14 +51,14 @@ export class ContribuicoesComponent implements OnInit {
 
   getMoradores(posicao: number){
 
-    this.moradoresService.getMoradoresByPosicao(posicao)
+    /*this.moradoresService.getMoradoresByPosicao(posicao)
       .subscribe(
         data=>{
           this.moradores = data;
         }, err=>{
           console.log(err);
         }
-      );
+      );*/
 
   }
 

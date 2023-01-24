@@ -471,4 +471,5 @@ a { cursor: pointer }
   display: block;
   margin-right: auto;
   width: auto;
+  cursor: pointer;
 }
