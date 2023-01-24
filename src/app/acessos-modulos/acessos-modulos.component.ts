@@ -32,7 +32,7 @@ export class AcessosModulosComponent implements OnInit {
 
   erros: ErroRegistro[] = [];
 
-  idModulo: number;
+  idModulo: string;
   nomeModulo: string;
 
   myForm: FormGroup;
@@ -153,25 +153,27 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  putAcessosFuncionalidade(idUsuario: number, idModulo: number){
+  putAcessosFuncionalidade(idUsuario: string){
 
     this.selecionadosFunc.forEach(x => {
         let perfil = new PerfilFuncionalidadeRequest();
         perfil.idFuncionalidade = x.idFuncionalidade;
+        perfil.idModulo = this.idModulo;
         perfil.acesso = x.acesso;
         this.requestListFunc.push(perfil);
     });
 
-    this.acessosFuncService.putAcessoFuncionalidade(this.requestListFunc, idUsuario, idModulo)
+    this.acessosFuncService.putAcessoFuncionalidade(this.requestListFunc, idUsuario)
       .subscribe(data => {
         this.perfilFuncionalidades = data
-        this.requestListFunc = [];
-        this.selecionadosFunc = [];
         this.closeModal("custom-modal-1");
     },
     (err) =>{
-        console.log(err);;
+      this.erros = err['erros'];
     });
+
+    this.requestListFunc = [];
+    this.selecionadosFunc = [];
 
   }
 
@@ -183,7 +185,7 @@ export class AcessosModulosComponent implements OnInit {
     this.requestAcessosFuncionalidadeFilter = new AcessoFuncionalidadeFilter();
 
     if(idUsuario)
-      this.requestAcessosFuncionalidadeFilter.idUsuario;
+      this.requestAcessosFuncionalidadeFilter.idUsuario = idUsuario;
 
     if(idModulo)
       this.requestAcessosFuncionalidadeFilter.idModulo = idModulo;
@@ -231,6 +233,7 @@ export class AcessosModulosComponent implements OnInit {
   openModal(idUsuario: string, idModulo: string, nomeModulo: string) {
 
     this.nomeModulo = nomeModulo;
+    this.idModulo = idModulo;
     this.getAcessosFuncionalidade(idUsuario, idModulo);
 
   }
