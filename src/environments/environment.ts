@@ -15,6 +15,7 @@ export const environment = {
   nova: '/amqp/nova',
   processo: '/amqp/processo',
   perfil: '/perfil',
+  modulo: '/modulo',
   acessoModulo: '/acessoModulo',
   acessoFuncionalidade: '/acessoFuncionalidade',
   funcionalidade: '/funcionalidade',

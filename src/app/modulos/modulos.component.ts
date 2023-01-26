@@ -1,3 +1,4 @@
+import { ModulosFilterModel } from './modulos-filter.model';
 import { properties } from 'src/properties/properties';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Modulo } from './modulo.model';
@@ -16,6 +17,8 @@ export class ModulosComponent implements OnInit {
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
+  requestFilter: ModulosFilterModel;
+
   constructor(
     private modulosService: ModulosService,
     private authenticationService: AuthenticationService,
@@ -25,16 +28,30 @@ export class ModulosComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-      this.getModulos(0, null, null, -1);
+      this.getModulos();
     }else{
       this.router.navigate(['/login']);
     }
 
   }
 
-  getModulos(id: number, descricao: string, path: string, posicao: number){
+  getModulos(id?: string, descricao?: string, path?: string, posicao?: number){
 
-    this.modulosService.getModulos(id, descricao, path, posicao)
+    this.requestFilter = new ModulosFilterModel();
+
+    if(id)
+      this.requestFilter.id = id;
+
+    if(descricao)
+      this.requestFilter.descricao = descricao;
+
+    if(path)
+      this.requestFilter.path = path;
+
+    if(posicao)
+      this.requestFilter.posicao = posicao;
+
+    this.modulosService.getModulos(this.requestFilter)
       .subscribe(
         data=>{
           this.modulos = data;

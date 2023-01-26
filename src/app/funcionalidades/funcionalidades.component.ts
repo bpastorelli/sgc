@@ -6,6 +6,7 @@ import { ModulosService } from './../modulos/modulos.service';
 import { FuncionalidadeService } from './funcionalidades.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
+import { ModulosFilterModel } from '../modulos/modulos-filter.model';
 
 @Component({
   selector: 'app-funcionalidades',
@@ -20,6 +21,7 @@ export class FuncionalidadesComponent implements OnInit {
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
+  requestFilter: ModulosFilterModel;
 
   constructor(
       private modulosService: ModulosService,
@@ -31,7 +33,7 @@ export class FuncionalidadesComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-      this.getModulos(0, null, null, 1);
+      this.getModulos();
       this.getFuncionalidades(0, 0, null, -1);
     }else{
       this.router.navigate(['/login']);
@@ -52,9 +54,23 @@ export class FuncionalidadesComponent implements OnInit {
       );
   }
 
-  getModulos(id: number, descricao: string, path: string, posicao: number){
+  getModulos(id?: string, descricao?: string, path?: string, posicao?: number){
 
-    this.modulosService.getModulos(id, descricao, path, posicao)
+    this.requestFilter = new ModulosFilterModel();
+
+    if(id)
+      this.requestFilter.id = id;
+
+    if(descricao)
+      this.requestFilter.descricao = descricao;
+
+    if(path)
+      this.requestFilter.path = path;
+
+    if(posicao)
+      this.requestFilter.posicao = posicao;
+
+    this.modulosService.getModulos(this.requestFilter)
       .subscribe(
         data=>{
           this.modulos = data;
