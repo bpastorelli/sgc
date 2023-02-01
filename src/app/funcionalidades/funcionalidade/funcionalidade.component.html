@@ -3,8 +3,8 @@
   <!--Inicio Form de Edição-->
   <section *ngIf="!create" class="invoice" >
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-        <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
       <label class="labelPagina">
@@ -25,7 +25,7 @@
                     name="idModulo"
                     id="idModulo"
                     class="form-control"
-                    [(ngModel)]="funcionalidade.idModulo">
+                    [(ngModel)]="funcionalidade.idModulo" >
                 <option [value]="0"> SELECIONE </option>
                 <option *ngFor="let item of modulos" [value]="item.id" >{{ item.descricao.toUpperCase() }}</option>
               </select>
@@ -86,9 +86,10 @@
   <!--Inicio do Form de Inclusão-->
   <section *ngIf="create" class="invoice">
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-          <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
+
       <label class="labelPagina">
         Cadastro de Funcionalidade
       </label>
@@ -136,7 +137,7 @@
             <div *ngIf="create">
               <div class="row">
                   <div class="col-xs-11">
-                    <button (click)="postFuncionalidade(idModulo.value, formCreate.value)" class="btn btn-success pull-right"
+                    <button (click)="postFuncionalidade(formCreate.value)" class="btn btn-success pull-right"
                     [disabled]="!formCreate.valid"><i></i> Salvar
                     </button>
                     <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar

@@ -1,3 +1,4 @@
+import { FuncionalidadeFilter } from './../funcionalidade-filter.model';
 import { FuncionalidadeRequest } from './../funcionalidadeRequest.model';
 import { FuncionalidadeService } from './../funcionalidades.service';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { ModulosService } from 'src/app/modulos/modulos.service';
 import { Modulo } from 'src/app/modulos/modulo.model';
 import { ModulosFilterModel } from 'src/app/modulos/modulos-filter.model';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 @Component({
   selector: 'app-funcionalidade',
@@ -19,9 +21,12 @@ export class FuncionalidadeComponent implements OnInit {
   codigo: string;
   create: boolean = true;
   pag: Number = 1;
-  errorMessage;
+
+  erros: ErroRegistro[] = [];
 
   requestFilter: ModulosFilterModel;
+
+  funcionalidadeRequestFilter: FuncionalidadeFilter;
 
   public modulos: Modulo[];
   public funcionalidade: Funcionalidade;
@@ -45,23 +50,27 @@ export class FuncionalidadeComponent implements OnInit {
     this.codigo = this.route.snapshot.paramMap.get('codigo');
 
     if(this.authenticationService.currentUserValue){
-      this.getModulos();
+      this.getModulos(null, null, null, 1);
       if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
           this.create = false;
-          this.getFuncionalidadeById(Number(this.codigo));
+          this.getFuncionalidadeById(this.codigo);
       }
     }else{
         this.router.navigate(['/login']);
     }
   }
 
-  getFuncionalidadeById(id: number){
+  getFuncionalidadeById(id: string){
 
-    this.funcionalidadeService.getFuncionalidades(id, 0, null, -1)
+    this.funcionalidadeRequestFilter = new FuncionalidadeFilter();
+
+    if(id)
+      this.funcionalidadeRequestFilter.id = id;
+
+    this.funcionalidadeService.getFuncionalidades(this.funcionalidadeRequestFilter)
       .subscribe(
         data=>{
           this.funcionalidades = data;
-          console.log(this.funcionalidades);
         }, err=>{
           console.log(err);
         }
@@ -76,21 +85,19 @@ export class FuncionalidadeComponent implements OnInit {
         this.router.navigate([`/summary-edit`]);
       },
       (err) =>{
-          this.errorMessage = err;
+          this.erros = err['erros'];
       });
   }
 
-  postFuncionalidade(idModulo: number, funcionalidadeCreate: FuncionalidadeRequest){
+  postFuncionalidade(funcionalidadeCreate: FuncionalidadeRequest){
 
-    this.funcionalidadeRequest.push(funcionalidadeCreate);
-
-    this.funcionalidadeService.postFuncionalidade(idModulo, this.funcionalidadeRequest)
+    this.funcionalidadeService.postFuncionalidade(funcionalidadeCreate)
       .subscribe(data => {
-        this.funcionalidades = data;
+        this.funcionalidade = data;
         this.router.navigate([`/summary-add`]);
       },
       (err) =>{
-          this.errorMessage = err;
+        this.erros = err['erros'];
       });
 
   }
@@ -116,7 +123,7 @@ export class FuncionalidadeComponent implements OnInit {
         data=>{
           this.modulos = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
   }

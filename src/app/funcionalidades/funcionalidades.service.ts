@@ -1,3 +1,4 @@
+import { BaseService } from 'src/app/_services/base.service';
 import { FuncionalidadeRequest } from './funcionalidadeRequest.model';
 import { Funcionalidade } from './funcionalidade.model';
 import { environment } from './../../environments/environment';
@@ -5,31 +6,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { HttpHeaders } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { map } from 'rxjs/operators';
+import { Params } from '@angular/router';
+import { FuncionalidadeFilter } from './funcionalidade-filter.model';
 
 @Injectable()
-export class FuncionalidadeService {
+export class FuncionalidadeService extends BaseService {
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient){
+    super();
+  }
 
-    // Headers
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
+  getFuncionalidades(request: FuncionalidadeFilter): Observable<Array<Funcionalidade>> {
 
-  getFuncionalidades(id: number, idModulo: number, descricao: string, posicao: number): Observable<Funcionalidade[]> {
+    let queryParams: Params = {};
+    if(request){
+      queryParams = this.setParameter(request);
+    }
 
-    return this.http.get<Funcionalidade[]>(`${environment.apiUrl}/access/funcionalidade/filtro?id=${id}&idModulo=${idModulo}&descricao=${descricao}&posicao=${posicao}&pag=0&ord=descricao&dir=ASC&size=1000000`)
+    return this.http.get<Array<Funcionalidade>>(environment.protocol + environment.apiUrl + environment.access + environment.funcionalidade + environment.filtro, {params: queryParams})
+      .pipe(
+          map(response => response));
 
   }
 
   putFuncionaliade(id: number, funcionalidade: FuncionalidadeRequest){
 
-    return this.http.put<Funcionalidade>(`${environment.apiUrl}/access/funcionalidade/id/${id}`
+    return this.http.put<Funcionalidade>(`${environment.protocol + environment.apiUrl}/access/funcionalidade/alterar?id=${id}`
       , JSON.stringify(funcionalidade)
       , this.httpOptions)
       .pipe(
@@ -38,12 +44,10 @@ export class FuncionalidadeService {
 
   }
 
-  postFuncionalidade(idModulo: number, funcionalidades: FuncionalidadeRequest[]){
+  postFuncionalidade(funcionalidade: FuncionalidadeRequest){
 
-    console.log(funcionalidades);
-
-    return this.http.post<Funcionalidade[]>(`${environment.apiUrl}/access/funcionalidade/incluir/modulo/${idModulo}`
-      , JSON.stringify(funcionalidades)
+    return this.http.post<Funcionalidade>(`${environment.protocol + environment.apiUrl}/access/funcionalidade/incluir`
+      , JSON.stringify(funcionalidade)
       , this.httpOptions)
       .pipe(
         map(response => response['data'])

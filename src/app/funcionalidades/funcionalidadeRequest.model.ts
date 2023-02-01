@@ -1,7 +1,7 @@
-export interface FuncionalidadeRequest {
+export class FuncionalidadeRequest {
 
-  idModulo: number,
-  descricao: string,
-  pathFuncionalidade: string,
+  idModulo: string;
+  descricao: string;
+  pathFuncionalidade: string;
 
 }
