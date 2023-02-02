@@ -1,5 +1,7 @@
+import { ModulosFilterModel } from './../modulos-filter.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Modulo } from '../modulo.model';
 import { ModulosService } from '../modulos.service';
@@ -15,10 +17,13 @@ export class ModuloComponent implements OnInit {
   codigo: string;
   create: boolean = true;
   pag: Number = 1;
-  errorMessage;
+
+  erros: ErroRegistro[] = [];
 
   public modulos: Modulo[] = [];
   public modulo: Modulo;
+
+  requestFilter: ModulosFilterModel;
 
   situacaoCadastral = [
     { id: 1, label: "ATIVO" },
@@ -41,7 +46,7 @@ export class ModuloComponent implements OnInit {
     if(this.authenticationService.currentUserValue){
       if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
           this.create = false;
-          this.getModuloById(Number(this.codigo));
+          this.getModuloById(this.codigo);
       }
     }else{
         this.router.navigate(['/login']);
@@ -49,15 +54,19 @@ export class ModuloComponent implements OnInit {
 
   }
 
-  getModuloById(codigo: number){
+  getModuloById(codigo: string){
 
+    this.requestFilter = new ModulosFilterModel();
 
-    this.modulosService.getModulos(codigo, null, null, -1)
+    if(codigo)
+      this.requestFilter.id = codigo;
+
+    this.modulosService.getModulos(this.requestFilter)
       .subscribe(
         data=>{
           this.modulos = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
 
@@ -71,7 +80,7 @@ export class ModuloComponent implements OnInit {
         this.router.navigate([`/summary-edit`]);
       },
       (err) =>{
-          this.errorMessage = err;
+          this.erros = err['erros'];
       });
 
   }
@@ -84,7 +93,7 @@ export class ModuloComponent implements OnInit {
         this.router.navigate([`/summary-add`]);
       },
       (err) =>{
-          this.errorMessage = err;
+        this.erros = err['erros'];
       });
 
   }

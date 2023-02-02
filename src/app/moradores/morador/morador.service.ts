@@ -15,11 +15,13 @@ import { BaseService } from 'src/app/_services/base.service';
 @Injectable({providedIn: 'root'})
 export class MoradorService extends BaseService {
 
+moradorRequest: MoradoresFilterModel;
+
 private moradorUrl = environment.protocol + environment.apiUrl + environment.moradorUrl;
 
-constructor(private http: HttpClient) {
-  super();
- }
+  constructor(private http: HttpClient) {
+    super();
+  }
 
   postMoradores(request: Morador): Observable<Morador> {
 
@@ -81,8 +83,17 @@ constructor(private http: HttpClient) {
   //Revisão Ok.
   getMorador(id: string) : Observable<Array<MoradorResponse>>{
 
-    return this.http.get<Array<MoradorResponse>>(`${this.moradorUrl}/filtro?id=${id}&size=1&page=0&content=true`
-        , this.httpOptions)
+    this.moradorRequest = new MoradoresFilterModel();
+
+    if(id)
+      this.moradorRequest.id = id;
+
+    let queryParams: Params = {};
+    if(this.moradorRequest){
+        queryParams = this.setParameter(this.moradorRequest);
+    }
+
+    return this.http.get<Array<MoradorResponse>>(this.moradorUrl + environment.filtro, {params: queryParams})
         .pipe(
           map(response => response)
         );

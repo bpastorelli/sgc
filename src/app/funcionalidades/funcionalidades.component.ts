@@ -1,3 +1,4 @@
+import { FuncionalidadeFilter } from './funcionalidade-filter.model';
 import { Modulo } from '../modulos/modulo.model';
 import { Component, OnInit } from '@angular/core';
 import { Funcionalidade } from './funcionalidade.model';
@@ -6,6 +7,7 @@ import { ModulosService } from './../modulos/modulos.service';
 import { FuncionalidadeService } from './funcionalidades.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
+import { ModulosFilterModel } from '../modulos/modulos-filter.model';
 
 @Component({
   selector: 'app-funcionalidades',
@@ -20,6 +22,9 @@ export class FuncionalidadesComponent implements OnInit {
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
+  requestFilter: ModulosFilterModel;
+
+  requestFuncionalidadesFilter: FuncionalidadeFilter;
 
   constructor(
       private modulosService: ModulosService,
@@ -31,17 +36,31 @@ export class FuncionalidadesComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-      this.getModulos(0, null, null, 1);
-      this.getFuncionalidades(0, 0, null, -1);
+      this.getModulos(null, null, null, 1);
+      this.getFuncionalidades();
     }else{
       this.router.navigate(['/login']);
     }
 
   }
 
-  getFuncionalidades(id: number, idModulo: number, descricao: string, posicao: number){
+  getFuncionalidades(id?: string, idModulo?: string, descricao?: string, posicao?: number){
 
-    this.funcionalidadesService.getFuncionalidades(id, idModulo, descricao, posicao)
+    this.requestFuncionalidadesFilter = new FuncionalidadeFilter();
+
+    if(id)
+      this.requestFuncionalidadesFilter.id = id;
+
+    if(idModulo)
+      this.requestFuncionalidadesFilter.idModulo = idModulo;
+
+    if(descricao)
+      this.requestFuncionalidadesFilter.descricao = descricao;
+
+    if(posicao)
+      this.requestFuncionalidadesFilter.posicao = posicao;
+
+    this.funcionalidadesService.getFuncionalidades(this.requestFuncionalidadesFilter)
       .subscribe(
         data=>{
           this.funcionalidades = data;
@@ -52,9 +71,23 @@ export class FuncionalidadesComponent implements OnInit {
       );
   }
 
-  getModulos(id: number, descricao: string, path: string, posicao: number){
+  getModulos(id: string, descricao: string, path: string, posicao: number){
 
-    this.modulosService.getModulos(id, descricao, path, posicao)
+    this.requestFilter = new ModulosFilterModel();
+
+    if(id)
+      this.requestFilter.id = id;
+
+    if(descricao)
+      this.requestFilter.descricao = descricao;
+
+    if(path)
+      this.requestFilter.path = path;
+
+    if(posicao)
+      this.requestFilter.posicao = posicao;
+
+    this.modulosService.getModulos(this.requestFilter)
       .subscribe(
         data=>{
           this.modulos = data;

@@ -3,8 +3,8 @@
   <!--Inicio Form de Edição-->
   <section *ngIf="!create" class="invoice" >
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-        <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
       <label class="labelPagina">
@@ -28,7 +28,7 @@
           </div>
           <div  class="col-sm-4 col-xs-6">
             <app-input-container errorMessage="Campo obrigatório!" label="Path">
-              <input class="form-control" type="text" [(ngModel)]="modulo.pathModulo" (ngModelChange)="modulo.pathModulo=$event.toLowerCase()"  #pathModulo name="pathModulo" required minlength="5" maxlength="40" placeholder="Path" autocomplete="off">
+              <input class="form-control" type="text" [(ngModel)]="modulo.pathModulo" (ngModelChange)="modulo.pathModulo=$event.toLowerCase()"  #pathModulo name="pathModulo" minlength="5" maxlength="40" placeholder="Path" autocomplete="off">
             </app-input-container>
           </div>
 
@@ -69,8 +69,8 @@
   <!--Inicio do Form de Inclusão-->
   <section *ngIf="create" class="invoice">
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-          <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
       <label class="labelPagina">
         Cadastro de Módulo

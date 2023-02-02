@@ -19,15 +19,19 @@ export class VisitantesService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  getVisitantes(id: string, nome: string, rg: string, cpf: string): Observable<Visitante[]> {
+  getVisitantes(id: string, nome: string, rg: string, cpf: string): Observable<Array<Visitante>> {
 
-    return this.http.get<Visitante[]>(`${environment.apiUrl}/associados/visitante/filtro?id=${id}&nome=${nome}&rg=${rg}&cpf=${cpf}&pag=0&ord=nome&dir=ASC&size=1000000`)
+
+
+
+    return this.http.get<Array<Visitante>>(environment.protocol + environment.apiUrl + environment.access + environment.visitante + environment.filtro,
+      {})
 
   }
 
   getVisitante(rg: string, cpf: string): Observable<Visitante> {
 
-    return this.http.get<Visitante>(`${environment.apiUrl}/associados/visitante/busca?rg=${rg}&cpf=${cpf}`)
+    return this.http.get<Visitante>(`${environment.protocol + environment.apiUrl  + environment.access + environment.visitante}/associados/visitante/busca?rg=${rg}&cpf=${cpf}`)
 
   }
 

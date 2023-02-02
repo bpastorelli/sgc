@@ -12,6 +12,7 @@ import { ModulosService } from './../modulos/modulos.service';
 import { Moradores } from '../moradores/moradores.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { PerfilFuncionalidadeRequest } from './acesso-funcionalidades-request.model';
+import { ModulosFilterModel } from '../modulos/modulos-filter.model';
 
 @Component({
   selector: 'app-acessos-funcionalidades',
@@ -35,6 +36,8 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
+  requestModulosFilter: ModulosFilterModel;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -47,7 +50,7 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   ngOnInit(): void {
 
     this.getUsuarios(1); //Recupera usuários com posição = 1 (ATIVO)
-    this.getModulos(0, null, null, 1); //Recupera todos os módulos com posicao 1 (ATIVO)
+    this.getModulos(null, null, null, 1); //Recupera todos os módulos com posicao 1 (ATIVO)
 
     this.myForm = this.fb.group({
       acessos: this.fb.array([])
@@ -56,8 +59,6 @@ export class AcessosFuncionalidadesComponent implements OnInit {
   }
 
   getAcessosFuncionalidade(idUsuario: string, idModulo: string){
-
-    console.log(idUsuario);
 
     this.requestList = [];
     this.selecionados = [];
@@ -81,9 +82,23 @@ export class AcessosFuncionalidadesComponent implements OnInit {
 
   }
 
-  getModulos(id: number, descricao: string, path: string, posicao: number){
+  getModulos(id?: string, descricao?: string, path?: string, posicao?: number){
 
-    this.modulosService.getModulos(id, descricao, path, posicao)
+    this.requestModulosFilter = new ModulosFilterModel();
+
+    if(id)
+      this.requestModulosFilter.id = id;
+
+    if(descricao)
+      this.requestModulosFilter.descricao = descricao;
+
+    if(path)
+      this.requestModulosFilter.path = path;
+
+    if(posicao)
+      this.requestModulosFilter.posicao = posicao;
+
+    this.modulosService.getModulos(this.requestModulosFilter)
       .subscribe(
         data=>{
           this.modulos = data;
