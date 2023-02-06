@@ -21,6 +21,8 @@ export class MoradoresService extends BaseService {
 
   getMoradores(request: MoradoresFilterModel): Observable<Array<Moradores>> {
 
+    request = this.setCamposDefault(request);
+
     let queryParams: Params = {};
     if(request){
       queryParams = this.setParameter(request);
@@ -29,6 +31,18 @@ export class MoradoresService extends BaseService {
     return this.http.get<Array<Moradores>>(this.moradoresUrl, {params: queryParams})
     .pipe(
         map(response => response));
+
+  }
+
+  setCamposDefault(request: MoradoresFilterModel): MoradoresFilterModel{
+
+    request.content == null ? request.content = true : request.content;
+    request.posicao == null ? request.posicao = 1 : request.posicao;
+    request.size == null ? request.size =  1000000 : request.size;
+    request.sort == null ? request.sort = 'nome' : request.sort;
+    request.page == null ? request.page = 0 : request.page;
+
+    return request;
 
   }
 

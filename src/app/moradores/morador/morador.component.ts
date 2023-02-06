@@ -59,21 +59,6 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  postMoradores(morador: Morador) {
-
-    morador.cpf = morador.cpf.replace('.','').replace('-','');
-
-    this.moradorService.postMoradores(morador)
-      .subscribe(data => {
-        this.mor = data;
-        this.id = data.id;
-        this.router.navigate([`/summary-add`]);
-    },err=>{
-        this.erros = err['erros'];
-    });
-
-  }
-
   postMorador(morador: Morador){
 
     morador.cpf = morador.cpf.replace('.','').replace('-','');
@@ -109,7 +94,7 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  putMorador(moradorEdit: Morador, id: number){
+  putMorador(moradorEdit: Morador, id: string){
 
     this.erros = [];
 
@@ -128,7 +113,7 @@ export class MoradorComponent implements OnInit {
 
   }
 
-  putMoradorAmqp(moradorEdit: Morador, id: number){
+  putMoradorAmqp(moradorEdit: Morador, id: string){
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
