@@ -4,7 +4,6 @@ import { Publisher } from './../../_models/publisher';
 import { Component, OnInit } from '@angular/core';
 import { MoradorService } from './morador.service';
 import { Morador } from './../morador/morador.model';
-import { MoradoresService } from './../moradores.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ErroRegistro } from 'src/app/_models/erro-registro';

@@ -1,9 +1,11 @@
+import { VisitasFilterModel } from './visitas-filter.model';
 import { properties } from './../../../properties/properties';
 import { Router } from '@angular/router';
 import { Visita } from './visitas.model';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { VisitantesService } from './../visitantes.service';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 @Component({
   selector: 'app-visitas',
@@ -11,6 +13,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
 })
 export class VisitasComponent implements OnInit {
 
+  request: VisitasFilterModel;
   public visita: Visita;
   public visitas: Visita[];
   public situacaoVisita = [
@@ -20,8 +23,9 @@ export class VisitasComponent implements OnInit {
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
-  posicaoDefault: number = 1;
+  posicaoDefault: number = 2;
   errorMessage;
+  erros: ErroRegistro[] = [];
 
   date = new Date(Date.parse('01/01/9999'));
 
@@ -40,7 +44,7 @@ export class VisitasComponent implements OnInit {
     if(this.authenticationService.currentUserValue){
         this.ordenar = "dataEntrada";
         this.direction = 'DESC';
-        this.getVisitas(null, null, null, "01/01/9999", "01/01/9999", this.posicaoDefault, this.ordenar, this.direction);
+        this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.ordenar, this.direction);
     }else{
         this.router.navigate(['/login'])
     }
@@ -62,17 +66,35 @@ export class VisitasComponent implements OnInit {
 
   getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string){
 
-    this.ordenar = ord;
-    this.direction = dir;
-    this.errorMessage = null;
+    this.request = new VisitasFilterModel();
 
-    this.visitantesService.getVisitas(nome, rg, cpf, dataInicio, dataFim, posicao, ord, dir)
+    if(nome)
+      this.request.nome = nome;
+
+    if(rg)
+      this.request.rg = rg;
+
+    if(cpf)
+      this.request.cpf = cpf;
+
+    if(dataInicio)
+      this.request.dataInicio = dataInicio;
+
+    if(dataFim)
+      this.request.dataFim = dataFim;
+
+    if(posicao != 2)
+      this.request.posicao = posicao;
+
+    if(ord)
+      this.request.sort = ord;
+
+    this.visitantesService.getVisitas(this.request)
     .subscribe(
       data=>{
-            this.visitas = data;
+          this.visitas = data;
         }, err=>{
-            this.errorMessage = err.message;
-            throw err;
+          this.erros = err['erros'];
         }
       );
   }
