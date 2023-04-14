@@ -7,3 +7,7 @@ Para instalar/baixar as dependências:
 npm install na raiz do projeto.
 
 Exemplo: c:\git\sgc\src\app> npm install
+
+Buildar o projeto para ambiente, exemplo prod:
+
+ng build --prod
