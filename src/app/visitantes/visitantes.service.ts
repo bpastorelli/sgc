@@ -9,33 +9,20 @@ import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
 import { VisitasFilterModel } from './visitas/visitas-filter.model';
 import { Params } from '@angular/router';
+import { VisitanteFilterModel } from './visitante/visitante-filter.model';
 
 @Injectable()
 export class VisitantesService extends BaseService {
 
+  request: VisitanteFilterModel;
+
   constructor(private http: HttpClient) {
     super();
-   }
+  }
 
   stringJson: string;
 
-  getVisitantes(id: string, nome: string, rg: string, cpf: string): Observable<Array<Visitante>> {
-
-
-
-
-    return this.http.get<Array<Visitante>>(environment.protocol + environment.apiUrl + environment.access + environment.visitante + environment.filtro,
-      {})
-
-  }
-
-  getVisitante(rg: string, cpf: string): Observable<Visitante> {
-
-    return this.http.get<Visitante>(`${environment.protocol + environment.apiUrl  + environment.access + environment.visitante}/associados/visitante/busca?rg=${rg}&cpf=${cpf}`)
-
-  }
-
-  getVisitas(request: VisitasFilterModel): Observable<Array<Visita>> {
+  getVisitantes(request: VisitanteFilterModel ): Observable<Array<Visitante>> {
 
     request = this.setCamposDefault(request);
 
@@ -44,9 +31,9 @@ export class VisitantesService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Visita>>(environment.protocol + environment.apiUrl + environment.visita + environment.filtro , {params: queryParams})
-              .pipe(
-                map(response => response));
+    return this.http.get<Array<Visitante>>(environment.protocol + environment.apiUrl + environment.visitante + environment.filtro, {params: queryParams})
+          .pipe(
+            map(response => response));
 
   }
 
@@ -83,17 +70,6 @@ export class VisitantesService extends BaseService {
 
   }
 
-  baixarVisita(id: string): Observable<any>{
-
-    return this.http.put<Visita>(`${environment.apiUrl}/associados/visita/encerrar`
-        , `{ "id": "${id}" }`
-        , this.httpOptions)
-        .pipe(
-          map(response => response['data'])
-        );
-
-  }
-
   postVisita<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
     return this.http.post<Visita>(`${environment.apiUrl}/associados/visita/incluir`
@@ -114,10 +90,10 @@ export class VisitantesService extends BaseService {
         );
   }
 
-  setCamposDefault(request: VisitasFilterModel): VisitasFilterModel{
+  setCamposDefault(request: VisitanteFilterModel): VisitanteFilterModel{
 
     request.content == null ? request.content = true : request.content;
-    request.posicao == 2 ? request.posicao = null : request.posicao;
+    request.posicao == null ? request.posicao = 1 : request.posicao;
     request.size == null ? request.size =  1000000 : request.size;
     request.sort == null ? request.sort = 'nome' : request.sort;
     request.page == null ? request.page = 0 : request.page;

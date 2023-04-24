@@ -1,3 +1,5 @@
+import { Veiculo } from "../veiculos/veiculo.model";
+
 export interface Visitante{
 
   id: string,
@@ -15,6 +17,7 @@ export interface Visitante{
   uf: string,
   dataCriacao: string,
   ultimaVisita: string,
-  posicao: number
+  posicao: number,
+  veiculos: Veiculo[];
 
 }

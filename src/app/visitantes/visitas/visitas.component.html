@@ -78,14 +78,18 @@
                                       <img *ngIf="visita.posicao != 0" class="img" src="assets/img/balls/amarelo.png"></td>
               <td ><div>{{ visita.nome.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.rg }}</div></td>
-              <td class="textCenter"><div>{{ formatPlaca(visita.placa.toUpperCase()) }}</div></td>
+              <td class="textCenter"><div>{{ visita.placa.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.dataEntrada }}</div></td>
               <td class="textCenter"><div>{{ visita.horaEntrada }}</div></td>
               <td class="textCenter"><div>{{ visita.dataSaida }}</div></td>
               <td class="textCenter"><div>{{ visita.horaSaida }}</div></td>
               <td ><div>{{ visita.endereco.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.numero }}</div></td>
-              <td class="textCenter"><div *ngIf="visita.posicao == 1" class="pointer" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value)"> Encerrar</div></td>
+              <td class="textCenter">
+                <div *ngIf="visita.posicao == 1 && !loading" class="pointer" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value)"> Encerrar</div>
+                <div *ngIf="visita.posicao == 1 && loading"><img class="img" src="assets/img/loader/icons8-loading-20.png"></div>
+                <div *ngIf="visita.posicao == 0"><img class="img"></div>
+              </td>
             </tr>
           </tbody>
         </table>

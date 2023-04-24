@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   protocol: 'http://',
   access: '/access',
+  amqp: '/amqp',
   moradorUrl: '/morador',
   residenciaUrl: '/residencia',
   filtro: '/filtro',

@@ -24,6 +24,8 @@ export class MoradorComponent implements OnInit {
 
   erros: ErroRegistro[] = [];
 
+  possuiResidencia: Boolean = false;
+
   mor = {} as Morador;
   guide = {} as Publisher;
   moradores: MoradorResponse[] = [];
@@ -116,13 +118,11 @@ export class MoradorComponent implements OnInit {
 
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
-
-        //this.id = data['ticket'];
-        this.guide = data;
-        if(this.guide.ticket != null)
+        this.guide = data.ticket;
+        if(this.guide != null && this.possuiResidencia)
           this.router.navigate([`/summary-edit`]);
         else
-          this.router.navigate(['/residencia/novo2/morador/', this.id]);
+          this.router.navigate(['/residencia/novo2/morador/', this.guide]);
     },
     (err) =>{
        this.erros = err['erros'];
@@ -136,6 +136,12 @@ export class MoradorComponent implements OnInit {
     .subscribe(
       data=>{
         this.moradores = data;
+        this.moradores.forEach(morador => {
+          console.log(morador.residencias.length);
+          if(morador.residencias.length > 0)
+            this.possuiResidencia = true;
+        });
+
       }, err=>{
         this.erros = err['erros'];
       }
