@@ -59,6 +59,7 @@ import { SortDirective } from './_directive/sort.directive';
 import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.component';
 import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { VincularMoradorComponent } from './vincular-morador/vincular-morador.component';
+import { VisitasService } from './visitantes/visitas/visitas.service';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { VincularMoradorComponent } from './vincular-morador/vincular-morador.co
     MoradoresService,
     ResidenciaService,
     ResidenciasService,
+    VisitasService,
     VisitantesService,
     VeiculosService,
     CepService,

@@ -7,7 +7,7 @@
         <strong>Atenção! </strong>{{ errorMessage }}
       </div>
 
-      <form #formEdit="ngForm" novalidate >
+      <form #formEdit="ngForm" novalidate *ngFor="let veiculo of veiculos" >
 
         <label class="labelPagina">
           Cadastro de Veículo
@@ -15,7 +15,7 @@
 
         <div class="row invoice-info">
           <div class="col-sm-2 col-xs-6">
-            <input  class="form-control" type="hidden" [(ngModel)]="veiculos.id"  #id name="id" maxlength="11" placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
+            <input  class="form-control" type="hidden" [(ngModel)]="veiculo.id"  #id name="id" maxlength="11" placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
           </div>
 
           <div class="col-xs-12">
@@ -23,7 +23,7 @@
           </div>
           <div  class="col-sm-2 col-xs-6">
             <app-input-container errorMessage="Campo obrigatório!" label="Nome">
-              <input class="form-control" type="text" mask="AAA-AAAA" [(ngModel)]="veiculos.placa" disabled #placa name="placa" required maxlength="8" placeholder="Placa" autocomplete="off">
+              <input class="form-control" type="text" mask="AAA-AAAA" [(ngModel)]="veiculo.placa" disabled #placa name="placa" required maxlength="8" placeholder="Placa" autocomplete="off">
             </app-input-container>
           </div>
 
@@ -32,7 +32,7 @@
           </div>
           <div  class="col-sm-6 col-xs-12">
             <app-input-container errorMessage="Campo obrigatório!" label="Marca">
-              <input class="form-control" type="text" [(ngModel)]="veiculos.marca" (ngModelChange)="veiculos.marca=$event.toUpperCase()" required #marca name="marca" minlength="2" maxlength="50" placeholder="Marca" autocomplete="off">
+              <input class="form-control" type="text" [(ngModel)]="veiculo.marca" (ngModelChange)="veiculos.marca=$event.toUpperCase()" required #marca name="marca" minlength="2" maxlength="50" placeholder="Marca" autocomplete="off">
             </app-input-container>
           </div>
 
@@ -41,7 +41,7 @@
           </div>
           <div  class="col-sm-6 col-xs-12">
             <app-input-container errorMessage="Campo obrigatório!" label="Modelo">
-              <input class="form-control" type="text" [(ngModel)]="veiculos.modelo" (ngModelChange)="veiculos.modelo=$event.toUpperCase()" required #modelo name="modelo" maxlength="50" placeholder="Modelo" autocomplete="off">
+              <input class="form-control" type="text" [(ngModel)]="veiculo.modelo" (ngModelChange)="veiculos.modelo=$event.toUpperCase()" required #modelo name="modelo" maxlength="50" placeholder="Modelo" autocomplete="off">
             </app-input-container>
           </div>
 
@@ -50,7 +50,7 @@
           </div>
           <div  class="col-sm-4 col-xs-12">
             <app-input-container label="Cor">
-              <input class="form-control" type="text" [(ngModel)]="veiculos.cor" (ngModelChange)="veiculos.cor=$event.toUpperCase()" required #cor name="cor" maxlength="20" placeholder="Cor" autocomplete="on">
+              <input class="form-control" type="text" [(ngModel)]="veiculo.cor" (ngModelChange)="veiculos.cor=$event.toUpperCase()" required #cor name="cor" maxlength="20" placeholder="Cor" autocomplete="on">
             </app-input-container>
           </div>
 
@@ -58,7 +58,7 @@
             <p class="control-label">Ano:</p>
           </div>
           <div class="col-sm-2 col-xs-6">
-            <input class="form-control" name="ano" #ano [(ngModel)]="veiculos.ano" ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
+            <input class="form-control" name="ano" #ano [(ngModel)]="veiculo.ano" ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
           </div>
 
           <div class="col-xs-12">
@@ -69,7 +69,7 @@
                 name="posicao"
                 id="posicao"
                 class="form-control"
-                [(ngModel)]="veiculos.posicao">
+                [(ngModel)]="veiculo.posicao">
                 <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
             </select>
           </div>
@@ -98,7 +98,30 @@
         <p class="control-label"><b>Visitantes vinculados:</b></p>
       </div>
       <table class="table-striped">
-
+        <thead>
+          <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>RG</th>
+              <th>Celular</th>
+              <th>Endereço</th>
+              <th>Número</th>
+              <th>Cidade</th>
+              <th>UF</th>
+            </tr>
+          </thead>
+        <tbody *ngFor="let veiculo of veiculos">
+          <tr *ngFor="let visitante of veiculo.visitantes | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <td><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.nome.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.cpf }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.rg }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.celular }}</div></td>
+            <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.endereco.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.numero }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.cidade.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.uf.toUpperCase() }}</div></td>
+          </tr>
+        </tbody>
       </table>
 
       <!--inclindo o controle de paginação.-->

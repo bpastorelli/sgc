@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   protocol: 'http://',
   access: '/access',
+  amqp: '/amqp',
   moradorUrl: '/morador',
   residenciaUrl: '/residencia',
   filtro: '/filtro',
@@ -16,6 +17,8 @@ export const environment = {
   acessoModulo: '/acessoModulo',
   acessoFuncionalidade: '/acessoFuncionalidade',
   visitante: '/visitante',
+  visita: '/visita',
+  veiculo: '/veiculo',
   apiUrl: 'localhost:9090/sgc',
   apiUrlCep: 'https://viacep.com.br/ws'
 };

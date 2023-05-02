@@ -1,8 +1,10 @@
+import { VisitanteFilterModel } from './visitante/visitante-filter.model';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { VisitantesService } from './../visitantes/visitantes.service';
 import { Visitante } from './visitante.model';
 import { AuthenticationService } from '../_services/authentication.service';
+import { ErroRegistro } from '../_models/erro-registro';
 
 @Component({
   selector: 'app-visitantes',
@@ -11,6 +13,10 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class VisitantesComponent implements OnInit {
 
   public visitantes: Visitante[];
+
+  request: VisitanteFilterModel;
+
+  erros: ErroRegistro[] = [];
 
   pag : Number = 1 ;
   contador : Number = 20;
@@ -32,13 +38,26 @@ export class VisitantesComponent implements OnInit {
 
   getVisitantes(id: string, nome: string, rg: string, cpf: string){
 
-    this.visitantesService.getVisitantes(id, nome, rg, cpf)
+    this.request = new VisitanteFilterModel();
+
+    if(id)
+      this.request.id = id;
+
+    if(nome)
+      this.request.nome = nome;
+
+    if(rg)
+      this.request.rg = rg;
+
+    if(cpf)
+      this.request.cpf = cpf;
+
+    this.visitantesService.getVisitantes(this.request)
         .subscribe(
            data=>{
-              console.log(data);
               this.visitantes = data;
            }, err=>{
-              console.log(err);
+              this.erros = err['erros'];
          }
       );
   }

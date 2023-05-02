@@ -3,8 +3,8 @@
   <!--Inicio Form de Edição-->
   <section *ngIf="!create" class="invoice" >
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-        <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
       <label class="labelPagina">
@@ -189,9 +189,9 @@
     <!--Inicio do Form de Inclusão-->
     <section *ngIf="create" class="invoice">
 
-        <div *ngIf="errorMessage" class="alert alert-warning">
-          <strong>Atenção! </strong>{{ errorMessage }}
-        </div>
+          <div *ngFor="let erro of erros" class="alert alert-warning">
+            <strong>Atenção! </strong>{{ erro.detalhe }}
+          </div>
 
           <label class="labelPagina">
             Cadastro de Visitante

@@ -7,6 +7,7 @@ import { AuthenticationService } from './../_services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { User } from '../_models/user';
+import { ErroRegistro } from '../_models/erro-registro';
 
 declare var $: any;
 
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error;
+  erros: ErroRegistro[] = [];
 
   passwordLocal: string = null;
 
@@ -85,16 +86,15 @@ export class LoginComponent implements OnInit {
                   this.router.navigate([this.returnUrl]);
                 }
             },
-            error => {
+            err => {
               this.loading = false;
               this.open("customModal1");
-              this.error = error['error'];
+              this.erros = err['erros'];
             });
   }
 
   alterarSenha(password: Password){
 
-    this.error = null;
     this.loading = true;
 
     this.authenticationService.alterarSenha(this.authenticationService.currentUserValue.id, password)
@@ -106,8 +106,8 @@ export class LoginComponent implements OnInit {
             this.close('customModal2');
             this.app.logout();
         },
-        error => {
-          this.error = error;
+        err => {
+          this.erros = err['erros'];
           this.loading = false;
           this.loggedIn.next(false);
         });
@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
   }
 
   open(id: string) {
-    this.error = null;
+    this.erros = null;
     $('#' + id).modal('show');
   }
 

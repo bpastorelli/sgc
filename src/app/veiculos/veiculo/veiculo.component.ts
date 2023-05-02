@@ -16,7 +16,10 @@ export class VeiculoComponent implements OnInit {
   create:       boolean = true
   veiculo:      Veiculo;
   veiculos:     Veiculo[];
+  ticket:       string;
   errorMessage;
+  pag: Number = 1;
+  contador: Number = 5;
 
   situacaoCadastral = [
         { id: 1, label: "ATIVO" },
@@ -75,8 +78,7 @@ export class VeiculoComponent implements OnInit {
 
     this.veiculosService.putVeiculo(veiculo, id)
       .subscribe(data => {
-        this.veiculo = data;
-        this.id = data.id;
+        this.ticket = data.ticket;
         this.router.navigate([`/summary-edit`]);
     },err=>{
         this.errorMessage = err;
@@ -101,5 +103,14 @@ export class VeiculoComponent implements OnInit {
 
   }
 
+  editVisitante(codigo: string){
+
+    this.router.navigate([`/visitante/`, codigo])
+
+  }
+
+  pageChanged(event){
+    this.pag = event;
+  }
 
 }

@@ -1,10 +1,10 @@
 <section  class="content">
 
   <!--Inicio Form de Edição-->
-  <section class="invoice" >
+  <section class="invoice">
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-        <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
       <label class="labelPagina">
@@ -14,7 +14,7 @@
 
         <div class="row invoice-info">
           <div class="col-sm-2 col-xs-6">
-            <input  class="form-control" type="hidden" [(ngModel)]="codigo"  #id name="id" maxlength="11" disabled placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
+            <input  class="form-control" type="hidden" [(ngModel)]="idResp"  #id name="id" maxlength="11" disabled placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
           </div>
 
           <div>
@@ -25,7 +25,7 @@
             <div class="col-sm-2 col-xs-2">
               <input class="form-control" #rg style="font-weight:bold" ngModel type="text" name="rg" maxlength="10" placeholder="RG" autocomplete="off">
             </div>
-            <div ngModel (click)="getVisitante(rg.value)" (click)="getVeiculoByVisitanteRg(rg.value)">
+            <div ngModel (click)="getVisitante(rg.value)" >
               <img class="lupa" src="assets/img/pesquisa/pesquisa.png">
             </div>
 
@@ -33,32 +33,32 @@
               <p class="control-label"> Nome: </p>
             </div>
             <div class="col-sm-6 col-xs-6">
-              <input class="form-control" #nome ngModel type="text" name="nome" disabled [(ngModel)]="nomeResp" maxlength="100" placeholder="Nome" autocomplete="off">
+              <input class="form-control" #nome ngModel type="text" [(ngModel)]="nomeResp" name="nome" disabled maxlength="100" placeholder="Nome" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
               <p class="control-label"> Logradouro: </p>
             </div>
             <div class="col-sm-6 col-xs-6">
-              <input class="form-control" #endereco ngModel type="text" name="endereco" disabled [(ngModel)]="enderecoResp" maxlength="100" placeholder="Endereço" autocomplete="off">
+              <input class="form-control" #endereco ngModel type="text" [(ngModel)]="enderecoResp" name="endereco" disabled maxlength="100" placeholder="Endereço" autocomplete="off">
             </div>
 
             <div class="col-sm-2 col-xs-6">
-              <input class="form-control" #numero ngModel type="text" name="numero" disabled [(ngModel)]="numeroResp" minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
+              <input class="form-control" #numero ngModel type="text" [(ngModel)]="numeroResp" name="numero" disabled minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
               <p class="control-label">Cidade:</p>
             </div>
             <div class="col-sm-4 col-xs-6">
-              <input class="form-control" #cidade ngModel type="text" name="cidade" disabled [(ngModel)]="cidadeResp"  maxlength="50" placeholder="Cidade" autocomplete="off">
+              <input class="form-control" #cidade ngModel type="text" [(ngModel)]="cidadeResp" name="cidade" disabled  maxlength="50" placeholder="Cidade" autocomplete="off">
             </div>
 
             <div class="col-xs-12">
               <p class="control-label"> UF: </p>
             </div>
             <div class="col-sm-1 col-xs-6">
-              <input class="form-control" #uf name="uf" ngModel type="text" disabled [(ngModel)]="ufResp" maxlength="2" placeholder="UF" autocomplete="off">
+              <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" disabled maxlength="2" placeholder="UF" autocomplete="off">
             </div>
 
             <p></p>
@@ -77,7 +77,7 @@
 
         </div>
 
-        <div formGroupName="veiculo">
+        <div formGroupName="veiculoVisita">
           <div *ngIf="createVeiculo">
             <div class="col-xs-12">
               <p class="control-label"> Marca: </p>
@@ -150,8 +150,8 @@
               <th class="pointer" scope="col" [appSort]="veiculosVinculados" data-order="desc" data-name="ano">Ano</th>
             </tr>
           </thead>
-        <tbody>
-          <tr *ngFor="let veiculo of veiculosVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
+        <tbody *ngFor="let visitante of visitantes">
+          <tr *ngFor="let veiculo of visitante.veiculos | paginate: { itemsPerPage: contador, currentPage: pag }">
             <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.placa.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.marca.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.modelo.toUpperCase() }}</div></td>
@@ -174,10 +174,10 @@
 
     </section>
  <!--Fim da Content-->
- </section>
+</section>
 
  <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -195,7 +195,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
 
 

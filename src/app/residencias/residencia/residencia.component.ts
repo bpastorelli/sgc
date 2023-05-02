@@ -69,8 +69,6 @@ export class ResidenciaComponent implements OnInit {
 
   postNovaResidenciaAmqp(residencia: Residencia){
 
-    console.log(residencia);
-
     this.residenciaService.postNovaResidenciaAmqp(residencia)
       .subscribe(data => {
         this.residencia = data;
@@ -125,10 +123,7 @@ export class ResidenciaComponent implements OnInit {
 
   getCep(cep: string){
 
-    console.log(`O cep é ${cep}`);
-
     if(cep != ""){
-        console.log('Vai buscar o CEP')
         this.cepService.getCep(cep)
           .subscribe(
             data=>{

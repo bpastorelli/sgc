@@ -1,3 +1,4 @@
+import { Params } from '@angular/router';
 import { MoradoresFilterModel } from './../moradores-filter.model';
 import { ResidenciaResponse } from './../../residencias/residencia-response.model';
 import { MoradorResponse } from './morador-response.model';
@@ -6,10 +7,8 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Morador } from './../morador/morador.model';
-import { Residencia } from './../../residencias/residencias.model';
 
 import { map } from 'rxjs/operators';
-import { Params } from '@angular/router';
 import { BaseService } from 'src/app/_services/base.service';
 
 @Injectable({providedIn: 'root'})
@@ -21,22 +20,6 @@ private moradorUrl = environment.protocol + environment.apiUrl + environment.mor
 
   constructor(private http: HttpClient) {
     super();
-  }
-
-  postMoradores(request: Morador): Observable<Morador> {
-
-    let queryParams: Params = {};
-    if(request){
-      queryParams = this.setParameter(request);
-    }
-
-    return this.http.post<Morador>(`${environment.apiUrl}/associados/morador/incluir`
-        , JSON.stringify(request)
-        , this.httpOptions)
-        .pipe(
-          map(response => response['data'])
-        );
-
   }
 
   postMorador(morador: Morador): Observable<any> {
@@ -62,19 +45,37 @@ private moradorUrl = environment.protocol + environment.apiUrl + environment.mor
 
   getTicketMorador(ticket: string): Observable<any>{
 
-    return this.http.get<Morador>(`${environment.apiUrl}/associados/morador/amqp/ticket?ticket=${ticket}`);
+    this.moradorRequest = new MoradoresFilterModel();
+    this.moradorRequest  = this.setCamposDefault(this.moradorRequest);
+
+    if(ticket)
+      this.moradorRequest.ticket = ticket;
+
+    return this.getMoradores(this.moradorRequest);
+
   }
 
-  putMorador(request: Morador, id: number): Observable<any> {
+  getMoradores(requestFilter: MoradoresFilterModel) : Observable<Array<MoradorResponse>> {
+
+    requestFilter = this.setCamposDefault(requestFilter);
 
     let queryParams: Params = {};
-    if(request){
-      queryParams = this.setParameter(request);
+    if(requestFilter){
+        queryParams = this.setParameter(this.moradorRequest);
     }
 
-    return this.http.put<Morador>(`${this.moradorUrl + environment.alterar}?id=${id}`
+    return this.http.get<Array<MoradorResponse>>(this.moradorUrl + environment.filtro, {params: queryParams})
+        .pipe(
+          map(response => response)
+        );
+
+  }
+
+  putMorador(request: Morador, id: string): Observable<any> {
+
+    return this.http.put<Morador>(this.moradorUrl + environment.alterar + `?id=${id}`
         , JSON.stringify(request)
-        , { headers: this.httpOptions.headers } )
+        , { headers: this.httpOptions.headers })
         .pipe(
           map(response => response)
         );
@@ -84,24 +85,29 @@ private moradorUrl = environment.protocol + environment.apiUrl + environment.mor
   getMorador(id: string) : Observable<Array<MoradorResponse>>{
 
     this.moradorRequest = new MoradoresFilterModel();
+    this.moradorRequest  = this.setCamposDefault(this.moradorRequest);
 
     if(id)
       this.moradorRequest.id = id;
 
-    let queryParams: Params = {};
-    if(this.moradorRequest){
-        queryParams = this.setParameter(this.moradorRequest);
-    }
-
-    return this.http.get<Array<MoradorResponse>>(this.moradorUrl + environment.filtro, {params: queryParams})
-        .pipe(
-          map(response => response)
-        );
+    return this.getMoradores(this.moradorRequest);
   }
 
   getResidenciasVinculadas(moradorId: string): Observable<ResidenciaResponse[]>{
 
     return this.http.get<ResidenciaResponse[]>(`${environment.apiUrl}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
+
+  }
+
+  setCamposDefault(request: MoradoresFilterModel): MoradoresFilterModel{
+
+    request.content == null ? request.content = true : request.content;
+    request.posicao == null ? request.posicao = 1 : request.posicao;
+    request.size == null ? request.size =  1000000 : request.size;
+    request.sort == null ? request.sort = 'nome' : request.sort;
+    request.page == null ? request.page = 0 : request.page;
+
+    return request;
 
   }
 

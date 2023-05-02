@@ -15,6 +15,12 @@ export abstract class BaseService{
     })
   }
 
+  protected addHeader(name: string, value: string ){
+
+    this.httpOptions.headers.append(name, value);
+
+  }
+
   protected path(path: string): string{
     return `${environment.protocol + window.location.host + '/'}${path}`;
   }

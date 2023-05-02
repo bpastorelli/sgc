@@ -1,16 +1,26 @@
+import { VisitasFilterModel } from './visitas-filter.model';
 import { properties } from './../../../properties/properties';
 import { Router } from '@angular/router';
 import { Visita } from './visitas.model';
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { VisitantesService } from './../visitantes.service';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
+import { VisitasService } from './visitas.service';
+import { Subscription, timer } from 'rxjs';
+import { Observable } from 'rxjs-compat';
 
 @Component({
   selector: 'app-visitas',
   templateUrl: './visitas.component.html'
 })
-export class VisitasComponent implements OnInit {
+export class VisitasComponent implements OnInit, OnDestroy  {
 
+  public loading: boolean;
+
+  subscription!: Subscription;
+  everyFiveSeconds: Observable<number> = timer(0, 5000);
+
+  request: VisitasFilterModel;
   public visita: Visita;
   public visitas: Visita[];
   public situacaoVisita = [
@@ -20,8 +30,16 @@ export class VisitasComponent implements OnInit {
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
-  posicaoDefault: number = 1;
+  posicaoDefault: number = 2;
   errorMessage;
+  erros: ErroRegistro[] = [];
+
+  id: string; 
+  nome: string; 
+  rg: string; 
+  cpf: string; 
+  dataInicio: string; 
+  dataFim: string;
 
   date = new Date(Date.parse('01/01/9999'));
 
@@ -31,16 +49,18 @@ export class VisitasComponent implements OnInit {
 
   constructor(
               private router: Router,
-              private visitantesService: VisitantesService,
+              private visitasService: VisitasService,
               private authenticationService: AuthenticationService
               ) { }
 
   ngOnInit() {
 
+    this.loading = false;
+
     if(this.authenticationService.currentUserValue){
         this.ordenar = "dataEntrada";
         this.direction = 'DESC';
-        this.getVisitas(null, null, null, "01/01/9999", "01/01/9999", this.posicaoDefault, this.ordenar, this.direction);
+        this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.ordenar, this.direction);
     }else{
         this.router.navigate(['/login'])
     }
@@ -49,30 +69,58 @@ export class VisitasComponent implements OnInit {
 
   baixarVisita(id: string, nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string){
 
-    this.visitantesService.baixarVisita(id)
+    this.loading = true;
+    this.visitasService.baixarVisita(id)
       .subscribe(data => {
-        this.visita = data;
-        this.getVisitas(nome, rg, cpf, dataInicio, dataFim, this.posicaoDefault, this.ordenar, this.direction);
+        this.subscription = this.everyFiveSeconds.subscribe(() => {
+          this.getVisitas(this.nome, this.rg, this.cpf, this.dataInicio, this.dataFim, this.posicaoDefault, this.ordenar, this.direction);
+        });
+        this.loading = false;
     },err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.erros = err['erros'];
     });
 
   }
 
   getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string){
 
-    this.ordenar = ord;
-    this.direction = dir;
-    this.errorMessage = null;
+    this.loading = false;
+    this.nome = nome;
+    this.rg = rg;
+    this.cpf = cpf;
+    this.dataInicio = dataInicio;
+    this.dataFim = dataFim;
+    this.posicaoDefault = posicao;
 
-    this.visitantesService.getVisitas(nome, rg, cpf, dataInicio, dataFim, posicao, ord, dir)
+    this.request = new VisitasFilterModel();
+
+    if(nome)
+      this.request.nome = nome;
+
+    if(rg)
+      this.request.rg = rg;
+
+    if(cpf)
+      this.request.cpf = cpf;
+
+    if(dataInicio)
+      this.request.dataInicio = dataInicio;
+
+    if(dataFim)
+      this.request.dataFim = dataFim;
+
+    if(posicao != 2)
+      this.request.posicao = posicao;
+
+    if(ord)
+      this.request.sort = ord;
+
+    this.visitasService.getVisitas(this.request)
     .subscribe(
       data=>{
-            this.visitas = data;
+          this.visitas = data;
         }, err=>{
-            this.errorMessage = err.message;
-            throw err;
+          this.erros = err['erros'];
         }
       );
   }
@@ -114,6 +162,13 @@ export class VisitasComponent implements OnInit {
 
   pageChanged(event){
     this.pag = event;
+  }
+
+  ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+
   }
 
 }

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { VeiculosService } from './veiculos.service';
 import { properties } from './../../properties/properties';
+import { VeiculoFilterModel } from './veiculo-filter.model';
+import { ErroRegistro } from '../_models/erro-registro';
 
 @Component({
   selector: 'app-veiculos',
@@ -12,6 +14,10 @@ import { properties } from './../../properties/properties';
 export class VeiculosComponent implements OnInit {
 
   public veiculos: Veiculo[];
+  
+  request: VeiculoFilterModel;
+
+  erros: ErroRegistro[] = [];
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
@@ -29,7 +35,7 @@ export class VeiculosComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-      this.getVeiculos(null, null, null, 0);
+      this.getVeiculos(null, null, null, null);
     }else{
       this.router.navigate(['/login']);
     }
@@ -37,12 +43,26 @@ export class VeiculosComponent implements OnInit {
 
   getVeiculos(placa: string, marca: string, modelo: string, ano: number){
 
-    this.veiculosService.getVeiculos(placa, marca, modelo, ano)
+    this.request = new VeiculoFilterModel();
+
+    if(placa)
+      this.request.placa = placa;
+
+    if(marca)
+      this.request.marca = marca;
+
+    if(modelo)
+      this.request.modelo = modelo;
+
+    if(ano)
+      this.request.ano = ano;
+
+    this.veiculosService.getVeiculos(this.request)
         .subscribe(
            data=>{
               this.veiculos = data;
            }, err=>{
-              console.log(err);
+              this.erros = err['erros'];
          }
       );
   }
@@ -60,6 +80,8 @@ export class VeiculosComponent implements OnInit {
   }
 
   formatPlaca(placa: string){
+
+    placa = placa.replace("-", "");
 
     var p1 = placa.substring(0,3);
     var p2 = placa.substring(3,7);

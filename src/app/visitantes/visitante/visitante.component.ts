@@ -1,3 +1,4 @@
+import { VisitanteFilterModel } from './visitante-filter.model';
 import { Cep } from './../../cep/cep.model';
 import { Visitante } from '../visitante.model';
 import { Component, OnInit } from '@angular/core';
@@ -35,6 +36,8 @@ export class VisitanteComponent implements OnInit {
   public situacaoCadastral = [
         { id: 1, label: "ATIVO" },
         { id: 0, label: "INATIVO" }]
+
+  request: VisitanteFilterModel;
 
   constructor(
               private router: Router,
@@ -109,7 +112,12 @@ export class VisitanteComponent implements OnInit {
 
   getVisitanteById(id: string){
 
-    this.visitantesService.getVisitantes(id, null, null, null)
+    this.request = new VisitanteFilterModel();
+
+    if(id)
+      this.request.id = id;
+
+    this.visitantesService.getVisitantes(this.request)
       .subscribe(
         data=>{
             this.visitantes = data;
