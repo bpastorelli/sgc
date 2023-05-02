@@ -43,8 +43,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="alert alert-warning">
-          {{ error }}
+        <div *ngFor="let erro of erros" class="alert alert-warning">
+          {{ erro.detalhe }}
         </div>
       </div>
       <div class="modal-footer" >
@@ -83,8 +83,9 @@
                 <input class="form-control" required ngModel type="password" name="confirmarSenha" #confirmarSenha maxlength="30" placeholder="Confirme a senha" autocomplete="off">
               </app-input>
             </div>
-            <div *ngIf="error" class="alert alert-warning">
-              <strong>Atenção! </strong>{{ error.detalhe }}
+
+            <div *ngFor="let erro of erros" class="alert alert-warning">
+              <strong>Atenção! </strong>{{ erro.detalhe }}
             </div>
 
           </div>

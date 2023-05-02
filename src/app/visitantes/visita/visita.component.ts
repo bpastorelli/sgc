@@ -1,10 +1,8 @@
-import { VisitanteFilterModel } from './../visitante/visitante-filter.model';
 import { ErroRegistro } from './../../_models/erro-registro';
 import { Visitante } from './../visitante.model';
 import { Component, OnInit } from '@angular/core';
 import { Visita } from './../visitas/visitas.model';
 import { Veiculo } from './../../veiculos/veiculo.model';
-import { Residencia } from './../../residencias/residencias.model';
 import { VisitaRequest } from './../visita/visitaRequest.model';
 import { ResidenciasService } from './../../residencias/residencias.service';
 import { VeiculosService } from './../../veiculos/veiculos.service';
@@ -12,9 +10,9 @@ import { VisitantesService } from './../visitantes.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from './../../_services/authentication.service';
-import { empty } from 'rxjs';
 import { ResidenciasFilterModel } from 'src/app/residencias/residencias-filter.model';
 import { ResidenciaResponse } from 'src/app/residencias/residencia-response.model';
+import { VisitanteFilterModel } from '../visitante/visitante-filter.model';
 
 @Component({
   selector: 'app-visita',
@@ -39,7 +37,7 @@ export class VisitaComponent implements OnInit {
 
   errorMessage;
 
-  createVeiculo: boolean = false;
+  public createVeiculo: boolean = false;
   mostraVeiculo: boolean = false;
 
 
@@ -68,9 +66,9 @@ export class VisitaComponent implements OnInit {
   ngOnInit() {
 
     if(!this.authenticationService.currentUserValue){
-      this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
     }else{
-      this.codigo = this.route.snapshot.paramMap.get('codigo');
+        this.codigo = this.route.snapshot.paramMap.get('codigo');
     }
 
   }
@@ -82,18 +80,36 @@ export class VisitaComponent implements OnInit {
 
   getVisitante(rg: string){
 
+    this.nomeResp = null;
+    this.enderecoResp = null
+    this.numeroResp = null;
+    this.cidadeResp = null;
+    this.ufResp = null;
+
     this.requestFilterVisitante = new VisitanteFilterModel();
 
-    if(rg)
+    if(rg){
       this.requestFilterVisitante.rg = rg;
 
-    this.visitantesService.getVisitantes(this.requestFilterVisitante)
-        .subscribe(
-          data=>{
-            this.visitantes = data;
-          },err =>{
-              this.erros = err['erros'];
+      this.visitantesService.getVisitantes(this.requestFilterVisitante)
+      .subscribe(
+        data=>{
+          this.visitantes = data;
+          this.visitantes.forEach(visitante => {
+            this.idResp = visitante.id;
+            this.nomeResp = visitante.nome;
+            this.enderecoResp = visitante.endereco;
+            this.numeroResp = visitante.numero;
+            this.cidadeResp = visitante.cidade;
+            this.ufResp = visitante.uf;
+
           });
+        },err =>{
+          this.erros = err['erros'];
+        });
+
+    }
+
   }
 
   editVeiculo(codigo: string){
@@ -160,7 +176,7 @@ export class VisitaComponent implements OnInit {
         .subscribe(
           data=>{
             this.veiculo = data;
-            if(this.veiculo == null){
+            if(this.veiculo.placa == null){
               this.createVeiculo = true;
             }
           }, err=>{

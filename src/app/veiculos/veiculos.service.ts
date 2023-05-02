@@ -4,20 +4,31 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
+import { Params } from '@angular/router';
+import { BaseService } from '../_services/base.service';
+import { VeiculoFilterModel } from './veiculo-filter.model';
 
 @Injectable()
-export class VeiculosService {
+export class VeiculosService extends BaseService {
 
-  constructor(private http: HttpClient) { }
+  request: VeiculoFilterModel;
 
-  // Headers
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
+  constructor(private http: HttpClient) {
+    super();
+  }
 
-  getVeiculos(placa: string, marca: string, modelo: string, ano: number): Observable<Veiculo[]> {
+  getVeiculos(request: VeiculoFilterModel): Observable<Array<Veiculo>> {
 
-    return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/filtro?placa=${placa}&marca=${marca}&modelo=${modelo}&ano=${ano}&pag=0&ord=marca&dir=ASC&size=1000000`)
+    request = this.setCamposDefault(request);
+
+    let queryParams: Params = {};
+    if(request){
+      queryParams = this.setParameter(request);
+    }
+
+    return this.http.get<Array<Veiculo>>(environment.protocol + environment.apiUrl + environment.veiculo + environment.filtro , {params: queryParams})
+              .pipe(
+                map(response => response));
 
   }
 
@@ -34,7 +45,7 @@ export class VeiculosService {
 
   postVeiculoAmqp(veiculo: Veiculo): Observable<any>{
 
-    return this.http.post<Veiculo>(`${environment.apiUrl}/associados/veiculo/amqp/novo`
+    return this.http.post<Veiculo>(`${environment.protocol + environment.apiUrl}/veiculo/amqp/novo`
         , JSON.stringify(veiculo)
         , this.httpOptions)
         .pipe(
@@ -45,38 +56,48 @@ export class VeiculosService {
 
   putVeiculo(veiculo: Veiculo, id: string): Observable<any>{
 
-    console.log(veiculo);
-
-    return this.http.put<Veiculo>(`${environment.apiUrl}/associados/veiculo/veiculo/${id}`
+    return this.http.put<Veiculo>(`${environment.protocol + environment.apiUrl}/veiculo/amqp/alterar?id=${id}`
         , JSON.stringify(veiculo)
-        , this.httpOptions)
+        , { headers: this.httpOptions.headers })
         .pipe(
-          map(response => response['data'])
+          map(response => response)
       );
 
   }
 
   getVeiculoById(id: string): Observable<Veiculo[]>{
 
-      return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/id/${id}`);
+      return this.http.get<Veiculo[]>(`${environment.protocol + environment.apiUrl}/veiculo/filtro?id=${id}&content=true`);
 
   }
 
   getVeiculoByPlaca(placa: string): Observable<Veiculo>{
 
-    return this.http.get<Veiculo>(`${environment.apiUrl}/associados/veiculo/placa/${placa}`);
+      return this.http.get<Veiculo>(`${environment.protocol + environment.apiUrl}/veiculo/filtro?placa=${placa}&content=true`);
 
   }
 
   getVeiculosByVisitanteId(id: string): Observable<Veiculo[]>{
 
-    return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/vinculo/visitante/${id}`)
+    return this.http.get<Veiculo[]>(`${environment.protocol + environment.apiUrl}/associados/veiculo/vinculo/visitante/${id}`)
 
   }
 
   getVeiculosByVisitanteRg(rg: string): Observable<Veiculo[]>{
 
-    return this.http.get<Veiculo[]>(`${environment.apiUrl}/associados/veiculo/vinculo/visitante/rg/${rg}`)
+    return this.http.get<Veiculo[]>(`${environment.protocol + environment.apiUrl}/associados/veiculo/vinculo/visitante/rg/${rg}`)
+
+  }
+
+  setCamposDefault(request: VeiculoFilterModel): VeiculoFilterModel{
+
+    request.content == null ? request.content = true : request.content;
+    request.posicao == 2 ? request.posicao = null : request.posicao;
+    request.size == null ? request.size =  1000000 : request.size;
+    request.sort == null ? request.sort = 'marca' : request.sort;
+    request.page == null ? request.page = 0 : request.page;
+
+    return request;
 
   }
 

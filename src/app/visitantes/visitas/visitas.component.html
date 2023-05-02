@@ -56,7 +56,7 @@
     </div>
 
     <section class="content">
-        <table class="table-striped">
+        <table class="table-striped" >
           <thead>
             <tr>
                 <th style="width: 2%;" scope="col"></th>
@@ -85,7 +85,7 @@
               <td class="textCenter"><div>{{ visita.horaSaida }}</div></td>
               <td ><div>{{ visita.endereco.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.numero }}</div></td>
-              <td class="textCenter">
+              <td class="textCenter" (onchange)="ngOnDestroy()">
                 <div *ngIf="visita.posicao == 1 && !loading" class="pointer" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value)"> Encerrar</div>
                 <div *ngIf="visita.posicao == 1 && loading"><img class="img" src="assets/img/loader/icons8-loading-20.png"></div>
                 <div *ngIf="visita.posicao == 0"><img class="img"></div>

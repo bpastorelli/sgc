@@ -18,6 +18,7 @@ export const environment = {
   acessoFuncionalidade: '/acessoFuncionalidade',
   visitante: '/visitante',
   visita: '/visita',
+  veiculo: '/veiculo',
   apiUrl: 'localhost:9090/sgc',
   apiUrlCep: 'https://viacep.com.br/ws'
 };

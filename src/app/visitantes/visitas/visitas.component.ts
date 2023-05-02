@@ -2,7 +2,7 @@ import { VisitasFilterModel } from './visitas-filter.model';
 import { properties } from './../../../properties/properties';
 import { Router } from '@angular/router';
 import { Visita } from './visitas.model';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { VisitasService } from './visitas.service';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs-compat';
   selector: 'app-visitas',
   templateUrl: './visitas.component.html'
 })
-export class VisitasComponent implements OnInit {
+export class VisitasComponent implements OnInit, OnDestroy  {
 
   public loading: boolean;
 
@@ -77,14 +77,14 @@ export class VisitasComponent implements OnInit {
         });
         this.loading = false;
     },err=>{
-        this.errorMessage = err.message;
-        throw err;
+        this.erros = err['erros'];
     });
 
   }
 
   getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string){
 
+    this.loading = false;
     this.nome = nome;
     this.rg = rg;
     this.cpf = cpf;

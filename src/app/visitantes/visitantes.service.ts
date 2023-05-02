@@ -1,13 +1,11 @@
 import { BaseService } from 'src/app/_services/base.service';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Visita } from './visitas/visitas.model';
+import { HttpClient } from '@angular/common/http';
 import { Visitante } from './visitante.model';
 import { VisitaRequest } from './visita/visitaRequest.model';
 import { environment } from './../../environments/environment';
 import { map } from 'rxjs/operators';
-import { VisitasFilterModel } from './visitas/visitas-filter.model';
 import { Params } from '@angular/router';
 import { VisitanteFilterModel } from './visitante/visitante-filter.model';
 
@@ -33,7 +31,8 @@ export class VisitantesService extends BaseService {
 
     return this.http.get<Array<Visitante>>(environment.protocol + environment.apiUrl + environment.visitante + environment.filtro, {params: queryParams})
           .pipe(
-            map(response => response));
+            map(response => response)
+          );
 
   }
 
@@ -72,7 +71,7 @@ export class VisitantesService extends BaseService {
 
   postVisita<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
-    return this.http.post<Visita>(`${environment.apiUrl}/associados/visita/incluir`
+    return this.http.post<Visita>(`${environment.protocol + environment.apiUrl}/visita/novo`
         , JSON.stringify(visitaRequest)
         , this.httpOptions)
         .pipe(
@@ -82,7 +81,7 @@ export class VisitantesService extends BaseService {
 
   postVisitaAmqp<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
-    return this.http.post<Visita>(`${environment.apiUrl}/associados/visita/amqp/incluir`
+    return this.http.post<Visita>(`${environment.protocol + environment.apiUrl}/visita/amqp/novo`
         , JSON.stringify(visitaRequest)
         , this.httpOptions)
         .pipe(

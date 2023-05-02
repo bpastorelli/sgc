@@ -1,3 +1,5 @@
+import { Visitante } from "../visitantes/visitante.model";
+
 export interface Veiculo{
 
   id: string,
@@ -7,6 +9,7 @@ export interface Veiculo{
   cor: string,
   ano: string,
   posicao: string,
-  guide: string
+  guide: string,
+  visitantes: Visitante[]
 
 }
