@@ -36,31 +36,20 @@ export class VisitantesService extends BaseService {
 
   }
 
-  postVisitante(visitante: Visitante): Observable<any>{
-
-    return this.http.post<Visitante>(`${environment.apiUrl}/associados/visitante/incluir`
-        , JSON.stringify(visitante)
-        , this.httpOptions)
-        .pipe(
-          map(response => response['data'])
-        );
-
-  }
-
   postVisitanteAmqp(visitante: Visitante): Observable<any>{
 
-    return this.http.post<Visitante>(`${environment.apiUrl}/associados/visitante/amqp/incluir`
+    return this.http.post<Visitante>(`${environment.protocol + environment.apiUrl}/visitante/amqp/novo`
         , JSON.stringify(visitante)
         , this.httpOptions)
         .pipe(
-          map(response => response['data'])
+          map(response => response)
         );
 
   }
 
   putVisitante(visitante: Visitante, id: string): Observable<any>{
 
-    return this.http.put<Visitante>(`${environment.apiUrl}/associados/visitante/${id}`
+    return this.http.put<Visitante>(`${environment.protocol + environment.apiUrl}/visitante/amqp/alterar?id=${id}`
         , JSON.stringify(visitante)
         , this.httpOptions)
         .pipe(

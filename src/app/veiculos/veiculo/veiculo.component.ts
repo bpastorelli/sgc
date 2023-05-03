@@ -3,6 +3,7 @@ import { VeiculosService } from './../veiculos.service';
 import { Veiculo } from './../veiculo.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 @Component({
   selector: 'app-veiculo',
@@ -20,6 +21,7 @@ export class VeiculoComponent implements OnInit {
   errorMessage;
   pag: Number = 1;
   contador: Number = 5;
+  erros: ErroRegistro[] = [];
 
   situacaoCadastral = [
         { id: 1, label: "ATIVO" },
@@ -50,26 +52,27 @@ export class VeiculoComponent implements OnInit {
 
   postVeiculo(veiculo: Veiculo){
 
+    veiculo.ticketVisitante = this.codigo;
+
     this.veiculosService.postVeiculo(veiculo)
       .subscribe(data => {
-        this.veiculo = data;
-        this.id = data.id;
+        this.id = data.ticket;
         this.router.navigate([`/summary-add`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
 
   postVeiculoAmqp(veiculo: Veiculo){
 
+    veiculo.ticketVisitante = this.codigo;
     this.veiculosService.postVeiculoAmqp(veiculo)
       .subscribe(data => {
-        this.veiculo = data;
-        this.id = data.id;
+        this.id = data.ticket;
         this.router.navigate([`/summary-add`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }
@@ -81,7 +84,7 @@ export class VeiculoComponent implements OnInit {
         this.ticket = data.ticket;
         this.router.navigate([`/summary-edit`]);
     },err=>{
-        this.errorMessage = err;
+        this.erros = err['erros'];
     });
 
   }

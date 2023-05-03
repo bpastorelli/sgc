@@ -8,6 +8,7 @@ import { VeiculosService } from './../../veiculos/veiculos.service';
 import { VisitantesService } from './../visitantes.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Veiculo } from 'src/app/veiculos/veiculo.model';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 @Component({
   selector: 'app-visitante',
@@ -39,6 +40,8 @@ export class VisitanteComponent implements OnInit {
 
   request: VisitanteFilterModel;
 
+  erros: ErroRegistro[] = [];
+
   constructor(
               private router: Router,
               private route: ActivatedRoute,
@@ -55,27 +58,10 @@ export class VisitanteComponent implements OnInit {
       if(this.codigo != "create" && this.codigo != "novo"){
           this.create = false;
           this.getVisitanteById(this.codigo);
-          this.getVeiculoByVisitanteId(this.codigo);
       }
     }else{
       this.router.navigate(['/login']);
     }
-
-  }
-
-  postVisitante(visitante: Visitante){
-
-    if(visitante.cpf != null)
-      visitante.cpf = visitante.cpf.replace('.','').replace('-','');
-
-    this.visitantesService.postVisitante(visitante)
-      .subscribe(data => {
-        this.visit = data;
-        this.id = data.id;
-        this.router.navigate(['/veiculo/novo/visitante/', this.id]);
-    },err=>{
-        this.errorMessage = err;
-    });
 
   }
 
@@ -86,11 +72,10 @@ export class VisitanteComponent implements OnInit {
 
     this.visitantesService.postVisitanteAmqp(visitante)
       .subscribe(data => {
-        this.visit = data;
         this.id = data.ticket;
-        this.router.navigate(['/veiculo/amqp/visitante/', this.id]);
+        this.router.navigate(['/veiculo/create/visitante/', this.id]);
     },err=>{
-        this.errorMessage = err;
+      this.erros = err['erros'];
     });
 
   }
@@ -105,7 +90,7 @@ export class VisitanteComponent implements OnInit {
         this.visit = data;
         this.router.navigate(['/summary-edit']);
     },err=>{
-        this.errorMessage = err;
+      this.erros = err['erros'];
     });
 
   }
@@ -125,7 +110,7 @@ export class VisitanteComponent implements OnInit {
                 this.getCep(v.cep)
             });
         }, err=>{
-           this.errorMessage = err;
+          this.erros = err['erros'];
       }
     );
     return this.visitantes;
@@ -139,7 +124,7 @@ export class VisitanteComponent implements OnInit {
         data=>{
           this.veiculosVinculados =  data;
         },err=>{
-          this.errorMessage = err;
+          this.erros = err['erros'];
         }
 
       );
@@ -164,7 +149,7 @@ export class VisitanteComponent implements OnInit {
             this.localidadeResp = data.localidade.toUpperCase();
             this.ufResp = data.uf.toUpperCase();
         },err =>{
-            this.errorMessage = err;
+          this.erros = err['erros'];
         });
     }
   }

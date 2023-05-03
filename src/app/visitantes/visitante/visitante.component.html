@@ -162,8 +162,8 @@
               <th class="pointer" scope="col" [appSort]="veiculosVinculados" data-order="desc" data-name="ano">Ano</th>
             </tr>
           </thead>
-        <tbody>
-          <tr *ngFor="let veiculo of veiculosVinculados | paginate: { itemsPerPage: contador, currentPage: pag }">
+        <tbody *ngFor="let visitante of visitantes">
+          <tr *ngFor="let veiculo of visitante.veiculos | paginate: { itemsPerPage: contador, currentPage: pag }">
             <td class="textCenter"><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.placa.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.marca.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.modelo.toUpperCase() }}</div></td>
