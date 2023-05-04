@@ -164,4 +164,17 @@ export class VisitanteComponent implements OnInit {
 
   }
 
+  formatPlaca(placa: string){
+
+    placa = placa.replace("-", "");
+
+    var p1 = placa.substring(0,3);
+    var p2 = placa.substring(3,7);
+
+    placa = `${p1}-${p2}`
+
+    return placa;
+
+  }
+
 }

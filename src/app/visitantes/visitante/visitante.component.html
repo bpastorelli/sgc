@@ -164,7 +164,7 @@
           </thead>
         <tbody *ngFor="let visitante of visitantes">
           <tr *ngFor="let veiculo of visitante.veiculos | paginate: { itemsPerPage: contador, currentPage: pag }">
-            <td class="textCenter"><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.placa.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ formatPlaca(veiculo.placa.toUpperCase()) }}</div></td>
             <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.marca.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.modelo.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="editVeiculo(veiculo.id)">{{ veiculo.cor.toUpperCase() }}</div></td>

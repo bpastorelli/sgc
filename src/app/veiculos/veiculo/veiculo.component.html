@@ -207,19 +207,7 @@
           <!-- /.row -->
           </div>
 
-          <div *ngIf="acao === 'novo'">
-            <div *ngIf="create" class="row">
-              <div class="col-xs-12">
-                <button class="pointer" (click)="postVeiculo(formCreate.value)" class="btn btn-success pull-right"
-                  [disabled]="!formCreate.valid"><i></i> Salvar
-                </button>
-                <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div *ngIf="acao === 'create'">
+          <div>
             <div *ngIf="create" class="row">
               <div class="col-xs-12">
                 <button class="pointer" (click)="postVeiculoAmqp(formCreate.value)" class="btn btn-success pull-right"

@@ -9,6 +9,8 @@ import { VisitasService } from './visitas.service';
 import { Subscription, timer } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 
+declare var $: any;
+
 @Component({
   selector: 'app-visitas',
   templateUrl: './visitas.component.html'
@@ -79,6 +81,8 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     },err=>{
         this.erros = err['erros'];
     });
+
+    this.close('customModal1');
 
   }
 
@@ -162,6 +166,18 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   pageChanged(event){
     this.pag = event;
+  }
+
+  open(id: string, visita: Visita) {
+
+    this.visita = visita;
+
+    this.erros = null;
+    $('#' + id).modal('show');
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
   }
 
   ngOnDestroy(){
