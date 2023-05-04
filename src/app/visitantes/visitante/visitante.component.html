@@ -219,8 +219,8 @@
                 <p class="control-label"> RG: </p>
               </div>
               <div class="col-sm-2 col-xs-6">
-                <app-input-container errorMessage="Campo obrigatório e somente números" label="RG">
-                  <input class="form-control" name="rg" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
+                <app-input-container  errorMessage="Campo obrigatório e somente números" label="RG">
+                  <input class="form-control" [(ngModel)]="rg" name="rg" required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
                 </app-input-container>
               </div>
 
@@ -314,6 +314,29 @@
 
  <!--Fim da Content-->
  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-warning">
+            <b>Visitante cadastrado com sucesso, deseja incluir uma visita?</b>
+          </div>
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="abreCadastroVisita(rg)">Prosseguir</button>
+         </div>
+      </div>
+    </div>
+  </div>
 
 
 

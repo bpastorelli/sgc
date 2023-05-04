@@ -85,7 +85,7 @@
               <td class="textCenter"><div>{{ visita.horaSaida }}</div></td>
               <td ><div>{{ visita.endereco.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.numero }}</div></td>
-              <td class="textCenter" (onchange)="ngOnDestroy()">
+              <td class="textCenter">
                 <div *ngIf="visita.posicao == 1 && !loading" class="pointer" (click)="open('customModal1', visita)"> Encerrar</div>
                 <div *ngIf="visita.posicao == 1 && loading"><img class="img" src="assets/img/loader/icons8-loading-20.png"></div>
                 <div *ngIf="visita.posicao == 0"><img class="img"></div>
@@ -120,11 +120,10 @@
       </div>
       <div class="modal-body">
         <div class="alert alert-warning">
-          <b>Confirma encerramento da visita?</b>
+          <b>Confirma o encerramento da visita?</b>
         </div>
       </div>
       <div class="modal-footer" >
-        <!--<button type="button" class="btn btn-secondary" data-dismiss="modal"> Sim </button>-->
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value)">Prosseguir</button>
        </div>

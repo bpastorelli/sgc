@@ -14,6 +14,8 @@ import { ResidenciasFilterModel } from 'src/app/residencias/residencias-filter.m
 import { ResidenciaResponse } from 'src/app/residencias/residencia-response.model';
 import { VisitanteFilterModel } from '../visitante/visitante-filter.model';
 
+declare var $: any;
+
 @Component({
   selector: 'app-visita',
   templateUrl: './visita.component.html'
@@ -22,6 +24,7 @@ export class VisitaComponent implements OnInit {
 
   item: string;
   codigo: string;
+  rgV: string;
   idResp: string;
   placaResp: string;
   nomeResp: string;
@@ -69,6 +72,10 @@ export class VisitaComponent implements OnInit {
         this.router.navigate(['/login']);
     }else{
         this.codigo = this.route.snapshot.paramMap.get('codigo');
+        this.rgV = this.route.snapshot.paramMap.get('rg');
+        if(this.rgV)
+          this.getVisitante(this.rgV);
+        this.close('customModal1');
     }
 
   }
@@ -94,16 +101,19 @@ export class VisitaComponent implements OnInit {
       this.visitantesService.getVisitantes(this.requestFilterVisitante)
       .subscribe(
         data=>{
-          this.visitantes = data;
-          this.visitantes.forEach(visitante => {
-            this.idResp = visitante.id;
-            this.nomeResp = visitante.nome;
-            this.enderecoResp = visitante.endereco;
-            this.numeroResp = visitante.numero;
-            this.cidadeResp = visitante.cidade;
-            this.ufResp = visitante.uf;
-
-          });
+            this.visitantes = data;
+            if(this.visitantes.length > 0){
+              this.visitantes.forEach(visitante => {
+                this.idResp = visitante.id;
+                this.nomeResp = visitante.nome;
+                this.enderecoResp = visitante.endereco;
+                this.numeroResp = visitante.numero;
+                this.cidadeResp = visitante.cidade;
+                this.ufResp = visitante.uf; 
+            });
+            }else{
+              this.open('customModal1');
+            } 
         },err =>{
           this.erros = err['erros'];
         });
@@ -115,6 +125,7 @@ export class VisitaComponent implements OnInit {
   editVeiculo(codigo: string){
 
     this.router.navigate(['/veiculo/', codigo]);
+    this.close('customModal1');
 
   }
 
@@ -222,6 +233,22 @@ export class VisitaComponent implements OnInit {
     placa = `${p1}-${p2}`
 
     return placa;
+
+  }
+
+  open(id: string) {
+
+    this.erros = null;
+    $('#' + id).modal('show');
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
+  }
+
+  abreCadastroVisitante(rg: string){
+
+    this.router.navigate([`/visitante/create/residencia/${this.codigo}/rg/${rg}`]);
 
   }
 

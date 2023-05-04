@@ -118,7 +118,7 @@
             <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.celular }}</div></td>
             <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.endereco.toUpperCase() }}</div></td>
             <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.numero }}</div></td>
-            <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.cidade.toUpperCase() }}</div></td>
+            <td><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.cidade.toUpperCase() }}</div></td>
             <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.uf.toUpperCase() }}</div></td>
           </tr>
         </tbody>
@@ -175,7 +175,7 @@
             <div class="col-xs-12">
               <p class="control-label"> Cor: </p>
             </div>
-            <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-4 col-xs-12">
               <app-input-container label="Cor">
                 <input class="form-control" name="cor" #cor (ngModelChange)="cor.value=$event.toUpperCase()"  ngModel maxlength="20" placeholder="Cor" autocomplete="on">
               </app-input-container>
@@ -184,7 +184,7 @@
             <div class="col-xs-12">
               <p class="control-label"> Ano:</p>
             </div>
-            <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-2 col-xs-6">
               <app-input-container label="Ano">
                 <input class="form-control" name="ano" #ano  ngModel maxlength="4" placeholder="Ano" autocomplete="on">
               </app-input-container>
