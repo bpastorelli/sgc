@@ -10,6 +10,8 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { Veiculo } from 'src/app/veiculos/veiculo.model';
 import { ErroRegistro } from 'src/app/_models/erro-registro';
 
+declare var $: any;
+
 @Component({
   selector: 'app-visitante',
   templateUrl: './visitante.component.html'
@@ -17,7 +19,9 @@ import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 export class VisitanteComponent implements OnInit {
 
-  id: string
+  id: string;
+  rg: string;
+  residencia: string;
   acao: string;
   codigo: string;
   create: boolean = true;
@@ -53,8 +57,10 @@ export class VisitanteComponent implements OnInit {
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
-
+      this.rg = this.route.snapshot.paramMap.get('rg');
+      this.residencia = this.route.snapshot.paramMap.get('residencia');
       this.codigo = this.route.snapshot.paramMap.get('codigo');
+      this.close('customModal1');
       if(this.codigo != "create" && this.codigo != "novo"){
           this.create = false;
           this.getVisitanteById(this.codigo);
@@ -72,8 +78,12 @@ export class VisitanteComponent implements OnInit {
 
     this.visitantesService.postVisitanteAmqp(visitante)
       .subscribe(data => {
-        this.id = data.ticket;
-        this.router.navigate(['/veiculo/create/visitante/', this.id]);
+        if(!this.rg){
+          this.id = data.ticket;
+          this.router.navigate(['/veiculo/create/visitante/', this.id]);
+        }else{
+          this.open('customModal1');
+        }
     },err=>{
       this.erros = err['erros'];
     });
@@ -161,6 +171,35 @@ export class VisitanteComponent implements OnInit {
   cancelar(){
 
     this.router.navigate(['visitantes'])
+
+  }
+
+  formatPlaca(placa: string){
+
+    placa = placa.replace("-", "");
+
+    var p1 = placa.substring(0,3);
+    var p2 = placa.substring(3,7);
+
+    placa = `${p1}-${p2}`
+
+    return placa;
+
+  }
+
+  open(id: string) {
+
+    this.erros = null;
+    $('#' + id).modal('show');
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
+  }
+
+  abreCadastroVisita(rg: string){
+
+    this.router.navigate([`/visita/residencia/${this.residencia}/rg/${rg}`]);
 
   }
 

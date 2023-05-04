@@ -240,7 +240,7 @@
                     name="associado"
                     id="associado"
                     class="form-control"
-                    ngModel>
+                    [(ngModel)]="situacaoAssociadoDefault">
                     <option *ngFor="let item of situacaoAssociacao" [value]="item.id">{{ item.label }}</option>
                 </select>
               </div>

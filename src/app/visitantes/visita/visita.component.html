@@ -23,7 +23,7 @@
               <p class="control-label"> RG: </p>
             </div>
             <div class="col-sm-2 col-xs-2">
-              <input class="form-control" #rg style="font-weight:bold" ngModel type="text" name="rg" maxlength="10" placeholder="RG" autocomplete="off">
+              <input class="form-control" #rg style="font-weight:bold" [(ngModel)]="rgV" type="text" name="rg" maxlength="10" placeholder="RG" autocomplete="off">
             </div>
             <div ngModel (click)="getVisitante(rg.value)" >
               <img class="lupa" src="assets/img/pesquisa/pesquisa.png">
@@ -134,7 +134,7 @@
     </section>
 
     <!--Fim do Form de Edição-->
-    <section class="invoice">
+    <section class="invoice" *ngIf="visitantes.length > 0">
 
       <div class="col-xs-12">
         <p class="control-label"><b>Veículos vinculados: selecione ou digite a Placa</b></p>
@@ -152,7 +152,7 @@
           </thead>
         <tbody *ngFor="let visitante of visitantes">
           <tr *ngFor="let veiculo of visitante.veiculos | paginate: { itemsPerPage: contador, currentPage: pag }">
-            <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.placa.toUpperCase() }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ formatPlaca(veiculo.placa.toUpperCase()) }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.marca.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.modelo.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.cor.toUpperCase() }}</div></td>
@@ -177,25 +177,27 @@
 </section>
 
  <!-- Modal -->
-<!--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+ <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Localizar um visitante</h5>
+        <h5 class="modal-title" id="customModal1Label"><strong>Visitante não encontrado!</strong></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="false">&times;</span>
+          <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="alert alert-warning">
+          <b>Visitante não encontrado. Deseja cadastrar?</b>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="abreCadastroVisitante(rg.value)">Prosseguir</button>
+       </div>
     </div>
   </div>
-</div>-->
+</div>
 
 
 

@@ -20,6 +20,7 @@ export class MoradorComponent implements OnInit {
   create: boolean = true
   pag: Number = 1;
   contador: Number = 5;
+  situacaoAssociadoDefault: number = 0;
   errorMessage;
 
   erros: ErroRegistro[] = [];

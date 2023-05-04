@@ -1,6 +1,6 @@
 import { VisitasFilterModel } from './visitas-filter.model';
 import { properties } from './../../../properties/properties';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Visita } from './visitas.model';
 import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -8,6 +8,8 @@ import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { VisitasService } from './visitas.service';
 import { Subscription, timer } from 'rxjs';
 import { Observable } from 'rxjs-compat';
+
+declare var $: any;
 
 @Component({
   selector: 'app-visitas',
@@ -30,7 +32,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
-  posicaoDefault: number = 2;
+  posicaoDefault: number = 1;
   errorMessage;
   erros: ErroRegistro[] = [];
 
@@ -49,6 +51,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   constructor(
               private router: Router,
+              private route: ActivatedRoute,
               private visitasService: VisitasService,
               private authenticationService: AuthenticationService
               ) { }
@@ -56,6 +59,8 @@ export class VisitasComponent implements OnInit, OnDestroy  {
   ngOnInit() {
 
     this.loading = false;
+
+    this.ngOnDestroy();
 
     if(this.authenticationService.currentUserValue){
         this.ordenar = "dataEntrada";
@@ -75,15 +80,18 @@ export class VisitasComponent implements OnInit, OnDestroy  {
         this.subscription = this.everyFiveSeconds.subscribe(() => {
           this.getVisitas(this.nome, this.rg, this.cpf, this.dataInicio, this.dataFim, this.posicaoDefault, this.ordenar, this.direction);
         });
-        this.loading = false;
-    },err=>{
+      },err=>{
         this.erros = err['erros'];
-    });
+      });
+      
+    this.loading = false;
+    this.close('customModal1');
 
   }
 
   getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string){
 
+    this.erros = [];
     this.loading = false;
     this.nome = nome;
     this.rg = rg;
@@ -162,6 +170,18 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   pageChanged(event){
     this.pag = event;
+  }
+
+  open(id: string, visita: Visita) {
+
+    this.visita = visita;
+
+    this.erros = null;
+    $('#' + id).modal('show');
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
   }
 
   ngOnDestroy(){
