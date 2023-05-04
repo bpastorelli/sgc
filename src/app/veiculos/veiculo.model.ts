@@ -9,7 +9,7 @@ export interface Veiculo{
   cor: string,
   ano: string,
   posicao: string,
-  guide: string,
+  ticketVisitante?: string,
   visitantes: Visitante[]
 
 }

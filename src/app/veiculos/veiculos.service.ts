@@ -49,7 +49,7 @@ export class VeiculosService extends BaseService {
         , JSON.stringify(veiculo)
         , this.httpOptions)
         .pipe(
-          map(response => response['data'])
+          map(response => response)
         );
 
   }

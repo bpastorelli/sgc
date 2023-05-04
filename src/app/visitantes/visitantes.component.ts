@@ -30,13 +30,13 @@ export class VisitantesComponent implements OnInit {
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
-      this.getVisitantes("0", null, null, null);
+      this.getVisitantes(null, null, null, null);
     }else{
       this.router.navigate(['/login']);
     }
   }
 
-  getVisitantes(id: string, nome: string, rg: string, cpf: string){
+  getVisitantes(id?: string, nome?: string, rg?: string, cpf?: string){
 
     this.request = new VisitanteFilterModel();
 
