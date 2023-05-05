@@ -152,7 +152,7 @@
           </thead>
         <tbody *ngFor="let visitante of visitantes">
           <tr *ngFor="let veiculo of visitante.veiculos | paginate: { itemsPerPage: contador, currentPage: pag }">
-            <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ formatPlaca(veiculo.placa.toUpperCase()) }}</div></td>
+            <td class="textCenter"><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.placa.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.marca.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.modelo.toUpperCase() }}</div></td>
             <td><div class="pointer" (click)="selecionaVeiculo(veiculo.placa.toUpperCase())">{{ veiculo.cor.toUpperCase() }}</div></td>

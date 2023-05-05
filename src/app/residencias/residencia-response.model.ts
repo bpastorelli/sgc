@@ -1,3 +1,5 @@
+import { Morador } from "../moradores/morador/morador.model";
+
 export class ResidenciaResponse {
 
   id: number;
@@ -9,6 +11,7 @@ export class ResidenciaResponse {
   cidade: string;
   uf: string;
   dataVinculo: string;
-  guide: string
+  guide: string;
+  moradores: Morador[]
 
 }

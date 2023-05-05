@@ -8,6 +8,7 @@ import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { VisitasService } from './visitas.service';
 import { Subscription, timer } from 'rxjs';
 import { Observable } from 'rxjs-compat';
+import { UtilService } from 'src/app/util/util.service';
 
 declare var $: any;
 
@@ -50,6 +51,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
 
   constructor(
+              private utilService: UtilService,
               private router: Router,
               private route: ActivatedRoute,
               private visitasService: VisitasService,
@@ -127,6 +129,9 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     .subscribe(
       data=>{
           this.visitas = data;
+          this.visitas.forEach(v => {
+            v.placa = this.utilService.formatPlaca(v.placa)
+          });
         }, err=>{
           this.erros = err['erros'];
         }

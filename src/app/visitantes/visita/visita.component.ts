@@ -13,6 +13,7 @@ import { AuthenticationService } from './../../_services/authentication.service'
 import { ResidenciasFilterModel } from 'src/app/residencias/residencias-filter.model';
 import { ResidenciaResponse } from 'src/app/residencias/residencia-response.model';
 import { VisitanteFilterModel } from '../visitante/visitante-filter.model';
+import { UtilService } from 'src/app/util/util.service';
 
 declare var $: any;
 
@@ -57,7 +58,9 @@ export class VisitaComponent implements OnInit {
 
   erros: ErroRegistro[] = [];
 
-  constructor(private residenciasService: ResidenciasService,
+  constructor(
+              private utilService: UtilService,
+              private residenciasService: ResidenciasService,
               private veiculoService: VeiculosService,
               private veiculosService: VeiculosService,
               private visitantesService: VisitantesService,
@@ -109,7 +112,10 @@ export class VisitaComponent implements OnInit {
                 this.enderecoResp = visitante.endereco;
                 this.numeroResp = visitante.numero;
                 this.cidadeResp = visitante.cidade;
-                this.ufResp = visitante.uf; 
+                this.ufResp = visitante.uf;
+                visitante.veiculos.forEach(veiculo => {
+                  veiculo.placa = this.utilService.formatPlaca(veiculo.placa)
+                }) 
             });
             }else{
               this.open('customModal1');
@@ -221,19 +227,6 @@ export class VisitaComponent implements OnInit {
   selecionaVeiculo(data){
     this.createVeiculo = false;
     this.placaResp = data;
-  }
-
-  formatPlaca(placa: string){
-
-    placa = placa.replace("-", "");
-
-    var p1 = placa.substring(0,3);
-    var p2 = placa.substring(3,7);
-
-    placa = `${p1}-${p2}`
-
-    return placa;
-
   }
 
   open(id: string) {

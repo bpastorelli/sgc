@@ -9,6 +9,7 @@ import { ResidenciasService } from '../residencias.service';
 import { ResidenciaService } from './residencia.service';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { ResidenciaResponse } from '../residencia-response.model';
+import { UtilService } from 'src/app/util/util.service';
 
 @Component({
   selector: 'app-residencia',
@@ -44,6 +45,7 @@ export class ResidenciaComponent implements OnInit {
   constructor(
               private router: Router,
               private route: ActivatedRoute,
+              private utilService: UtilService,
               private cepService: CepService,
               private residenciaService: ResidenciaService,
               private residenciasService: ResidenciasService,
@@ -112,6 +114,10 @@ export class ResidenciaComponent implements OnInit {
             }else{
                 this.getCep(r.cep)
             }
+            r.moradores.forEach(m => {
+              m.telefone = this.utilService.formatTelefone(m.telefone)
+              m.celular = this.utilService.formatCelular(m.celular)
+            });
           });
         }, err=>{
           this.erros = err['erros'];

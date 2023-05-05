@@ -9,6 +9,7 @@ import { VisitantesService } from './../visitantes.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Veiculo } from 'src/app/veiculos/veiculo.model';
 import { ErroRegistro } from 'src/app/_models/erro-registro';
+import { UtilService } from 'src/app/util/util.service';
 
 declare var $: any;
 
@@ -47,6 +48,7 @@ export class VisitanteComponent implements OnInit {
   erros: ErroRegistro[] = [];
 
   constructor(
+              private utilService: UtilService,
               private router: Router,
               private route: ActivatedRoute,
               private cepService: CepService,
@@ -117,6 +119,9 @@ export class VisitanteComponent implements OnInit {
         data=>{
             this.visitantes = data;
             this.visitantes.forEach(v => {
+                v.veiculos.forEach(veiculo => {
+                  veiculo.placa = this.utilService.formatPlaca(veiculo.placa);
+                });
                 this.getCep(v.cep)
             });
         }, err=>{
@@ -171,19 +176,6 @@ export class VisitanteComponent implements OnInit {
   cancelar(){
 
     this.router.navigate(['visitantes'])
-
-  }
-
-  formatPlaca(placa: string){
-
-    placa = placa.replace("-", "");
-
-    var p1 = placa.substring(0,3);
-    var p2 = placa.substring(3,7);
-
-    placa = `${p1}-${p2}`
-
-    return placa;
 
   }
 

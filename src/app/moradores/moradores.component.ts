@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Moradores } from './moradores.model';
 import { MoradoresService } from './moradores.service';
 import { AuthenticationService } from './../_services/authentication.service';
+import { UtilService } from '../util/util.service';
 
 @Component({
   selector: 'app-moradores',
@@ -33,6 +34,7 @@ export class MoradoresComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private router: Router,
+      private utilService: UtilService,
       private moradoresService: MoradoresService,
       private authenticationService: AuthenticationService
     )  { }
@@ -69,6 +71,12 @@ export class MoradoresComponent implements OnInit {
       .subscribe(
         data=>{
           this.moradores = data;
+          this.moradores.forEach(morador => {
+            morador.id = this.utilService.formatId(morador.id, 6)
+            morador.cpf = this.utilService.formatCPF(morador.cpf)
+            morador.telefone = this.utilService.formatTelefone(morador.telefone)
+            morador.celular = this.utilService.formatCelular(morador.celular)
+          });
         }, err=>{
           this.erros = err['erros'];
         }
@@ -119,38 +127,6 @@ export class MoradoresComponent implements OnInit {
     this.pag = event;
   }
 
-  formatId (n, len) {
-    var num = parseInt(n, 10);
-    len = parseInt(len, 10);
-    return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
-  }
-
-  formatCPF(cpf: string){
-
-    var p1 = cpf.substring(0,3)
-    var p2 = cpf.substring(6,3)
-    var p3 = cpf.substring(9,6)
-    var p4 = cpf.substring(11,9)
-
-    return p1+"."+p2+"."+p3+"-"+p4
-
-  }
-
-  formatTelefone(telefone: string){
-
-    if(telefone.length === 10){
-
-      var p1 = telefone.substring(0,2);
-      var p2 = telefone.substring(2,6);
-      var p3 = telefone.substring(6,11);
-
-      return `(${p1}) ${p2}-${p3}`;
-    }else{
-      return telefone;
-    }
-
-  }
-
   loadForm(){
 
     this.formGroup = this.fb.group({
@@ -160,28 +136,6 @@ export class MoradoresComponent implements OnInit {
       email: [''],
 
     });
-
-  }
-
-  formatCelular(celular: string){
-
-    if(celular.length === 11){
-
-      var p1 = celular.substring(0,2);
-      var p2 = celular.substring(2,7);
-      var p3 = celular.substring(7,12);
-
-      return `(${p1}) ${p2}-${p3}`;
-    }else if(celular.length === 10){
-
-      var p1 = celular.substring(0,2);
-      var p2 = celular.substring(2,6);
-      var p3 = celular.substring(6,11);
-
-      return `(${p1}) ${p2}-${p3}`;
-    }else{
-      return celular;
-    }
 
   }
 

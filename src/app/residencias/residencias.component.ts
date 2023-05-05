@@ -2,11 +2,11 @@ import { properties } from './../../properties/properties';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
-import { Residencia } from './residencias.model';
 import { ResidenciasService } from './residencias.service';
 import { ErroRegistro } from '../_models/erro-registro';
 import { ResidenciasFilterModel } from './residencias-filter.model';
 import { ResidenciaResponse } from './residencia-response.model';
+import { UtilService } from '../util/util.service';
 
 @Component({
   selector: 'app-residencias',
@@ -24,6 +24,7 @@ export class ResidenciasComponent implements OnInit {
   requestDto: ResidenciasFilterModel = new ResidenciasFilterModel();
 
   constructor(
+      private utilService: UtilService,
       private residenciasService: ResidenciasService,
       private authenticationService: AuthenticationService,
       private router: Router,
@@ -56,6 +57,9 @@ export class ResidenciasComponent implements OnInit {
     .subscribe(
       data=>{
         this.residencias = data;
+        this.residencias.forEach(r => {
+          r.id = this.utilService.formatId(r.id, 6)
+        });
       }, err=>{
         this.erros = err['erros'];
       }
@@ -103,12 +107,6 @@ export class ResidenciasComponent implements OnInit {
 
   pageChanged(event){
     this.pag = event;
-  }
-
-  formatId (n, len) {
-    var num = parseInt(n, 10);
-    len = parseInt(len, 10);
-    return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
   }
 
 }

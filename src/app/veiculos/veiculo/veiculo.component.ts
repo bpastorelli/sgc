@@ -4,6 +4,7 @@ import { Veiculo } from './../veiculo.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ErroRegistro } from 'src/app/_models/erro-registro';
+import { UtilService } from 'src/app/util/util.service';
 
 @Component({
   selector: 'app-veiculo',
@@ -29,6 +30,7 @@ export class VeiculoComponent implements OnInit {
 
   constructor(
       private route: ActivatedRoute,
+      private utilService: UtilService,
       private router: Router,
       private veiculosService: VeiculosService,
       private authenticationService: AuthenticationService
@@ -94,6 +96,13 @@ export class VeiculoComponent implements OnInit {
     this.veiculosService.getVeiculoById(id)
       .subscribe(data => {
         this.veiculos = data;
+        this.veiculos.forEach(veiculo => {
+          veiculo.visitantes.forEach(visitante => {
+            visitante.cpf = this.utilService.formatCPF(visitante.cpf)
+            visitante.telefone = this.utilService.formatTelefone(visitante.telefone)
+            visitante.celular = this.utilService.formatCelular(visitante.celular)
+          });
+        });
     },err=>{
         this.errorMessage = err;
     });

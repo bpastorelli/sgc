@@ -60,6 +60,7 @@ import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.compo
 import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { VincularMoradorComponent } from './vincular-morador/vincular-morador.component';
 import { VisitasService } from './visitantes/visitas/visitas.service';
+import { UtilService } from './util/util.service';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { VisitasService } from './visitantes/visitas/visitas.service';
     ModalModule,
   ],
   providers: [
+    UtilService,
     MoradorService,
     MoradoresService,
     ResidenciaService,

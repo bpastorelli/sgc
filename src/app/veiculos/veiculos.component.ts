@@ -6,6 +6,7 @@ import { VeiculosService } from './veiculos.service';
 import { properties } from './../../properties/properties';
 import { VeiculoFilterModel } from './veiculo-filter.model';
 import { ErroRegistro } from '../_models/erro-registro';
+import { UtilService } from '../util/util.service';
 
 @Component({
   selector: 'app-veiculos',
@@ -28,6 +29,7 @@ export class VeiculosComponent implements OnInit {
 
   constructor(
       private router: Router,
+      private utilService: UtilService,
       private veiculosService: VeiculosService,
       private authenticationService: AuthenticationService
   ) { }
@@ -61,6 +63,9 @@ export class VeiculosComponent implements OnInit {
         .subscribe(
            data=>{
               this.veiculos = data;
+              this.veiculos.forEach(v => {
+                v.placa = this.utilService.formatPlaca(v.placa)
+              });
            }, err=>{
               this.erros = err['erros'];
          }
@@ -70,25 +75,6 @@ export class VeiculosComponent implements OnInit {
   editVeiculo(codigo: string){
 
     this.router.navigate(['/veiculo/', codigo]);
-
-  }
-
-  formatId (n, len) {
-    var num = parseInt(n, 10);
-    len = parseInt(len, 10);
-    return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
-  }
-
-  formatPlaca(placa: string){
-
-    placa = placa.replace("-", "");
-
-    var p1 = placa.substring(0,3);
-    var p2 = placa.substring(3,7);
-
-    placa = `${p1}-${p2}`
-
-    return placa;
 
   }
 
