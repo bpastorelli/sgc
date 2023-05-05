@@ -78,7 +78,7 @@ export class VisitanteComponent implements OnInit {
 
     this.visitantesService.postVisitanteAmqp(visitante)
       .subscribe(data => {
-        if(!this.rg){
+        if(this.residencia === null){
           this.id = data.ticket;
           this.router.navigate(['/veiculo/create/visitante/', this.id]);
         }else{
