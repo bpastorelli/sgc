@@ -138,41 +138,6 @@ export class VisitasComponent implements OnInit, OnDestroy  {
       );
   }
 
-  formatId (n, len) {
-    var num = parseInt(n, 10);
-    len = parseInt(len, 10);
-    return (isNaN(num) || isNaN(len)) ? n : ( 1e10 + "" + num ).slice(-len);
-  }
-
-  formatCPF(cpf: string){
-
-    if(cpf != ""){
-
-      var p1 = cpf.substring(0,3)
-      var p2 = cpf.substring(6,3)
-      var p3 = cpf.substring(9,6)
-      var p4 = cpf.substring(11,9)
-
-      return p1+"."+p2+"."+p3+"-"+p4
-
-    }
-
-  }
-
-  formatPlaca(placa: string){
-
-    if(!placa)
-      return;
-
-    var p1 = placa.substring(0,3);
-    var p2 = placa.substring(3,7);
-
-    placa = `${p1}-${p2}`
-
-    return placa;
-
-  }
-
   pageChanged(event){
     this.pag = event;
   }

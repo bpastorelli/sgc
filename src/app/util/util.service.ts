@@ -13,12 +13,16 @@ export class UtilService {
 
   formatCPF(cpf: string){
 
-    var p1 = cpf.substring(0,3)
-    var p2 = cpf.substring(6,3)
-    var p3 = cpf.substring(9,6)
-    var p4 = cpf.substring(11,9)
-
-    return p1+"."+p2+"."+p3+"-"+p4
+    if(cpf.length === 11){
+      var p1 = cpf.substring(0,3)
+      var p2 = cpf.substring(6,3)
+      var p3 = cpf.substring(9,6)
+      var p4 = cpf.substring(11,9)
+  
+      return p1+"."+p2+"."+p3+"-"+p4
+    }else{
+      return cpf;
+    }
 
   }
 
