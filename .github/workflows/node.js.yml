@@ -30,13 +30,15 @@ jobs:
 
       # {4}
       - name: Install dependencies
-      - working-directory: ./web
+      - working-directory: .
         run: npm ci
+        
       # {5}
       - name: Run tests
-      - working-directory: ./web
+      - working-directory: .
         run: npm run test:ci
+        
       # {6}
       - name: Build
-      - working-directory: ./web
-        run: npm run build
+      - working-directory: .
+        run: npm run build --prod
