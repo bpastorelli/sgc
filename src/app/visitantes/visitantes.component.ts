@@ -18,6 +18,8 @@ export class VisitantesComponent implements OnInit {
 
   erros: ErroRegistro[] = [];
 
+  title = "Cadastro de Visitantes";
+
   pag : Number = 1 ;
   contador : Number = 20;
 
@@ -130,7 +132,7 @@ export class VisitantesComponent implements OnInit {
 
   editVisitante(codigo: string){
 
-    this.router.navigate([`/visitante/`, codigo])
+    this.router.navigate([`/visitante/view/`, codigo])
 
   }
 

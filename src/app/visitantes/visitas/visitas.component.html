@@ -4,7 +4,9 @@
     <div *ngFor="let erro of erros" class="alert alert-warning">
       <strong>Atenção! </strong>{{ erro.detalhe }}
     </div>
-
+  <label class="labelPagina">
+      {{title}}
+  </label>
   <form #form="ngForm" novalidate>
     <input type="hidden" #ord value="{{ordenar}}">
     <input type="hidden" #dir value="{{direction}}">
@@ -69,7 +71,7 @@
                 <th style="width: 6,5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="horaSaida"><div class="pointer" >Hora Saída</div></th>
                 <th style="width: 22%;"  scope="col" [appSort]="visitas" data-order="desc" data-name="endereco"><div class="pointer"  >Endereço de Visita</div></th>
                 <th style="width: 5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="numero"><div class="pointer" >Número</div></th>
-                <th style="width: 6%;" scope="col">Encerrar</th>
+                <th *ngIf="perfil[0].alteracao" style="width: 6%;" scope="col">Encerrar</th>
             </tr>
           </thead>
           <tbody>
@@ -85,7 +87,7 @@
               <td class="textCenter"><div>{{ visita.horaSaida }}</div></td>
               <td ><div>{{ visita.endereco.toUpperCase() }}</div></td>
               <td class="textCenter"><div>{{ visita.numero }}</div></td>
-              <td class="textCenter">
+              <td *ngIf="perfil[0].alteracao" class="textCenter">
                 <div *ngIf="visita.posicao == 1 && !loading" class="pointer" (click)="open('customModal1', visita)"> Encerrar</div>
                 <div *ngIf="visita.posicao == 1 && loading"><img class="img" src="assets/img/loader/icons8-loading-20.png"></div>
                 <div *ngIf="visita.posicao == 0"><img class="img"></div>
@@ -127,6 +129,28 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value)">Prosseguir</button>
        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="customModal2" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+            <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-success">
+              <b>Visita encerrada com sucesso!</b>
+            </div>
+          </div>
+          <div class="modal-footer" >
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+           </div>
     </div>
   </div>
 </div>

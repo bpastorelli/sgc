@@ -6,6 +6,9 @@ import { properties } from 'src/properties/properties';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Router } from '@angular/router';
 import { Moradores } from './../moradores/moradores.model';
+import { ErroRegistro } from '../_models/erro-registro';
+import { ContribuicoesFilterModel } from './contribuicoes-filter.model';
+import { MoradoresFilterModel } from '../moradores/moradores-filter.model';
 
 @Component({
   selector: 'app-contribuicoes',
@@ -13,15 +16,29 @@ import { Moradores } from './../moradores/moradores.model';
 })
 export class ContribuicoesComponent implements OnInit {
 
+  public loading: boolean;
+
+  id: string; 
+  moradorId: string; 
+  dataInicio: string; 
+  dataFim: string;
+  erros: ErroRegistro[] = [];
+  usuarios: Moradores[] = [];
+  request: ContribuicoesFilterModel;
+
+  requestFilter: MoradoresFilterModel;
+
+  date = new Date(Date.parse('01/01/9999'));
+
   moradores: Moradores[];
   contribuicoes: Contribuicao[];
 
-  pag : Number = 1 ;
+  pag : number = 0 ;
   contador : Number = properties.itemsPerPage;
 
   constructor(
       private router: Router,
-      private moradoresService: MoradoresService,
+      private usuariosService: MoradoresService,
       private contribuicoesService: ContribuicoesService,
       private authenticationService: AuthenticationService,
   ) { }
@@ -29,36 +46,58 @@ export class ContribuicoesComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.authenticationService.currentUserValue){
-       this.getMoradores(1);
-       this.getContribuicoes(null, null, 0);
+       this.getUsuarios(1);
+       this.getContribuicoes(null, null, null);
     }else{
        this.router.navigate(['/login']);
     }
 
   }
 
-  getContribuicoes(dataInicio: Date, dataFim: Date, moradorId: number){
+  getContribuicoes(dataInicio: string, dataFim: string, moradorId: string){
 
-    this.contribuicoesService.getContribuicoes(dataInicio, dataFim, moradorId)
+    this.erros = [];
+    this.loading = false;
+    this.moradorId = moradorId;
+    this.dataInicio = dataInicio;
+    this.dataFim = dataFim;
+
+    this.request = new ContribuicoesFilterModel();
+
+    if(moradorId != "0")
+      this.request.moradorId = moradorId;
+
+    if(dataInicio)
+      this.request.dataInicio = dataInicio;
+
+    if(dataFim)
+      this.request.dataFim = dataFim;
+    
+    this.contribuicoesService.getContribuicoes(this.request)
       .subscribe(
         data=>{
           this.contribuicoes = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
   }
 
-  getMoradores(posicao: number){
+  getUsuarios(posicao: number){
 
-    /*this.moradoresService.getMoradoresByPosicao(posicao)
+    this.requestFilter = new MoradoresFilterModel();
+
+    if(posicao)
+      this.requestFilter.posicao = posicao;
+
+    this.usuariosService.getMoradores(this.requestFilter)
       .subscribe(
         data=>{
-          this.moradores = data;
+          this.usuarios = data;
         }, err=>{
-          console.log(err);
+           this.erros = err['erros'];
         }
-      );*/
+      );
 
   }
 

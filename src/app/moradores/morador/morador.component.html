@@ -1,14 +1,14 @@
 <section  class="content">
 
-  <!--Inicio Form de Edição-->
-  <section *ngIf="!create" class="invoice" >
+    <!--Fim do Form de Edição-->
+    <section *ngIf="acao==='edit'" class="invoice">
 
       <div *ngFor="let erro of erros" class="alert alert-warning">
         <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
       <label class="labelPagina">
-        Alterar Morador
+        {{title}} >> <u>Atualização</u>
       </label>
       <form #formEdit="ngForm" novalidate *ngFor="let morador of moradores">
 
@@ -99,9 +99,9 @@
 
         </div>
 
-        <div *ngIf="!create">
+        <div >
           <div class="row">
-              <div class="col-xs-11">
+              <div class="col-xs-12">
                 <button (click)="putMoradorAmqp(formEdit.value, id.value)" class="btn btn-success pull-right"
                 [disabled]="!formEdit.valid"><i></i> Atualizar
                 </button>
@@ -111,13 +111,290 @@
           </div>
         </div>
 
+        <section *ngIf="acao==='edit'" class="invoice">
+
+          <div class="col-xs-12">
+            <p class="control-label"><b>Residências vinculadas:</b></p>
+          </div>
+          <table class="table-striped">
+            <thead>
+              <tr>
+                  <th>Endereço</th>
+                  <th>Número</th>
+                  <th>Complemento</th>
+                  <th>Bairro</th>
+                  <th>CEP</th>
+                  <th>Cidade</th>
+                  <th>UF</th>
+                  <th>Data Vínculo</th>
+                </tr>
+              </thead>
+            <tbody *ngFor="let morador of moradores">
+              <tr *ngFor="let residencia of morador.residencias | paginate: { itemsPerPage: contador, currentPage: pag }">
+                <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.endereco.toUpperCase() }}</div></td>
+                <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.numero }}</div></td>
+                <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.complemento.toUpperCase() }}</div></td>
+                <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.bairro.toUpperCase() }}</div></td>
+                <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.cep }}</div></td>
+                <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.cidade.toUpperCase() }}</div></td>
+                <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.uf.toUpperCase() }}</div></td>
+                <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.dataVinculo }}</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <!--inclindo o controle de paginação.-->
+          <div style="padding: 20px;">
+            <div class="text-right">
+              <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+                previousLabel="Anterior"
+                nextLabel="Próximo">
+              </pagination-controls>
+            </div>
+          </div>
+    
+        </section>
+
       </form>
 
     <!--Fim Invoice-->
     </section>
 
-    <!--Fim do Form de Edição-->
-    <section *ngIf="!create" class="invoice">
+    <!--Inicio do Form de Inclusão-->
+    <section *ngIf="acao==='create'" class="invoice">
+
+        <div *ngFor="let erro of erros" class="alert alert-warning">
+          <strong>Atenção! </strong>{{ erro.detalhe }}
+        </div>
+
+          <label class="labelPagina">
+            {{title}} >> <u>Inclusão</u>
+          </label>
+          <form #formCreate="ngForm" novalidate>
+
+            <div class="row invoice-info">
+
+              <div class="col-xs-12">
+                <p class="control-label"> Nome: </p>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <app-input-container errorMessage="Campo obrigatório com mínimo 10 caracteres" label="Nome">
+                  <input class="form-control" name="nome" #nome ngModel (ngModelChange)="nome.value=$event.toUpperCase()" required minlength="10" placeholder="Nome" autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> CPF: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="CPF">
+                  <input class="form-control" name="cpf" mask="000.000.000-00" ngModel required maxlength="14" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> RG: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="RG">
+                  <input class="form-control" name="rg" ngModel required minlength="5" maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label">E-mail:</p>
+              </div>
+              <div class="col-sm-4 col-xs-6">
+                <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
+                  <input class="form-control" name="email" #email ngModel required minlength="5" (ngModelChange)="email.value=$event.toLowerCase()" placeholder="e-mail" autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Telefone: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <div class="form-group">
+                  <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Telefone</label>
+                  <input type="text" class="form-control" name="telefone" ngModel maxlength="14" mask="(00) 0000-0000" id="inputTelefone" placeholder="Telefone">
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Celular: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <div class="form-group">
+                  <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Celular</label>
+                  <input type="text" class="form-control" name="celular" required ngModel maxlength="15" mask="(00) 00000-0000" id="inputCelular" placeholder="Celular">
+                </div>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Associado? </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <select
+                    required
+                    placeholder="Associado?"
+                    name="associado"
+                    id="associado"
+                    class="form-control"
+                    [(ngModel)]="situacaoAssociadoDefault">
+                    <option *ngFor="let item of situacaoAssociacao" [value]="item.id">{{ item.label }}</option>
+                </select>
+              </div>
+
+              <div *ngIf="acao==='create'" class="col-sm-2 col-xs-6">
+                <mt-input-container errorMessage="Campo obrigatório e somente números" label="Código Residência">
+                  <input class="form-control" type="hidden" name="residenciaId" [(ngModel)]="codigo" minlength="1" placeholder="Código Residência" autocomplete="off">
+                </mt-input-container>
+              </div>
+
+            <!-- /.row -->
+            </div>
+
+            <div *ngIf="acao==='create' && codigo != null">
+              <div *ngIf="create" class="row">
+                <div class="col-xs-12">
+                  <button class="pointer" *ngIf="perfil[0].inclusao" (click)="postMoradorAmqp(formCreate.value, false)" class="btn btn-success pull-right"
+                  [disabled]="!formCreate.valid"><i></i> Salvar
+                  </button>
+                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="acao==='create' && codigo === null">
+              <div *ngIf="create" class="row">
+                <div class="col-xs-12">
+                  <button class="pointer" *ngIf="perfil[0].inclusao" (click)="postMoradorAmqp(formCreate.value, true)" class="btn btn-success pull-right"
+                  [disabled]="!formCreate.valid"><i></i> Avançar
+                  </button>
+                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+    <!--Fim do Form de Inclusão-->
+    </section>
+
+    <!--Inicio Form de Visualização-->
+    <section *ngIf="acao==='view'" class="invoice" >
+
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
+      </div>
+
+      <label class="labelPagina">
+        {{title}} >> <u>Visualização</u>
+      </label>
+      <form #formEdit="ngForm" novalidate *ngFor="let morador of moradores">
+
+        <div class="row invoice-info">
+          <div class="col-sm-2 col-xs-6">
+            <input  class="form-control" type="hidden" [(ngModel)]="morador.id"  #id name="id" maxlength="14" disabled placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Nome: </p>
+          </div>
+          <div  class="col-sm-6 col-xs-12">
+            <app-input-container errorMessage="Campo obrigatório!" label="Nome">
+              <input class="form-control" type="text" [(ngModel)]="morador.nome" (ngModelChange)="morador.nome=$event.toUpperCase()" #nome name="nome" disabled required minlength="10" placeholder="Nome" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> CPF: </p>
+          </div>
+          <div  class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="CPF">
+              <input class="form-control" type="text" mask="000.000.000-00" [(ngModel)]="morador.cpf" #cpf name="cpf" disabled required minlength="10" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> RG: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="RG">
+              <input class="form-control" name="rg" [(ngModel)]="morador.rg" #rg minlength="5" placeholder="RG" pattern="^[0-9]*$" disabled autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> E-mail: </p>
+          </div>
+          <div class="col-sm-4 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="e-mail">
+              <input class="form-control" name="email" [(ngModel)]="morador.email" #email (ngModelChange)="morador.email=$event.toLowerCase()" disabled required minlength="5" placeholder="e-mail" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Telefone: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <div class="form-group">
+              <input type="text" class="form-control" name="telefone" [(ngModel)]="morador.telefone" mask="(00) 0000-0000" maxlength="14" #telefone disabled placeholder="Telefone">
+            </div>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Celular: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório com mínimo!" label="Celular">
+              <input class="form-control" name="celular" [(ngModel)]="morador.celular" mask="(00) 00000-0000" #celular required maxlength="15" disabled placeholder="Celular" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Associado? </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <select disabled
+                name="associado"
+                id="associado"
+                class="form-control"
+                [(ngModel)]="morador.associado">
+                <option *ngFor="let item of situacaoAssociacao" [value]="item.id" aria-placeholder="Associado?">{{ item.label }}</option>
+            </select>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Situação: </p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <select disabled
+                name="posicao"
+                id="posicao"
+                class="form-control"
+                [(ngModel)]="morador.posicao">
+                <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div *ngIf="acao==='view'">
+          <div class="row">
+              <div class="col-xs-12">
+                <button *ngIf="perfil[0].alteracao" (click)="editMorador(id.value)" class="btn btn-success pull-right"><i></i> Editar
+                </button>
+                <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Sair
+                </button>
+              </div>
+          </div>
+        </div>
+
+      </form>
+
+    <section *ngIf="acao==='view'" class="invoice">
 
       <div class="col-xs-12">
         <p class="control-label"><b>Residências vinculadas:</b></p>
@@ -160,131 +437,33 @@
 
     </section>
 
-    <!--Inicio do Form de Inclusão-->
-    <section *ngIf="create" class="invoice">
-
-        <div *ngFor="let erro of erros" class="alert alert-warning">
-          <strong>Atenção! </strong>{{ erro.detalhe }}
-        </div>
-
-          <label class="labelPagina">
-            Cadastro de Morador
-          </label>
-          <form #formCreate="ngForm" novalidate>
-
-            <div class="row invoice-info">
-
-              <div class="col-xs-12">
-                <p class="control-label"> Nome: </p>
-              </div>
-              <div class="col-sm-6 col-xs-12">
-                <app-input-container errorMessage="Campo obrigatório com mínimo 10 caracteres" label="Nome">
-                  <input class="form-control" name="nome" #nome ngModel (ngModelChange)="nome.value=$event.toUpperCase()" required minlength="10" placeholder="Nome" autocomplete="off">
-                </app-input-container>
-              </div>
-
-              <div class="col-xs-12">
-                <p class="control-label"> CPF: </p>
-              </div>
-              <div class="col-sm-2 col-xs-6">
-                <app-input-container errorMessage="Campo obrigatório e somente números" label="CPF">
-                  <input class="form-control" name="cpf" mask="000.000.000-00" ngModel required maxlength="14" placeholder="CPF" pattern="^[0-9]*$" autocomplete="off">
-                </app-input-container>
-              </div>
-
-              <div class="col-xs-12">
-                <p class="control-label"> RG: </p>
-              </div>
-              <div class="col-sm-2 col-xs-6">
-                <app-input-container errorMessage="Campo obrigatório e somente números" label="RG">
-                  <input class="form-control" name="rg" ngModel required maxlength="11" placeholder="RG" pattern="^[0-9]*$" autocomplete="off">
-                </app-input-container>
-              </div>
-
-              <div class="col-xs-12">
-                <p class="control-label">E-mail:</p>
-              </div>
-              <div class="col-sm-4 col-xs-6">
-                <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
-                  <input class="form-control" name="email" #email ngModel required minlength="5" (ngModelChange)="email.value=$event.toLowerCase()" placeholder="e-mail" autocomplete="off">
-                </app-input-container>
-              </div>
-
-              <div class="col-xs-12">
-                <p class="control-label"> Telefone: </p>
-              </div>
-              <div class="col-sm-2 col-xs-6">
-                <div class="form-group">
-                  <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Telefone</label>
-                  <input type="text" class="form-control" name="telefone" ngModel maxlength="14" mask="(00) 0000-0000" id="inputTelefone" placeholder="Telefone">
-                </div>
-              </div>
-
-              <div class="col-xs-12">
-                <p class="control-label"> Celular: </p>
-              </div>
-              <div class="col-sm-2 col-xs-6">
-                <div class="form-group">
-                  <label class="control-label sr-only" for="inputSuccess"><i class="fa fa-check"></i> Celular</label>
-                  <input type="text" class="form-control" name="celular" ngModel maxlength="15" mask="(00) 00000-0000" id="inputCelular" placeholder="Celular">
-                </div>
-              </div>
-
-              <div class="col-xs-12">
-                <p class="control-label"> Associado? </p>
-              </div>
-              <div class="col-sm-2 col-xs-6">
-                <select
-                    required
-                    placeholder="Associado?"
-                    name="associado"
-                    id="associado"
-                    class="form-control"
-                    [(ngModel)]="situacaoAssociadoDefault">
-                    <option *ngFor="let item of situacaoAssociacao" [value]="item.id">{{ item.label }}</option>
-                </select>
-              </div>
-
-              <div *ngIf="acao==='create'" class="col-sm-2 col-xs-6">
-                <mt-input-container errorMessage="Campo obrigatório e somente números" label="Código Residência">
-                  <input class="form-control" type="hidden" name="residenciaId" [(ngModel)]="codigo" minlength="1" placeholder="Código Residência" autocomplete="off">
-                </mt-input-container>
-              </div>
-
-            <!-- /.row -->
-            </div>
-
-            <div *ngIf="acao==='create'">
-              <div *ngIf="create" class="row">
-                <div class="col-xs-12">
-                  <button class="pointer" (click)="postMoradorAmqp(formCreate.value, false)" class="btn btn-success pull-right"
-                  [disabled]="!formCreate.valid"><i></i> Salvar
-                  </button>
-                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div *ngIf="acao != 'create'">
-              <div *ngIf="create" class="row">
-                <div class="col-xs-12">
-                  <button class="pointer" (click)="postMoradorAmqp(formCreate.value, true)" class="btn btn-success pull-right"
-                  [disabled]="!formCreate.valid"><i></i> Avançar
-                  </button>
-                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </form>
-
-    <!--Fim do Form de Inclusão-->
+    <!--Fim Invoice-->
     </section>
 
  <!--Fim da Content-->
  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-success">
+            <b>{{msgModal}}</b>
+          </div>
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+         </div>
+      </div>
+    </div>
+  </div>
 
 
 

@@ -59,7 +59,7 @@ export class ModulosService extends BaseService {
       , JSON.stringify(modulos)
       , this.httpOptions)
       .pipe(
-        map(response => response['data'])
+        map(response => response)
       );
 
   }

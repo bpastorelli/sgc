@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "C:/MAMP/htdocs",
+            "outputPath": "./src/app/dist/sgc-tres-marias",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "sgc-tres-marias"
+  "defaultProject": "sgc-tres-marias",
+  "cli": {
+    "analytics": "35d07426-71b3-4677-ab49-7faa6a9e46d4"
+  }
 }

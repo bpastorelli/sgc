@@ -23,7 +23,7 @@ export class AcessoModuloService extends BaseService {
 
   getAcessosModulos(idUsuario: string): Observable<AcessosModulos[]> {
 
-    return this.http.get<AcessosModulos[]>(`${this.acessosModuloUrl}/access/perfil/modulo/filtro?idUsuario=${idUsuario}&posicao=1&content=true&page=0&size=1000000&ord=id&dir=ASC`)
+    return this.http.get<AcessosModulos[]>(`${this.acessosModuloUrl}/access/perfil/modulo/filtro?idUsuario=${idUsuario}&posicao=1&content=true&page=0&size=1000000&acesso=true&ord=id&dir=ASC`)
 
   }
 

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { Moradores } from './moradores.model';
 import { MoradoresService } from './moradores.service';
 import { AuthenticationService } from './../_services/authentication.service';
+import { PermissoesService } from '../_services/permissoes.service';
+import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
 
 @Component({
   selector: 'app-moradores',
@@ -28,13 +30,18 @@ export class MoradoresComponent implements OnInit {
 
   erros: ErroRegistro[] = [];
 
+  perfil = {} as PerfilFuncionalidade[];
+
+  title = "Cadastro de Moradores";
+
   requestDto: MoradoresFilterModel = new MoradoresFilterModel();
 
   constructor(
       private fb: FormBuilder,
       private router: Router,
       private moradoresService: MoradoresService,
-      private authenticationService: AuthenticationService
+      private authenticationService: AuthenticationService,
+      private permissao: PermissoesService
     )  { }
 
   ngOnInit() {
@@ -65,10 +72,24 @@ export class MoradoresComponent implements OnInit {
     if(email)
       this.requestDto.email = email;
 
+    //let modulos: string[] = [];
+    //let funcionalidades: string[] = [];
+
+    //modulos.push('4');
+    //funcionalidades.push('9');
+
     return this.moradoresService.getMoradores(this.requestDto)
       .subscribe(
         data=>{
           this.moradores = data;
+          /*this.permissao.getPermissao(modulos,funcionalidades)
+          subscribe(
+            data=>{
+              this.perfil = data;
+            }, err=>{
+              console.log(err['erros']);
+            }
+          );*/
         }, err=>{
           this.erros = err['erros'];
         }
@@ -111,7 +132,13 @@ export class MoradoresComponent implements OnInit {
 
   getIdMorador(codigo: string){
 
-    this.router.navigate([`/morador/`, codigo])
+    this.router.navigate([`/morador/view/`, codigo])
+
+  }
+
+  viewMorador(codigo: string){
+
+    this.router.navigate([`/morador/view/`, codigo])
 
   }
 

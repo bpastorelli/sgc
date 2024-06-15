@@ -24,7 +24,7 @@ export class ImportarContribuicoesService {
 
   postImportacao(formData: FormData): Observable<any>{
 
-    return this.http.post<any>(`${environment.apiUrl}/associados/lancamento/import`, formData)
+    return this.http.post<any>(`${environment.protocol + environment.apiUrl}/contribuicao/import`, formData)
       .pipe(map(data => {
           this.contribuicoes = data;
           return this.contribuicoes;

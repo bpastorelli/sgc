@@ -2,7 +2,6 @@ import { AcessoModulo } from './../_models/acessoModulo';
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_models/user';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,7 +24,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(
       private login: AppComponent,
-      private router: Router,
       private authenticationService: AuthenticationService
   ) {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
@@ -55,6 +53,7 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         data=>{
           this.acessoModulos = data;
+          localStorage.setItem('perfilCurrentUser', JSON.stringify(this.acessoModulos));
         }, err=>{
           console.log(err);
         }

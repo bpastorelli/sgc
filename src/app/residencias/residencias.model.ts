@@ -1,6 +1,6 @@
 export interface Residencia {
 
-  id: number,
+  id?: number,
   endereco: string,
   numero: string,
   complemento: string,
@@ -9,6 +9,7 @@ export interface Residencia {
   cidade: string,
   uf: string,
   dataVinculo: string,
-  moradorId: number
+  moradorId: number;
+  ticket: string;
 
 }

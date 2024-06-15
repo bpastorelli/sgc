@@ -1,12 +1,11 @@
 import { ErroRegistro } from './../_models/erro-registro';
 import { MoradoresFilterModel } from './../moradores/moradores-filter.model';
 import { AcessoModuloService } from './acessos-modulos.service';
-import { Component, OnInit, ElementRef, ViewChild, ComponentRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { properties } from 'src/properties/properties';
 import { Modulo } from '../modulos/modulo.model';
-import { ModulosService } from '../modulos/modulos.service';
 import { Moradores } from '../moradores/moradores.model';
 import { MoradoresService } from '../moradores/moradores.service';
 import { AcessosModulos } from './acessos-modulos.model';
@@ -53,7 +52,6 @@ export class AcessosModulosComponent implements OnInit {
   constructor(
     private router: Router,
     private modalService: ModalService,
-    private modulosService: ModulosService,
     private usuariosService: MoradoresService,
     private acessosModulo: AcessoModuloService,
     private acessosFuncService: AcessoFuncionalidadeService,
@@ -116,12 +114,44 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  addAcessoFuncionalidade(acessoFunc: PerfilFuncionalidade, isChecked: boolean) {
+  addAcessoFuncionalidade(acessoFunc: PerfilFuncionalidade, isChecked: boolean, campo: string) {
 
-    if(isChecked) {
-        acessoFunc.acesso = true;
-    } else {
-        acessoFunc.acesso = false;
+    switch(campo){
+      case 'acesso':{
+        if(isChecked) {
+          acessoFunc.acesso = true;
+          console.log(acessoFunc.acesso);
+        } else {
+          acessoFunc.acesso = false;
+        }
+        break;
+      }
+      case 'inclusao':{
+        if(isChecked) {
+          acessoFunc.inclusao = true;
+          console.log(acessoFunc.inclusao);
+        } else {
+          acessoFunc.inclusao = false;
+        }
+        break;
+      }
+      case 'alteracao':{
+        if(isChecked) {
+          acessoFunc.alteracao = true;
+        } else {
+          acessoFunc.alteracao = false;
+        }
+        break;
+      }
+      case 'exclusao':{
+        if(isChecked) {
+          acessoFunc.exclusao = true;
+        } else {
+          acessoFunc.exclusao = false;
+        }
+        break;
+      }
+
     }
 
     this.selecionadosFunc.push(acessoFunc);
@@ -160,6 +190,9 @@ export class AcessosModulosComponent implements OnInit {
         perfil.idFuncionalidade = x.idFuncionalidade;
         perfil.idModulo = this.idModulo;
         perfil.acesso = x.acesso;
+        perfil.inclusao = x.inclusao;
+        perfil.alteracao = x.alteracao;
+        perfil.exclusao = x.exclusao;
         this.requestListFunc.push(perfil);
     });
 
@@ -177,7 +210,7 @@ export class AcessosModulosComponent implements OnInit {
 
   }
 
-  getAcessosFuncionalidade(idUsuario: string, idModulo: string){
+  getAcessosFuncionalidade(idUsuario: string, idModulo: string[]){
 
     this.requestListFunc = [];
     this.selecionadosFunc = [];
@@ -234,7 +267,12 @@ export class AcessosModulosComponent implements OnInit {
 
     this.nomeModulo = nomeModulo;
     this.idModulo = idModulo;
-    this.getAcessosFuncionalidade(idUsuario, idModulo);
+
+    let modulos: string[] = [];
+
+    modulos.push(idModulo);
+
+    this.getAcessosFuncionalidade(idUsuario, modulos);
 
   }
 

@@ -8,6 +8,8 @@ import { ErroRegistro } from 'src/app/_models/erro-registro';
 import { VisitasService } from './visitas.service';
 import { Subscription, timer } from 'rxjs';
 import { Observable } from 'rxjs-compat';
+import { PermissoesService } from 'src/app/_services/permissoes.service';
+import { PerfilFuncionalidade } from 'src/app/acessos-funcionalidades/acesso-funcionalidade.model';
 
 declare var $: any;
 
@@ -35,6 +37,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
   posicaoDefault: number = 1;
   errorMessage;
   erros: ErroRegistro[] = [];
+  perfil = {} as PerfilFuncionalidade[];
 
   id: string; 
   nome: string; 
@@ -42,6 +45,8 @@ export class VisitasComponent implements OnInit, OnDestroy  {
   cpf: string; 
   dataInicio: string; 
   dataFim: string;
+
+  title = "Cadastro de Visitas";
 
   date = new Date(Date.parse('01/01/9999'));
 
@@ -53,7 +58,8 @@ export class VisitasComponent implements OnInit, OnDestroy  {
               private router: Router,
               private route: ActivatedRoute,
               private visitasService: VisitasService,
-              private authenticationService: AuthenticationService
+              private authenticationService: AuthenticationService,
+              private permissao: PermissoesService
               ) { }
 
   ngOnInit() {
@@ -62,10 +68,24 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
     this.ngOnDestroy();
 
+    let modulos: string[] = [];
+    let funcionalidades: string[] = [];
+
+    modulos.push('6');
+    funcionalidades.push('14');
+
     if(this.authenticationService.currentUserValue){
         this.ordenar = "dataEntrada";
         this.direction = 'DESC';
         this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.ordenar, this.direction);
+        this.permissao.getPermissao(modulos, funcionalidades)
+        .subscribe(
+          data=>{
+            this.perfil = data;
+          }, err=>{
+            console.log(err['erros']);
+          }
+        );
     }else{
         this.router.navigate(['/login'])
     }
@@ -77,6 +97,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     this.loading = true;
     this.visitasService.baixarVisita(id)
       .subscribe(data => {
+        this.openModal('customModal2');
         this.subscription = this.everyFiveSeconds.subscribe(() => {
           this.getVisitas(this.nome, this.rg, this.cpf, this.dataInicio, this.dataFim, this.posicaoDefault, this.ordenar, this.direction);
         });
@@ -175,6 +196,12 @@ export class VisitasComponent implements OnInit, OnDestroy  {
   open(id: string, visita: Visita) {
 
     this.visita = visita;
+
+    this.erros = null;
+    $('#' + id).modal('show');
+  }
+
+  openModal(id: string) {
 
     this.erros = null;
     $('#' + id).modal('show');

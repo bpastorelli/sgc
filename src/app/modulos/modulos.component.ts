@@ -3,8 +3,9 @@ import { properties } from 'src/properties/properties';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Modulo } from './modulo.model';
 import { ModulosService } from './modulos.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-modulos',
@@ -19,13 +20,20 @@ export class ModulosComponent implements OnInit {
 
   requestFilter: ModulosFilterModel;
 
+  mensagemModal: string;
+
+  descricao: string;
+
   constructor(
     private modulosService: ModulosService,
     private authenticationService: AuthenticationService,
     private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+
+    this.descricao = this.route.snapshot.paramMap.get('descricao');
 
     if(this.authenticationService.currentUserValue){
       this.getModulos();
@@ -44,6 +52,8 @@ export class ModulosComponent implements OnInit {
 
     if(descricao)
       this.requestFilter.descricao = descricao;
+    else if(this.descricao)
+      this.requestFilter.descricao = this.descricao;
 
     if(path)
       this.requestFilter.path = path;
@@ -79,7 +89,7 @@ export class ModulosComponent implements OnInit {
 
   editModulo(codigo: string){
 
-    this.router.navigate([`/modulo/`, codigo])
+    this.router.navigate([`/modulo/view/`, codigo])
 
   }
 

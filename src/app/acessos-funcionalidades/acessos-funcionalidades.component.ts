@@ -63,13 +63,17 @@ export class AcessosFuncionalidadesComponent implements OnInit {
     this.requestList = [];
     this.selecionados = [];
 
+    let modulos: string[];
+
+    modulos.push(idModulo);
+
     this.requestFilter = new AcessoFuncionalidadeFilter();
 
     if(idUsuario)
       this.requestFilter.idUsuario = idUsuario;
 
     if(idModulo)
-      this.requestFilter.idModulo = idModulo;
+      this.requestFilter.idModulo = modulos;
 
     this.acessosFuncService.getAcessosFuncionalidade(this.requestFilter)
       .subscribe(

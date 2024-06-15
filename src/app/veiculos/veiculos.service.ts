@@ -32,7 +32,7 @@ export class VeiculosService extends BaseService {
 
   }
 
-  postVeiculo(veiculo: Veiculo): Observable<any>{
+  postVeiculo(veiculo: Veiculo): Observable<Veiculo>{
 
     return this.http.post<Veiculo>(`${environment.apiUrl}/associados/veiculo/novo`
         , JSON.stringify(veiculo)
@@ -71,9 +71,16 @@ export class VeiculosService extends BaseService {
 
   }
 
-  getVeiculoByPlaca(placa: string): Observable<Veiculo>{
+  getVeiculoByTicket(ticket: string): Observable<Veiculo[]>{
 
-      return this.http.get<Veiculo>(`${environment.protocol + environment.apiUrl}/veiculo/filtro?placa=${placa}&content=true`);
+    return this.http.get<Veiculo[]>(`${environment.protocol + environment.apiUrl}/veiculo/filtro?guide=${ticket}&content=true`);
+
+  }
+
+  getVeiculoByPlaca(placa: string): Observable<Array<Veiculo>>{
+
+      placa = placa.replace("-", "");
+      return this.http.get<Array<Veiculo>>(`${environment.protocol + environment.apiUrl}/veiculo/filtro?placa=${placa}&content=true`);
 
   }
 
@@ -94,7 +101,7 @@ export class VeiculosService extends BaseService {
     request.content == null ? request.content = true : request.content;
     request.posicao == 2 ? request.posicao = null : request.posicao;
     request.size == null ? request.size =  1000000 : request.size;
-    request.sort == null ? request.sort = 'marca' : request.sort;
+    request.sort == null ? request.sort = 'modelo' : request.sort;
     request.page == null ? request.page = 0 : request.page;
 
     return request;

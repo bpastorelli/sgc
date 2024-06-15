@@ -61,9 +61,7 @@
               <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" disabled maxlength="2" placeholder="UF" autocomplete="off">
             </div>
 
-            <p></p>
-            <p></p>
-
+    
             <div class="col-xs-12">
               <p class="control-label"> <b>Dados de veiculo:</b> </p>
             </div>
@@ -121,7 +119,7 @@
         <div>
           <div class="row">
               <div class="col-xs-12">
-                <button (click)="postVisitaAmqp(formEdit.value)" class="btn btn-success pull-right"
+                <button *ngIf="perfil[0].inclusao" (click)="postVisitaAmqp(formEdit.value)" class="btn btn-success pull-right"
                 [disabled]="!formEdit.valid"><i></i> Salvar
                 </button>
               </div>

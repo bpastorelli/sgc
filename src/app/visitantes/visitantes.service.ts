@@ -81,7 +81,7 @@ export class VisitantesService extends BaseService {
   setCamposDefault(request: VisitanteFilterModel): VisitanteFilterModel{
 
     request.content == null ? request.content = true : request.content;
-    request.posicao == null ? request.posicao = 1 : request.posicao;
+    //request.posicao == null ? request.posicao = 1 : request.posicao;
     request.size == null ? request.size =  1000000 : request.size;
     request.sort == null ? request.sort = 'nome' : request.sort;
     request.page == null ? request.page = 0 : request.page;

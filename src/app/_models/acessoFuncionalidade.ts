@@ -7,5 +7,8 @@ export class AcessoFuncionalidade {
     nomeFuncionalidade: string;
     pathFuncionalidade: string;
     acesso: boolean;
+    inclusao: boolean;
+    alteracao: boolean;
+    exclusao: boolean;
 
 }

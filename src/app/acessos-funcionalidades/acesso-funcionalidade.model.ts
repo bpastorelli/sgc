@@ -1,10 +1,13 @@
-export interface PerfilFuncionalidade {
+export class PerfilFuncionalidade {
 
-  idUsuario: string,
-  idModulo: string,
-  idFuncionalidade: string,
-  nomeFuncionalidade: string,
-  pathFuncionalidade: string,
-  acesso: boolean
+  id: string;
+  idModulo: string;
+  idFuncionalidade: string;
+  nomeFuncionalidade: string;
+  pathFuncionalidade: string;
+  acesso: boolean;
+  inclusao: boolean;
+  alteracao: boolean;
+  exclusao: boolean
 
 }

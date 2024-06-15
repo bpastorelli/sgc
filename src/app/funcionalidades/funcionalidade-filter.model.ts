@@ -3,6 +3,7 @@ export class FuncionalidadeFilter {
   id?: string;
   idModulo?: string;
   descricao?: string;
+  funcao?: string;
   pathFuncionalidade?: string;
   posicao?: number;
   content?: boolean = true;

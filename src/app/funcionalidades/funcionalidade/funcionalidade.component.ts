@@ -37,6 +37,11 @@ export class FuncionalidadeComponent implements OnInit {
     { id: 1, label: "ATIVO" },
     { id: 0, label: "INATIVO" }];
 
+  funcaoOptions = [
+      { id: "CREATE", label: "CREATE" },
+      { id: "EDIT", label: "EDIT" },
+      { id: "VIEW", label: "VIEW" }];
+
   constructor(
       private router: Router,
       private route: ActivatedRoute,

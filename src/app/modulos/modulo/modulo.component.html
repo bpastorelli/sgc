@@ -1,14 +1,14 @@
 <section  class="content">
 
   <!--Inicio Form de Edição-->
-  <section *ngIf="!create" class="invoice" >
+  <section *ngIf="acao==='edit'" class="invoice" >
 
       <div *ngFor="let erro of erros" class="alert alert-warning">
         <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
       <label class="labelPagina">
-        Alterar Módulo
+        {{title}} >> <u>Atualização</u>
       </label>
       <form #formEdit="ngForm" novalidate *ngFor="let modulo of modulos">
 
@@ -67,13 +67,13 @@
   <!--Fim do Form de Edição-->
 
   <!--Inicio do Form de Inclusão-->
-  <section *ngIf="create" class="invoice">
+  <section *ngIf="acao==='create'" class="invoice">
 
       <div *ngFor="let erro of erros" class="alert alert-warning">
         <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
       <label class="labelPagina">
-        Cadastro de Módulo
+        {{title}} >> <u>Inclusão</u>
       </label>
       <form #formCreate="ngForm" novalidate>
 
@@ -93,17 +93,17 @@
               </div>
               <div class="col-sm-2 col-xs-6">
                 <app-input-container errorMessage="Campo obrigatório e somente números" label="Path">
-                  <input class="form-control" name="pathModulo" #pathModulo ngModel required minlength="5" maxlength="30" placeholder="Path"  autocomplete="off">
+                  <input class="form-control" name="pathModulo" #pathModulo ngModel minlength="5" maxlength="30" placeholder="Path"  autocomplete="off">
                 </app-input-container>
               </div>
 
             <!-- /.row -->
             </div>
 
-            <div *ngIf="create">
+            <div>
               <div class="row">
                   <div class="col-xs-11">
-                    <button (click)="postModulo(formCreate.value)" class="btn btn-success pull-right"
+                    <button *ngIf="perfil[0].inclusao" (click)="postModulo(formCreate.value)" class="btn btn-success pull-right"
                     [disabled]="!formCreate.valid"><i></i> Salvar
                     </button>
                     <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -117,8 +117,100 @@
   <!--Fim do Form de Inclusão-->
   </section>
 
+  <!--Inicio do Form de Visualizacao-->
+  <section *ngIf="acao==='view'" class="invoice">
+
+    <div *ngFor="let erro of erros" class="alert alert-warning">
+       <strong>Atenção! </strong>{{ erro.detalhe }}
+    </div>
+    <label class="labelPagina">
+        {{title}} >> <u>Visualização</u>
+    </label>
+    <form #formCreate="ngForm" *ngFor="let modulo of modulos">
+
+            <div class="row invoice-info">
+
+              <div class="col-xs-12">
+                <p class="control-label"> Nome: </p>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="Nome">
+                  <input class="form-control" [(ngModel)]="modulo.descricao" disabled name="descricao" #descricao ngModel required minlength="5" maxlength="30" placeholder="Descrição" autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Path do Módulo: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="Path">
+                  <input class="form-control" [(ngModel)]="modulo.pathModulo" disabled name="pathModulo" #pathModulo ngModel required minlength="5" maxlength="30" placeholder="Path"  autocomplete="off">
+                </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Situação: </p>
+              </div>
+              <div class="col-sm-2 col-xs-6">
+                <select
+                    disabled
+                    name="posicao"
+                    id="posicao"
+                    class="form-control"
+                    [(ngModel)]="modulo.posicao">
+                    <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
+                </select>
+              </div>
+
+              <div class="col-sm-1 col-xs-6">
+                <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Residência">
+                  <input class="form-control" type="hidden" disabled name="id" #id [(ngModel)]="modulo.id" minlength="1" pattern="^[0-9]*$" placeholder="Código Módulo" autocomplete="off">
+                </app-input-container>
+              </div>
+
+            <!-- /.row -->
+            </div>
+
+            <div>
+              <div class="row">
+                  <div class="col-xs-11">
+                    <button *ngIf="perfil[1].alteracao" (click)="editModulo(id.value)" class="btn btn-success pull-right"><i></i> Editar
+                    </button>
+                    <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+                    </button>
+                  </div>
+              </div>
+            </div>
+
+      </form>
+
+  <!--Fim do Form de Visualização-->
+  </section>
+
  <!--Fim da Content-->
  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-success">
+            <b>{{ mensagemModal }}</b>
+          </div>
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+         </div>
+      </div>
+    </div>
+  </div>
 
 
 

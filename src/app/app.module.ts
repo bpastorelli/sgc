@@ -17,7 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UppercaseInputComponent } from './shared/input/uppercaseInput.component';
 
 import { appRoutingModule, ROUTES } from './app.routing';
 import { LoginComponent } from './login/login.component';
@@ -60,6 +59,7 @@ import { UnauthorizedComponent } from './summary/unauthorized/unauthorized.compo
 import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { VincularMoradorComponent } from './vincular-morador/vincular-morador.component';
 import { VisitasService } from './visitantes/visitas/visitas.service';
+import { PermissoesService } from './_services/permissoes.service';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,6 @@ import { VisitasService } from './visitantes/visitas/visitas.service';
     SummaryVisitaComponent,
     VeiculosComponent,
     VeiculoComponent,
-    UppercaseInputComponent,
     CallbackPipe,
     ModulosComponent,
     ModuloComponent,
@@ -124,6 +123,7 @@ import { VisitasService } from './visitantes/visitas/visitas.service';
     FuncionalidadeService,
     ContribuicoesService,
     VincularMoradorService,
+    PermissoesService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

@@ -41,6 +41,19 @@
           </div>
 
           <div class="col-xs-12">
+            <p class="control-label"> Função: </p>
+          </div>
+          <div class="col-sm-6 col-xs-6">
+            <select
+                name="funcao"
+                id="funcao"
+                class="form-control"
+                [(ngModel)]="funcionalidade.funcao">
+                <option *ngFor="let funcao of funcaoOptions" [value]="funcao.id">{{ funcao.label }}</option>
+            </select>
+          </div>
+
+          <div class="col-xs-12">
             <p class="control-label"> Path da Funcionalidade: </p>
           </div>
           <div  class="col-sm-4 col-xs-6">
@@ -114,12 +127,30 @@
               </div>
 
               <div class="col-xs-12">
-                <p class="control-label"> Nome: </p>
+                <p class="control-label"> Descrição: </p>
               </div>
               <div class="col-sm-6 col-xs-12">
                 <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="Nome">
                   <input class="form-control" name="descricao" #descricao ngModel required minlength="5" maxlength="30" placeholder="Descrição" autocomplete="off">
                 </app-input-container>
+              </div>
+
+              <div class="col-xs-12">
+                <p class="control-label"> Função: </p>
+              </div>
+              <div class="col-sm-6 col-xs-6">
+                  <select #funcao
+                        required
+                        minlength="4"
+                        maxlength="6"
+                        placeholder="Função"
+                        name="funcao"
+                        id="funcao"
+                        class="form-control"
+                        ngModel="0">
+                    <option [value]="0"> SELECIONE </option>
+                    <option *ngFor="let item of funcaoOptions" [value]="item.id" >{{ item.label }}</option>
+                  </select>
               </div>
 
               <div class="col-xs-12">

@@ -1,12 +1,14 @@
 import { properties } from './../../properties/properties';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
-import { Residencia } from './residencias.model';
 import { ResidenciasService } from './residencias.service';
 import { ErroRegistro } from '../_models/erro-registro';
 import { ResidenciasFilterModel } from './residencias-filter.model';
 import { ResidenciaResponse } from './residencia-response.model';
+import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
+import { PerfilRequestModel } from './perfil-request.model';
+import { PermissoesService } from '../_services/permissoes.service';
 
 @Component({
   selector: 'app-residencias',
@@ -14,24 +16,36 @@ import { ResidenciaResponse } from './residencia-response.model';
 })
 export class ResidenciasComponent implements OnInit {
 
+  public inclusaoVisita: boolean = false;
+  public inclusaoMorador: boolean = false;
+
   residencias: ResidenciaResponse[] = [];
+
+  public ticket: string;
 
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
   erros: ErroRegistro[] = [];
 
+  perfis = {} as PerfilFuncionalidade[];
+  perfilVisita = {} as PerfilFuncionalidade;
+
+  title = "Cadastro de Residências";
+
   requestDto: ResidenciasFilterModel = new ResidenciasFilterModel();
 
   constructor(
+      private permissaoService: PermissoesService,
       private residenciasService: ResidenciasService,
       private authenticationService: AuthenticationService,
-      private router: Router,
-  ) { }
+      private router: Router  ) { }
 
   ngOnInit() {
 
     if(this.authenticationService.currentUserValue){
+      this.getAcessoVisita();
+      this.getAcessoMorador();
       this.getResidencias();
     }else{
       this.router.navigate(['/login']);
@@ -42,10 +56,12 @@ export class ResidenciasComponent implements OnInit {
   getResidencias(codigo?: string, endereco?: string, numero?: string){
 
     this.requestDto = new ResidenciasFilterModel();
+    this.perfis = [] as PerfilFuncionalidade[];
+    this.perfilVisita = new PerfilFuncionalidade();
 
     if(codigo)
       this.requestDto.id = codigo;
-
+    
     if(endereco)
       this.requestDto.endereco = endereco;
 
@@ -61,6 +77,57 @@ export class ResidenciasComponent implements OnInit {
       }
     );
     return this.residencias;
+
+  }
+
+  getAcessoVisita() : boolean{
+
+    let modulos: string[] = [];
+    let funcionalidades: string[] = [];
+    let value: boolean = false;
+
+    this.inclusaoVisita = false;
+
+    modulos.push('6');
+    funcionalidades.push('14');
+
+    this.permissaoService.getPermissao(modulos, funcionalidades)
+      .subscribe(
+        data =>{
+            if(data.length > 0){
+              this.inclusaoVisita = data[0].inclusao;
+            }
+        }, err=>{
+          console.log(err['erros']);
+        }
+      );
+
+      return value;
+
+  }
+
+  getAcessoMorador() : boolean{
+
+    let modulos: string[] = [];
+    let funcionalidades: string[] = [];
+    let value: boolean = false;
+
+    this.inclusaoMorador = false;
+
+    modulos.push('3');
+    funcionalidades.push('7');
+
+    this.permissaoService.getPermissao(modulos, funcionalidades)
+      .subscribe(
+        data =>{
+            if(data.length > 0){
+              this.inclusaoMorador = data[0].inclusao;            }
+        }, err=>{
+          console.log(err['erros']);
+        }
+      );
+
+      return value;
 
   }
 
@@ -97,7 +164,13 @@ export class ResidenciasComponent implements OnInit {
 
   editResidencia(codigo: string){
 
-    this.router.navigate([`/residencia/`, codigo])
+    this.router.navigate([`/residencia/view/`, codigo])
+
+  }
+
+  viewResidencia(codigo: string){
+
+    this.router.navigate([`/residencia/view/`, codigo])
 
   }
 

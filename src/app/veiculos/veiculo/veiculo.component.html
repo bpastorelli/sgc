@@ -1,16 +1,16 @@
 <section  class="content">
 
   <!--Inicio Form de Edição-->
-  <section *ngIf="!create" class="invoice" >
+  <section *ngIf="acao==='edit'" class="invoice" >
 
-      <div *ngIf="errorMessage" class="alert alert-warning">
-        <strong>Atenção! </strong>{{ errorMessage }}
-      </div>
+    <div *ngFor="let erro of erros" class="alert alert-warning">
+      <strong>Atenção! </strong>{{ erro.detalhe }}
+    </div>
 
       <form #formEdit="ngForm" novalidate *ngFor="let veiculo of veiculos" >
 
         <label class="labelPagina">
-          Cadastro de Veículo
+          {{title}} >> <u>Atualização</u>
         </label>
 
         <div class="row invoice-info">
@@ -77,7 +77,7 @@
         <div *ngIf="!create">
           <div class="row">
               <div class="col-xs-12">
-                <button (click)="putVeiculo(formEdit.value, id.value)" class="btn btn-success pull-right"
+                <button *ngIf="perfil[0].alteracao" (click)="putVeiculo(formEdit.value, id.value)" class="btn btn-success pull-right"
                 [disabled]="!formEdit.valid"><i></i> Atualizar
                 </button>
                 <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -91,8 +91,7 @@
     <!--Fim Invoice-->
   </section>
 
-  <!--Fim do Form de Edição-->
-  <section *ngIf="!create" class="invoice">
+  <section *ngIf="acao==='edit'" class="invoice">
 
       <div class="col-xs-12">
         <p class="control-label"><b>Visitantes vinculados:</b></p>
@@ -134,17 +133,20 @@
         </div>
       </div>
 
-    </section>
+  </section>
 
-    <!--Inicio do Form de Inclusão-->
+  <!--Inicio do Form de Inclusão-->
+  <section *ngIf="acao==='create'" class="invoice">
 
-    <section *ngIf="create" class="invoice">
-
-      <div *ngIf="errorMessage" class="alert alert-warning">
-        <strong>Atenção! </strong>{{ errorMessage }}
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
       </div>
 
         <form #formCreate="ngForm" novalidate>
+
+          <label class="labelPagina">
+            {{title}} >> <u>Inclusão</u>
+          </label>
 
           <div class="row invoice-info">
             <div class="col-xs-12">
@@ -208,9 +210,9 @@
           </div>
 
           <div>
-            <div *ngIf="create" class="row">
+            <div class="row">
               <div class="col-xs-12">
-                <button class="pointer" (click)="postVeiculoAmqp(formCreate.value)" class="btn btn-success pull-right"
+                <button class="pointer" *ngIf="perfil[0].inclusao" (click)="postVeiculoAmqp(formCreate.value)" class="btn btn-success pull-right"
                   [disabled]="!formCreate.valid"><i></i> Salvar
                 </button>
                 <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -228,9 +230,165 @@
   <!--Fim do Form de Inclusão-->
   </section>
 
+  <!--Inicio Form de Visualização-->
+  <section *ngIf="acao==='view'" class="invoice" >
+
+      <div *ngFor="let erro of erros" class="alert alert-warning">
+        <strong>Atenção! </strong>{{ erro.detalhe }}
+      </div>
+  
+        <form #formEdit="ngForm" novalidate *ngFor="let veiculo of veiculos" >
+  
+          <label class="labelPagina">
+            {{title}} >> <u>Visualização</u>
+          </label>
+  
+          <div class="row invoice-info">
+            <div class="col-sm-2 col-xs-6">
+              <input  class="form-control" type="hidden" [(ngModel)]="veiculo.id"  #id name="id" maxlength="11" placeholder="Código" pattern="^[0-9]*$" autocomplete="off">
+            </div>
+  
+            <div class="col-xs-12">
+              <p class="control-label"> Placa: </p>
+            </div>
+            <div  class="col-sm-2 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório!" label="Nome">
+                <input class="form-control" type="text" mask="AAA-AAAA" [(ngModel)]="veiculo.placa" disabled #placa name="placa" required maxlength="8" placeholder="Placa" autocomplete="off">
+              </app-input-container>
+            </div>
+  
+            <div class="col-xs-12">
+              <p class="control-label"> Marca: </p>
+            </div>
+            <div  class="col-sm-6 col-xs-12">
+              <app-input-container errorMessage="Campo obrigatório!" label="Marca">
+                <input class="form-control" type="text" [(ngModel)]="veiculo.marca" disabled (ngModelChange)="veiculos.marca=$event.toUpperCase()" required #marca name="marca" minlength="2" maxlength="50" placeholder="Marca" autocomplete="off">
+              </app-input-container>
+            </div>
+  
+            <div class="col-xs-12">
+              <p class="control-label"> Modelo: </p>
+            </div>
+            <div  class="col-sm-6 col-xs-12">
+              <app-input-container errorMessage="Campo obrigatório!" label="Modelo">
+                <input class="form-control" type="text" [(ngModel)]="veiculo.modelo" disabled (ngModelChange)="veiculos.modelo=$event.toUpperCase()" required #modelo name="modelo" maxlength="50" placeholder="Modelo" autocomplete="off">
+              </app-input-container>
+            </div>
+  
+            <div class="col-xs-12">
+              <p class="control-label"> Cor: </p>
+            </div>
+            <div  class="col-sm-4 col-xs-12">
+              <app-input-container label="Cor">
+                <input class="form-control" type="text" [(ngModel)]="veiculo.cor" disabled (ngModelChange)="veiculos.cor=$event.toUpperCase()" required #cor name="cor" maxlength="20" placeholder="Cor" autocomplete="on">
+              </app-input-container>
+            </div>
+  
+            <div class="col-xs-12">
+              <p class="control-label">Ano:</p>
+            </div>
+            <div class="col-sm-2 col-xs-6">
+              <input class="form-control" name="ano" #ano [(ngModel)]="veiculo.ano" disabled ngModel maxlength="4" placeholder="Ano" pattern="^[0-9]*$" autocomplete="off">
+            </div>
+  
+            <div class="col-xs-12">
+              <p class="control-label"> Situação: </p>
+            </div>
+            <div class="col-sm-2 col-xs-6">
+              <select
+                  disabled
+                  name="posicao"
+                  id="posicao"
+                  class="form-control"
+                  [(ngModel)]="veiculo.posicao">
+                  <option *ngFor="let situacao of situacaoCadastral" [value]="situacao.id">{{ situacao.label }}</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="acao==='view'">
+            <div class="row">
+                <div class="col-xs-12">
+                  <button *ngIf="perfil[0].alteracao" (click)="editVeiculo(id.value)" class="btn btn-success pull-right"><i></i> Editar
+                  </button>
+                  <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Sair
+                  </button>
+                </div>
+            </div>
+          </div>
+  
+        </form>
+  
+      <!--Fim Invoice-->
+    </section>
+  
+    <section *ngIf="acao==='view'" class="invoice">
+  
+        <div class="col-xs-12">
+          <p class="control-label"><b>Visitantes vinculados:</b></p>
+        </div>
+        <table class="table-striped">
+          <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>Celular</th>
+                <th>Endereço</th>
+                <th>Número</th>
+                <th>Cidade</th>
+                <th>UF</th>
+              </tr>
+            </thead>
+          <tbody *ngFor="let veiculo of veiculos">
+            <tr *ngFor="let visitante of veiculo.visitantes | paginate: { itemsPerPage: contador, currentPage: pag }">
+              <td><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.nome.toUpperCase() }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.cpf }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.rg }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.celular }}</div></td>
+              <td ><div class="pointer" (click)="editVisitante(visitante.id)">{{ visitante.endereco.toUpperCase() }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.numero }}</div></td>
+              <td><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.cidade.toUpperCase() }}</div></td>
+              <td class="textCenter"><div class="pointer" (click)="editVisitante(residencia.id)">{{ visitante.uf.toUpperCase() }}</div></td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <!--inclindo o controle de paginação.-->
+        <div style="padding: 20px;">
+          <div class="text-right">
+            <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+              previousLabel="Anterior"
+              nextLabel="Próximo">
+            </pagination-controls>
+          </div>
+        </div>
+  
+    </section>
 
  <!--Fim da Content-->
  </section>
+
+   <!-- Modal -->
+   <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-success">
+            <b>{{msgModal}}</b>
+          </div>
+        </div>
+        <div class="modal-footer" >
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+         </div>
+      </div>
+    </div>
+  </div>
 
 
 

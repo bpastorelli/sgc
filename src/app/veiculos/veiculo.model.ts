@@ -1,15 +1,16 @@
 import { Visitante } from "../visitantes/visitante.model";
 
-export interface Veiculo{
+export class Veiculo{
 
-  id: string,
-  placa: string,
-  marca: string,
-  modelo: string,
-  cor: string,
-  ano: string,
-  posicao: string,
-  ticketVisitante?: string,
+  id: string;
+  placa: string;
+  marca: string;
+  modelo: string;
+  cor: string;
+  ano: string;
+  posicao: string;
+  ticket: string
+  ticketVisitante?: string;
   visitantes: Visitante[]
 
 }

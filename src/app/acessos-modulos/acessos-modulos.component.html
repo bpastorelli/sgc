@@ -100,6 +100,9 @@
                 <th class="pointer" scope="col" [appSort]="perfilFuncionalidades" data-order="desc" data-name="id" style="width: 50px;"><span>ID</span></th>
                 <th class="pointer" scope="col" [appSort]="perfilFuncionalidades" data-order="desc" data-name="funcionalidade">Funcionalidade</th>
                 <th style="width: 30px;" scope="col">Acesso</th>
+                <th style="width: 30px;" scope="col">Inclusão</th>
+                <th style="width: 30px;" scope="col">Alteração</th>
+                <th style="width: 30px;" scope="col">Exclusão</th>
             </tr>
           </thead>
           <tbody>
@@ -112,7 +115,22 @@
               </td>
               <td class="textCenter">
                 <div class="pointer">
-                  <input type="checkbox" (change)="addAcessoFuncionalidade(func, $event.target.checked)" name="acesso" id="acesso" #acesso [checked]="func.acesso" />
+                  <input type="checkbox" (change)="addAcessoFuncionalidade(func, $event.target.checked, 'acesso')" name="acesso" id="acesso" #acesso [checked]="func.acesso" />
+                </div>
+              </td>
+              <td class="textCenter">
+                <div class="pointer">
+                  <input type="checkbox" (change)="addAcessoFuncionalidade(func, $event.target.checked, 'inclusao')" name="inclusao" id="inclusao" #inclusao [checked]="func.inclusao" />
+                </div>
+              </td>
+              <td class="textCenter">
+                <div class="pointer">
+                  <input type="checkbox" (change)="addAcessoFuncionalidade(func, $event.target.checked, 'alteracao')" name="alteracao" id="alteracao" #alteracao [checked]="func.alteracao" />
+                </div>
+              </td>
+              <td class="textCenter">
+                <div class="pointer">
+                  <input type="checkbox" (change)="addAcessoFuncionalidade(func, $event.target.checked, 'exclusao')" name="exclusao" id="exclusao" #exclusao [checked]="func.exclusao" />
                 </div>
               </td>
             </tr>

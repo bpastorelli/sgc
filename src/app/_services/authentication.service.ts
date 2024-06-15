@@ -1,4 +1,3 @@
-import { BaseService } from 'src/app/_services/base.service';
 import { Password } from './../_models/password';
 import { AcessoFuncionalidade } from './../_models/acessoFuncionalidade';
 import { AcessoModulo } from './../_models/acessoModulo';

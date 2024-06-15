@@ -28,7 +28,7 @@ export class ResidenciaService extends BaseService {
 
   }
 
-  postNovaResidenciaAmqp(residencia: Residencia): Observable<Residencia>{
+  postNovaResidenciaAmqp(residencia: Residencia): Observable<any>{
 
     return this.http.post<Residencia>(this.residenciaUrl + environment.nova
       , JSON.stringify(residencia)

@@ -19,6 +19,9 @@ export class AcessoFuncionalidadeService extends BaseService {
 
   private acessoFuncionalideUrl: string = environment.protocol + environment.apiUrl + environment.access + environment.perfil + environment.funcionalidade + environment.filtro;
 
+  private acessoUsuarioUrl: string = environment.protocol + environment.apiUrl + environment.access + environment.acessoFuncionalidade + environment.filtro;
+
+
   constructor(private http: HttpClient){
     super();
   }
@@ -31,6 +34,19 @@ export class AcessoFuncionalidadeService extends BaseService {
     }
 
     return this.http.get<Array<PerfilFuncionalidade>>(this.acessoFuncionalideUrl, {params: queryParams})
+      .pipe(
+        map(response => response));
+
+  }
+
+  getAcessosFuncionalidadeUsuario(request: AcessoFuncionalidadeFilter): Observable<Array<PerfilFuncionalidade>> {
+
+    let queryParams: Params = {};
+    if(request){
+      queryParams = this.setParameter(request);
+    }
+
+    return this.http.get<Array<PerfilFuncionalidade>>(this.acessoUsuarioUrl, {params: queryParams})
       .pipe(
         map(response => response));
 

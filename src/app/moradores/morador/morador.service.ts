@@ -49,7 +49,7 @@ private moradorUrl = environment.protocol + environment.apiUrl + environment.mor
     this.moradorRequest  = this.setCamposDefault(this.moradorRequest);
 
     if(ticket)
-      this.moradorRequest.ticket = ticket;
+      this.moradorRequest.guide = ticket;
 
     return this.getMoradores(this.moradorRequest);
 
@@ -102,7 +102,7 @@ private moradorUrl = environment.protocol + environment.apiUrl + environment.mor
   setCamposDefault(request: MoradoresFilterModel): MoradoresFilterModel{
 
     request.content == null ? request.content = true : request.content;
-    request.posicao == null ? request.posicao = 1 : request.posicao;
+    //request.posicao == null ? request.posicao = 1 : request.posicao;
     request.size == null ? request.size =  1000000 : request.size;
     request.sort == null ? request.sort = 'nome' : request.sort;
     request.page == null ? request.page = 0 : request.page;

@@ -1,12 +1,14 @@
 export interface Contribuicao {
 
-  id: number,
+  	id: number,
 	nome: string,
-  cpf: string,
+  	cpf: string,
 	dataPagamento: Date,
 	periodo: string,
-  documento: string,
+  	documento: string,
 	valor: number,
 	endereco: string,
+	numero: string,
+	complemento: string,
 
 }

@@ -29,7 +29,7 @@
               class="form-control"
               ngModel="0">
               <option [value]="0"> TODOS </option>
-              <option *ngFor="let item of moradores" [value]="item.id" >{{ item.nome.toUpperCase() }}</option>
+              <option *ngFor="let item of usuarios" [value]="item.id" >{{ item.nome.toUpperCase() }}</option>
           </select>
         </div>
 
@@ -63,7 +63,7 @@
                 <td style="width: 10%" class="textCenter"><div>{{ item.dataPagamento }}</div></td>
                 <td style="width: 12%" class="textCenter"><div>{{ item.documento }}</div></td>
                 <td style="width: 8%" class="text-right"><div>{{ item.valor }}</div></td>
-                <td style="width: 30%"><div>{{ item.endereco }}</div></td>
+                <td style="width: 30%"><div>{{ item.endereco + ", " + item.numero + " " + item.complemento}}</div></td>
               </tr>
             </tbody>
           </table>

@@ -4,6 +4,8 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { properties } from 'src/properties/properties';
 import { Contribuicao } from '../contribuicao.model';
 import { ContribuicoesService } from '../contribuicoes.service';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
+import { ContribuicoesFilterModel } from '../contribuicoes-filter.model';
 
 @Component({
   selector: 'app-minhas-contribuicoes',
@@ -17,6 +19,15 @@ export class MinhasContribuicoesComponent implements OnInit {
 
   idUsuario: number;
 
+  public loading: boolean;
+
+  id: string; 
+  moradorId: number; 
+  dataInicio: string; 
+  dataFim: string;
+  erros: ErroRegistro[] = [];
+  request: ContribuicoesFilterModel;
+
   contribuicoes: Contribuicao[];
 
   constructor(
@@ -29,7 +40,6 @@ export class MinhasContribuicoesComponent implements OnInit {
 
       if(this.authenticationService.currentUserValue){
         this.idUsuario = JSON.parse(localStorage.getItem('idUsuario'));
-        console.log(this.idUsuario);
         this.getContribuicoesPorUsuario(this.idUsuario);
       }else{
           this.router.navigate(['/login']);
@@ -37,26 +47,49 @@ export class MinhasContribuicoesComponent implements OnInit {
 
   }
 
-  getContribuicoes(dataInicial: Date, dataFim: Date){
+  getContribuicoes(dataInicio: string, dataFim: string){
 
-    this.contribuicoesService.getContribuicoes(dataInicial, dataFim, this.idUsuario)
+    this.erros = [];
+    this.loading = false;
+    this.dataInicio = dataInicio;
+    this.dataFim = dataFim;
+
+    this.request = new ContribuicoesFilterModel();
+
+    this.request.moradorId = this.idUsuario.toString();
+
+    if(dataInicio)
+      this.request.dataInicio = dataInicio;
+
+    if(dataFim)
+      this.request.dataFim = dataFim;
+
+
+    this.contribuicoesService.getContribuicoes(this.request)
       .subscribe(
         data=>{
           this.contribuicoes = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
   }
 
   getContribuicoesPorUsuario(moradorId: number){
 
-    this.contribuicoesService.getContribuicoesPorUsuario(moradorId)
+    this.erros = [];
+    this.loading = false;
+
+    this.request = new ContribuicoesFilterModel();
+
+    this.request.moradorId = this.idUsuario.toString();
+
+    this.contribuicoesService.getContribuicoes(this.request)
       .subscribe(
         data=>{
           this.contribuicoes = data;
         }, err=>{
-          console.log(err);
+          this.erros = err['erros'];
         }
       );
   }

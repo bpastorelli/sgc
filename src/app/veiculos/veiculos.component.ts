@@ -22,6 +22,8 @@ export class VeiculosComponent implements OnInit {
   pag : Number = 1 ;
   contador : Number = properties.itemsPerPage;
 
+  title = "Cadastro de Veículos";
+
   situacaoCadastral = [
         { id: 1, label: "ATIVO" },
         { id: 0, label: "INATIVO" }];
@@ -69,7 +71,7 @@ export class VeiculosComponent implements OnInit {
 
   editVeiculo(codigo: string){
 
-    this.router.navigate(['/veiculo/', codigo]);
+    this.router.navigate(['/veiculo/view/', codigo]);
 
   }
 

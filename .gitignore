@@ -44,3 +44,26 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/.dockerignore
+*.json
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/0.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/1.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/2.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/3.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/4.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/5.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/6.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/7.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/8.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/index.pack
+.angular/cache/13.3.0/angular-webpack/15793d35f260bd04d9d1423ef84834620453265d/index.pack.old
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/0.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/1.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/2.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/3.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/4.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/5.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/index.pack
+.angular/cache/13.3.0/angular-webpack/194c257006d0a62804fe8b19e4c9552aa448d043/index.pack.old
+.angular/cache/13.3.0/angular-webpack/5a7c0184921b6f57019362adcb083eb5df7f4593/0.pack
+.angular/cache/13.3.0/angular-webpack/5a7c0184921b6f57019362adcb083eb5df7f4593/index.pack

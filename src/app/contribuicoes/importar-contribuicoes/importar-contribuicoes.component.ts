@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Contribuicao } from '../contribuicao.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ErroRegistro } from 'src/app/_models/erro-registro';
 
 declare var $: any;
 
@@ -18,7 +19,7 @@ export class ImportarContribuicoesComponent implements OnInit {
 
   loading: boolean = false;
 
-  error;
+  errors: ErroRegistro[] = [];
   errorMessage;
   errorsList: string[] = [];
   uploadForm: FormGroup;
@@ -66,8 +67,7 @@ export class ImportarContribuicoesComponent implements OnInit {
           this.contribuicoes = data;
         }, err=>{
           this.loading = false;
-          this.errorMessage = err;
-          this.errorsList = this.errorMessage;
+          this.errors = err;
         }
       );
 
@@ -103,7 +103,7 @@ export class ImportarContribuicoesComponent implements OnInit {
   }
 
   open(id: string) {
-    this.error = null;
+    this.errors = null;
     $('#' + id).modal('show');
   }
 

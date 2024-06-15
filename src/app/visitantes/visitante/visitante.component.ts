@@ -9,6 +9,8 @@ import { VisitantesService } from './../visitantes.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Veiculo } from 'src/app/veiculos/veiculo.model';
 import { ErroRegistro } from 'src/app/_models/erro-registro';
+import { PermissoesService } from 'src/app/_services/permissoes.service';
+import { PerfilFuncionalidade } from 'src/app/acessos-funcionalidades/acesso-funcionalidade.model';
 
 declare var $: any;
 
@@ -21,6 +23,7 @@ export class VisitanteComponent implements OnInit {
 
   id: string;
   rg: string;
+  ticket: string;
   residencia: string;
   acao: string;
   codigo: string;
@@ -33,6 +36,9 @@ export class VisitanteComponent implements OnInit {
   bairroResp: string;
   localidadeResp: string;
   ufResp: string;
+  perfil = {} as PerfilFuncionalidade[];
+
+  title = 'Cadastro de Visitantes';
 
   public cepResponse: Cep;
   public visit: Visitante;
@@ -52,7 +58,8 @@ export class VisitanteComponent implements OnInit {
               private cepService: CepService,
               private visitantesService: VisitantesService,
               private veiculosService: VeiculosService,
-              private authenticationService: AuthenticationService
+              private authenticationService: AuthenticationService,
+              private permissao: PermissoesService
               ) { }
   ngOnInit() {
 
@@ -60,10 +67,40 @@ export class VisitanteComponent implements OnInit {
       this.rg = this.route.snapshot.paramMap.get('rg');
       this.residencia = this.route.snapshot.paramMap.get('residencia');
       this.codigo = this.route.snapshot.paramMap.get('codigo');
+      this.acao = this.route.snapshot.paramMap.get('acao');
+      this.ticket = this.route.snapshot.paramMap.get('ticket');
+
+      //console.log(this.acao);
+      let modulos: string[] = [];
+      let funcionalidades: string[] = [];
+
       this.close('customModal1');
-      if(this.codigo != "create" && this.codigo != "novo"){
+      if(this.acao != "create" && this.acao != "novo"){
+          modulos.push('7');
+          funcionalidades.push('18','17');
+
           this.create = false;
           this.getVisitanteById(this.codigo);
+          this.permissao.getPermissao(modulos, funcionalidades)
+          .subscribe(
+            data=>{
+              this.perfil = data;
+            }, err=>{
+              console.log(err['erros']);
+            }
+          );
+      }else{
+        modulos.push('7');
+        funcionalidades.push('7','17');
+
+        this.permissao.getPermissao(modulos, funcionalidades)
+          .subscribe(
+            data=>{
+              this.perfil = data;
+            }, err=>{
+              console.log(err['erros']);
+            }
+          );
       }
     }else{
       this.router.navigate(['/login']);
@@ -78,11 +115,14 @@ export class VisitanteComponent implements OnInit {
 
     this.visitantesService.postVisitanteAmqp(visitante)
       .subscribe(data => {
-        if(!this.rg){
+        if(this.residencia == null){
           this.id = data.ticket;
           this.router.navigate(['/veiculo/create/visitante/', this.id]);
         }else{
+          this.acao = 'view';
           this.open('customModal1');
+          this.getVisitanteByTicket(data.ticket);
+          this.router.navigate(['/visitante/view/' + this.visitantes[0].id]);
         }
     },err=>{
       this.erros = err['erros'];
@@ -98,7 +138,9 @@ export class VisitanteComponent implements OnInit {
     this.visitantesService.putVisitante(visitante, id)
       .subscribe(data => {
         this.visit = data;
-        this.router.navigate(['/summary-edit']);
+        this.acao = 'view';
+        this.open('customModal2');
+        this.router.navigate(['/visitante/view/' + id]);
     },err=>{
       this.erros = err['erros'];
     });
@@ -127,6 +169,37 @@ export class VisitanteComponent implements OnInit {
 
   }
 
+  async getVisitanteByTicket(ticket: string){
+
+    let count: number = 0;
+    this.request = new VisitanteFilterModel();
+
+    if(ticket)
+      this.request.guide = ticket;
+
+    do{
+
+      this.visitantesService.getVisitantes(this.request)
+        .subscribe(
+          data=>{
+              this.visitantes = data;
+              this.visitantes.forEach(v => {
+                  this.getCep(v.cep)
+              });
+          }, err=>{
+            this.erros = err['erros'];
+        }
+      );
+
+      await delay(1000);
+      count++;
+    }
+    while(this.visitantes.length === 0 && count < 4);
+
+    return this.visitantes;
+
+  }
+
   getVeiculoByVisitanteId(id: string){
 
     this.veiculosService.getVeiculosByVisitanteId(id)
@@ -141,9 +214,17 @@ export class VisitanteComponent implements OnInit {
 
   }
 
+  editVisitante(codigo: string){
+
+    this.acao = 'edit';
+    this.router.navigate(['/visitante/edit/', codigo]);
+
+  }
+
   editVeiculo(codigo: string){
 
-    this.router.navigate(['/veiculo/', codigo]);
+    this.acao = 'edit';
+    this.router.navigate(['/veiculo/view/', codigo]);
 
   }
 
@@ -203,4 +284,8 @@ export class VisitanteComponent implements OnInit {
 
   }
 
+}
+
+function delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
 }

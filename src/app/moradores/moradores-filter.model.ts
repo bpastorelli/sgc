@@ -1,7 +1,7 @@
 export class MoradoresFilterModel{
 
   id?: string;
-  ticket?: string;
+  guide?: string;
   nome?: string;
   cpf?: string;
   rg?: string;

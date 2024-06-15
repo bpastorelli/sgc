@@ -9,6 +9,10 @@ import { ResidenciasService } from '../residencias.service';
 import { ResidenciaService } from './residencia.service';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { ResidenciaResponse } from '../residencia-response.model';
+import { PermissoesService } from 'src/app/_services/permissoes.service';
+import { PerfilFuncionalidade } from 'src/app/acessos-funcionalidades/acesso-funcionalidade.model';
+
+declare var $: any;
 
 @Component({
   selector: 'app-residencia',
@@ -20,9 +24,12 @@ export class ResidenciaComponent implements OnInit {
   errorMessage;
   acao: string;
   codigo: string;
+  ticket: string;
   residenciaId: string;
 
   requestFilterDto: ResidenciasFilterModel;
+
+  perfil: PerfilFuncionalidade[] = [];
 
   erros: ErroRegistro[] = [];
 
@@ -30,13 +37,16 @@ export class ResidenciaComponent implements OnInit {
 
   residencia: Residencia;
 
-  residencias: ResidenciaResponse[];
+  residencias: ResidenciaResponse[] = [];
 
   logradouroResp: string;
   bairroResp: string;
   localidadeResp: string;
   ufResp: string;
   error = '';
+
+  title = 'Cadastro de Residências';
+  msgModal: string = '';
 
   pag : Number = 1;
   contador : Number = 5;
@@ -47,19 +57,54 @@ export class ResidenciaComponent implements OnInit {
               private cepService: CepService,
               private residenciaService: ResidenciaService,
               private residenciasService: ResidenciasService,
-              private authenticationService: AuthenticationService
-
+              private authenticationService: AuthenticationService,
+              private permissao: PermissoesService
               ) { }
 
   ngOnInit() {
 
     this.acao = this.route.snapshot.paramMap.get('acao');
     this.codigo = this.route.snapshot.paramMap.get('codigo');
+    this.ticket = this.route.snapshot.paramMap.get('ticket');
+
+    let modulos: string[] = [];
+    let funcionalidades: string[] = [];
 
     if(this.authenticationService.currentUserValue){
-      if(this.codigo != "create" && this.codigo != "novo"  && this.acao === null){
+      if(this.acao != "create" && this.acao != "novo2"){
+
+          modulos.push('4');
+          funcionalidades.push('10');
+
           this.create = false;
-          this.getResidenciaById(this.codigo);
+          if(this.ticket){
+            this.getResidenciaByTicket(this.ticket);
+          }else
+            this.getResidenciaById(this.codigo);
+
+          this.permissao.getPermissao(modulos, funcionalidades)
+            .subscribe(
+              data=>{
+                this.perfil = data;
+              }, err=>{
+                console.log(err['erros']);
+              }
+            );
+      }else{
+
+        modulos.push('4');
+        funcionalidades.push('9');
+
+        this.create = true;
+
+        this.permissao.getPermissao(modulos, funcionalidades)
+          .subscribe(
+            data=>{
+              this.perfil = data;
+            }, err=>{
+              console.log(err['erros']);
+            }
+          );
       }
     }else{
       this.router.navigate(['/login']);
@@ -69,10 +114,16 @@ export class ResidenciaComponent implements OnInit {
 
   postNovaResidenciaAmqp(residencia: Residencia){
 
+    let count: number = 0;
+    this.msgModal = "Registro inserido com sucesso!";
+
     this.residenciaService.postNovaResidenciaAmqp(residencia)
-      .subscribe(data => {
+      .subscribe(async data => {
         this.residencia = data;
-        this.router.navigate(['/summary-add']);
+        this.acao = 'view';
+        this.open('customModal1');
+        this.getResidenciaByTicket(this.residencia.ticket);
+        this.router.navigate(['/residencia/view/', this.residencias[0].id]);
       },err=>{
         this.erros = err['erros'];
       });
@@ -81,10 +132,14 @@ export class ResidenciaComponent implements OnInit {
 
   putResidencia(residencia: Residencia, id: string){
 
+    this.msgModal = "Registro atualizado com sucesso!";
+
     this.residenciaService.putResidencia(residencia, id)
       .subscribe(data => {
         this.residencia = data;
-        this.router.navigate(['/summary-edit']);
+        this.open('customModal1');
+        this.acao = 'view';
+        this.router.navigate(['/residencia/view/' + id]);
       },err => {
           this.erros = err['erros'];
       });
@@ -121,6 +176,52 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
+  async getResidenciaByTicket(ticket: string) {
+
+    let count: number = 0;
+
+    this.requestFilterDto = new ResidenciasFilterModel();
+    this.residencias = [];
+
+    if(ticket)
+      this.requestFilterDto.guide = ticket;
+
+      do{
+
+        this.residenciasService.residencias(this.requestFilterDto)
+          .subscribe(
+            data=>{
+              this.residencias = data;
+              this.residencias.forEach(r => {
+                if(r.endereco.toString() != null){
+                    this.logradouroResp = r.endereco.toUpperCase();
+                    this.bairroResp = r.bairro.toUpperCase();
+                    this.localidadeResp = r.cidade.toUpperCase();
+                    this.ufResp = r.uf.toUpperCase();
+                }else{
+                    this.getCep(r.cep)
+                }
+              });
+            }, err=>{
+              this.erros = err['erros'];
+            }
+        );
+        await delay(1000);
+        count++;
+      }
+      while(this.residencias.length === 0 && count < 4);
+    
+    return this.residencias;
+
+  }
+
+  editResidencia(id: string){
+
+    this.acao = 'edit';
+    this.router.navigate(['/residencia/edit/', id]);
+
+  }
+
   getCep(cep: string){
 
     if(cep != ""){
@@ -143,8 +244,7 @@ export class ResidenciaComponent implements OnInit {
 
   getIdMorador(codigo: string){
 
-    console.log(`Código enviado: ${codigo}`)
-    this.router.navigate([`/morador/`, codigo])
+    this.router.navigate([`/morador/view/`, codigo])
 
   }
 
@@ -158,4 +258,23 @@ export class ResidenciaComponent implements OnInit {
     this.pag = event;
   }
 
+  open(id: string) {
+
+    this.erros = null;
+    $('#' + id).modal('show');
+    
+  }
+
+  close(id: string) {
+    $('#' + id).modal('hide');
+  }
+
 }
+function subscribe(arg0: (data: any) => void, arg1: (err: any) => void) {
+  throw new Error('Function not implemented.');
+}
+
+function delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
+}
+

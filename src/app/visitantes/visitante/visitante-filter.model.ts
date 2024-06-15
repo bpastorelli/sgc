@@ -5,6 +5,7 @@ export class VisitanteFilterModel{
   rg?: string;
   cpf?: string;
   posicao?: number;
+  guide?: string;
   content: boolean;
   sort?: string;
   page: number;

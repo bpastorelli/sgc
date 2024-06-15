@@ -1,0 +1,14 @@
+---
+version: '3'
+services:      
+  sgc-angular:
+    image: bpastorelli/sgc_angular
+    restart: always
+    build: .
+    ports:
+      - "80:80"
+    networks:
+      - app-net
+ 
+networks:
+  app-net:       

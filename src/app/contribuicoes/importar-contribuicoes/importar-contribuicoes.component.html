@@ -4,9 +4,9 @@
     <button type="button" class="btn btn-secondary" (click)="open('customModal')" data-dismiss="modal"> Instruções de Preenchimento </button>
    </div>
 
-  <div *ngIf="errorsList.length > 0" class="alert alert-warning">
-    <div *ngFor="let item of errorsList">
-      <strong >Atenção! </strong>{{ item }}
+  <div *ngIf="errors.length > 0" class="alert alert-warning">
+    <div *ngFor="let item of errors">
+      <strong >Atenção! </strong>{{ item.detalhe }}
     </div>
   </div>
 

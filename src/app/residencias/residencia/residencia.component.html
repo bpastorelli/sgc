@@ -1,13 +1,14 @@
 <section class="content">
 
-  <section *ngIf="!create" class="invoice">
+  <!--Editar uma residencia-->
+  <section *ngIf="acao==='edit'" class="invoice">
     <div *ngFor="let erro of erros" class="alert alert-warning">
       <strong>Atenção! </strong>{{ erro.detalhe }}
     </div>
     <section class="invoice">
 
       <label class="labelPagina">
-        Alterar Residência
+        {{title}} >> <u>Atualização</u>
       </label>
 
       <form #formEdit="ngForm" *ngFor="let residencia of residencias" novalidate>
@@ -86,10 +87,142 @@
       <div class="row">
         <div class="col-xs-12">
 
-          <button (click)="putResidencia(formEdit.value, id.value)" class="btn btn-success pull-right"
+          <button (click)="putResidencia(formEdit.value, id.value)" *ngIf="perfil[0].alteracao" class="btn btn-success pull-right"
             [disabled]="!formEdit.valid"><i></i> Atualizar
           </button>
           <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section class="invoice">
+
+    <div class="col-xs-12">
+      <p class="control-label"> <b>Moradores responsáveis:</b></p>
+    </div>
+
+    <table class="table-striped">
+      <thead>
+        <tr>
+            <th #nome scope="col">Nome</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Celular</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let residencia of residencias">
+        <tr *ngFor="let morador of residencia.moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
+          <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome.toUpperCase() }}</div></td>
+          <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>
+          <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.telefone }}</div></td>
+          <td class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.celular }}</div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--inclindo o controle de paginação.-->
+    <div style="padding: 20px;">
+      <div class="text-right">
+        <pagination-controls class="pointer" (pageChange)="pageChanged($event)"
+            previousLabel="Anterior"
+            nextLabel="Próximo"
+        ></pagination-controls>
+      </div>
+    </div>
+  </section>
+  </section>
+
+  <!--Visualizar uma residencia-->
+  <section *ngIf="acao==='view'" class="invoice">
+    <div *ngFor="let erro of erros" class="alert alert-warning">
+      <strong>Atenção! </strong>{{ erro.detalhe }}
+    </div>
+    <section class="invoice">
+
+      <label class="labelPagina">
+        {{title}} >> <u>Visualização</u>
+      </label>
+
+      <form #formView="ngForm" *ngFor="let residencia of residencias" novalidate>
+
+        <div class="row invoice-info">
+
+          <div class="col-xs-12">
+            <p class="control-label"> CEP:</p>
+          </div>
+          <div class="col-sm-2 col-xs-2">
+            <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
+              <input class="form-control" #cep (blur)="getCep(residencia.cep)" disabled name="cep" [(ngModel)]="residencia.cep" required maxlength="8" placeholder="CEP" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Endereço:</p>
+          </div>
+          <div class="col-sm-6 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="Endereço">
+              <input class="form-control" #endereco type="text" name="endereco" [(ngModel)]="logradouroResp" disabled required maxlength="100" placeholder="Endereço" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
+              <input class="form-control" #numero name="numero" [(ngModel)]="residencia.numero" disabled required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
+            </app-input-container>
+          </div>
+
+          <div class="col-xs-12">
+            <p class="control-label"> Complemento:</p>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <app-input-container label="Complemento">
+              <input class="form-control" #complemento name="complemento" [(ngModel)]="residencia.complemento" maxlength="50" disabled placeholder="Complemento" autocomplete="off">
+            </app-input-container>
+          </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> Bairro:</p>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório!" label="Bairro">
+                <input class="form-control" #bairro name="bairro" [(ngModel)]="bairroResp" required maxlength="50" disabled placeholder="Bairro" autocomplete="off">
+              </app-input-container>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label">Cidade:</p>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="Cidade">
+                <input class="form-control" #cidade name="cidade" [(ngModel)]="localidadeResp" required maxlength="50" disabled placeholder="Cidade" autocomplete="off">
+              </app-input-container>
+            </div>
+
+            <div class="col-xs-12">
+              <p class="control-label"> UF:</p>
+            </div>
+            <div class="col-sm-1 col-xs-6">
+              <app-input-container errorMessage="Campo obrigatório!" label="UF">
+                <input class="form-control" #uf name="uf" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" disabled autocomplete="off">
+              </app-input-container>
+            </div>
+
+          <div class="col-sm-1 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Residência">
+              <input class="form-control" type="hidden" disabled name="id" #id [(ngModel)]="residencia.id" minlength="1" pattern="^[0-9]*$" placeholder="Código Residência" autocomplete="off">
+            </app-input-container>
+          </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+
+          <button (click)="editResidencia(id.value)" *ngIf="perfil[0].alteracao" class="btn btn-success pull-right"><i></i> Editar
+          </button>
+          <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Sair
           </button>
         </div>
       </div>
@@ -132,101 +265,102 @@
       </div>
     </div>
   </section>
-</section>
+  </section>
 
-<section *ngIf="create" class="content">
+  <!--Inclusão de residência-->
+  <section *ngIf="acao==='create' || acao==='novo2'" class="invoice">
 
+    <div *ngFor="let erro of erros" class="alert alert-warning">
+      <strong>Atenção! </strong>{{ erro.detalhe }}
+    </div>
+    <section class="invoice">
 
-<section class="invoice">
-  <div *ngFor="let erro of erros" class="alert alert-warning">
-    <strong>Atenção! </strong>{{ erro.detalhe }}
-  </div>
+      <label class="labelPagina">
+        {{title}} >> <u>Inclusão</u>
+      </label>
 
-  <label class="labelPagina">
-    Cadastro de Residência
-  </label>
-  <form #formCreate="ngForm" novalidate>
+      <form #formCreate="ngForm" novalidate>
 
-    <div class="row invoice-info">
+        <div class="row invoice-info">
 
-      <div class="col-xs-12">
-        <p class="control-label"> CEP:</p>
-      </div>
-      <div class="col-sm-2 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
-          <input class="form-control" #cep name="cep" (blur)="getCep(cep.value)" ngModel type="text" required minlength="8" placeholder="CEP" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-xs-12">
+            <p class="control-label"> CEP:</p>
+          </div>
+          <div class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="e-mail">
+              <input class="form-control" #cep name="cep" (blur)="getCep(cep.value)" ngModel type="text" required minlength="8" placeholder="CEP" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div class="col-xs-12">
-        <p class="control-label"> Endereço:</p>
-      </div>
-      <div class="col-sm-6 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório!" label="Endereço">
-          <input class="form-control" #endereco ngModel type="text" name="endereco" [(ngModel)]="logradouroResp" required maxlength="100" placeholder="Endereço" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-xs-12">
+            <p class="control-label"> Endereço:</p>
+          </div>
+          <div class="col-sm-6 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="Endereço">
+              <input class="form-control" #endereco ngModel type="text" name="endereco" [(ngModel)]="logradouroResp" required maxlength="100" placeholder="Endereço" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div class="col-sm-2 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
-          <input class="form-control" #numero ngModel type="text" name="numero" required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório e somente números" label="Número">
+              <input class="form-control" #numero ngModel type="text" name="numero" required minlength="1" placeholder="Número" pattern="^[0-9]*$" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div class="col-xs-12">
-        <p class="control-label"> Complemento:</p>
-      </div>
-      <div class="col-sm-4 col-xs-12">
-        <app-input-container label="Complemento">
-          <input class="form-control" #complemento ngModel type="text" name="complemento" maxlength="50" placeholder="Complemento" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-xs-12">
+            <p class="control-label"> Complemento:</p>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+            <app-input-container label="Complemento">
+              <input class="form-control" #complemento ngModel type="text" name="complemento" maxlength="50" placeholder="Complemento" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div class="col-xs-12">
-        <p class="control-label"> Bairro:</p>
-      </div>
-      <div class="col-sm-4 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório!" label="Bairro">
-          <input class="form-control" #bairro ngModel type="text" name="bairro" [(ngModel)]="bairroResp" required maxlength="50" placeholder="Bairro" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-xs-12">
+            <p class="control-label"> Bairro:</p>
+          </div>
+          <div class="col-sm-4 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="Bairro">
+              <input class="form-control" #bairro ngModel type="text" name="bairro" [(ngModel)]="bairroResp" required maxlength="50" placeholder="Bairro" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div class="col-xs-12">
-        <p class="control-label">Cidade:</p>
-      </div>
-      <div class="col-sm-4 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="Cidade">
-          <input class="form-control" #cidade ngModel type="text" name="cidade" [(ngModel)]="localidadeResp" required maxlength="50" placeholder="Cidade" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-xs-12">
+            <p class="control-label">Cidade:</p>
+          </div>
+          <div class="col-sm-4 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório com mínimo 5 caracteres" label="Cidade">
+              <input class="form-control" #cidade ngModel type="text" name="cidade" [(ngModel)]="localidadeResp" required maxlength="50" placeholder="Cidade" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div class="col-xs-12">
-        <p class="control-label"> UF:</p>
-      </div>
-      <div class="col-sm-1 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório!" label="UF">
-          <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div class="col-xs-12">
+            <p class="control-label"> UF:</p>
+          </div>
+          <div class="col-sm-1 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório!" label="UF">
+              <input class="form-control" #uf name="uf" ngModel type="text" [(ngModel)]="ufResp" required maxlength="2" placeholder="UF" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div *ngIf="acao==='novo'" class="col-sm-2 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Morador">
-          <input class="form-control" type="hidden" name="moradorId" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div *ngIf="acao==='novo'" class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Morador">
+              <input class="form-control" type="hidden" name="moradorId" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
+            </app-input-container>
+          </div>
 
-      <div *ngIf="acao==='novo2'" class="col-sm-2 col-xs-6">
-        <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Morador">
-          <input class="form-control" type="hidden" name="ticketMorador" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
-        </app-input-container>
-      </div>
+          <div *ngIf="acao==='novo2'" class="col-sm-2 col-xs-6">
+            <app-input-container errorMessage="Campo obrigatório e somente números" label="Código Morador">
+              <input class="form-control" type="hidden" name="ticketMorador" [(ngModel)]="codigo" minlength="1" placeholder="Código Morador" autocomplete="off">
+            </app-input-container>
+          </div>
 
       <!-- /.row -->
       </div>
 
-      <div *ngIf="acao===null" class="row">
+      <div *ngIf="acao==='create' && codigo===null" class="row">
         <div class="col-xs-12">
-          <button (click)="postNovaResidenciaAmqp(formCreate.value)" class="btn btn-success pull-right"
+          <button (click)="postNovaResidenciaAmqp(formCreate.value)" *ngIf="perfil[0].inclusao" class="btn btn-success pull-right"
           [disabled]="!formCreate.valid"><i></i> Salvar
           </button>
           <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -234,9 +368,9 @@
         </div>
       </div>
 
-      <div *ngIf="acao === 'novo'"  class="row">
+      <div *ngIf="acao==='novo2'"  class="row">
         <div class="col-xs-12">
-          <button (click)="postResidencia(formCreate.value)" class="btn btn-success pull-right"
+          <button (click)="postNovaResidenciaAmqp(formCreate.value)" *ngIf="perfil[0].inclusao" class="btn btn-success pull-right"
           [disabled]="!formCreate.valid"><i></i> Finalizar
           </button>
           <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -244,17 +378,31 @@
         </div>
       </div>
 
-      <div *ngIf="acao === 'novo2'"  class="row">
-        <div class="col-xs-12">
-          <button (click)="postNovaResidenciaAmqp(formCreate.value)" class="btn btn-success pull-right"
-          [disabled]="!formCreate.valid"><i></i> Finalizar
-          </button>
-          <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
-          </button>
+    </form>
+  </section>
+
+  </section>
+
+</section>
+
+ <!-- Modal -->
+ <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-success">
+          <b>{{msgModal}}</b>
         </div>
       </div>
-
-  </form>
-</section>
-</section>
-</section>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+       </div>
+    </div>
+  </div>
+</div>
