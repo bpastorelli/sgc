@@ -9,6 +9,7 @@ import { ResidenciaResponse } from './residencia-response.model';
 import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
 import { PerfilRequestModel } from './perfil-request.model';
 import { PermissoesService } from '../_services/permissoes.service';
+import { Funcionalidade } from '../funcionalidades/funcionalidade.model';
 
 @Component({
   selector: 'app-residencias',
@@ -16,8 +17,8 @@ import { PermissoesService } from '../_services/permissoes.service';
 })
 export class ResidenciasComponent implements OnInit {
 
-  public inclusaoVisita: boolean = false;
-  public inclusaoMorador: boolean = false;
+  public inclusaoVisita: any = false;
+  public inclusaoMorador: any = false;
 
   residencias: ResidenciaResponse[] = [];
 
@@ -30,6 +31,7 @@ export class ResidenciasComponent implements OnInit {
 
   perfis = {} as PerfilFuncionalidade[];
   perfilVisita = {} as PerfilFuncionalidade;
+  perfilMorador = {} as PerfilFuncionalidade;
 
   title = "Cadastro de Residências";
 
@@ -43,10 +45,8 @@ export class ResidenciasComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.authenticationService.currentUserValue){
-      this.getAcessoVisita();
-      this.getAcessoMorador();
-      this.getResidencias();
+    if(this.authenticationService.currentUserValue){  
+      this.getAcessoMorador('3','7');
     }else{
       this.router.navigate(['/login']);
     }
@@ -76,58 +76,54 @@ export class ResidenciasComponent implements OnInit {
         this.erros = err['erros'];
       }
     );
-    return this.residencias;
 
   }
 
-  getAcessoVisita() : boolean{
+  getAcessoVisita(modulo: string, funcionalidade: string){
 
     let modulos: string[] = [];
     let funcionalidades: string[] = [];
-    let value: boolean = false;
 
-    this.inclusaoVisita = false;
-
-    modulos.push('6');
-    funcionalidades.push('14');
+    modulos.push(modulo);
+    funcionalidades.push(funcionalidade);
 
     this.permissaoService.getPermissao(modulos, funcionalidades)
       .subscribe(
         data =>{
             if(data.length > 0){
               this.inclusaoVisita = data[0].inclusao;
+            }else{
+              this.inclusaoVisita = false;
             }
+            this.getResidencias();
         }, err=>{
           console.log(err['erros']);
         }
       );
 
-      return value;
-
   }
 
-  getAcessoMorador() : boolean{
+  getAcessoMorador(modulo: string, funcionalidade: string){
 
     let modulos: string[] = [];
     let funcionalidades: string[] = [];
-    let value: boolean = false;
 
-    this.inclusaoMorador = false;
-
-    modulos.push('3');
-    funcionalidades.push('7');
+    modulos.push(modulo);
+    funcionalidades.push(funcionalidade);
 
     this.permissaoService.getPermissao(modulos, funcionalidades)
       .subscribe(
         data =>{
             if(data.length > 0){
-              this.inclusaoMorador = data[0].inclusao;            }
+              this.inclusaoMorador = data[0].inclusao;            
+            }else{
+              this.inclusaoMorador = false;
+            }
+            this.getAcessoVisita('6','14');
         }, err=>{
           console.log(err['erros']);
         }
       );
-
-      return value;
 
   }
 

@@ -5,9 +5,9 @@ export class PerfilFuncionalidade {
   idFuncionalidade: string;
   nomeFuncionalidade: string;
   pathFuncionalidade: string;
-  acesso: boolean;
-  inclusao: boolean;
-  alteracao: boolean;
-  exclusao: boolean
+  acesso: boolean = false;
+  inclusao: boolean = false;
+  alteracao: boolean = false;
+  exclusao: boolean = false
 
 }
