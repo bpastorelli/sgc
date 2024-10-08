@@ -26,7 +26,7 @@ export class VisitasService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Visita>>(environment.protocol + environment.apiUrl + environment.visita + environment.filtro , {params: queryParams})
+    return this.http.get<Array<Visita>>(environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.visita + environment.filtro , {params: queryParams})
               .pipe(
                 map(response => response));
 
@@ -34,7 +34,7 @@ export class VisitasService extends BaseService {
 
   baixarVisita(id: string): Observable<any>{
 
-    return this.http.put<Visita>(`${environment.protocol + environment.apiUrl + environment.visita + environment.amqp }/encerrar`
+    return this.http.put<Visita>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.visita + environment.amqp }/encerrar`
         , `{ "id": "${id}" }`
         , this.httpOptions)
         .pipe(

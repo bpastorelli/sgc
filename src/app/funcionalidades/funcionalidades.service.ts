@@ -27,7 +27,7 @@ export class FuncionalidadeService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Funcionalidade>>(environment.protocol + environment.apiUrl + environment.access + environment.funcionalidade + environment.filtro, {params: queryParams})
+    return this.http.get<Array<Funcionalidade>>(environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.access + environment.funcionalidade + environment.filtro, {params: queryParams})
       .pipe(
           map(response => response));
 
@@ -35,7 +35,7 @@ export class FuncionalidadeService extends BaseService {
 
   putFuncionaliade(id: number, funcionalidade: FuncionalidadeRequest){
 
-    return this.http.put<Funcionalidade>(`${environment.protocol + environment.apiUrl}/access/funcionalidade/alterar?id=${id}`
+    return this.http.put<Funcionalidade>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/access/funcionalidade/alterar?id=${id}`
       , JSON.stringify(funcionalidade)
       , this.httpOptions)
       .pipe(
@@ -46,7 +46,7 @@ export class FuncionalidadeService extends BaseService {
 
   postFuncionalidade(funcionalidade: FuncionalidadeRequest){
 
-    return this.http.post<Funcionalidade>(`${environment.protocol + environment.apiUrl}/access/funcionalidade/incluir`
+    return this.http.post<Funcionalidade>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/access/funcionalidade/incluir`
       , JSON.stringify(funcionalidade)
       , this.httpOptions)
       .pipe(

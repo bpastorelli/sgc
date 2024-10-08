@@ -18,7 +18,7 @@ export class VincularMoradorService{
 
   postVinculo(vinculo: VinculoResidencia): Observable<any>{
 
-    return this.http.post<VinculoResidencia>(`${environment.apiUrl}/associados/vinculo-residencia/amqp/vincular`
+    return this.http.post<VinculoResidencia>(`${environment.urlCloud + environment.urlSgcBackend}/associados/vinculo-residencia/amqp/vincular`
         , JSON.stringify(vinculo)
         , this.httpOptions)
         .pipe(

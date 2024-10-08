@@ -20,6 +20,8 @@ export const environment = {
   visita: '/visita',
   contribuicao: '/contribuicao', 
   veiculo: '/veiculo',
-  apiUrl: 'ec2-15-229-187-241.sa-east-1.compute.amazonaws.com:9090/sgc',
+  urlCloud: 'ec2-15-229-187-241.sa-east-1.compute.amazonaws.com',
+  urlSgcBackend: ':9090/sgc',
+  urlResidenciaMs: ':9091/sgc',
   apiUrlCep: 'https://viacep.com.br/ws'
 };

@@ -21,8 +21,8 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   public loading: boolean;
 
-  subscription!: Subscription;
-  everyFiveSeconds: Observable<number> = timer(0, 5000);
+  private subscription!: Subscription;
+  private everyFiveSeconds: Observable<number> = timer(0, 5000);
 
   request: VisitasFilterModel;
   public visita: Visita;
@@ -65,8 +65,6 @@ export class VisitasComponent implements OnInit, OnDestroy  {
   ngOnInit() {
 
     this.loading = false;
-
-    this.ngOnDestroy();
 
     let modulos: string[] = [];
     let funcionalidades: string[] = [];

@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ResidenciaService extends BaseService {
 
-  private residenciaUrl = environment.protocol + environment.apiUrl + environment.residenciaUrl;
+  private residenciaUrl = environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.residenciaUrl;
 
   constructor(private http: HttpClient) {
     super();
