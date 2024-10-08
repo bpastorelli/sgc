@@ -38,7 +38,7 @@ export class ContribuicoesService extends BaseService  {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Contribuicao>>(environment.protocol + environment.apiUrl + environment.contribuicao + environment.filtro , {params: queryParams})
+    return this.http.get<Array<Contribuicao>>(environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.contribuicao + environment.filtro , {params: queryParams})
               .pipe(
                 map(response => response));
 
@@ -46,7 +46,7 @@ export class ContribuicoesService extends BaseService  {
 
   getContribuicoesPorUsuario(moradorId: number): Observable<Contribuicao[]> {
 
-    return this.http.get<Contribuicao[]>(`${environment.apiUrl}/associados/lancamento/filtroPorDatas?dataInicio=&dataFim=&moradorId=${moradorId}&pag=0&ord=dataPagamento&dir=DESC&qtdePorPagina=100000000`)
+    return this.http.get<Contribuicao[]>(`${environment.urlCloud + environment.urlSgcBackend}/associados/lancamento/filtroPorDatas?dataInicio=&dataFim=&moradorId=${moradorId}&pag=0&ord=dataPagamento&dir=DESC&qtdePorPagina=100000000`)
 
   }
 
