@@ -39,7 +39,7 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
 
-        return this.http.post<any>(`${environment.protocol + environment.apiUrl + environment.token}`, { "email": username, "senha": password }, this.httpOptions)
+        return this.http.post<any>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.token}`, { "email": username, "senha": password }, this.httpOptions)
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user.token));
@@ -50,7 +50,7 @@ export class AuthenticationService {
     }
 
     alterarSenha(id: number, password: Password){
-        return this.http.post<any>(`${environment.protocol + environment.apiUrl}/token/alterarSenha?id=${id}`
+        return this.http.post<any>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/token/alterarSenha?id=${id}`
           , JSON.stringify(password)
           , this.httpOptions)
         .pipe(
@@ -61,14 +61,14 @@ export class AuthenticationService {
     acessosModulos(id: string, acesso: boolean) : Observable<AcessoModulo[]> {
 
       if(id.toString() != 'undefined'){
-        return this.http.get<AcessoModulo[]>(`${environment.protocol + environment.apiUrl}/access/acessoModulo/filtro?idUsuario=${id}&acesso=${acesso}&content=true&size=100000&sort=nomeFuncionalidade&page=0&direction=DESC`)
+        return this.http.get<AcessoModulo[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/access/acessoModulo/filtro?idUsuario=${id}&acesso=${acesso}&content=true&size=100000&sort=nomeFuncionalidade&page=0&direction=DESC`)
       }
     }
 
     acessosFuncionalidades(id: string, idModulo: string, acesso: boolean) : Observable<AcessoFuncionalidade[]> {
 
       if(id.toString() != 'undefined' || idModulo.toString() != 'undefined'){
-        return this.http.get<AcessoFuncionalidade[]>(`${environment.protocol + environment.apiUrl}/access/acessoFuncionalidade/filtro?id=${id}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=1000000`)
+        return this.http.get<AcessoFuncionalidade[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/access/acessoFuncionalidade/filtro?id=${id}&idModulo=${idModulo}&acesso=${acesso}&pag=0&ord=id&dir=ASC&size=1000000`)
       }
     }
 
