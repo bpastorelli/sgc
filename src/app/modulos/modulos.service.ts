@@ -27,7 +27,7 @@ export class ModulosService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Modulo>>(environment.protocol + environment.apiUrl + environment.access + environment.modulo + environment.filtro, {params: queryParams})
+    return this.http.get<Array<Modulo>>(environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.access + environment.modulo + environment.filtro, {params: queryParams})
       .pipe(
           map(response => response));
 
@@ -35,7 +35,7 @@ export class ModulosService extends BaseService {
 
   putModulo(modulo: Modulo, id: number){
 
-    return this.http.put<Modulo>(`${environment.protocol + environment.apiUrl + environment.access + environment.modulo}/alterar?id=${id}`
+    return this.http.put<Modulo>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.access + environment.modulo}/alterar?id=${id}`
       , JSON.stringify(modulo)
       , this.httpOptions)
       .pipe(
@@ -55,7 +55,7 @@ export class ModulosService extends BaseService {
 
   postModulos(modulos: Modulo[]){
 
-    return this.http.post<Modulo[]>(`${environment.protocol + environment.apiUrl + environment.access}/modulo/incluirEmMassa`
+    return this.http.post<Modulo[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.access}/modulo/incluirEmMassa`
       , JSON.stringify(modulos)
       , this.httpOptions)
       .pipe(
