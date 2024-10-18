@@ -7,7 +7,7 @@ export const environment = {
   residenciaUrl: '/residencia',
   filtro: '/filtro',
   token: '/token',
-  alterar: '/alterar',
+  alterar: '/amqp/alterar',
   novo: '/amqp/novo',
   nova: '/nova',
   processo: '/amqp/processo',
