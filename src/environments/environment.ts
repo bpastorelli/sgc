@@ -13,7 +13,7 @@ export const environment = {
   token: '/token',
   alterar: '/amqp/alterar',
   novo: '/amqp/novo',
-  nova: '/nova',
+  nova: '/amqp/nova',
   processo: '/amqp/processo',
   perfil: '/perfil',
   modulo: '/modulo',
