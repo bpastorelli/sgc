@@ -16,7 +16,7 @@ export class MoradorService extends BaseService {
 
 moradorRequest: MoradoresFilterModel;
 
-private moradorUrl = environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.moradorUrl;
+private moradorUrl = environment.protocol + environment.urlCloud + environment.urlMoradorMs + environment.moradorUrl;
 
   constructor(private http: HttpClient) {
     super();
@@ -24,7 +24,7 @@ private moradorUrl = environment.protocol + environment.urlCloud + environment.u
 
   postMorador(morador: Morador): Observable<any> {
 
-    return this.http.post<Morador>(`${environment.urlCloud + environment.urlSgcBackend}/associados/morador/novo`
+    return this.http.post<Morador>(`${environment.urlCloud + environment.urlMoradorMs}/associados/morador/novo`
         , JSON.stringify(morador)
         , this.httpOptions)
         .pipe(
@@ -95,7 +95,7 @@ private moradorUrl = environment.protocol + environment.urlCloud + environment.u
 
   getResidenciasVinculadas(moradorId: string): Observable<ResidenciaResponse[]>{
 
-    return this.http.get<ResidenciaResponse[]>(`${environment.urlCloud + environment.urlSgcBackend}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
+    return this.http.get<ResidenciaResponse[]>(`${environment.urlCloud + environment.urlMoradorMs}/associados/vinculo-residencia/residencias/morador/${moradorId}`)
 
   }
 
