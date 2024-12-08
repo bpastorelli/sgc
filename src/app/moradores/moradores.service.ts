@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class MoradoresService extends BaseService {
 
-  private moradoresUrl: string = environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.moradorUrl + environment.filtro;
+  private moradoresUrl: string = environment.protocol + environment.urlCloud + environment.urlMoradorMs + environment.moradorUrl + environment.filtro;
 
   constructor(private http: HttpClient){
     super();
