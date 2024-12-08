@@ -26,6 +26,7 @@ export const environment = {
   veiculo: '/veiculo', 
   urlCloud: 'ec2-15-229-187-241.sa-east-1.compute.amazonaws.com',
   urlSgcBackend: ':9090/sgc',
+  urlMoradorMs: ':9094/sgc',
   urlResidenciaMs: ':9091/sgc',
   apiUrlCep: `https://viacep.com.br/ws`
 };
