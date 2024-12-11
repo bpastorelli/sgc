@@ -13,6 +13,7 @@ export class ResidenciasFilterModel{
   page: number = 0;
   size: number = 1000000;
   direction: string;
+  detalhaMorador: boolean;
   guide: string;
 
 }

@@ -149,6 +149,7 @@ export class ResidenciaComponent implements OnInit {
   getResidenciaById(codigo: string) {
 
     this.requestFilterDto = new ResidenciasFilterModel();
+    this.setCamposDefault(this.requestFilterDto);
     this.residencias = [];
 
     if(codigo)
@@ -173,6 +174,14 @@ export class ResidenciaComponent implements OnInit {
         }
     );
     return this.residencias;
+
+  }
+
+  setCamposDefault(request: ResidenciasFilterModel): ResidenciasFilterModel{
+
+    request.detalhaMorador = true;
+
+    return request;
 
   }
 
