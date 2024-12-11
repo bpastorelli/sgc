@@ -63,7 +63,7 @@ export const ROUTES: Routes = [
   { path: 'modulo/:acao', component: ModuloComponent},
   { path: 'modulos', component: ModulosComponent},
   { path: 'modulos/:descricao', component: ModulosComponent},
-  { path: 'acessoFuncionalidade/create', component: AcessosFuncionalidadesComponent },
+  { path: 'acessofuncionalidade/create', component: AcessosFuncionalidadesComponent },
   { path: 'acessomodulo/create', component: AcessosModulosComponent },
   { path: 'funcionalidades', component: FuncionalidadesComponent},
   { path: 'funcionalidade/:codigo', component: FuncionalidadeComponent},
