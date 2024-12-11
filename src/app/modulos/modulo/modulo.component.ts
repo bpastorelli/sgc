@@ -60,8 +60,8 @@ export class ModuloComponent implements OnInit {
     if(this.authenticationService.currentUserValue){
       if(this.acao != "create" && this.acao != "novo"){
 
-          modulos.push('1');
-          funcionalidades.push('3','5');
+          modulos.push('1'); //Módulo de Administracao
+          funcionalidades.push('3','5'); //Consultar Módulos e Cadastrar Módulo
 
           this.create = false;
           this.getModuloById(this.codigo);
