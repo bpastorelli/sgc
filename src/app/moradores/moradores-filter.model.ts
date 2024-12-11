@@ -11,6 +11,7 @@ export class MoradoresFilterModel{
   sort?: string;
   page?: number;
   size?: number;
+  detalhaResidencia? : Boolean;
   direction?: string;
 
 }
