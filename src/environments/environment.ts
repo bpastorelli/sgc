@@ -28,6 +28,7 @@ export const environment = {
   urlSgcBackend: ':8080/sgc',
   urlMoradorMs: ':8084/sgc',
   urlResidenciaMs: ':8081/sgc',
+  urlVisitaMs: ':8083/visita-ms',
   apiUrlCep: `https://viacep.com.br/ws`
 };
 
