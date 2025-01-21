@@ -60,14 +60,14 @@ jobs:
 
     - name: Fill in the new image ID sgc_angular in the Amazon ECS task definition
       id: task-def-sgc-angular
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      uses: aws-actions/amazon-ecs-render-task-definition@v2
       with:
         task-definition: task-definition.json
         container-name: ${{ secrets.CONTAINER_NAME_ANGULAR }}
         image: ${{ secrets.IMAGE_REPO_URL_ANGULAR }}:latest
 
     - name: Deploy Amazon ECS task definition sgc_angular
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
       with:
         task-definition: ${{ steps.task-def-sgc-angular.outputs.task-definition }}
         service: ${{ secrets.SERVICE_NAME_ANGULAR }}
