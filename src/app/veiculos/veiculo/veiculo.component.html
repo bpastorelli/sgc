@@ -212,7 +212,7 @@
           <div>
             <div class="row">
               <div class="col-xs-12">
-                <button class="pointer" *ngIf="perfil[0].inclusao" (click)="postVeiculoAmqp(formCreate.value)" class="btn btn-success pull-right"
+                <button class="pointer" *ngIf="perfil[0].inclusao" (click)="postVeiculo(formCreate.value)" class="btn btn-success pull-right"
                   [disabled]="!formCreate.valid"><i></i> Salvar
                 </button>
                 <button (click)="cancelar()" class="btn btn-primary pull-right"><i></i> Cancelar
@@ -365,37 +365,27 @@
   
     </section>
 
- <!--Fim da Content-->
- </section>
+<!--Fim da Content-->
+</section>
 
-   <!-- Modal -->
-   <div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="alert alert-success">
-            <b>{{msgModal}}</b>
-          </div>
-        </div>
-        <div class="modal-footer" >
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-         </div>
+<!-- Modal -->
+<div class="modal fade" id="customModal1" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <div class="alert alert-success">
+          <b>{{msgModal}}</b>
+        </div>
+      </div>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
+</div>

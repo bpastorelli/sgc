@@ -73,7 +73,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     funcionalidades.push('14');
 
     if(this.authenticationService.currentUserValue){
-        this.ordenar = "dataEntrada";
+        this.ordenar = "nome";
         this.direction = 'DESC';
         this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.ordenar, this.direction);
         this.permissao.getPermissao(modulos, funcionalidades)
