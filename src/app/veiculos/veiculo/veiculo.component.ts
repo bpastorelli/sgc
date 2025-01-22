@@ -59,6 +59,7 @@ export class VeiculoComponent implements OnInit {
         funcionalidades.push('16');
 
         this.create = false;
+
         if(this.ticket){
           this.getVeiculoByTicket(this.ticket);
         }else
@@ -92,31 +93,6 @@ export class VeiculoComponent implements OnInit {
 
   }
 
-  postVeiculo(veiculo: Veiculo){
-
-    let count: number = 0;
-
-    if(this.codigo != "create")
-      veiculo.ticketVisitante = this.codigo;
-
-    this.veiculosService.postVeiculo(veiculo)
-      .subscribe(async data => {
-        this.ticket = data.ticket;
-        this.acao = 'view';
-        this.open('customModal1');
-
-        do{
-          this.getVeiculoByTicket(this.ticket);
-          await delay(1000);
-          count++;
-        }
-        while(this.veiculos.length === 0 && count < 4);
-    },err=>{
-        this.erros = err['erros'];
-    });
-
-  }
-
   editVeiculo(id: string){
 
     this.acao = 'edit';
@@ -124,9 +100,9 @@ export class VeiculoComponent implements OnInit {
 
   }
 
-  postVeiculoAmqp(veiculo: Veiculo){
+  postVeiculo(veiculo: Veiculo){
 
-    this.msgModal = "Registro inserido com sucesso!";
+    this.msgModal = "Veiculo cadastrado com sucesso!";
 
     if(this.codigo != "create")
       veiculo.ticketVisitante = this.codigo;
@@ -137,7 +113,7 @@ export class VeiculoComponent implements OnInit {
         this.acao = 'view';
         this.open('customModal1');
         this.getVeiculoByTicket(this.ticket);
-        this.router.navigate(['/viculo/view', this.veiculos[0].id]);
+        this.router.navigate(['/viculo/view/', this.veiculos[0].id]);
     },err=>{
         this.erros = err['erros'];
     });
@@ -210,6 +186,7 @@ export class VeiculoComponent implements OnInit {
 
     this.erros = null;
     $('#' + id).modal('show');
+
   }
 
   close(id: string) {
