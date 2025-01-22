@@ -26,7 +26,7 @@ export class VeiculosService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Veiculo>>(environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.veiculo + environment.filtro , {params: queryParams})
+    return this.http.get<Array<Veiculo>>(environment.protocol + environment.urlCloud + environment.urlVisitaMs + environment.veiculo + environment.filtro , {params: queryParams})
               .pipe(
                 map(response => response));
 
@@ -34,7 +34,7 @@ export class VeiculosService extends BaseService {
 
   postVeiculo(veiculo: Veiculo): Observable<Veiculo>{
 
-    return this.http.post<Veiculo>(`${environment.urlCloud + environment.urlSgcBackend}/associados/veiculo/novo`
+    return this.http.post<Veiculo>(`${environment.urlCloud + environment.urlVisitaMs}/associados/veiculo/novo`
         , JSON.stringify(veiculo)
         , this.httpOptions)
         .pipe(
@@ -45,7 +45,7 @@ export class VeiculosService extends BaseService {
 
   postVeiculoAmqp(veiculo: Veiculo): Observable<any>{
 
-    return this.http.post<Veiculo>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/veiculo/amqp/novo`
+    return this.http.post<Veiculo>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/veiculo/amqp/novo`
         , JSON.stringify(veiculo)
         , this.httpOptions)
         .pipe(
@@ -56,7 +56,7 @@ export class VeiculosService extends BaseService {
 
   putVeiculo(veiculo: Veiculo, id: string): Observable<any>{
 
-    return this.http.put<Veiculo>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/veiculo/amqp/alterar?id=${id}`
+    return this.http.put<Veiculo>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/veiculo/amqp/alterar?id=${id}`
         , JSON.stringify(veiculo)
         , { headers: this.httpOptions.headers })
         .pipe(
@@ -67,32 +67,32 @@ export class VeiculosService extends BaseService {
 
   getVeiculoById(id: string): Observable<Veiculo[]>{
 
-      return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/veiculo/filtro?id=${id}&content=true`);
+      return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/veiculo/filtro?id=${id}&content=true`);
 
   }
 
   getVeiculoByTicket(ticket: string): Observable<Veiculo[]>{
 
-    return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/veiculo/filtro?guide=${ticket}&content=true`);
+    return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/veiculo/filtro?guide=${ticket}&content=true`);
 
   }
 
   getVeiculoByPlaca(placa: string): Observable<Array<Veiculo>>{
 
       placa = placa.replace("-", "");
-      return this.http.get<Array<Veiculo>>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/veiculo/filtro?placa=${placa}&content=true`);
+      return this.http.get<Array<Veiculo>>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/veiculo/filtro?placa=${placa}&content=true`);
 
   }
 
   getVeiculosByVisitanteId(id: string): Observable<Veiculo[]>{
 
-    return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/associados/veiculo/vinculo/visitante/${id}`)
+    return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/associados/veiculo/vinculo/visitante/${id}`)
 
   }
 
   getVeiculosByVisitanteRg(rg: string): Observable<Veiculo[]>{
 
-    return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend}/associados/veiculo/vinculo/visitante/rg/${rg}`)
+    return this.http.get<Veiculo[]>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/associados/veiculo/vinculo/visitante/rg/${rg}`)
 
   }
 
