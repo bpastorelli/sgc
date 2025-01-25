@@ -7,6 +7,7 @@ import { BaseService } from "src/app/_services/base.service";
 import { environment } from "src/environments/environment";
 import { VisitasFilterModel } from "./visitas-filter.model";
 import { Visita } from "./visitas.model";
+import { VisitasResponse } from "./visitas-response.model";
 
 @Injectable()
 export class VisitasService extends BaseService {
@@ -17,7 +18,7 @@ export class VisitasService extends BaseService {
     super();
   }
 
-  getVisitas(request: VisitasFilterModel): Observable<Array<Visita>> {
+  getVisitas(request: VisitasFilterModel): Observable<VisitasResponse> {
 
     request = this.setCamposDefault(request);
 
@@ -26,7 +27,7 @@ export class VisitasService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Visita>>(environment.protocol + environment.urlCloud + environment.urlVisitaMs + environment.visita + environment.filtro , {params: queryParams})
+    return this.http.get<VisitasResponse>(environment.protocol + environment.urlCloud + environment.urlVisitaMs + environment.visita + environment.filtro , {params: queryParams})
               .pipe(
                 map(response => response));
 
@@ -45,10 +46,9 @@ export class VisitasService extends BaseService {
 
   setCamposDefault(request: VisitasFilterModel): VisitasFilterModel{
 
-    request.content == null ? request.content = true : request.content;
+    request.content == null ? request.content = false : request.content;
     request.posicao == 2 ? request.posicao = null : request.posicao;
-    request.size == null ? request.size =  1000000 : request.size;
-    request.sort == null ? request.sort = 'nome' : request.sort;
+    request.size == null ? request.size =  20 : request.size;
     request.page == null ? request.page = 0 : request.page;
 
     return request;
