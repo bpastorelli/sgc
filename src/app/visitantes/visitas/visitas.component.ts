@@ -34,7 +34,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     { id: 1, label: "EM ABERTO" },
     { id: 0, label: "ENCERRADAS" }]
 
-  pag : number = 1 ;
+  pag : number = 1;
   contador : Number = properties.itemsPerPage;
   posicaoDefault: number = 1;
   errorMessage;
