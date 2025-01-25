@@ -53,7 +53,7 @@
     </div>
 
     <div class="col-sm-1 col-xs-2">
-      <button (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, ord.value, dir.value)" class="btn btn-success pull-right"><i></i> Pesquisar
+      <button (click)="getVisitas(nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, posicaoPesquisa.value, 0, ord.value, dir.value)" class="btn btn-success pull-right"><i></i> Pesquisar
       </button>
     </div>
 
@@ -62,20 +62,20 @@
           <thead>
             <tr>
                 <th style="width: 2%;" scope="col"></th>
-                <th style="width: 20%;" scope="col" [appSort]="visitas" data-order="desc" data-name="nome"><div class="pointer" >Visitante</div></th>
+                <th style="width: 20%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="nome"><div class="pointer" >Visitante</div></th>
                 <th style="width: 7%;" scope="col">RG</th>
-                <th style="width: 7%;" scope="col" [appSort]="visitas" data-order="desc" data-name="placa" ><div class="pointer" >Placa</div></th>
-                <th style="width: 6,5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="dataEntrada"><div class="pointer" >Data Entrada</div></th>
-                <th style="width: 6,5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="horaEntrada"><div class="pointer" >Hora Entrada</div></th>
-                <th style="width: 6,5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="dataSaida"><div class="pointer" >Data Saída</div></th>
-                <th style="width: 6,5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="horaSaida"><div class="pointer" >Hora Saída</div></th>
-                <th style="width: 22%;"  scope="col" [appSort]="visitas" data-order="desc" data-name="endereco"><div class="pointer"  >Endereço de Visita</div></th>
-                <th style="width: 5%;" scope="col" [appSort]="visitas" data-order="desc" data-name="numero"><div class="pointer" >Número</div></th>
+                <th style="width: 7%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="placa" ><div class="pointer" >Placa</div></th>
+                <th style="width: 6,5%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="dataEntrada"><div class="pointer" >Data Entrada</div></th>
+                <th style="width: 6,5%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="horaEntrada"><div class="pointer" >Hora Entrada</div></th>
+                <th style="width: 6,5%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="dataSaida"><div class="pointer" >Data Saída</div></th>
+                <th style="width: 6,5%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="horaSaida"><div class="pointer" >Hora Saída</div></th>
+                <th style="width: 22%;"  scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="endereco"><div class="pointer"  >Endereço de Visita</div></th>
+                <th style="width: 5%;" scope="col" [appSort]="visitas.visitas" data-order="desc" data-name="numero"><div class="pointer" >Número</div></th>
                 <th *ngIf="perfil[0].alteracao" style="width: 6%;" scope="col">Encerrar</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let visita of visitas | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr *ngFor="let visita of visitas.visitas | paginate: { itemsPerPage: contador, currentPage: pag , totalItems: totalItems }">
               <td class="textCenter" ><img *ngIf="visita.posicao == 0" class="img" src="assets/img/balls/verde.png">
                                       <img *ngIf="visita.posicao != 0" class="img" src="assets/img/balls/amarelo.png"></td>
               <td ><div>{{ visita.nome.toUpperCase() }}</div></td>
@@ -127,7 +127,7 @@
       </div>
       <div class="modal-footer" >
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value)">Prosseguir</button>
+        <button type="button" class="btn btn-primary" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, 0)">Prosseguir</button>
        </div>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { Subscription, timer } from 'rxjs';
 import { Observable } from 'rxjs-compat';
 import { PermissoesService } from 'src/app/_services/permissoes.service';
 import { PerfilFuncionalidade } from 'src/app/acessos-funcionalidades/acesso-funcionalidade.model';
+import { VisitasResponse } from './visitas-response.model';
 
 declare var $: any;
 
@@ -26,13 +27,14 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   request: VisitasFilterModel;
   public visita: Visita;
-  public visitas: Visita[];
+  public visitas: VisitasResponse;
+  public totalItems: number;
   public situacaoVisita = [
     { id: 2, label: "TODAS" },
     { id: 1, label: "EM ABERTO" },
     { id: 0, label: "ENCERRADAS" }]
 
-  pag : Number = 1 ;
+  pag : number = 1 ;
   contador : Number = properties.itemsPerPage;
   posicaoDefault: number = 1;
   errorMessage;
@@ -45,6 +47,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
   cpf: string; 
   dataInicio: string; 
   dataFim: string;
+  page: number;
 
   title = "Cadastro de Visitas";
 
@@ -72,10 +75,13 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     modulos.push('6');
     funcionalidades.push('14');
 
+    if (this.page === null)
+      this.page = 0;
+
     if(this.authenticationService.currentUserValue){
         this.ordenar = "nome";
         this.direction = 'DESC';
-        this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.ordenar, this.direction);
+        this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.page, this.ordenar, this.direction);
         this.permissao.getPermissao(modulos, funcionalidades)
         .subscribe(
           data=>{
@@ -90,14 +96,14 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   }
 
-  baixarVisita(id: string, nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string){
+  baixarVisita(id: string, nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, page: number){
 
     this.loading = true;
     this.visitasService.baixarVisita(id)
       .subscribe(data => {
         this.openModal('customModal2');
         this.subscription = this.everyFiveSeconds.subscribe(() => {
-          this.getVisitas(this.nome, this.rg, this.cpf, this.dataInicio, this.dataFim, this.posicaoDefault, this.ordenar, this.direction);
+          this.getVisitas(this.nome, this.rg, this.cpf, this.dataInicio, this.dataFim, this.posicaoDefault, page, this.ordenar, this.direction);
         });
       },err=>{
         this.erros = err['erros'];
@@ -108,7 +114,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   }
 
-  getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, ord: string, dir: string){
+  getVisitas(nome: string, rg: string, cpf: string, dataInicio: string, dataFim: string, posicao: number, page: number, ord: string, dir: string){
 
     this.erros = [];
     this.loading = false;
@@ -117,6 +123,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     this.cpf = cpf;
     this.dataInicio = dataInicio;
     this.dataFim = dataFim;
+    this.page = page;
     this.posicaoDefault = posicao;
 
     this.request = new VisitasFilterModel();
@@ -139,13 +146,14 @@ export class VisitasComponent implements OnInit, OnDestroy  {
     if(posicao != 2)
       this.request.posicao = posicao;
 
-    if(ord)
-      this.request.sort = ord;
+    if(page != null )
+      this.request.page = page;
 
     this.visitasService.getVisitas(this.request)
     .subscribe(
       data=>{
           this.visitas = data;
+          this.totalItems = this.visitas.paginacao.totalItems;
         }, err=>{
           this.erros = err['erros'];
         }
@@ -189,6 +197,8 @@ export class VisitasComponent implements OnInit, OnDestroy  {
 
   pageChanged(event){
     this.pag = event;
+
+    this.getVisitas(this.nome, this.rg, null, this.dataInicio, this.dataFim, this.posicaoDefault, this.pag, null, null);
   }
 
   open(id: string, visita: Visita) {
