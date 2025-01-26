@@ -49,7 +49,7 @@ export class VisitasService extends BaseService {
     request.content == null ? request.content = false : request.content;
     request.posicao == 2 ? request.posicao = null : request.posicao;
     request.size == null ? request.size =  20 : request.size;
-    request.page == null ? request.page = 0 : request.page;
+    request.page == null ? request.page = 1 : request.page;
 
     return request;
 

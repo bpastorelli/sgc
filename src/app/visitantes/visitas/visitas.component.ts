@@ -79,9 +79,7 @@ export class VisitasComponent implements OnInit, OnDestroy  {
       this.pag = 1;
 
     if(this.authenticationService.currentUserValue){
-        this.ordenar = "nome";
-        this.direction = 'DESC';
-        this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.pag, this.ordenar, this.direction);
+        this.getVisitas(null, null, null, null, null, this.posicaoDefault, this.pag, null, null);
         this.permissao.getPermissao(modulos, funcionalidades)
         .subscribe(
           data=>{
