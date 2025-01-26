@@ -55,7 +55,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let morador of moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr *ngFor="let morador of moradores.moradores | paginate: { itemsPerPage: contador, currentPage: pag, totalItems: totalItems }">
               <td style="width: 1%" class="textCenter" ><img *ngIf="morador.associado == 1" class="img" src="assets/img/balls/verde.png">
                                       <img *ngIf="morador.associado != 1" class="img" src="assets/img/balls/vermelho.png"></td>
               <td style="width: 6%" class="textCenter"><div class="pointer" (click)="getIdMorador(morador.id)">{{ formatId(morador.id, 6) }}</div></td>

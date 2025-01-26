@@ -10,6 +10,7 @@ import { MoradoresService } from './moradores.service';
 import { AuthenticationService } from './../_services/authentication.service';
 import { PermissoesService } from '../_services/permissoes.service';
 import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
+import { MoradoresResponse } from './moradores-response.model';
 
 @Component({
   selector: 'app-moradores',
@@ -17,12 +18,16 @@ import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funciona
 })
 export class MoradoresComponent implements OnInit {
 
-  @Input() moradores: Moradores[]
+  @Input() moradores: MoradoresResponse;
 
   public id: string;
-
-  pag : Number = 1;
-  contador : Number = properties.itemsPerPage;
+  public nome: string; 
+  public rg: string; 
+  public cpf: string;
+  public email: string;
+  public pag : number = 1;
+  public contador : Number = properties.itemsPerPage;
+  public totalItems: number;
 
   formGroup: any;
 
@@ -56,7 +61,7 @@ export class MoradoresComponent implements OnInit {
 
   }
 
-  getMoradores(nome?: string, rg?: string, cpf?: string, email?: string){
+  getMoradores(nome?: string, rg?: string, cpf?: string, email?: string, page?: number){
 
     this.requestDto = new MoradoresFilterModel();
 
@@ -72,24 +77,14 @@ export class MoradoresComponent implements OnInit {
     if(email)
       this.requestDto.email = email;
 
-    //let modulos: string[] = [];
-    //let funcionalidades: string[] = [];
-
-    //modulos.push('4');
-    //funcionalidades.push('9');
+    if(page)
+      this.requestDto.page = page;
 
     return this.moradoresService.getMoradores(this.requestDto)
       .subscribe(
         data=>{
           this.moradores = data;
-          /*this.permissao.getPermissao(modulos,funcionalidades)
-          subscribe(
-            data=>{
-              this.perfil = data;
-            }, err=>{
-              console.log(err['erros']);
-            }
-          );*/
+          this.totalItems = this.moradores.paginacao.totalItems;
         }, err=>{
           this.erros = err['erros'];
         }
@@ -128,6 +123,9 @@ export class MoradoresComponent implements OnInit {
     if(item.email)
       this.requestDto.email = item.email;
 
+    if(item.page != null )
+      this.request.page = item.page;
+
   }
 
   getIdMorador(codigo: string){
@@ -144,6 +142,8 @@ export class MoradoresComponent implements OnInit {
 
   pageChanged(event){
     this.pag = event;
+
+    this.getMoradores(this.nome, this.rg, this.cpf, this.email, this.pag);
   }
 
   formatId (n, len) {

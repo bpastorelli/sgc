@@ -16,6 +16,7 @@ import { AcessoFuncionalidadeService } from '../acessos-funcionalidades/acessos-
 import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
 import { PerfilFuncionalidadeRequest } from '../acessos-funcionalidades/acesso-funcionalidades-request.model';
 import { AcessoFuncionalidadeFilter } from '../acessos-funcionalidades/acesso-funcionalidade-filter.model';
+import { MoradoresResponse } from '../moradores/moradores-response.model';
 
 @Component({
   selector: 'app-acessos-modulos',
@@ -38,7 +39,7 @@ export class AcessosModulosComponent implements OnInit {
   myFormModal: FormGroup;
 
   modulos: Modulo[] = [];
-  usuarios: Moradores[] = [];
+  usuarios: MoradoresResponse;
   selecionados: AcessosModulos[] = [];
   perfilModulos: AcessosModulos[] = [];
   requestList: AcessosModulosRequest[] = [];
@@ -78,9 +79,9 @@ export class AcessosModulosComponent implements OnInit {
       .subscribe(
         data=>{
           this.usuarios = data;
-          this.usuarios.forEach((p, index) => {
+          this.usuarios.moradores.forEach((p, index) => {
             if(Number(p.id) == Number(JSON.parse(localStorage.getItem('idUsuario'))))
-              this.usuarios.splice(index, 1);
+              this.usuarios.moradores.splice(index, 1);
           });
         }, err=>{
            this.erros = err['erros'];
