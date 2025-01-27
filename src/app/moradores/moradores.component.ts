@@ -54,7 +54,7 @@ export class MoradoresComponent implements OnInit {
 
     this.pag = parseInt(this.route.snapshot.paramMap.get('page'));
 
-    if(this.pag === null)
+    if(this.pag === null || isNaN(this.pag))
       this.pag = 1;
 
     if(this.authenticationService.currentUserValue){

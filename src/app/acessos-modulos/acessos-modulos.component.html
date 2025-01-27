@@ -18,7 +18,7 @@
                 class="form-control"
                 ngModel="0">
                 <option [value]="0"> SELECIONE </option>
-                <option *ngFor="let item of usuarios" [value]="item.id" ngModel="0">{{ item.nome.toUpperCase() }}</option>
+                <option *ngFor="let item of usuarios.moradores" [value]="item.id" ngModel="0">{{ item.nome.toUpperCase() }}</option>
             </select>
           </div>
 
