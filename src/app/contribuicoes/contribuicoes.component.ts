@@ -9,6 +9,7 @@ import { Moradores } from './../moradores/moradores.model';
 import { ErroRegistro } from '../_models/erro-registro';
 import { ContribuicoesFilterModel } from './contribuicoes-filter.model';
 import { MoradoresFilterModel } from '../moradores/moradores-filter.model';
+import { MoradoresResponse } from '../moradores/moradores-response.model';
 
 @Component({
   selector: 'app-contribuicoes',
@@ -23,7 +24,7 @@ export class ContribuicoesComponent implements OnInit {
   dataInicio: string; 
   dataFim: string;
   erros: ErroRegistro[] = [];
-  usuarios: Moradores[] = [];
+  usuarios: MoradoresResponse;
   request: ContribuicoesFilterModel;
 
   requestFilter: MoradoresFilterModel;

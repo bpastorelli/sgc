@@ -23,7 +23,7 @@ export class MoradorComponent implements OnInit {
   acao: string;
   codigo: string
   create: boolean = true
-  pag: Number = 1;
+  pag: string = "1";
   contador: Number = 5;
   situacaoAssociadoDefault: number = 0;
   errorMessage;
@@ -62,12 +62,16 @@ export class MoradorComponent implements OnInit {
       this.acao = this.route.snapshot.paramMap.get('acao');
       this.codigo = this.route.snapshot.paramMap.get('codigo');
       this.ticket = this.route.snapshot.paramMap.get('ticket');
+      this.pag = this.route.snapshot.paramMap.get('page');
 
       let modulos: string[] = [];
       let funcionalidades: string[] = [];
 
       modulos.push('3');
       funcionalidades.push('7');
+
+      if(this.pag === null)
+        this.pag = "1";
 
       if(this.authenticationService.currentUserValue){
         if(this.acao != "create"){
@@ -125,6 +129,7 @@ export class MoradorComponent implements OnInit {
     this.erros = [];
 
     morador.cpf = morador.cpf.replace('.','').replace('-','');
+    this.pag = this.route.snapshot.paramMap.get('page');
 
     this.moradorService.postMoradorAmqp(morador)
       .subscribe(async data => {
@@ -137,7 +142,7 @@ export class MoradorComponent implements OnInit {
           this.acao = 'view';
           this.open('customModal1');
           this.getMoradorByGuide(this.ticket);
-          this.router.navigate(['/morador/view/', this.moradores[0].id]);
+          this.router.navigate(['/morador/'+this.acao+'/'+this.moradores[0].id+'/'+this.pag]);
         }
     },err=>{
         this.erros = err['erros'];
@@ -148,7 +153,8 @@ export class MoradorComponent implements OnInit {
   editMorador(id: string){
 
     this.acao = 'edit';
-    this.router.navigate(['/morador/edit/', id]);
+    this.pag = this.route.snapshot.paramMap.get('page');
+    this.router.navigate(['/morador/'+this.acao+'/'+id+'/'+this.pag]);
 
   }
 
@@ -157,6 +163,8 @@ export class MoradorComponent implements OnInit {
     this.msgModal = "Registro atualizado com sucesso!";
     this.erros = [];
 
+    this.pag = this.route.snapshot.paramMap.get('page');
+
     this.moradorService.putMorador(moradorEdit, id)
       .subscribe(data => {
         this.mor = data;
@@ -164,10 +172,10 @@ export class MoradorComponent implements OnInit {
         if(this.mor.residenciaId != null){
           this.acao = 'view';
           this.open('customModal1');
-          this.router.navigate(['/morador/view/' + id]);
+          this.router.navigate(['/morador/'+this.acao+'/'+id+'/'+this.pag]);
         }
         else
-          this.router.navigate(['/residencia/novo/morador/', this.id]);
+          this.router.navigate(['/residencia/novo/morador/', this.id +'/'+this.pag]);
     },
     (err) =>{
       this.erros = err['erros'];
@@ -184,8 +192,9 @@ export class MoradorComponent implements OnInit {
         this.guide = data.ticket;
         if(this.guide != null && this.possuiResidencia){
           this.acao = 'view';
+          this.pag = this.route.snapshot.paramMap.get('page');
           this.open('customModal1');
-          this.router.navigate(['/morador/view/' + id]);
+          this.router.navigate(['/morador/'+this.acao+'/'+id+'/'+this.pag]);
         }else
           this.router.navigate(['/residencia/novo2/morador/', this.guide]);
     },
@@ -280,7 +289,8 @@ export class MoradorComponent implements OnInit {
 
   cancelar(){
 
-    this.router.navigate(['moradores'])
+    this.pag = this.route.snapshot.paramMap.get('page');
+    this.router.navigate(['moradores/'+this.pag])
 
   }
 

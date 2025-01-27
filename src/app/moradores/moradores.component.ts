@@ -4,12 +4,13 @@ import { MoradoresFilterModel } from './moradores-filter.model';
 import { properties } from './../../properties/properties';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Moradores } from './moradores.model';
 import { MoradoresService } from './moradores.service';
 import { AuthenticationService } from './../_services/authentication.service';
 import { PermissoesService } from '../_services/permissoes.service';
 import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
+import { MoradoresResponse } from './moradores-response.model';
 
 @Component({
   selector: 'app-moradores',
@@ -17,12 +18,16 @@ import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funciona
 })
 export class MoradoresComponent implements OnInit {
 
-  @Input() moradores: Moradores[]
+  @Input() moradores: MoradoresResponse;
 
   public id: string;
-
-  pag : Number = 1;
-  contador : Number = properties.itemsPerPage;
+  public nome: string; 
+  public rg: string; 
+  public cpf: string;
+  public email: string;
+  public pag : number = 1;
+  public contador : Number = properties.itemsPerPage;
+  public totalItems: number;
 
   formGroup: any;
 
@@ -39,6 +44,7 @@ export class MoradoresComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private router: Router,
+      private route: ActivatedRoute,
       private moradoresService: MoradoresService,
       private authenticationService: AuthenticationService,
       private permissao: PermissoesService
@@ -46,17 +52,22 @@ export class MoradoresComponent implements OnInit {
 
   ngOnInit() {
 
+    this.pag = parseInt(this.route.snapshot.paramMap.get('page'));
+
+    if(this.pag === null)
+      this.pag = 1;
+
     if(this.authenticationService.currentUserValue){
         this.loadForm();
-        this.getMoradores();
-        this.router.navigate(['/moradores']);
+        this.getMoradores(this.nome, null, null, null, this.pag);
+        this.router.navigate(['/moradores/' + this.pag]);
     }else{
         this.router.navigate(['/login']);
     }
 
   }
 
-  getMoradores(nome?: string, rg?: string, cpf?: string, email?: string){
+  getMoradores(nome?: string, rg?: string, cpf?: string, email?: string, page?: number){
 
     this.requestDto = new MoradoresFilterModel();
 
@@ -72,24 +83,14 @@ export class MoradoresComponent implements OnInit {
     if(email)
       this.requestDto.email = email;
 
-    //let modulos: string[] = [];
-    //let funcionalidades: string[] = [];
-
-    //modulos.push('4');
-    //funcionalidades.push('9');
+    if(page)
+      this.requestDto.page = page;
 
     return this.moradoresService.getMoradores(this.requestDto)
       .subscribe(
         data=>{
           this.moradores = data;
-          /*this.permissao.getPermissao(modulos,funcionalidades)
-          subscribe(
-            data=>{
-              this.perfil = data;
-            }, err=>{
-              console.log(err['erros']);
-            }
-          );*/
+          this.totalItems = this.moradores.paginacao.totalItems;
         }, err=>{
           this.erros = err['erros'];
         }
@@ -128,22 +129,27 @@ export class MoradoresComponent implements OnInit {
     if(item.email)
       this.requestDto.email = item.email;
 
-  }
-
-  getIdMorador(codigo: string){
-
-    this.router.navigate([`/morador/view/`, codigo])
+    if(item.page != null )
+      this.request.page = item.page;
 
   }
 
-  viewMorador(codigo: string){
+  getIdMorador(codigo: string, page: number){
 
-    this.router.navigate([`/morador/view/`, codigo])
+    this.router.navigate([`/morador/view/`+ codigo +`/` + page])
+
+  }
+
+  viewMorador(codigo: string, page: number){
+
+    this.router.navigate([`/morador/view/`+ codigo +`/` + page])
 
   }
 
   pageChanged(event){
     this.pag = event;
+
+    this.getMoradores(this.nome, this.rg, this.cpf, this.email, this.pag);
   }
 
   formatId (n, len) {

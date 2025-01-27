@@ -9,6 +9,8 @@ import { Morador } from './morador/morador.model';
 import { Params } from '@angular/router';
 import { BaseService } from '../_services/base.service';
 import { map } from 'rxjs/operators';
+import { MoradorResponse } from './morador/morador-response.model';
+import { MoradoresResponse } from './moradores-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class MoradoresService extends BaseService {
@@ -19,7 +21,7 @@ export class MoradoresService extends BaseService {
     super();
   }
 
-  getMoradores(request: MoradoresFilterModel): Observable<Array<Moradores>> {
+  getMoradores(request: MoradoresFilterModel): Observable<MoradoresResponse> {
 
     request = this.setCamposDefault(request);
 
@@ -28,7 +30,7 @@ export class MoradoresService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Moradores>>(this.moradoresUrl, {params: queryParams})
+    return this.http.get<MoradoresResponse>(this.moradoresUrl, {params: queryParams})
     .pipe(
         map(response => response));
 
@@ -36,11 +38,9 @@ export class MoradoresService extends BaseService {
 
   setCamposDefault(request: MoradoresFilterModel): MoradoresFilterModel{
 
-    request.content == null ? request.content = true : request.content;
-    //request.posicao == null ? request.posicao = 1 : request.posicao;
-    request.size == null ? request.size =  1000000 : request.size;
-    request.sort == null ? request.sort = 'nome' : request.sort;
-    request.page == null ? request.page = 0 : request.page;
+    request.content == null ? request.content = false : request.content;
+    request.size == null ? request.size =  20 : request.size;
+    request.page == null ? request.page = 1 : request.page;
 
     return request;
 
