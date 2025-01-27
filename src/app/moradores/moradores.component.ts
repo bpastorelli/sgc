@@ -4,7 +4,7 @@ import { MoradoresFilterModel } from './moradores-filter.model';
 import { properties } from './../../properties/properties';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Moradores } from './moradores.model';
 import { MoradoresService } from './moradores.service';
 import { AuthenticationService } from './../_services/authentication.service';
@@ -44,6 +44,7 @@ export class MoradoresComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private router: Router,
+      private route: ActivatedRoute,
       private moradoresService: MoradoresService,
       private authenticationService: AuthenticationService,
       private permissao: PermissoesService
@@ -51,10 +52,15 @@ export class MoradoresComponent implements OnInit {
 
   ngOnInit() {
 
+    this.pag = parseInt(this.route.snapshot.paramMap.get('page'));
+
+    if(this.pag === null)
+      this.pag = 1;
+
     if(this.authenticationService.currentUserValue){
         this.loadForm();
-        this.getMoradores();
-        this.router.navigate(['/moradores']);
+        this.getMoradores(this.nome, null, null, null, this.pag);
+        this.router.navigate(['/moradores/' + this.pag]);
     }else{
         this.router.navigate(['/login']);
     }
@@ -128,15 +134,15 @@ export class MoradoresComponent implements OnInit {
 
   }
 
-  getIdMorador(codigo: string){
+  getIdMorador(codigo: string, page: number){
 
-    this.router.navigate([`/morador/view/`, codigo])
+    this.router.navigate([`/morador/view/`+ codigo +`/` + page])
 
   }
 
-  viewMorador(codigo: string){
+  viewMorador(codigo: string, page: number){
 
-    this.router.navigate([`/morador/view/`, codigo])
+    this.router.navigate([`/morador/view/`+ codigo +`/` + page])
 
   }
 

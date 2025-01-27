@@ -105,7 +105,7 @@ private moradorUrl = environment.protocol + environment.urlCloud + environment.u
     //request.posicao == null ? request.posicao = 1 : request.posicao;
     request.size == null ? request.size =  1000000 : request.size;
     request.sort == null ? request.sort = 'nome' : request.sort;
-    request.page == null ? request.page = 0 : request.page;
+    request.page == null ? request.page = 1 : request.page;
     request.detalhaResidencia = true;
 
     return request;
