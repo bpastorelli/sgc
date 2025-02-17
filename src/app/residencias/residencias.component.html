@@ -47,7 +47,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let residencia of residencias | paginate: { itemsPerPage: contador, currentPage: pag }">
+            <tr *ngFor="let residencia of residencias.residencias | paginate: { itemsPerPage: contador, currentPage: pag, totalItems: totalItems }">
               <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ formatId(residencia.id, 6) }}</div></td>
               <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.endereco.toUpperCase() }}</div></td>
               <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.numero }}</div></td>

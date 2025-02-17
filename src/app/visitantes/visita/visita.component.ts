@@ -15,6 +15,7 @@ import { ResidenciaResponse } from 'src/app/residencias/residencia-response.mode
 import { VisitanteFilterModel } from '../visitante/visitante-filter.model';
 import { PermissoesService } from 'src/app/_services/permissoes.service';
 import { PerfilFuncionalidade } from 'src/app/acessos-funcionalidades/acesso-funcionalidade.model';
+import { ResidenciasPaginadoResponse } from 'src/app/residencias/residencias-paginado-response.model';
 
 declare var $: any;
 
@@ -53,7 +54,7 @@ export class VisitaComponent implements OnInit {
   public veiculo: Veiculo;
   public veiculosVinculados: Veiculo[];
   public visitantes: Visitante[];
-  public residencias: ResidenciaResponse[];
+  public residencias: ResidenciasPaginadoResponse;
   requestFilterDto: ResidenciasFilterModel;
   requestFilterVisitante: VisitanteFilterModel;
   perfil = {} as PerfilFuncionalidade[];

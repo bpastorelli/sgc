@@ -11,6 +11,7 @@ import { AuthenticationService } from './../../_services/authentication.service'
 import { ResidenciaResponse } from '../residencia-response.model';
 import { PermissoesService } from 'src/app/_services/permissoes.service';
 import { PerfilFuncionalidade } from 'src/app/acessos-funcionalidades/acesso-funcionalidade.model';
+import { ResidenciasPaginadoResponse } from '../residencias-paginado-response.model';
 
 declare var $: any;
 
@@ -37,7 +38,7 @@ export class ResidenciaComponent implements OnInit {
 
   residencia: Residencia;
 
-  residencias: ResidenciaResponse[] = [];
+  residencias: ResidenciasPaginadoResponse;
 
   logradouroResp: string;
   bairroResp: string;
@@ -48,7 +49,7 @@ export class ResidenciaComponent implements OnInit {
   title = 'Cadastro de Residências';
   msgModal: string = '';
 
-  pag : Number = 1;
+  public pag : number = 1;
   contador : Number = 5;
 
   constructor(
@@ -63,6 +64,10 @@ export class ResidenciaComponent implements OnInit {
 
   ngOnInit() {
 
+    this.pag = parseInt(this.route.snapshot.paramMap.get('page'));
+
+    if(this.pag === null || isNaN(this.pag))
+      this.pag = 1;
     this.acao = this.route.snapshot.paramMap.get('acao');
     this.codigo = this.route.snapshot.paramMap.get('codigo');
     this.ticket = this.route.snapshot.paramMap.get('ticket');
@@ -150,7 +155,7 @@ export class ResidenciaComponent implements OnInit {
 
     this.requestFilterDto = new ResidenciasFilterModel();
     this.setCamposDefault(this.requestFilterDto);
-    this.residencias = [];
+    this.residencias = null;
 
     if(codigo)
       this.requestFilterDto.id = codigo;
@@ -159,7 +164,7 @@ export class ResidenciaComponent implements OnInit {
       .subscribe(
         data=>{
           this.residencias = data;
-          this.residencias.forEach(r => {
+          this.residencias.residencias.forEach(r => {
             if(r.endereco.toString() != null){
                 this.logradouroResp = r.endereco.toUpperCase();
                 this.bairroResp = r.bairro.toUpperCase();
@@ -180,6 +185,7 @@ export class ResidenciaComponent implements OnInit {
   setCamposDefault(request: ResidenciasFilterModel): ResidenciasFilterModel{
 
     request.detalhaMorador = true;
+    request.content = false;
 
     return request;
 
@@ -190,7 +196,7 @@ export class ResidenciaComponent implements OnInit {
     let count: number = 0;
 
     this.requestFilterDto = new ResidenciasFilterModel();
-    this.residencias = [];
+    this.residencias.residencias = [];
 
     if(ticket)
       this.requestFilterDto.guide = ticket;
@@ -201,7 +207,7 @@ export class ResidenciaComponent implements OnInit {
           .subscribe(
             data=>{
               this.residencias = data;
-              this.residencias.forEach(r => {
+              this.residencias.residencias.forEach(r => {
                 if(r.endereco.toString() != null){
                     this.logradouroResp = r.endereco.toUpperCase();
                     this.bairroResp = r.bairro.toUpperCase();
@@ -218,7 +224,7 @@ export class ResidenciaComponent implements OnInit {
         await delay(1000);
         count++;
       }
-      while(this.residencias.length === 0 && count < 4);
+      while(this.residencias.residencias.length === 0 && count < 4);
     
     return this.residencias;
 

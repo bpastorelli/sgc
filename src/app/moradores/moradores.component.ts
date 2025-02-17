@@ -18,8 +18,8 @@ import { MoradoresResponse } from './moradores-response.model';
 })
 export class MoradoresComponent implements OnInit {
 
-  @Input() moradores: MoradoresResponse;
-
+  
+  public moradores: MoradoresResponse;
   public id: string;
   public nome: string; 
   public rg: string; 
@@ -54,7 +54,7 @@ export class MoradoresComponent implements OnInit {
 
     this.pag = parseInt(this.route.snapshot.paramMap.get('page'));
 
-    if(this.pag === null)
+    if(this.pag === null || isNaN(this.pag))
       this.pag = 1;
 
     if(this.authenticationService.currentUserValue){

@@ -1,15 +1,13 @@
 import { properties } from './../../properties/properties';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ResidenciasService } from './residencias.service';
 import { ErroRegistro } from '../_models/erro-registro';
 import { ResidenciasFilterModel } from './residencias-filter.model';
-import { ResidenciaResponse } from './residencia-response.model';
 import { PerfilFuncionalidade } from '../acessos-funcionalidades/acesso-funcionalidade.model';
-import { PerfilRequestModel } from './perfil-request.model';
 import { PermissoesService } from '../_services/permissoes.service';
-import { Funcionalidade } from '../funcionalidades/funcionalidade.model';
+import { ResidenciasPaginadoResponse } from './residencias-paginado-response.model';
 
 @Component({
   selector: 'app-residencias',
@@ -20,11 +18,12 @@ export class ResidenciasComponent implements OnInit {
   public inclusaoVisita: any = false;
   public inclusaoMorador: any = false;
 
-  residencias: ResidenciaResponse[] = [];
+  residencias: ResidenciasPaginadoResponse;
 
   public ticket: string;
+  public totalItems: number;
 
-  pag : Number = 1 ;
+  public pag : number = 1 ;
   contador : Number = properties.itemsPerPage;
 
   erros: ErroRegistro[] = [];
@@ -53,7 +52,7 @@ export class ResidenciasComponent implements OnInit {
 
   }
 
-  getResidencias(codigo?: string, endereco?: string, numero?: string){
+  getResidencias(codigo?: string, endereco?: string, numero?: string, pag?: number){
 
     this.requestDto = new ResidenciasFilterModel();
     this.perfis = [] as PerfilFuncionalidade[];
@@ -68,10 +67,14 @@ export class ResidenciasComponent implements OnInit {
     if(numero)
       this.requestDto.numero = numero;
 
+    if(pag)
+      this.requestDto.page = pag;
+
     this.residenciasService.residencias(this.requestDto)
     .subscribe(
       data=>{
         this.residencias = data;
+        this.totalItems = this.residencias.paginacao.totalItems;
       }, err=>{
         this.erros = err['erros'];
       }
@@ -138,6 +141,7 @@ export class ResidenciasComponent implements OnInit {
     .subscribe(
         data=>{
           this.residencias = data;
+          this.totalItems = this.residencias.paginacao.totalItems;
         }, err=>{
           this.erros = err['erros'];
         }
@@ -172,6 +176,8 @@ export class ResidenciasComponent implements OnInit {
 
   pageChanged(event){
     this.pag = event;
+
+    this.getResidencias(null,null, null,this.pag);
   }
 
   formatId (n, len) {

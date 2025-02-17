@@ -128,29 +128,29 @@
       <div class="modal-footer" >
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" (click)="baixarVisita(visita.id, nomePesquisa.value, rgPesquisa.value, null, dataInicio.value, dataFim.value, pag)">Prosseguir</button>
-       </div>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="customModal2" #customModal1 tabindex="-1" role="dialog" aria-labelledby="custoModal1Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+<div class="modal fade" id="customModal2" #customModal2 tabindex="-2" role="dialog" aria-labelledby="custoModal2Label" aria-hidden="true" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-            <h5 class="modal-title" id="customModal1Label"><strong>Sucesso!</strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <h5 class="modal-title" id="customModal2Label"><strong>Sucesso!</strong></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <div class="alert alert-success">
+            <b>Visita encerrada com sucesso!</b>
           </div>
-          <div class="modal-body">
-            <div class="alert alert-success">
-              <b>Visita encerrada com sucesso!</b>
-            </div>
-          </div>
-          <div class="modal-footer" >
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-           </div>
+      </div>
+      <div class="modal-footer" >
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
     </div>
   </div>
 </div>
