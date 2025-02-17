@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ResidenciasService } from '../residencias/residencias.service';
 import { ResidenciasFilterModel } from '../residencias/residencias-filter.model';
 import { ResidenciaResponse } from '../residencias/residencia-response.model';
+import { ResidenciasPaginadoResponse } from '../residencias/residencias-paginado-response.model';
 
 @Component({
   selector: 'app-vincular-morador',
@@ -22,7 +23,7 @@ export class VincularMoradorComponent implements OnInit {
   ticket: string;
   guide = {} as Publisher;
   usuarios: Moradores[] = [];
-  residencias: ResidenciaResponse[] = [];
+  residencias: ResidenciasPaginadoResponse;
 
   erros: ErroRegistro[] = [];
 

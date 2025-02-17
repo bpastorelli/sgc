@@ -3,7 +3,7 @@ import { Visita } from "./visitas.model";
 
 export interface VisitasResponse{
 
-    visitas: Visita,
+    visitas: Visita[],
     
     paginacao: Paginacao
 

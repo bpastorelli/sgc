@@ -11,7 +11,7 @@
         {{title}} >> <u>Atualização</u>
       </label>
 
-      <form #formEdit="ngForm" *ngFor="let residencia of residencias" novalidate>
+      <form #formEdit="ngForm" *ngFor="let residencia of residencias.residencias" novalidate>
 
         <div class="row invoice-info">
 
@@ -112,7 +112,7 @@
             <th scope="col">Celular</th>
         </tr>
       </thead>
-      <tbody *ngFor="let residencia of residencias">
+      <tbody *ngFor="let residencia of residencias.residencias">
         <tr *ngFor="let morador of residencia.moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
           <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome.toUpperCase() }}</div></td>
           <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>
@@ -145,7 +145,7 @@
         {{title}} >> <u>Visualização</u>
       </label>
 
-      <form #formView="ngForm" *ngFor="let residencia of residencias" novalidate>
+      <form #formView="ngForm" *ngFor="let residencia of residencias.residencias" novalidate>
 
         <div class="row invoice-info">
 
@@ -244,7 +244,7 @@
             <th scope="col">Celular</th>
         </tr>
       </thead>
-      <tbody *ngFor="let residencia of residencias">
+      <tbody *ngFor="let residencia of residencias.residencias">
         <tr *ngFor="let morador of residencia.moradores | paginate: { itemsPerPage: contador, currentPage: pag }">
           <td ><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.nome.toUpperCase() }}</div></td>
           <td><div class="pointer" (click)="getIdMorador(morador.id)">{{ morador.email }}</div></td>

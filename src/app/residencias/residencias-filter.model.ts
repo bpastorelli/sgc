@@ -8,10 +8,10 @@ export class ResidenciasFilterModel{
   cidade?: string;
   uf?: string;
   posicao?: number;
-  content: boolean = true;
+  content: boolean;
   sort?: string = 'endereco';
-  page: number = 0;
-  size: number = 1000000;
+  page: number;
+  size: number;
   direction: string;
   detalhaMorador: boolean;
   guide: string;

@@ -75,6 +75,8 @@ export class AcessosModulosComponent implements OnInit {
     if(posicao)
       this.requestFilter.posicao = posicao;
 
+    this.requestFilter.size = 10000000;
+
     this.usuariosService.getMoradores(this.requestFilter)
       .subscribe(
         data=>{

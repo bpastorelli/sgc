@@ -18,8 +18,8 @@ import { MoradoresResponse } from './moradores-response.model';
 })
 export class MoradoresComponent implements OnInit {
 
-  @Input() moradores: MoradoresResponse;
-
+  
+  public moradores: MoradoresResponse;
   public id: string;
   public nome: string; 
   public rg: string; 
