@@ -269,6 +269,13 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
+  cancelarEdit(){
+
+    this.acao = 'view';
+    this.router.navigate([`/residencia/view/`, this.codigo]);
+
+  }
+
   pageChanged(event){
     this.pag = event;
   }
