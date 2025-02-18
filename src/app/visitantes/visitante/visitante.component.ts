@@ -255,6 +255,13 @@ export class VisitanteComponent implements OnInit {
 
   }
 
+  cancelarEdit(){
+
+    this.acao = 'view';
+    this.router.navigate([`/visitante/view/`, this.codigo])
+
+  }
+
   formatPlaca(placa: string){
 
     placa = placa.replace("-", "");

@@ -294,6 +294,14 @@ export class MoradorComponent implements OnInit {
 
   }
 
+  cancelarEdit(){
+
+    this.acao = 'view';
+    this.pag = this.route.snapshot.paramMap.get('page');
+    this.router.navigate(['/morador/'+this.acao+'/'+this.codigo+'/'+this.pag]);
+
+  }
+
   pageChanged(event){
     this.pag = event;
   }

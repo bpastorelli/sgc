@@ -171,6 +171,13 @@ export class VeiculoComponent implements OnInit {
 
   }
 
+  cancelarEdit(){
+
+    this.acao = 'view';
+    this.router.navigate([`/veiculo/view/`, this.codigo])
+
+  }
+
   editVisitante(codigo: string){
 
     this.acao = 'view';
