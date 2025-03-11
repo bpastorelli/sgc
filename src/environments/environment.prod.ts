@@ -20,10 +20,10 @@ export const environment = {
   visita: '/visita',
   contribuicao: '/contribuicao', 
   veiculo: '/veiculo',
-  urlCloud: 'ec2-15-229-187-241.sa-east-1.compute.amazonaws.com',
-  urlSgcBackend: ':9090/sgc',
-  urlMoradorMs: ':9094/sgc',
-  urlResidenciaMs: ':9091/sgc',
-  urlVisitaMs: ':9093/sgc',
+  urlCloud: 'https://1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod',
+  urlSgcBackend: '/sgc',
+  urlMoradorMs: '/sgc/morador',
+  urlResidenciaMs: '/sgc/residencia',
+  urlVisitaMs: '/sgc/visita',
   apiUrlCep: 'https://viacep.com.br/ws'
 };
