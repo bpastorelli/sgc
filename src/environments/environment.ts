@@ -25,10 +25,10 @@ export const environment = {
   contribuicao: '/contribuicao', 
   veiculo: '/veiculo', 
   urlCloud: 'localhost',
-  urlSgcBackend: ':8080/sgc',
-  urlMoradorMs: ':8084/sgc',
-  urlResidenciaMs: ':8081/sgc',
-  urlVisitaMs: ':8083/sgc',
+  urlSgcBackend: '/sgc',
+  urlMoradorMs: '/sgc/morador',
+  urlResidenciaMs: '/sgc/residencia',
+  urlVisitaMs: '/sgc/visita',
   apiUrlCep: `https://viacep.com.br/ws`
 };
 
