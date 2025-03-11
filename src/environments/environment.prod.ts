@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  protocol: 'http://',
+  protocol: 'https://',
   access: '/access',
   amqp: '/amqp',
   moradorUrl: '/morador',
@@ -20,7 +20,7 @@ export const environment = {
   visita: '/visita',
   contribuicao: '/contribuicao', 
   veiculo: '/veiculo',
-  urlCloud: 'https://1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod',
+  urlCloud: '1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod',
   urlSgcBackend: '/sgc',
   urlMoradorMs: '/sgc/morador',
   urlResidenciaMs: '/sgc/residencia',
