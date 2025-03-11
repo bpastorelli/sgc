@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://sgc:9090",
+    "target": "https://prod/sgc/",
     "secure": false,
     "changeOrigin": false,
     "pathRewrite": {
