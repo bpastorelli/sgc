@@ -2,7 +2,7 @@
   "/api": {
     "target": "https://prod/sgc/",
     "secure": false,
-    "changeOrigin": false,
+    "changeOrigin": true,
     "pathRewrite": {
       "^/api": ""
     }
