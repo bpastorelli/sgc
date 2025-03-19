@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://prod/sgc/",
+    "target": "https://1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod/sgc",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {
