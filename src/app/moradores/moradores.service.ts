@@ -15,7 +15,7 @@ import { MoradoresResponse } from './moradores-response.model';
 @Injectable({ providedIn: 'root' })
 export class MoradoresService extends BaseService {
 
-  private moradoresUrl: string = environment.protocol + environment.urlCloud + environment.urlMoradorMs + environment.moradorUrl + environment.filtro;
+  private moradoresUrl: string = environment.protocol + environment.urlCloud + environment.urlMoradorMs + environment.filtro;
 
   constructor(private http: HttpClient){
     super();
