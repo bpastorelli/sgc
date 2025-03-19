@@ -128,7 +128,7 @@
                   <th>Data Vínculo</th>
                 </tr>
               </thead>
-            <tbody *ngFor="let morador of moradores">
+            <tbody *ngFor="let morador of moradores.moradores">
               <tr *ngFor="let residencia of morador.residencias | paginate: { itemsPerPage: contador, currentPage: pag }">
                 <td><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.endereco.toUpperCase() }}</div></td>
                 <td class="textCenter"><div class="pointer" (click)="editResidencia(residencia.id)">{{ residencia.numero }}</div></td>
