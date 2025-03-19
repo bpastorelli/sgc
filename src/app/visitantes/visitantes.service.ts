@@ -29,7 +29,7 @@ export class VisitantesService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Visitante>>(environment.protocol + environment.urlCloud + environment.urlVisitaMs + environment.visitante + environment.filtro, {params: queryParams})
+    return this.http.get<Array<Visitante>>(environment.protocol + environment.urlCloud + environment.visitante + environment.filtro, {params: queryParams})
           .pipe(
             map(response => response)
           );
@@ -38,7 +38,7 @@ export class VisitantesService extends BaseService {
 
   postVisitanteAmqp(visitante: Visitante): Observable<any>{
 
-    return this.http.post<Visitante>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/visitante/amqp/novo`
+    return this.http.post<Visitante>(`${environment.protocol + environment.urlCloud}/visitante/amqp/novo`
         , JSON.stringify(visitante)
         , this.httpOptions)
         .pipe(
@@ -49,7 +49,7 @@ export class VisitantesService extends BaseService {
 
   putVisitante(visitante: Visitante, id: string): Observable<any>{
 
-    return this.http.put<Visitante>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/visitante/amqp/alterar?id=${id}`
+    return this.http.put<Visitante>(`${environment.protocol + environment.urlCloud}/visitante/amqp/alterar?id=${id}`
         , JSON.stringify(visitante)
         , this.httpOptions)
         .pipe(
@@ -60,7 +60,7 @@ export class VisitantesService extends BaseService {
 
   postVisita<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
-    return this.http.post<Visita>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/visita/novo`
+    return this.http.post<Visita>(`${environment.protocol + environment.urlCloud}/visita/novo`
         , JSON.stringify(visitaRequest)
         , this.httpOptions)
         .pipe(
@@ -70,7 +70,7 @@ export class VisitantesService extends BaseService {
 
   postVisitaAmqp<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
-    return this.http.post<Visita>(`${environment.protocol + environment.urlCloud + environment.urlVisitaMs}/visita/amqp/novo`
+    return this.http.post<Visita>(`${environment.protocol + environment.urlCloud}/visita/amqp/novo`
         , JSON.stringify(visitaRequest)
         , this.httpOptions)
         .pipe(
