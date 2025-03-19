@@ -16,7 +16,7 @@ export class MoradorService extends BaseService {
 
 moradorRequest: MoradoresFilterModel;
 
-private moradorUrl = environment.protocol + environment.urlCloud + environment.urlMoradorMs + environment.moradorUrl;
+private moradorUrl = environment.protocol + environment.urlCloud + environment.urlMoradorMs;
 
   constructor(private http: HttpClient) {
     super();
