@@ -15,7 +15,7 @@ import { ResidenciasPaginadoResponse } from './residencias-paginado-response.mod
 @Injectable()
 export class ResidenciasService extends BaseService {
 
-  private residenciasUrl: string = environment.protocol + environment.urlCloud + environment.urlResidenciaMs + environment.residenciaUrl + environment.filtro;
+  private residenciasUrl: string = environment.protocol + environment.urlCloud + environment.urlResidenciaMs + environment.filtro;
 
   constructor(private http: HttpClient){
     super();
