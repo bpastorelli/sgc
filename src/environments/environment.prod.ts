@@ -20,11 +20,11 @@ export const environment = {
   visita: '/visita',
   contribuicao: '/contribuicao', 
   veiculo: '/veiculo',
-  urlCloud: '1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod',
+  urlCloud: '1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod/sgc',
   urlSgcBackend: '/sgc',
-  urlMoradorMs: '/sgc/morador',
-  urlResidenciaMs: '/sgc/residencia',
-  urlVisitaMs: '/sgc/visita',
-  urlVisitanteMs: '/sgc/visitante',
+  urlMoradorMs: '/morador',
+  urlResidenciaMs: '/residencia',
+  urlVisitaMs: '/visita',
+  urlVisitanteMs: '/visitante',
   apiUrlCep: 'https://viacep.com.br/ws'
 };
