@@ -15,7 +15,7 @@ import { AcessosModulosRequest } from './acessos-modulos-request.model';
 @Injectable()
 export class AcessoModuloService extends BaseService {
 
-  private acessosModuloUrl = environment.protocol + environment.urlCloud + environment.urlSgcBackend;
+  private acessosModuloUrl = environment.protocol + environment.urlCloud;
 
   constructor(private http: HttpClient){
     super();
