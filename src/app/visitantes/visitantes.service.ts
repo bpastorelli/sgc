@@ -70,7 +70,7 @@ export class VisitantesService extends BaseService {
 
   postVisitaAmqp<Visita>(visitaRequest: VisitaRequest): Observable<any>{
 
-    return this.http.post<Visita>(`${environment.protocol + environment.urlCloud}/visita/amqp/novo`
+    return this.http.post<Visita>(`${environment.protocol + environment.urlCloud}/sgc/visita/amqp/novo`
         , JSON.stringify(visitaRequest)
         , this.httpOptions)
         .pipe(
