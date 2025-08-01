@@ -26,7 +26,7 @@ export class VeiculosService extends BaseService {
       queryParams = this.setParameter(request);
     }
 
-    return this.http.get<Array<Veiculo>>(environment.protocol + environment.urlCloud + environment.urlVisitaMs + environment.veiculo + environment.filtro , {params: queryParams})
+    return this.http.get<Array<Veiculo>>(environment.protocol + environment.urlCloud + environment.veiculo + environment.filtro , {params: queryParams})
               .pipe(
                 map(response => response));
 
