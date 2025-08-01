@@ -17,9 +17,9 @@ import { Params } from '@angular/router';
 @Injectable()
 export class AcessoFuncionalidadeService extends BaseService {
 
-  private acessoFuncionalideUrl: string = environment.protocol + environment.urlCloud + environment.urlSgcBackend+ environment.access + environment.perfil + environment.funcionalidade + environment.filtro;
+  private acessoFuncionalideUrl: string = environment.protocol + environment.urlCloud + environment.access + environment.perfil + environment.funcionalidade + environment.filtro;
 
-  private acessoUsuarioUrl: string = environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.access + environment.acessoFuncionalidade + environment.filtro;
+  private acessoUsuarioUrl: string = environment.protocol + environment.urlCloud + environment.access + environment.acessoFuncionalidade + environment.filtro;
 
 
   constructor(private http: HttpClient){
@@ -54,7 +54,7 @@ export class AcessoFuncionalidadeService extends BaseService {
 
   putAcessoFuncionalidade(perfil: PerfilFuncionalidadeRequest[], idUsuario: string){
 
-    return this.http.put<PerfilFuncionalidade>(`${environment.protocol + environment.urlCloud + environment.urlSgcBackend + environment.access + environment.acessoFuncionalidade }/alterar?idUsuario=${idUsuario}`
+    return this.http.put<PerfilFuncionalidade>(`${environment.protocol + environment.urlCloud + environment.access + environment.acessoFuncionalidade }/alterar?idUsuario=${idUsuario}`
       , JSON.stringify(perfil)
       , this.httpOptions)
       .pipe(
