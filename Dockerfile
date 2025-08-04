@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 #Copia os arquivos de build
-COPY ./src/app/dist/sgc-tres-marias/. /usr/share/nginx/prod/html
+COPY ./src/app/dist/sgc-tres-marias/. /usr/share/nginx/html
 
 # Expõe a porta 80
 EXPOSE 80
