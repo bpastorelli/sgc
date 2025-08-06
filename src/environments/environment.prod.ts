@@ -20,7 +20,7 @@ export const environment = {
   visita: '/visita',
   contribuicao: '/contribuicao', 
   veiculo: '/veiculo',
-  urlCloud: '1gulc4zeyd.execute-api.sa-east-1.amazonaws.com/prod/sgc',
+  urlCloud: 'j77akndu44.execute-api.sa-east-1.amazonaws.com/prod/sgc',
   urlSgcBackend: '/sgc',
   urlMoradorMs: '/morador',
   urlResidenciaMs: '/residencia',
