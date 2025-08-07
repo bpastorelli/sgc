@@ -40,13 +40,8 @@ jobs:
       run: npm install
       
     - name: Build sgc_angular
-      working-directory: .
-      run: npm run build:prod
-
-    - name: Build Docker Compose sgc_angular Application
-      working-directory: .
-      run: docker compose build
-
+      run: npm run build:prod -- --output-path=./dist
+      
     - name: Deploy to S3
       run: aws s3 sync ./dist s3://sgc-front-bucket --delete
 
