@@ -1,10 +1,10 @@
-FROM nginx:alpine
+#FROM nginx:alpine
 
 #Copia os arquivos de build
-COPY ./src/app/dist/sgc-tres-marias/. /usr/share/nginx/html
+#COPY ./src/app/dist/sgc-tres-marias/. /usr/share/nginx/html
 
 # Expõe a porta 80
-EXPOSE 80
+#EXPOSE 80
 
 # Inicia o Nginx
-CMD ["nginx", "-g", "daemon off;"]
+#CMD ["nginx", "-g", "daemon off;"]
