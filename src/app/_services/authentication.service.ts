@@ -23,15 +23,15 @@ export class AuthenticationService {
     }
 
     // Headers
-    /*httpOptions = {
+    httpOptions = {
       headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Requested-With",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+        "Content-Type": "application/json"
+        //"Access-Control-Allow-Origin": "*",
+        //"Access-Control-Allow-Credentials": "true",
+        //"Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Requested-With"
+        //"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
       })
-    }*/
+    }
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
