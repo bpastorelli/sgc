@@ -76,6 +76,7 @@ export class MoradorComponent implements OnInit {
       if(this.authenticationService.currentUserValue){
         if(this.acao != "create"){
           this.create = false;
+
           this.permissao.getPermissao(modulos, funcionalidades)
           .subscribe(
             data=>{
@@ -85,12 +86,11 @@ export class MoradorComponent implements OnInit {
             }
           );
 
-        if(this.ticket){
-           this.getMoradorByGuide(this.ticket);
-        }else
-           this.getMoradorById(this.codigo);
-        );
-          
+          if(this.ticket){
+            this.getMoradorByGuide(this.ticket);
+          }else
+            this.getMoradorById(this.codigo);
+
         }else{
           this.create = true;
           this.acao = "create";
