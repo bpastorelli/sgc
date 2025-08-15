@@ -64,7 +64,7 @@ private moradorUrl = environment.protocol + environment.urlCloud + environment.u
         queryParams = this.setParameter(this.moradorRequest);
     }
 
-    return this.http.get<Array<MoradorResponse>>(environment.urlCloud + environment.urlMoradorMs + environment.filtro, {params: queryParams})
+    return this.http.get<Array<MoradorResponse>>(moradorUrl + environment.filtro, {params: queryParams})
         .pipe(
           map(response => response)
         );
