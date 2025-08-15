@@ -35,7 +35,7 @@ export class MoradorComponent implements OnInit {
   mor = {} as Morador;
   guide = {} as Publisher;
   perfil = {} as PerfilFuncionalidade[];
-  public moradores: MoradoresResponse;
+  moradores: MoradorResponse[] = [];
   residenciasVinculadas: ResidenciaResponse[];
   permissoes = {} as AcessoFuncionalidade;
 
