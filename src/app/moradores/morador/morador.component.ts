@@ -74,6 +74,13 @@ export class MoradorComponent implements OnInit {
         this.pag = "1";
 
       if(this.authenticationService.currentUserValue){
+        
+        if(this.ticket){
+           this.getMoradorByGuide(this.ticket);
+        }else
+           this.getMoradorById(this.codigo);
+        );
+        
         if(this.acao != "create"){
           this.create = false;
           this.permissao.getPermissao(modulos, funcionalidades)
@@ -83,11 +90,6 @@ export class MoradorComponent implements OnInit {
             }, err=>{
               console.log(err['erros']);
             }
-            if(this.ticket){
-              this.getMoradorByGuide(this.ticket);
-            }else
-              this.getMoradorById(this.codigo);
-            );
         }else{
           this.create = true;
           this.acao = "create";
