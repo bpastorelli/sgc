@@ -153,6 +153,9 @@ export class MoradorComponent implements OnInit {
 
   editMorador(id: string){
 
+    if (this.pag === null)
+      this.pag = "1";
+    
     this.acao = 'edit';
     this.pag = this.route.snapshot.paramMap.get('page');
     this.router.navigate(['/morador/'+this.acao+'/'+id+'/'+this.pag]);
