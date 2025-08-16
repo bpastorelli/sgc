@@ -1,7 +1,7 @@
 import { Paginacao } from "src/app/_models/paginacao";
 import { Residencia } from "./residencias.model";
 
-export class ResidenciasPaginadoResponse{
+export interface ResidenciasPaginadoResponse{
 
     residencias: Residencia[],
     
