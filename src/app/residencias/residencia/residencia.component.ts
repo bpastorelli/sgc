@@ -129,7 +129,7 @@ export class ResidenciaComponent implements OnInit {
         this.open('customModal1');
         //console.log(this.residencia.ticket);
         //this.getResidenciaByTicket(this.residencia.ticket);
-        this.router.navigate(['/residencia/view/ticket/', this.residencias[0].id]);
+        this.router.navigate(['/residencia/view/ticket/', this.residencia.ticket]);
       },err=>{
         this.erros = err['erros'];
       });
