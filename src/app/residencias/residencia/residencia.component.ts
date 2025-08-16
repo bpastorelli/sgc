@@ -224,7 +224,7 @@ export class ResidenciaComponent implements OnInit {
         await delay(1000);
         count++;
       }
-      while(this.residencias.residencias.length === 0 && count < 4);
+      while(this.residencias.residencias.length === 0 && count < 10);
     
     return this.residencias;
 
