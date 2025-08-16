@@ -194,11 +194,12 @@ export class ResidenciaComponent implements OnInit {
   }
 
   async getResidenciaByTicket(ticket: string) {
+
+    let count: number = 0;
+    this.requestFilterDto = new ResidenciasFilterModel();
+    this.residencias.residencias = [];
     
     if(ticket !== null)
-      let count: number = 0;
-      this.requestFilterDto = new ResidenciasFilterModel();
-      this.residencias.residencias = [];
       
       this.requestFilterDto.guide = ticket;
 
