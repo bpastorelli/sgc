@@ -197,14 +197,13 @@ export class ResidenciaComponent implements OnInit {
 
     console.log('Aqui:' + ticket);
     
-    let count: number = 0;
-
-    this.requestFilterDto = new ResidenciasFilterModel();
-    this.residencias.residencias = [];
-
-    console.log('Aqui dentro:' + ticket);
-    
     if(ticket !== null)
+
+      console.log('Aqui dentro:' + ticket);
+      
+      let count: number = 0;
+      this.requestFilterDto = new ResidenciasFilterModel();
+      this.residencias.residencias = [];
       
       this.requestFilterDto.guide = ticket;
 
