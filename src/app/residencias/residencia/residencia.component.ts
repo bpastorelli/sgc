@@ -84,7 +84,6 @@ export class ResidenciaComponent implements OnInit {
       
           this.create = false;
           if(this.ticket){
-            console.log('Aqui:' + this.ticket);
             this.getResidenciaByTicket(this.ticket);
           }else
             this.getResidenciaById(this.codigo);
@@ -202,6 +201,9 @@ export class ResidenciaComponent implements OnInit {
     this.residencias.residencias = [];
 
     if(ticket)
+
+      console.log('Aqui:' + ticket);
+      
       this.requestFilterDto.guide = ticket;
 
       do{
@@ -209,9 +211,9 @@ export class ResidenciaComponent implements OnInit {
         this.residenciasService.residencias(this.requestFilterDto)
           .subscribe(
             data=>{
+              console.log(data);
               this.residencias = data;
               this.residencias.residencias.forEach(r => {
-                console.log(r);
                 if(r.endereco.toString() != null){
                     this.logradouroResp = r.endereco.toUpperCase();
                     this.bairroResp = r.bairro.toUpperCase();
