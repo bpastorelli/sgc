@@ -76,11 +76,16 @@ export class ResidenciaComponent implements OnInit {
     let funcionalidades: string[] = [];
 
     if(this.authenticationService.currentUserValue){
+
+      console.log(this.acao);
+      
       if(this.acao != "create" && this.acao != "novo2"){
 
           modulos.push('4');
           funcionalidades.push('10');
 
+          console.log(this.ticket);
+      
           this.create = false;
           if(this.ticket){
             this.getResidenciaByTicket(this.ticket);
