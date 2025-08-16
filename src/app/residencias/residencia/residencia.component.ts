@@ -193,7 +193,7 @@ export class ResidenciaComponent implements OnInit {
 
   }
 
-  getResidenciaByTicket(ticket: string) {
+  async getResidenciaByTicket(ticket: string) {
     
     if(ticket !== null)
       let count: number = 0;
