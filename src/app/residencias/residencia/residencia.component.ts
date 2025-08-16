@@ -200,9 +200,9 @@ export class ResidenciaComponent implements OnInit {
     this.requestFilterDto = new ResidenciasFilterModel();
     this.residencias.residencias = [];
 
-    if(ticket)
-
-      console.log('Aqui:' + ticket);
+    console.log('Aqui:' + ticket);
+    
+    if(ticket !== null)
       
       this.requestFilterDto.guide = ticket;
 
