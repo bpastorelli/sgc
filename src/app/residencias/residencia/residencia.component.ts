@@ -203,7 +203,7 @@ export class ResidenciaComponent implements OnInit {
       
       let count: number = 0;
       this.requestFilterDto = new ResidenciasFilterModel();
-      this.residencias = new ResidenciasPaginadoResponse();
+      this.residencias.residencias = [];
       
       this.requestFilterDto.guide = ticket;
 
