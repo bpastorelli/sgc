@@ -84,6 +84,7 @@ export class ResidenciaComponent implements OnInit {
       
           this.create = false;
           if(this.ticket){
+            console.log('Aqui:' + this.ticket);
             this.getResidenciaByTicket(this.ticket);
           }else
             this.getResidenciaById(this.codigo);
@@ -210,8 +211,8 @@ export class ResidenciaComponent implements OnInit {
             data=>{
               this.residencias = data;
               this.residencias.residencias.forEach(r => {
+                console.log(r);
                 if(r.endereco.toString() != null){
-                    console.log(r.endereco.toUpperCase());
                     this.logradouroResp = r.endereco.toUpperCase();
                     this.bairroResp = r.bairro.toUpperCase();
                     this.localidadeResp = r.cidade.toUpperCase();
