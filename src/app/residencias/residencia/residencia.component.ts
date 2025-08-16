@@ -76,15 +76,11 @@ export class ResidenciaComponent implements OnInit {
     let funcionalidades: string[] = [];
 
     if(this.authenticationService.currentUserValue){
-
-      console.log(this.acao);
       
       if(this.acao != "create" && this.acao != "novo2"){
 
           modulos.push('4');
           funcionalidades.push('10');
-
-          console.log(this.ticket);
       
           this.create = false;
           if(this.ticket){
@@ -215,6 +211,7 @@ export class ResidenciaComponent implements OnInit {
               this.residencias = data;
               this.residencias.residencias.forEach(r => {
                 if(r.endereco.toString() != null){
+                    console.log(r.endereco.toUpperCase());
                     this.logradouroResp = r.endereco.toUpperCase();
                     this.bairroResp = r.bairro.toUpperCase();
                     this.localidadeResp = r.cidade.toUpperCase();
