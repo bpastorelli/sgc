@@ -201,6 +201,7 @@ export class ResidenciaComponent implements OnInit {
     if(ticket !== null)
       
       this.requestFilterDto.guide = ticket;
+      this.requestFilterDto = this.setCamposDefault(this.requestFilterDto);
 
       do{
 
