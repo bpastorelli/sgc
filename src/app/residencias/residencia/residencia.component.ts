@@ -125,9 +125,7 @@ export class ResidenciaComponent implements OnInit {
 
     this.residenciaService.postNovaResidenciaAmqp(residencia)
       .subscribe(async data => {
-        console.log(data);
         this.residencia = data;
-        console.log(this.residencia);
         this.acao = 'view';
         this.open('customModal1');
         this.getResidenciaByTicket(this.residencia.ticket);
@@ -196,7 +194,7 @@ export class ResidenciaComponent implements OnInit {
 
   async getResidenciaByTicket(ticket: string) {
 
-    console.log(this.ticket);
+    console.log(ticket);
     
     let count: number = 0;
     this.requestFilterDto = new ResidenciasFilterModel();
