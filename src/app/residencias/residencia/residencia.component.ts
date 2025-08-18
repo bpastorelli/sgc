@@ -208,8 +208,8 @@ export class ResidenciaComponent implements OnInit {
           .subscribe(
             data=>{
               this.residencias = data;
+              console.log(this.residencias.residencias);
               this.residencias.residencias.forEach(r => {
-                console.log(r);
                 if(r.endereco.toString() != null){
                     console.log(r.endereco);
                     this.logradouroResp = r.endereco.toUpperCase();
