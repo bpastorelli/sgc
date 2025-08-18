@@ -127,6 +127,7 @@ export class ResidenciaComponent implements OnInit {
       .subscribe(async data => {
         console.log(data);
         this.residencia = data;
+        console.log(this.residencia);
         this.acao = 'view';
         this.open('customModal1');
         this.getResidenciaByTicket(this.residencia.ticket);
