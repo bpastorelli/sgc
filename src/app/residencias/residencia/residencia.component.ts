@@ -125,6 +125,7 @@ export class ResidenciaComponent implements OnInit {
 
     this.residenciaService.postNovaResidenciaAmqp(residencia)
       .subscribe(async data => {
+        console.log(data);
         this.residencia = data;
         this.acao = 'view';
         this.open('customModal1');
