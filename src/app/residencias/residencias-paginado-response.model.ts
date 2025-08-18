@@ -3,8 +3,8 @@ import { Residencia } from "./residencias.model";
 
 export class ResidenciasPaginadoResponse{
 
-    residencias: Residencia[] = [],
+    residencias: Residencia[] = [];
     
-    paginacao: Paginacao
+    paginacao: Paginacao;
 
 }
