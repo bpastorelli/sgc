@@ -196,7 +196,7 @@ export class ResidenciaComponent implements OnInit {
     
     let count: number = 0;
     this.requestFilterDto = new ResidenciasFilterModel();
-    this.residencias.residencias = [];
+    this.residencias = new ResidenciasPaginadoResponse();
     
     if(ticket !== null)
       
@@ -208,10 +208,8 @@ export class ResidenciaComponent implements OnInit {
           .subscribe(
             data=>{
               this.residencias = data;
-              console.log(this.residencias.residencias);
               this.residencias.residencias.forEach(r => {
                 if(r.endereco.toString() != null){
-                    console.log(r.endereco);
                     this.logradouroResp = r.endereco.toUpperCase();
                     this.bairroResp = r.bairro.toUpperCase();
                     this.localidadeResp = r.cidade.toUpperCase();
